@@ -1,0 +1,2446 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#173e30" />
+    <meta
+      name="description"
+      content="Green Pakistan: a student e-commerce concept for plants, reusable essentials, and grow-your-own kits."
+    />
+    <title>Green Pakistan | Small changes. Greener tomorrows.</title>
+
+    <style>
+      :root {
+        --forest: #173e30;
+        --green: #285941;
+        --lime: #d9ee91;
+        --cream: #f8f7f1;
+        --paper: #fffef9;
+        --ink: #24372c;
+        --muted: #627266;
+        --line: #dde2d6;
+        --peach: #efdfcb;
+        --radius: 22px;
+        --shadow-soft: 0 18px 45px rgba(23, 62, 48, 0.09);
+        --shadow-lift: 0 22px 50px rgba(23, 62, 48, 0.15);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 100px;
+      }
+      body {
+        margin: 0;
+        color: var(--ink);
+        background:
+          radial-gradient(circle at 8% 2%, rgba(217, 238, 145, 0.2), transparent 24rem),
+          var(--cream);
+        font-family: Arial, Helvetica, sans-serif;
+        line-height: 1.6;
+      }
+      body.modal-open {
+        overflow: hidden;
+      }
+      button,
+      input,
+      select {
+        font: inherit;
+      }
+      button,
+      a,
+      input,
+      select,
+      summary {
+        -webkit-tap-highlight-color: transparent;
+      }
+      button,
+      summary {
+        cursor: pointer;
+      }
+      button {
+        color: inherit;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      button:focus-visible,
+      a:focus-visible,
+      input:focus-visible,
+      select:focus-visible,
+      summary:focus-visible {
+        outline: 3px solid #9b6c24;
+        outline-offset: 4px;
+      }
+      button:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+      }
+      svg {
+        display: block;
+      }
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+      h1,
+      h2,
+      h3 {
+        line-height: 1.12;
+      }
+      h1,
+      h2,
+      .serif {
+        font-family: Georgia, "Times New Roman", serif;
+      }
+      h1 {
+        font-size: clamp(3.2rem, 6.4vw, 6.2rem);
+        font-weight: 500;
+        letter-spacing: -0.055em;
+      }
+      h2 {
+        font-size: clamp(2rem, 4vw, 3.5rem);
+        font-weight: 500;
+        letter-spacing: -0.035em;
+      }
+      h3 {
+        font-size: 1.2rem;
+      }
+      small {
+        font-size: 0.79rem;
+      }
+      .container {
+        width: min(1180px, 91%);
+        margin-inline: auto;
+      }
+      .eyebrow {
+        display: block;
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        margin-bottom: 18px;
+      }
+      .muted {
+        color: var(--muted);
+      }
+      .btn {
+        border: 1px solid var(--forest);
+        background: var(--forest);
+        color: white;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        padding: 13px 23px;
+        border-radius: 100px;
+        font-weight: 700;
+        transition:
+          background 0.2s,
+          transform 0.2s;
+      }
+      .btn:hover {
+        background: var(--green);
+        transform: translateY(-2px);
+      }
+      .btn.light {
+        background: var(--lime);
+        color: var(--forest);
+        border-color: var(--lime);
+      }
+      .btn.outline {
+        background: transparent;
+        color: var(--forest);
+      }
+      .btn.outline:hover {
+        background: #e9eddf;
+      }
+      .skip {
+        position: absolute;
+        left: 12px;
+        top: -100px;
+        z-index: 100;
+        padding: 12px;
+        background: white;
+      }
+      .skip:focus {
+        top: 12px;
+      }
+      .announcement {
+        background: var(--forest);
+        color: #eef3e5;
+        text-align: center;
+        padding: 9px 18px;
+        font-size: 0.76rem;
+        letter-spacing: 0.025em;
+      }
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        background: rgba(248, 247, 241, 0.84);
+        backdrop-filter: blur(16px);
+        border-bottom: 1px solid var(--line);
+        transition: box-shadow 0.25s, background 0.25s;
+      }
+      .site-header.scrolled {
+        background: rgba(248, 247, 241, 0.96);
+        box-shadow: 0 8px 30px rgba(23, 62, 48, 0.08);
+      }
+      .scroll-progress {
+        position: fixed;
+        inset: 0 0 auto;
+        height: 3px;
+        z-index: 50;
+        background: var(--lime);
+        transform: scaleX(0);
+        transform-origin: left;
+      }
+      .nav {
+        min-height: 91px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+      }
+      .brand-icon {
+        width: 43px;
+        height: 43px;
+        flex-shrink: 0;
+        background: var(--forest);
+        color: var(--lime);
+        border-radius: 50%;
+        padding: 8px;
+      }
+      .brand strong {
+        display: block;
+        font-size: 1.08rem;
+        letter-spacing: -0.03em;
+      }
+      .brand small {
+        display: block;
+        font-size: 0.59rem;
+        letter-spacing: 0.035em;
+      }
+      .nav-links {
+        display: flex;
+        gap: 25px;
+        font-size: 0.86rem;
+        font-weight: 700;
+      }
+      .nav-links a:hover {
+        color: #64812f;
+      }
+      .cart-button {
+        border: 1px solid var(--line);
+        padding: 10px 15px;
+        border-radius: 100px;
+        background: transparent;
+        white-space: nowrap;
+      }
+      .cart-count {
+        background: var(--forest);
+        color: white;
+        border-radius: 50%;
+        min-width: 23px;
+        display: inline-block;
+        margin-left: 5px;
+        font-size: 0.8rem;
+      }
+      .hero {
+        display: grid;
+        grid-template-columns: 1.05fr 1fr;
+        gap: 55px;
+        align-items: center;
+        padding: 68px 0 70px;
+      }
+      .hero-copy {
+        animation: rise-in 0.7s ease both;
+      }
+      .hero h1 {
+        margin-bottom: 24px;
+      }
+      .hero h1 em {
+        font-weight: 400;
+        color: #557b39;
+      }
+      .hero-copy > p {
+        max-width: 460px;
+        color: var(--muted);
+        font-size: 1.04rem;
+      }
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 13px;
+        margin: 29px 0;
+      }
+      .hero-note {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 0.79rem;
+      }
+      .hero-note span {
+        width: 29px;
+        height: 29px;
+        border-radius: 50%;
+        background: #e7eddb;
+        display: grid;
+        place-items: center;
+      }
+      .hero-art {
+        min-height: 485px;
+        position: relative;
+        display: grid;
+        place-items: center;
+        background: #e8ebdc;
+        border-radius: 220px 220px 28px 28px;
+        overflow: hidden;
+        box-shadow: var(--shadow-soft);
+        animation: rise-in 0.7s 0.12s ease both;
+        transition: transform 0.35s ease, box-shadow 0.35s ease;
+      }
+      .hero-art:hover {
+        transform: translateY(-5px) rotate(0.3deg);
+        box-shadow: var(--shadow-lift);
+      }
+      .hero-art::before {
+        content: "";
+        width: 330px;
+        height: 330px;
+        border-radius: 50%;
+        background: #d5dfbf;
+        position: absolute;
+        top: 70px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      .hero-plant {
+        position: relative;
+        width: 94%;
+        height: 455px;
+      }
+      .art-tag {
+        position: absolute;
+        left: 23px;
+        bottom: 26px;
+        background: var(--paper);
+        border-radius: 15px;
+        padding: 13px 18px;
+        box-shadow: 0 10px 30px #173e3010;
+      }
+      .art-tag strong {
+        display: block;
+        font-size: 0.9rem;
+      }
+      .art-tag small {
+        color: var(--muted);
+      }
+      .round-stamp {
+        position: absolute;
+        top: 28px;
+        right: 20px;
+        height: 91px;
+        width: 91px;
+        border-radius: 50%;
+        border: 1px solid var(--forest);
+        background: var(--lime);
+        display: grid;
+        place-content: center;
+        text-align: center;
+        font-size: 0.63rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        transform: rotate(13deg);
+      }
+      .round-stamp b {
+        font-size: 1.7rem;
+        line-height: 1.2;
+      }
+      .values-strip {
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+        padding: 22px 0;
+      }
+      .values-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+      }
+      .values-grid div {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 0.83rem;
+      }
+      .values-grid span {
+        color: #65812c;
+        font-size: 1.3rem;
+      }
+      .section {
+        padding: 78px 0;
+      }
+      .storefront {
+        opacity: 0;
+        transform: translateY(18px);
+        transition: opacity 0.7s ease, transform 0.7s ease;
+      }
+      .storefront.is-visible {
+        opacity: 1;
+        transform: none;
+      }
+      .hero.storefront {
+        opacity: 1;
+        transform: none;
+      }
+      .section-heading {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 24px;
+        margin-bottom: 29px;
+      }
+      .section-heading h2 {
+        margin-bottom: 10px;
+      }
+      .section-heading p {
+        margin-bottom: 0;
+        max-width: 410px;
+      }
+      .shop-tools {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 20px;
+      }
+      .search {
+        flex: 1;
+        border: 1px solid var(--line);
+        background: var(--paper);
+        border-radius: 12px;
+        padding: 12px 16px;
+        min-width: 0;
+        transition: border-color 0.2s, box-shadow 0.2s;
+      }
+      .search:focus {
+        border-color: #8da65d;
+        box-shadow: 0 0 0 4px rgba(141, 166, 93, 0.16);
+        outline: none;
+      }
+      .sort {
+        border: 1px solid var(--line);
+        background: var(--paper);
+        border-radius: 12px;
+        padding: 12px;
+      }
+      .filters {
+        display: flex;
+        gap: 9px;
+        flex-wrap: wrap;
+        margin-bottom: 26px;
+      }
+      .filter {
+        background: transparent;
+        border: 1px solid var(--line);
+        border-radius: 100px;
+        padding: 9px 17px;
+        font-size: 0.83rem;
+      }
+      .filter.active {
+        background: var(--forest);
+        color: white;
+        border-color: var(--forest);
+      }
+      .product-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 22px;
+      }
+      .product-card {
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+        animation: card-in 0.45s ease both;
+      }
+      .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 14px 28px #173e300b;
+      }
+      .product-art {
+        position: relative;
+        height: 228px;
+        display: grid;
+        place-items: center;
+      }
+      .product-art svg {
+        width: 88%;
+        height: 88%;
+        transition: transform 0.3s;
+      }
+      .product-card:hover .product-art svg {
+        transform: scale(1.045);
+      }
+      .product-badge {
+        position: absolute;
+        top: 13px;
+        left: 13px;
+        z-index: 1;
+        background: #fffefaeb;
+        border-radius: 100px;
+        padding: 4px 10px;
+        font-size: 0.62rem;
+        font-weight: 700;
+      }
+      .product-info {
+        padding: 18px;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+      }
+      .product-category {
+        font-size: 0.62rem;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      .product-info h3 {
+        font-size: 1rem;
+        line-height: 1.35;
+        margin: 7px 0;
+      }
+      .product-info details {
+        font-size: 0.77rem;
+        color: var(--muted);
+        margin: 5px 0 18px;
+      }
+      .product-info summary {
+        color: var(--green);
+      }
+      .product-info details p {
+        margin: 9px 0 0;
+      }
+      .product-bottom {
+        margin-top: auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 6px;
+      }
+      .price {
+        font-size: 0.88rem;
+        font-weight: 800;
+      }
+      .add-button {
+        border: 1px solid var(--line);
+        border-radius: 50%;
+        width: 36px;
+        height: 36px;
+        font-size: 1.4rem;
+        background: transparent;
+      }
+      .add-button:hover {
+        background: var(--forest);
+        color: white;
+        border-color: var(--forest);
+      }
+      .add-button.added {
+        background: var(--lime);
+        color: var(--forest);
+        border-color: var(--lime);
+        animation: added-pop 0.35s ease;
+      }
+      .no-results {
+        grid-column: 1/-1;
+        padding: 45px;
+        text-align: center;
+      }
+      .catalog-note {
+        margin: 20px 0 0;
+        font-size: 0.75rem;
+        color: var(--muted);
+      }
+      .story {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        background: var(--forest);
+        color: var(--cream);
+        border-radius: 26px;
+        overflow: hidden;
+      }
+      .story-art {
+        background: #cfdbb3;
+        min-height: 360px;
+        display: grid;
+        place-items: center;
+        position: relative;
+      }
+      .story-art svg {
+        width: 75%;
+        height: 310px;
+      }
+      .story-copy {
+        padding: 49px;
+      }
+      .story-copy h2 {
+        font-size: 2.7rem;
+      }
+      .story-copy p {
+        color: #d4dfd2;
+      }
+      .story-copy .eyebrow {
+        color: var(--lime);
+      }
+      .idea-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 22px;
+      }
+      .idea-card {
+        background: #eeefe5;
+        border-radius: 20px;
+        padding: 29px;
+      }
+      .idea-number {
+        font-family: Georgia, serif;
+        font-size: 2.8rem;
+        color: #76944a;
+        margin-bottom: 25px;
+      }
+      .idea-card p {
+        font-size: 0.91rem;
+        color: var(--muted);
+        margin-bottom: 0;
+      }
+      .newsletter {
+        background: var(--lime);
+        border-radius: 23px;
+        padding: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 35px;
+      }
+      .newsletter h2 {
+        font-size: 2.35rem;
+        margin-bottom: 10px;
+      }
+      .newsletter p {
+        margin-bottom: 0;
+        font-size: 0.9rem;
+      }
+      .newsletter form {
+        width: min(430px, 100%);
+      }
+      .email-row {
+        display: flex;
+        gap: 8px;
+      }
+      .email-row input {
+        flex: 1;
+        min-width: 0;
+        border: 1px solid #b6ca86;
+        background: #faffec;
+        border-radius: 100px;
+        padding: 12px 16px;
+      }
+      .newsletter small {
+        display: block;
+        margin-top: 9px;
+        font-size: 0.7rem;
+      }
+      #emailStatus {
+        min-height: 23px;
+        margin-top: 7px;
+      }
+      .plan-section {
+        background: #eeefe7;
+        border-top: 1px solid var(--line);
+      }
+      .plan-intro {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+      }
+      .plan-intro h2 {
+        margin-bottom: 14px;
+      }
+      .plan-cover {
+        background: var(--forest);
+        color: white;
+        padding: 30px;
+        border-radius: 18px;
+        margin: 26px 0;
+      }
+      .plan-cover .brand {
+        margin-bottom: 23px;
+      }
+      .plan-cover .brand-icon {
+        background: var(--lime);
+        color: var(--forest);
+      }
+      .plan-cover h3 {
+        font-family: Georgia, serif;
+        font-size: 1.8rem;
+        font-weight: 400;
+      }
+      .plan-cover p {
+        margin-bottom: 0;
+        color: #d9e3d3;
+      }
+      .plan-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+      .plan-block {
+        border: 1px solid var(--line);
+        border-radius: 15px;
+        background: var(--paper);
+        padding: 22px;
+      }
+      .plan-block > summary {
+        font-weight: 800;
+        font-size: 1.02rem;
+      }
+      .plan-block .plan-content {
+        margin-top: 18px;
+        font-size: 0.9rem;
+      }
+      .plan-block p:last-child {
+        margin-bottom: 0;
+      }
+      .plan-block ul {
+        padding-left: 20px;
+      }
+      .plan-block li {
+        margin-bottom: 8px;
+      }
+      .plan-block.wide {
+        grid-column: 1/-1;
+      }
+      .model-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5px 28px;
+      }
+      .model-grid h4 {
+        margin-bottom: 6px;
+      }
+      .plan-note {
+        color: var(--muted);
+        font-size: 0.78rem;
+        margin: 20px 0 0;
+      }
+      .site-footer {
+        padding: 43px 0 22px;
+      }
+      .footer-top {
+        display: flex;
+        justify-content: space-between;
+        gap: 25px;
+      }
+      .footer-top p {
+        max-width: 340px;
+        margin-top: 16px;
+        font-size: 0.85rem;
+      }
+      .footer-links {
+        display: flex;
+        gap: 20px;
+        align-items: start;
+        font-size: 0.83rem;
+        flex-wrap: wrap;
+      }
+      .footer-bottom {
+        border-top: 1px solid var(--line);
+        margin-top: 23px;
+        padding-top: 20px;
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        font-size: 0.73rem;
+        color: var(--muted);
+      }
+      dialog {
+        border: 0;
+        padding: 0;
+        border-radius: 22px;
+        color: var(--ink);
+        background: var(--paper);
+        width: min(550px, 94vw);
+        max-height: 90vh;
+        box-shadow: 0 25px 100px #0003;
+      }
+      dialog::backdrop {
+        background: #10271f90;
+        backdrop-filter: blur(3px);
+      }
+      .cart-header {
+        padding: 23px;
+        border-bottom: 1px solid var(--line);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .cart-header h2 {
+        font-size: 1.9rem;
+        margin: 0;
+      }
+      .close-button {
+        border: 1px solid var(--line);
+        border-radius: 50%;
+        width: 35px;
+        height: 35px;
+        background: transparent;
+        font-size: 1.3rem;
+      }
+      .cart-body {
+        padding: 0 23px;
+      }
+      .cart-item {
+        display: grid;
+        grid-template-columns: 58px 1fr auto;
+        gap: 13px;
+        align-items: center;
+        padding: 18px 0;
+        border-bottom: 1px solid var(--line);
+      }
+      .cart-thumb {
+        background: #e8eddd;
+        width: 58px;
+        height: 64px;
+        border-radius: 10px;
+      }
+      .cart-thumb svg {
+        width: 100%;
+        height: 100%;
+      }
+      .cart-item strong {
+        display: block;
+        font-size: 0.86rem;
+      }
+      .cart-item small {
+        color: var(--muted);
+      }
+      .quantity {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        margin-top: 6px;
+      }
+      .quantity button {
+        border: 1px solid var(--line);
+        background: white;
+        width: 26px;
+        height: 26px;
+        border-radius: 6px;
+      }
+      .remove {
+        border: 0;
+        background: transparent;
+        font-size: 0.73rem;
+        text-decoration: underline;
+        color: #8c4e37;
+      }
+      .cart-summary {
+        padding: 23px;
+      }
+      .total-line {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 8px;
+        font-size: 0.9rem;
+      }
+      .total-line.grand {
+        border-top: 1px solid var(--line);
+        padding-top: 13px;
+        margin-top: 13px;
+        font-weight: 800;
+        font-size: 1.06rem;
+      }
+      .cart-summary .btn {
+        width: 100%;
+        margin-top: 14px;
+      }
+      .cart-summary p {
+        font-size: 0.73rem;
+        color: var(--muted);
+        margin: 12px 0 0;
+      }
+      #checkoutMessage {
+        font-size: 0.85rem;
+        color: var(--forest);
+      }
+      .toast {
+        position: fixed;
+        left: 50%;
+        bottom: 25px;
+        transform: translate(-50%, 20px);
+        background: var(--forest);
+        color: white;
+        border-radius: 100px;
+        padding: 12px 23px;
+        box-shadow: 0 10px 25px #0002;
+        opacity: 0;
+        pointer-events: none;
+        transition: 0.2s;
+        z-index: 100;
+        max-width: 92%;
+        text-align: center;
+        font-size: 0.85rem;
+      }
+      .toast.show {
+        opacity: 1;
+        transform: translate(-50%, 0);
+      }
+      @keyframes rise-in {
+        from { opacity: 0; transform: translateY(18px); }
+        to { opacity: 1; transform: none; }
+      }
+      @keyframes card-in {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: none; }
+      }
+      @keyframes added-pop {
+        50% { transform: scale(1.18); }
+      }
+      .visually-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+      @media (max-width: 980px) {
+        .nav-links {
+          gap: 14px;
+        }
+        .hero {
+          gap: 25px;
+        }
+        .hero-art {
+          min-height: 420px;
+        }
+        .hero-plant {
+          height: 390px;
+        }
+        .product-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .story-copy {
+          padding: 32px;
+        }
+        .values-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .newsletter {
+          align-items: start;
+          flex-direction: column;
+          gap: 22px;
+        }
+      }
+      @media (max-width: 650px) {
+        .nav {
+          flex-wrap: wrap;
+          gap: 10px;
+          padding: 15px 0 12px;
+        }
+        .nav-links {
+          order: 3;
+          width: 100%;
+          justify-content: center;
+          font-size: 0.77rem;
+          padding-top: 7px;
+        }
+        .brand strong {
+          font-size: 0.97rem;
+        }
+        .brand small {
+          font-size: 0.52rem;
+        }
+        .brand-icon {
+          width: 36px;
+          height: 36px;
+        }
+        .cart-button {
+          font-size: 0.8rem;
+          padding: 8px 11px;
+        }
+        .hero {
+          grid-template-columns: 1fr;
+          padding: 40px 0;
+          gap: 30px;
+        }
+        .hero h1 {
+          max-width: 470px;
+        }
+        .hero-art {
+          min-height: 385px;
+        }
+        .hero-plant {
+          height: 365px;
+        }
+        .section {
+          padding: 52px 0;
+        }
+        .section-heading {
+          display: block;
+        }
+        .section-heading > p {
+          margin-top: 15px;
+        }
+        .product-grid {
+          gap: 12px;
+        }
+        .product-art {
+          height: 178px;
+        }
+        .product-info {
+          padding: 12px;
+        }
+        .product-info h3 {
+          font-size: 0.9rem;
+        }
+        .product-badge {
+          font-size: 0.55rem;
+          padding: 4px 7px;
+          left: 8px;
+          top: 8px;
+        }
+        .price {
+          font-size: 0.76rem;
+        }
+        .shop-tools {
+          flex-direction: column;
+        }
+        .story {
+          grid-template-columns: 1fr;
+        }
+        .story-art {
+          min-height: 260px;
+        }
+        .story-art svg {
+          height: 240px;
+        }
+        .story-copy h2 {
+          font-size: 2.3rem;
+        }
+        .idea-grid,
+        .plan-grid,
+        .model-grid {
+          grid-template-columns: 1fr;
+        }
+        .idea-number {
+          margin-bottom: 10px;
+        }
+        .newsletter {
+          padding: 27px;
+        }
+        .email-row {
+          flex-direction: column;
+        }
+        .plan-intro {
+          display: block;
+        }
+        .plan-intro .btn {
+          margin-top: 10px;
+        }
+        .footer-top,
+        .footer-bottom {
+          flex-direction: column;
+        }
+        .values-grid {
+          gap: 15px 9px;
+        }
+        .values-grid div {
+          font-size: 0.72rem;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+        *,
+        *::before,
+        *::after {
+          transition: none !important;
+        }
+      }
+      @media print {
+        body {
+          background: white;
+          color: black;
+          font-size: 10pt;
+        }
+        .announcement,
+        .site-header,
+        .storefront,
+        .site-footer,
+        .no-print,
+        dialog,
+        .toast,
+        .skip {
+          display: none !important;
+        }
+        .plan-section {
+          background: white;
+          padding: 0;
+          border: 0;
+        }
+        .container {
+          width: 100%;
+        }
+        .plan-cover {
+          color: black;
+          background: #eef2e5;
+          border: 1px solid #aaa;
+        }
+        .plan-cover p {
+          color: #333;
+        }
+        .plan-grid,
+        .model-grid {
+          display: block;
+        }
+        .plan-block {
+          margin-bottom: 13px;
+          break-inside: avoid;
+          padding: 14px;
+        }
+        .plan-block.wide {
+          break-inside: auto;
+        }
+        .model-grid > div {
+          break-inside: avoid;
+        }
+        h2 {
+          font-size: 25pt;
+        }
+        .plan-intro > div > p {
+          margin-bottom: 8px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+    <a class="skip" href="#shop">Skip to products</a>
+
+    <!-- Original reusable SVG illustrations. -->
+    <svg
+      width="0"
+      height="0"
+      aria-hidden="true"
+      style="position: absolute; overflow: hidden"
+    >
+      <defs>
+        <symbol id="leaf-logo" viewBox="0 0 40 40">
+          <path d="M8 30C5 13 16 5 34 6c0 17-8 28-24 25" fill="currentColor" />
+          <path
+            d="M8 34 26 15"
+            fill="none"
+            stroke="#173e30"
+            stroke-width="2.5"
+            stroke-linecap="round"
+          />
+        </symbol>
+
+        <symbol id="plant" viewBox="0 0 300 300">
+          <ellipse cx="150" cy="277" rx="83" ry="12" fill="#173e3012" />
+          <path
+            d="M151 219V67M151 158l-42-41M151 133l42-47M151 190l47-36"
+            fill="none"
+            stroke="#37583b"
+            stroke-width="7"
+            stroke-linecap="round"
+          />
+          <path
+            d="M150 108C103 91 113 39 146 21c27 30 29 63 4 87"
+            fill="#658745"
+          />
+          <path
+            d="M143 156C91 164 68 132 71 92c47-1 73 17 72 64"
+            fill="#375f3f"
+          />
+          <path
+            d="M159 136c-1-48 31-73 75-68 0 45-29 70-75 68"
+            fill="#769b53"
+          />
+          <path
+            d="M157 193c6-44 36-62 78-48-10 39-37 52-78 48"
+            fill="#49764a"
+          />
+          <path d="M96 215h110l-17 59h-76z" fill="#be8668" />
+          <rect x="90" y="203" width="123" height="20" rx="7" fill="#d19d7e" />
+          <path
+            d="m117 226 9 40"
+            stroke="#dfaf8e"
+            stroke-width="6"
+            stroke-linecap="round"
+          />
+        </symbol>
+
+        <symbol id="herb" viewBox="0 0 300 300">
+          <ellipse cx="150" cy="277" rx="75" ry="10" fill="#173e3012" />
+          <g stroke="#527548" stroke-width="5" fill="none">
+            <path d="M150 218V75M147 186l-50-46M153 176l47-49M149 142l-35-38" />
+          </g>
+          <g fill="#6f934e">
+            <ellipse
+              cx="144"
+              cy="73"
+              rx="18"
+              ry="31"
+              transform="rotate(-20 144 73)"
+            />
+            <ellipse
+              cx="111"
+              cy="113"
+              rx="19"
+              ry="30"
+              transform="rotate(-47 111 113)"
+            />
+            <ellipse
+              cx="94"
+              cy="144"
+              rx="21"
+              ry="32"
+              transform="rotate(-50 94 144)"
+            />
+            <ellipse
+              cx="199"
+              cy="124"
+              rx="21"
+              ry="33"
+              transform="rotate(45 199 124)"
+            />
+            <ellipse
+              cx="179"
+              cy="87"
+              rx="18"
+              ry="27"
+              transform="rotate(40 179 87)"
+            />
+          </g>
+          <g fill="#406e42">
+            <ellipse
+              cx="127"
+              cy="168"
+              rx="17"
+              ry="29"
+              transform="rotate(-38 127 168)"
+            />
+            <ellipse
+              cx="172"
+              cy="154"
+              rx="18"
+              ry="28"
+              transform="rotate(40 172 154)"
+            />
+          </g>
+          <path d="M98 214h104l-13 61h-78z" fill="#d3b28a" />
+          <rect x="91" y="201" width="118" height="20" rx="5" fill="#e3c49e" />
+        </symbol>
+
+        <symbol id="tree" viewBox="0 0 300 300">
+          <ellipse cx="150" cy="278" rx="68" ry="10" fill="#173e3012" />
+          <path
+            d="M149 232V91m0 70-37-35m37 12 39-34"
+            stroke="#8a6a46"
+            stroke-width="8"
+            fill="none"
+          />
+          <g fill="#658c47">
+            <circle cx="111" cy="99" r="37" />
+            <circle cx="149" cy="63" r="39" />
+            <circle cx="186" cy="93" r="40" />
+            <circle cx="153" cy="116" r="43" />
+          </g>
+          <g fill="#85a859">
+            <circle cx="124" cy="77" r="24" />
+            <circle cx="158" cy="49" r="23" />
+            <circle cx="181" cy="87" r="25" />
+          </g>
+          <path d="M110 222h80l-7 53h-66z" fill="#b19372" />
+          <path d="M110 231h80M115 244h70" stroke="#917454" stroke-width="2" />
+        </symbol>
+
+        <symbol id="tote" viewBox="0 0 300 300">
+          <ellipse cx="150" cy="277" rx="84" ry="10" fill="#173e3012" />
+          <path
+            d="M108 117V91a42 42 0 0 1 84 0v26"
+            stroke="#a88a58"
+            stroke-width="13"
+            fill="none"
+          />
+          <path d="M80 110h140l13 153H67z" fill="#dcc6a0" />
+          <path d="M83 112h17l-9 150H69z" fill="#c4ab7e" />
+          <path d="M205 115l12 146" stroke="#bda175" stroke-width="3" />
+          <path
+            d="M137 209c-16-45 6-65 44-66 1 38-13 67-44 66"
+            fill="#54774b"
+          />
+          <path d="m132 224 36-64" stroke="#365c3e" stroke-width="4" />
+          <text
+            x="150"
+            y="245"
+            text-anchor="middle"
+            font-family="Arial"
+            font-size="10"
+            fill="#456640"
+            letter-spacing="2"
+          >
+            GREEN PAKISTAN
+          </text>
+        </symbol>
+
+        <symbol id="bottle" viewBox="0 0 300 300">
+          <ellipse cx="150" cy="279" rx="60" ry="10" fill="#173e3012" />
+          <rect x="127" y="32" width="46" height="28" rx="6" fill="#b89b71" />
+          <path
+            d="M124 61h52v24c0 13 20 20 20 40v128c0 14-10 22-23 22h-46c-13 0-23-8-23-22V125c0-20 20-27 20-40z"
+            fill="#426951"
+          />
+          <path
+            d="M121 126v117"
+            stroke="#648a6b"
+            stroke-width="9"
+            stroke-linecap="round"
+          />
+          <path d="M146 192c-13-28 2-42 28-43 1 27-7 44-28 43" fill="#d7e6b0" />
+          <path d="m141 203 24-43" stroke="#d7e6b0" stroke-width="2" />
+          <path d="M128 39h44" stroke="#d8bf94" stroke-width="3" />
+        </symbol>
+
+        <symbol id="brush" viewBox="0 0 300 300">
+          <ellipse cx="150" cy="277" rx="68" ry="10" fill="#173e3012" />
+          <g transform="rotate(24 150 150)">
+            <rect
+              x="135"
+              y="89"
+              width="25"
+              height="182"
+              rx="12"
+              fill="#c9a773"
+            />
+            <rect
+              x="126"
+              y="37"
+              width="43"
+              height="79"
+              rx="19"
+              fill="#ddbf8c"
+            />
+            <path
+              d="M132 47h32m-33 9h33m-34 9h34m-34 9h34m-34 9h34m-33 9h33"
+              stroke="#f9f4df"
+              stroke-width="5"
+            />
+            <path d="M143 139v103" stroke="#b68e57" stroke-width="2" />
+          </g>
+        </symbol>
+
+        <symbol id="kit" viewBox="0 0 300 300">
+          <ellipse cx="150" cy="278" rx="91" ry="10" fill="#173e3012" />
+          <path d="M60 145h180v123H60z" fill="#c8aa79" />
+          <path d="M60 145h180l-28-25H83z" fill="#e1c798" />
+          <path d="M60 145h38v123H60z" fill="#b89969" />
+          <rect x="120" y="164" width="92" height="75" rx="4" fill="#f6f0dc" />
+          <path d="M165 218v-32" stroke="#47734a" stroke-width="4" />
+          <path d="M165 200c-25 1-30-14-30-24 22-1 31 8 30 24" fill="#779654" />
+          <path d="M165 190c1-22 15-28 29-24-2 17-11 26-29 24" fill="#47734a" />
+          <rect
+            x="92"
+            y="64"
+            width="68"
+            height="79"
+            rx="4"
+            fill="#f2e7c8"
+            transform="rotate(-8 92 64)"
+          />
+          <path
+            d="M119 119V87m0 19-12-10m12 3 13-11"
+            stroke="#608047"
+            stroke-width="4"
+            fill="none"
+          />
+          <path d="M183 129V73" stroke="#557343" stroke-width="5" />
+          <path d="M183 98c-25-1-33-18-30-33 21 0 34 13 30 33" fill="#6b8d4d" />
+          <path d="M183 84c2-23 18-31 36-27-2 22-18 31-36 27" fill="#8ba95c" />
+        </symbol>
+
+        <symbol id="compost" viewBox="0 0 300 300">
+          <ellipse cx="150" cy="279" rx="84" ry="10" fill="#173e3012" />
+          <path d="M89 114h122l-10 147H100z" fill="#6d7c57" />
+          <path d="M101 119h17l7 140h-15z" fill="#8b9973" />
+          <rect x="78" y="98" width="144" height="21" rx="7" fill="#4c6144" />
+          <rect x="129" y="83" width="42" height="16" rx="6" fill="#3c5037" />
+          <path
+            d="M94 139c-48 0-47 78 8 78M207 139c48 0 47 78-8 78"
+            fill="none"
+            stroke="#445940"
+            stroke-width="7"
+          />
+          <path
+            d="M146 214c-16-34 2-54 37-57 1 35-10 57-37 57"
+            fill="#d8e4bb"
+          />
+          <path d="m140 228 31-56" stroke="#d8e4bb" stroke-width="3" />
+        </symbol>
+      </defs>
+    </svg>
+
+    <div class="announcement">
+      A student business concept · Thoughtful products for a greener everyday
+    </div>
+
+    <header class="site-header">
+      <div class="container nav">
+        <a href="#" class="brand" aria-label="Green Pakistan home">
+          <svg class="brand-icon" aria-hidden="true">
+            <use href="#leaf-logo" />
+          </svg>
+          <span>
+            <strong>GREEN PAKISTAN</strong>
+            <small>YOUR NAME · YOUR REG. NO.</small>
+          </span>
+        </a>
+        <nav class="nav-links" aria-label="Main navigation">
+          <a href="#shop">The collection</a>
+          <a href="#story">Our purpose</a>
+          <a href="#ideas">Green ideas</a>
+          <a href="#business-plan">Business plan</a>
+        </nav>
+        <button class="cart-button" id="openCart" aria-haspopup="dialog">
+          Bag <span class="cart-count" id="cartCount">0</span>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <section class="container hero storefront" aria-labelledby="heroTitle">
+        <div class="hero-copy">
+          <span class="eyebrow">Rooted in care. Growing with you.</span>
+          <h1 id="heroTitle">
+            Small changes.<br /><em>Greener</em><br />tomorrows.
+          </h1>
+          <p>
+            A little more green. A little less throwaway. Discover plants,
+            reusable essentials, and the joy of growing something of your own.
+          </p>
+          <div class="hero-actions">
+            <a class="btn" href="#shop"
+              >Explore the collection <span>↗</span></a
+            >
+            <a class="btn outline" href="#story">Meet Green Pakistan</a>
+          </div>
+          <div class="hero-note">
+            <span aria-hidden="true">↟</span>
+            Designed around everyday habits—not perfect lifestyles.
+          </div>
+        </div>
+        <div
+          class="hero-art"
+          role="img"
+          aria-label="Illustration of a leafy plant in a terracotta pot"
+        >
+          <svg class="hero-plant" aria-hidden="true"><use href="#plant" /></svg>
+          <div class="round-stamp">LET GOOD<b>GROW</b>EVERY DAY</div>
+          <div class="art-tag">
+            <strong>Your next chapter is greener.</strong>
+            <small>Start with one plant. Build one habit.</small>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="values-strip storefront"
+        aria-label="Our proposed approach"
+      >
+        <div class="container values-grid">
+          <div>
+            <span aria-hidden="true">↟</span> Plants & growing essentials
+          </div>
+          <div>
+            <span aria-hidden="true">↺</span> Reuse-first product choices
+          </div>
+          <div>
+            <span aria-hidden="true">◇</span> Clear materials information
+          </div>
+          <div>
+            <span aria-hidden="true">♡</span> Beginner-friendly guidance
+          </div>
+        </div>
+      </section>
+
+      <section id="shop" class="section container storefront">
+        <div class="section-heading">
+          <div>
+            <span class="eyebrow">The everyday green edit</span>
+            <h2>Good things to grow with.</h2>
+          </div>
+          <p class="muted">
+            Find a new leafy companion, rethink an everyday essential, or plant
+            your first seed.
+          </p>
+        </div>
+
+        <div class="shop-tools">
+          <label for="search" class="visually-hidden">Search products</label>
+          <input
+            id="search"
+            class="search"
+            type="search"
+            placeholder="Search plants, bottles, grow kits…"
+          />
+          <label for="sort" class="visually-hidden">Sort products</label>
+          <select id="sort" class="sort">
+            <option value="featured">Sort: Featured</option>
+            <option value="low">Price: Low to high</option>
+            <option value="high">Price: High to low</option>
+            <option value="name">Name: A to Z</option>
+          </select>
+        </div>
+
+        <div class="filters" role="group" aria-label="Product categories">
+          <button class="filter active" data-category="All" aria-pressed="true">
+            All products
+          </button>
+          <button class="filter" data-category="Plants" aria-pressed="false">
+            Plants
+          </button>
+          <button class="filter" data-category="Reusables" aria-pressed="false">
+            Reusable essentials
+          </button>
+          <button class="filter" data-category="Grow kits" aria-pressed="false">
+            Grow & compost
+          </button>
+        </div>
+
+        <p id="resultsCount" class="visually-hidden" role="status"></p>
+        <div class="product-grid" id="productGrid"></div>
+        <noscript
+          ><p>
+            Please enable JavaScript to view products and use the shopping cart.
+          </p></noscript
+        >
+        <p class="catalog-note">
+          Student prototype: sample prices in PKR, illustrative products, and no
+          live inventory. Product materials and supplier claims require
+          verification before launch.
+        </p>
+      </section>
+
+      <section id="story" class="container storefront">
+        <div class="story">
+          <div
+            class="story-art"
+            role="img"
+            aria-label="Illustration of a reusable shopping bag"
+          >
+            <svg aria-hidden="true"><use href="#tote" /></svg>
+          </div>
+          <div class="story-copy">
+            <span class="eyebrow">Our purpose</span>
+            <h2>A greener Pakistan<br />starts at home.</h2>
+            <p>
+              Green Pakistan is built on a simple idea: thoughtful choices
+              should feel practical, welcoming, and possible.
+            </p>
+            <p>
+              Our proposed store brings plants, reusables, and gardening
+              essentials together—with honest descriptions and helpful guidance
+              instead of exaggerated environmental promises.
+            </p>
+            <a class="btn light" href="#business-plan"
+              >Explore our business concept ↗</a
+            >
+          </div>
+        </div>
+      </section>
+
+      <section id="ideas" class="section container storefront">
+        <div class="section-heading">
+          <div>
+            <span class="eyebrow">More than a shopping list</span>
+            <h2>Make room for better habits.</h2>
+          </div>
+          <p class="muted">Three ideas shaping our future collections.</p>
+        </div>
+        <div class="idea-grid">
+          <article class="idea-card">
+            <div class="idea-number">01 /</div>
+            <h3>The balcony beginnings kit</h3>
+            <p>
+              A proposed bundle of seeds, growing medium, and a reusable pot,
+              with a simple getting-started guide.
+            </p>
+          </article>
+          <article class="idea-card">
+            <div class="idea-number">02 /</div>
+            <h3>A gift that keeps growing</h3>
+            <p>
+              Planned plant gifts for birthdays, classrooms, and office desks,
+              with a personal note and care instructions.
+            </p>
+          </article>
+          <article class="idea-card">
+            <div class="idea-number">03 /</div>
+            <h3>Know before you grow</h3>
+            <p>
+              Proposed product guides covering space, light, watering, regional
+              suitability, and relevant handling cautions.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="container storefront" style="padding-bottom: 75px">
+        <div class="newsletter">
+          <div>
+            <span class="eyebrow">A little green in your inbox</span>
+            <h2>Grow your green routine.</h2>
+            <p>Future plant-care notes, product stories, and launch updates.</p>
+          </div>
+          <form id="newsletterForm">
+            <label class="visually-hidden" for="email"
+              >Your email address</label
+            >
+            <div class="email-row">
+              <input
+                type="email"
+                id="email"
+                placeholder="Your email address"
+                required
+              />
+              <button class="btn" type="submit">Try signup ↗</button>
+            </div>
+            <small>Demo only. Your email is not transmitted or saved.</small>
+            <p id="emailStatus" role="status"></p>
+          </form>
+        </div>
+      </section>
+
+      <!-- Assignment documentation -->
+      <section id="business-plan" class="section plan-section">
+        <div class="container">
+          <div class="plan-intro">
+            <div>
+              <span class="eyebrow">CLO-1 · Assignment 1</span>
+              <h2>The business behind the green.</h2>
+              <p class="muted">E-Commerce Business Concept & Planning</p>
+            </div>
+            <button class="btn no-print" id="printPlan">
+              Print business plan ↗
+            </button>
+          </div>
+
+          <div class="plan-cover">
+            <div class="brand">
+              <svg class="brand-icon" aria-hidden="true">
+                <use href="#leaf-logo" />
+              </svg>
+              <span>
+                <strong>GREEN PAKISTAN</strong>
+                <small>YOUR NAME · YOUR REG. NO.</small>
+              </span>
+            </div>
+            <h3>Small changes. Greener tomorrows.</h3>
+            <p>
+              Proposed venture: an independent online retailer of plants,
+              reusable household essentials, and beginner gardening kits. This
+              is an academic concept, not an official government initiative.
+            </p>
+          </div>
+
+          <div class="plan-grid">
+            <details class="plan-block" open>
+              <summary>01 · Brand identity & business description</summary>
+              <div class="plan-content">
+                <p><strong>Brand:</strong> Green Pakistan.</p>
+                <p>
+                  <strong>Logo:</strong> A leaf inside a circular emblem, paired
+                  with the brand name, student name, and registration number.
+                </p>
+                <p>
+                  <strong>Theme:</strong> Forest green, leaf green, and cream;
+                  botanical illustrations and uncluttered product layouts.
+                </p>
+                <p>
+                  <strong>Description:</strong> Green Pakistan is a proposed
+                  online store offering plants, reusable everyday products, and
+                  gardening kits to households in Pakistan. It aims to make
+                  thoughtful purchasing easier through accessible bundles, clear
+                  product information, and beginner guidance.
+                </p>
+              </div>
+            </details>
+
+            <details class="plan-block" open>
+              <summary>02 · Objectives, vision & mission</summary>
+              <div class="plan-content">
+                <p>
+                  <strong>Vision:</strong> To become a trusted Pakistani brand
+                  that helps people make growing and reusing part of everyday
+                  life.
+                </p>
+                <p>
+                  <strong>Mission:</strong> To offer practical plants and
+                  reusable essentials, supported by transparent product details,
+                  reliable service, and easy-to-follow educational content.
+                </p>
+                <p>
+                  <strong>Objectives:</strong> Validate customer demand,
+                  establish dependable suppliers, achieve the first 60 completed
+                  orders, and learn which products customers find genuinely
+                  useful.
+                </p>
+                <p>
+                  <strong>E-commerce type:</strong> Primarily B2C
+                  (business-to-consumer); potential later B2B sales to offices,
+                  schools, and corporate gifting buyers.
+                </p>
+                <p>
+                  <strong>Business model type:</strong> E-tailer. Green Pakistan
+                  sells its selected inventory directly rather than acting as a
+                  customer-to-customer marketplace.
+                </p>
+              </div>
+            </details>
+
+            <details class="plan-block wide" open>
+              <summary>03 · Business model: eight essential elements</summary>
+              <div class="plan-content model-grid">
+                <div>
+                  <h4>i. Value proposition</h4>
+                  <p>
+                    A convenient collection of plants, reusables, and starter
+                    kits with approachable guidance, clear materials
+                    information, and beginner-oriented bundles.
+                  </p>
+                </div>
+                <div>
+                  <h4>ii. Revenue model</h4>
+                  <p>
+                    Direct product sales and bundle sales. Later options include
+                    corporate plant gifts and paid repotting services. Gross
+                    margin is selling price minus product cost; delivery,
+                    packaging, marketing, returns, and operating costs must also
+                    be covered.
+                  </p>
+                </div>
+                <div>
+                  <h4>iii. Market opportunity</h4>
+                  <p>
+                    Hypothesis: students, young professionals, and urban
+                    households may value convenient access to plants and
+                    reusable essentials. Validate through at least 30 customer
+                    interviews, supplier quotations, and a small launch test
+                    before scaling.
+                  </p>
+                </div>
+                <div>
+                  <h4>iv. Competitive environment</h4>
+                  <p>
+                    Expected competitor categories include local nurseries,
+                    online plant sellers, general marketplaces, and
+                    household-goods stores. Compare a sample of competing offers
+                    on total price, delivery coverage, product information, and
+                    service. This comparison has not yet been completed.
+                  </p>
+                </div>
+                <div>
+                  <h4>v. Competitive advantage</h4>
+                  <p>
+                    Intended differentiation: a focused collection, region-aware
+                    plant selection, product-specific care cards, practical
+                    bundles, and responsive support. These are proposed
+                    capabilities, not established advantages.
+                  </p>
+                </div>
+                <div>
+                  <h4>vi. Market strategy</h4>
+                  <p>
+                    Launch a limited catalogue in one serviceable city. Publish
+                    educational short videos and search-friendly product guides,
+                    collaborate with small gardening creators, and test modest
+                    paid campaigns. Use consent-based email follow-ups and
+                    referrals to encourage repeat purchases.
+                  </p>
+                </div>
+                <div>
+                  <h4>vii. Organizational development</h4>
+                  <p>
+                    Phase 1: founder-led sourcing, catalogue setup, and demand
+                    validation. Phase 2: add part-time packing and customer
+                    support as orders grow. Phase 3: expand products and
+                    delivery coverage only after reviewing margin, plant
+                    condition on arrival, and customer feedback.
+                  </p>
+                </div>
+                <div>
+                  <h4>viii. Management team</h4>
+                  <p>
+                    Founder: YOUR NAME—strategy, finances, and customer
+                    experience. Proposed support roles: nursery/sourcing partner
+                    for plant quality; part-time operations assistant for
+                    packing; freelance content designer for campaigns; technical
+                    support for the production website. No appointments are
+                    assumed.
+                  </p>
+                </div>
+              </div>
+            </details>
+
+            <details class="plan-block" open>
+              <summary>04 · Audience & marketing material</summary>
+              <div class="plan-content">
+                <p>
+                  <strong>Primary audience hypothesis:</strong> Urban Pakistani
+                  students and young professionals, approximately ages 18–35,
+                  with limited space and an interest in plants or reusable
+                  products.
+                </p>
+                <p>
+                  <strong>Secondary audience:</strong> Households, gift buyers,
+                  schools, and small offices.
+                </p>
+                <p>
+                  <strong>Likely needs to validate:</strong> Affordable starter
+                  choices, understandable care instructions, clear delivery
+                  charges, and dependable product quality.
+                </p>
+                <p>
+                  <strong>Social advertisement:</strong><br />
+                  “Your first plant. Your next reusable. Start small with Green
+                  Pakistan. Explore plants and everyday essentials chosen for
+                  thoughtful living.”
+                </p>
+                <p>
+                  <strong>Call to action:</strong> “Find your first green
+                  habit.”
+                </p>
+                <p>
+                  <strong>Email subject:</strong> “A little green for your
+                  everyday.”
+                </p>
+                <p>
+                  <strong>Content ideas:</strong> Balcony setup walkthroughs,
+                  product material explainers, plant-care demonstrations, and
+                  behind-the-scenes packing videos.
+                </p>
+              </div>
+            </details>
+
+            <details class="plan-block" open>
+              <summary>05 · SMART marketing goal</summary>
+              <div class="plan-content">
+                <p>
+                  <strong>Goal:</strong> Within the first 90 days after the
+                  commercial launch, attract 3,000 qualified website sessions
+                  and generate 60 completed, non-cancelled orders, targeting a
+                  2% session-to-order conversion rate and keeping campaign
+                  spending within PKR 30,000.
+                </p>
+                <ul>
+                  <li>
+                    <strong>Specific:</strong> Acquire customers for the initial
+                    catalogue.
+                  </li>
+                  <li>
+                    <strong>Measurable:</strong> Track sessions, completed
+                    orders, conversion, and campaign spend.
+                  </li>
+                  <li>
+                    <strong>Achievable:</strong> Treat the target as a planning
+                    hypothesis; test it through a limited launch and weekly
+                    reviews.
+                  </li>
+                  <li>
+                    <strong>Relevant:</strong> Tests demand and supports first
+                    sales.
+                  </li>
+                  <li>
+                    <strong>Time-bound:</strong> First 90 days following launch.
+                  </li>
+                </ul>
+                <p>
+                  <strong>Measurement:</strong> Use consent-aware analytics,
+                  campaign-tagged links, and the production order database.
+                  Review results weekly. These tools are not installed in this
+                  demo.
+                </p>
+              </div>
+            </details>
+
+            <details class="plan-block" open>
+              <summary>06 · Platform, domains & hosting plan</summary>
+              <div class="plan-content">
+                <p>
+                  <strong>Candidate domains:</strong> greenpakistanstore.pk,
+                  shopgreenpakistan.com.pk, and growwithgreenpakistan.com.
+                  Availability, ownership, and brand conflicts have not been
+                  checked.
+                </p>
+                <p>
+                  <strong>Domain registration:</strong> Consider PKNIC for a .pk
+                  or .com.pk domain. A domain registration is separate from the
+                  website's hosting.
+                </p>
+                <p>
+                  <strong>Prototype platform:</strong> HTML for page structure,
+                  CSS for appearance and responsive layouts, JavaScript for
+                  filtering and cart interactions, and browser local storage for
+                  the saved cart.
+                </p>
+                <p>
+                  <strong>Prototype hosting:</strong> Proposed static deployment
+                  on Netlify. This serves the demonstration site; it does not
+                  turn the demo cart into an order-processing system.
+                </p>
+                <p>
+                  <strong>Commercial platform option:</strong> Evaluate Shopify
+                  as a hosted commerce platform. The prototype would need to be
+                  rebuilt or adapted to its theme and commerce system—not simply
+                  uploaded as a working Shopify store.
+                </p>
+              </div>
+            </details>
+
+            <details class="plan-block" open>
+              <summary>07 · Operations, trust & launch requirements</summary>
+              <div class="plan-content">
+                <ul>
+                  <li>
+                    Start with a manageable catalogue and verified suppliers.
+                  </li>
+                  <li>
+                    Limit live-plant delivery to tested routes and packaging.
+                  </li>
+                  <li>
+                    Confirm plant identity, regional suitability, and relevant
+                    care and handling warnings for each listing.
+                  </li>
+                  <li>
+                    Disclose materials and disposal limitations; avoid
+                    unverified “zero impact” or “100% biodegradable” claims.
+                  </li>
+                  <li>
+                    Publish contact details, shipping information, returns
+                    conditions, and privacy information before accepting orders.
+                  </li>
+                  <li>
+                    Implement server-side prices, stock checks, order records,
+                    secure administration, and confirmation messages.
+                  </li>
+                  <li>
+                    Evaluate cash on delivery and locally supported payment
+                    integrations. Verify provider eligibility and fees first.
+                  </li>
+                  <li>
+                    Calculate margins using supplier costs, packaging, shipping,
+                    fees, acquisition costs, and expected returns.
+                  </li>
+                </ul>
+                <p>
+                  <strong>Demo boundary:</strong> This website does not accept
+                  payments, reserve stock, transmit emails, or place orders.
+                </p>
+              </div>
+            </details>
+          </div>
+
+          <p class="plan-note">
+            All commercial details are proposed for academic planning. Customer
+            segments, demand, prices, campaign targets, and operational
+            capabilities require validation. Replace the student placeholders
+            before submitting.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-top">
+          <div>
+            <a href="#" class="brand">
+              <svg class="brand-icon" aria-hidden="true">
+                <use href="#leaf-logo" />
+              </svg>
+              <span>
+                <strong>GREEN PAKISTAN</strong>
+                <small>YOUR NAME · YOUR REG. NO.</small>
+              </span>
+            </a>
+            <p class="muted">
+              Plants, practical reusables, and a little encouragement to grow
+              something good.
+            </p>
+          </div>
+          <div class="footer-links">
+            <a href="#shop">Shop collection</a>
+            <a href="#story">Our purpose</a>
+            <a href="#business-plan">Business plan</a>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <span
+            >© <span id="year"></span> Green Pakistan · Student concept</span
+          >
+          <span>Independent academic project · No live orders or payments</span>
+        </div>
+      </div>
+    </footer>
+
+    <dialog id="cartDialog" aria-labelledby="cartTitle">
+      <div class="cart-header">
+        <h2 id="cartTitle">Your green bag</h2>
+        <button
+          class="close-button"
+          id="closeCart"
+          aria-label="Close shopping bag"
+        >
+          ×
+        </button>
+      </div>
+      <div class="cart-body" id="cartItems"></div>
+      <div class="cart-summary">
+        <div class="total-line">
+          <span>Subtotal</span><span id="subtotal">PKR 0</span>
+        </div>
+        <div class="total-line">
+          <span>Demo delivery</span><span id="shipping">PKR 0</span>
+        </div>
+        <div class="total-line grand">
+          <span>Illustrative total</span><span id="total">PKR 0</span>
+        </div>
+        <button class="btn" id="checkoutButton">Preview demo checkout ↗</button>
+        <p>
+          Sample delivery: PKR 250 below PKR 3,000; free from PKR 3,000. Taxes
+          are not calculated in this prototype. Actual charges must be confirmed
+          before launch.
+        </p>
+        <p id="checkoutMessage" role="status"></p>
+      </div>
+    </dialog>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script>
+      "use strict";
+
+      /* Sample catalogue. Prices and descriptions require supplier validation. */
+      const products = [
+        {
+          id: "p1",
+          name: "Leafy Desk Plant",
+          category: "Plants",
+          price: 950,
+          art: "plant",
+          color: "#e7ecdd",
+          badge: "A little desk greenery",
+          description:
+            "Concept listing for a potted desk plant. Exact species, pot dimensions, light needs, and relevant safety information must be confirmed before sale.",
+        },
+        {
+          id: "p2",
+          name: "Kitchen Herb Pot",
+          category: "Plants",
+          price: 650,
+          art: "herb",
+          color: "#eee9d8",
+          badge: "Kitchen garden idea",
+          description:
+            "A proposed starter herb in a reusable pot. Confirm the variety, growing conditions, and supplier care instructions before listing.",
+        },
+        {
+          id: "p3",
+          name: "Regional Tree Sapling",
+          category: "Plants",
+          price: 450,
+          art: "tree",
+          color: "#e2eadc",
+          badge: "Grow beyond your home",
+          description:
+            "A sapling selected for the customer's region and planting space. Species, mature size, planting permissions, and site suitability require confirmation.",
+        },
+        {
+          id: "p4",
+          name: "Everyday Cotton Tote",
+          category: "Reusables",
+          price: 700,
+          art: "tote",
+          color: "#f0e6d8",
+          badge: "Bring it. Use it again.",
+          description:
+            "Proposed cotton shopping bag for repeated use. Confirm fibre composition, dimensions, load capacity, and washing instructions with the supplier.",
+        },
+        {
+          id: "p5",
+          name: "Reusable Steel Bottle",
+          category: "Reusables",
+          price: 1600,
+          art: "bottle",
+          color: "#e3e9e3",
+          badge: "Refill your routine",
+          description:
+            "Concept for a reusable stainless-steel bottle. Capacity, food-contact suitability, lid materials, and cleaning instructions require verification.",
+        },
+        {
+          id: "p6",
+          name: "Bamboo-Handle Brush",
+          category: "Reusables",
+          price: 250,
+          art: "brush",
+          color: "#eee7d8",
+          badge: "Material transparency",
+          description:
+            "Proposed toothbrush with a bamboo handle. Bristles may be synthetic; do not assume the whole item is biodegradable. Confirm materials and disposal guidance.",
+        },
+        {
+          id: "p7",
+          name: "Balcony Grow Kit",
+          category: "Grow kits",
+          price: 1200,
+          art: "kit",
+          color: "#e8e8d8",
+          badge: "Start something small",
+          description:
+            "Proposed bundle of seeds, growing medium, and starter containers. Final contents and season-specific sowing instructions will be confirmed before launch.",
+        },
+        {
+          id: "p8",
+          name: "Home Compost Starter",
+          category: "Grow kits",
+          price: 2400,
+          art: "compost",
+          color: "#e0e7d9",
+          badge: "A new home habit",
+          description:
+            "Concept composting starter container and guide. Capacity, suitable inputs, ventilation, maintenance, and processing method must be specified before sale.",
+        },
+      ];
+
+      const money = (amount) => "PKR " + amount.toLocaleString("en-PK");
+      const byId = (id) => document.getElementById(id);
+      const STORAGE_KEY = "green-pakistan-cart-v1";
+      let category = "All";
+      let cart = {};
+      let toastTimer;
+
+      /* Only known product IDs and valid integer quantities are restored. */
+      try {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+        if (saved && typeof saved === "object" && !Array.isArray(saved)) {
+          products.forEach((product) => {
+            const quantity = saved[product.id];
+            if (Number.isInteger(quantity) && quantity > 0 && quantity <= 99) {
+              cart[product.id] = quantity;
+            }
+          });
+        }
+      } catch {
+        cart = {};
+      }
+
+      function persistCart() {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
+        } catch {
+          /* Cart continues to work if browser storage is unavailable. */
+        }
+      }
+
+      function toast(message) {
+        const element = byId("toast");
+        element.textContent = message;
+        element.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => element.classList.remove("show"), 2400);
+      }
+
+      function updatePageChrome() {
+        const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = scrollable > 0 ? window.scrollY / scrollable : 0;
+        byId("scrollProgress").style.transform = `scaleX(${progress})`;
+        document.querySelector(".site-header").classList.toggle("scrolled", window.scrollY > 12);
+      }
+
+      const revealObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              revealObserver.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.12 },
+      );
+
+      document.querySelectorAll(".storefront:not(.hero)").forEach((section) => {
+        revealObserver.observe(section);
+      });
+      window.addEventListener("scroll", updatePageChrome, { passive: true });
+      updatePageChrome();
+
+      function renderProducts() {
+        const term = byId("search").value.trim().toLowerCase();
+        let visible = products.filter((product) => {
+          const categoryMatch =
+            category === "All" || product.category === category;
+          const searchable = `${product.name} ${product.category} ${product.description}`;
+          return categoryMatch && searchable.toLowerCase().includes(term);
+        });
+
+        const sort = byId("sort").value;
+        if (sort === "low") visible.sort((a, b) => a.price - b.price);
+        if (sort === "high") visible.sort((a, b) => b.price - a.price);
+        if (sort === "name")
+          visible.sort((a, b) => a.name.localeCompare(b.name));
+
+        /*
+    Only trusted, hardcoded catalogue values enter this template.
+    Search input is never interpolated into HTML.
+  */
+        byId("productGrid").innerHTML = visible.length
+          ? visible
+              .map(
+                (product) => `
+      <article class="product-card">
+        <div class="product-art" style="background:${product.color}">
+          <span class="product-badge">${product.badge}</span>
+          <svg role="img" aria-label="Illustration of ${product.name}"
+               viewBox="0 0 300 300">
+            <use href="#${product.art}"></use>
+          </svg>
+        </div>
+        <div class="product-info">
+          <span class="product-category">${product.category}</span>
+          <h3>${product.name}</h3>
+          <details>
+            <summary>Product information</summary>
+            <p>${product.description}</p>
+          </details>
+          <div class="product-bottom">
+            <span class="price">${money(product.price)}</span>
+            <button class="add-button" data-add="${product.id}"
+                    aria-label="Add ${product.name} to bag">+</button>
+          </div>
+        </div>
+      </article>
+    `,
+              )
+              .join("")
+          : '<p class="no-results">No products found. Try another search or category.</p>';
+
+        byId("resultsCount").textContent =
+          `${visible.length} product${visible.length === 1 ? "" : "s"} found`;
+      }
+
+      function calculateCart() {
+        const count = Object.values(cart).reduce(
+          (sum, quantity) => sum + quantity,
+          0,
+        );
+        const subtotal = products.reduce(
+          (sum, product) => sum + product.price * (cart[product.id] || 0),
+          0,
+        );
+        const shipping = subtotal === 0 || subtotal >= 3000 ? 0 : 250;
+        return { count, subtotal, shipping, total: subtotal + shipping };
+      }
+
+      function updateCart() {
+        const totals = calculateCart();
+        byId("cartCount").textContent = totals.count;
+        byId("openCart").setAttribute(
+          "aria-label",
+          `Open shopping bag, ${totals.count} items`,
+        );
+
+        const items = products.filter((product) => cart[product.id]);
+
+        byId("cartItems").innerHTML = items.length
+          ? items
+              .map(
+                (product) => `
+      <div class="cart-item">
+        <div class="cart-thumb">
+          <svg aria-hidden="true"><use href="#${product.art}"></use></svg>
+        </div>
+        <div>
+          <strong>${product.name}</strong>
+          <small>${money(product.price)} each</small>
+          <div class="quantity">
+            <button data-change="${product.id}" data-delta="-1"
+                    aria-label="Decrease quantity of ${product.name}">−</button>
+            <span aria-label="Quantity">${cart[product.id]}</span>
+            <button data-change="${product.id}" data-delta="1"
+                    ${cart[product.id] >= 99 ? "disabled" : ""}
+                    aria-label="Increase quantity of ${product.name}">+</button>
+          </div>
+        </div>
+        <div>
+          <strong>${money(product.price * cart[product.id])}</strong>
+          <button class="remove" data-remove="${product.id}"
+                  aria-label="Remove ${product.name} from bag">Remove</button>
+        </div>
+      </div>
+    `,
+              )
+              .join("")
+          : '<p style="padding:28px 0">Your bag is waiting for its first green addition.</p>';
+
+        byId("subtotal").textContent = money(totals.subtotal);
+        byId("shipping").textContent =
+          totals.subtotal > 0 && totals.shipping === 0
+            ? "Free (demo)"
+            : money(totals.shipping);
+        byId("total").textContent = money(totals.total);
+        byId("checkoutButton").disabled = totals.count === 0;
+        byId("checkoutMessage").textContent = "";
+        persistCart();
+      }
+
+      byId("productGrid").addEventListener("click", (event) => {
+        const button = event.target.closest("[data-add]");
+        if (!button) return;
+        const id = button.dataset.add;
+        const product = products.find((item) => item.id === id);
+        if (!product) return;
+
+        if ((cart[id] || 0) >= 99) {
+          toast("Maximum demo quantity: 99 per product.");
+          return;
+        }
+        cart[id] = (cart[id] || 0) + 1;
+        updateCart();
+        button.classList.add("added");
+        setTimeout(() => button.classList.remove("added"), 380);
+        toast(`${product.name} added to your bag`);
+      });
+
+      document.querySelectorAll(".filter").forEach((button) => {
+        button.addEventListener("click", () => {
+          category = button.dataset.category;
+          document.querySelectorAll(".filter").forEach((filter) => {
+            const selected = filter === button;
+            filter.classList.toggle("active", selected);
+            filter.setAttribute("aria-pressed", String(selected));
+          });
+          renderProducts();
+        });
+      });
+
+      byId("search").addEventListener("input", renderProducts);
+      byId("sort").addEventListener("change", renderProducts);
+
+      const dialog = byId("cartDialog");
+
+      byId("openCart").addEventListener("click", () => {
+        updateCart();
+        dialog.showModal();
+        document.body.classList.add("modal-open");
+      });
+
+      byId("closeCart").addEventListener("click", () => dialog.close());
+
+      dialog.addEventListener("close", () => {
+        document.body.classList.remove("modal-open");
+      });
+
+      dialog.addEventListener("click", (event) => {
+        const bounds = dialog.getBoundingClientRect();
+        if (
+          event.target === dialog &&
+          (event.clientX < bounds.left ||
+            event.clientX > bounds.right ||
+            event.clientY < bounds.top ||
+            event.clientY > bounds.bottom)
+        ) {
+          dialog.close();
+        }
+      });
+
+      byId("cartItems").addEventListener("click", (event) => {
+        const change = event.target.closest("[data-change]");
+        const remove = event.target.closest("[data-remove]");
+        if (!change && !remove) return;
+
+        const id = change ? change.dataset.change : remove.dataset.remove;
+        if (!products.some((product) => product.id === id)) return;
+
+        if (change) {
+          cart[id] = Math.max(
+            0,
+            Math.min(99, (cart[id] || 0) + Number(change.dataset.delta)),
+          );
+          if (cart[id] === 0) delete cart[id];
+        } else {
+          delete cart[id];
+        }
+
+        updateCart();
+
+        /* Preserve a useful keyboard focus target after rebuilding cart rows. */
+        const selector = change
+          ? `[data-change="${id}"][data-delta="${change.dataset.delta}"]`
+          : `[data-remove="${id}"]`;
+        const replacement = byId("cartItems").querySelector(selector);
+        if (replacement && !replacement.disabled) replacement.focus();
+        else byId("closeCart").focus();
+      });
+
+      byId("checkoutButton").addEventListener("click", () => {
+        const totals = calculateCart();
+        if (!totals.count) return;
+        byId("checkoutMessage").textContent =
+          `Demo checkout preview: ${totals.count} item(s), illustrative total ` +
+          `${money(totals.total)}. No order has been placed and no payment has ` +
+          `been taken. A live store needs a secure backend and a verified payment ` +
+          `or cash-on-delivery workflow.`;
+      });
+
+      byId("newsletterForm").addEventListener("submit", (event) => {
+        event.preventDefault();
+        byId("emailStatus").textContent =
+          "Demo complete. You have not been subscribed; no email was saved or sent.";
+        event.target.reset();
+      });
+
+      byId("printPlan").addEventListener("click", () => {
+        document.querySelectorAll(".plan-block").forEach((block) => {
+          block.open = true;
+        });
+        window.print();
+      });
+
+      byId("year").textContent = new Date().getFullYear();
+      renderProducts();
+      updateCart();
+    </script>
+  </body>
+</html>
