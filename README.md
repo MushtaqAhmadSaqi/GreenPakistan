@@ -18,6 +18,7 @@ The project is currently implemented as a static website in
   - Category filters
   - Search
   - Price and name sorting
+  - Grid/list view toggle (saved in `localStorage`)
   - Product information disclosures
 - Demo shopping bag with:
   - Add, remove, and quantity controls
@@ -62,7 +63,9 @@ http://localhost:8000
 
 ```text
 .
-├── index.html   # Complete site markup, styles, illustrations, and JavaScript
+├── index.html   # Site markup and inline SVG illustration symbols
+├── styles.css   # Complete site styling
+├── script.js    # Catalogue, cart, and interactive behavior
 └── README.md    # Project documentation
 ```
 
@@ -72,7 +75,7 @@ http://localhost:8000
 - CSS3
 - Vanilla JavaScript
 - Inline SVG illustrations
-- Browser `localStorage` for the demo shopping bag
+- Browser `localStorage` for the demo shopping bag and catalog view preference
 
 ## Important prototype notes
 
@@ -89,10 +92,10 @@ system.
 
 ## Customization
 
-The main catalogue is defined near the bottom of `index.html` in the
+The main catalogue is defined in `script.js` in the
 `products` array. Each product includes its name, category, price,
 illustration reference, color, badge, and description.
 
-The primary visual theme is defined at the top of the file in the CSS
+The primary visual theme is defined at the top of `styles.css` in the CSS
 `:root` variables, including the forest green, lime, cream, and neutral
 surface colors.
