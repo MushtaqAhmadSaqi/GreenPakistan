@@ -1,16 +1,16 @@
 :root {
-  --forest: #173e30;
-  --green: #285941;
-  --lime: #d9ee91;
-  --cream: #f8f7f1;
-  --paper: #fffef9;
-  --ink: #24372c;
-  --muted: #627266;
-  --line: #dde2d6;
-  --peach: #efdfcb;
-  --radius: 22px;
-  --shadow-soft: 0 18px 45px rgba(23, 62, 48, 0.09);
-  --shadow-lift: 0 22px 50px rgba(23, 62, 48, 0.15);
+  --forest: #0D2A20;
+  --green: #1B4332;
+  --lime: #C5F04F;
+  --cream: #FAF9F6;
+  --paper: #FFFFFF;
+  --ink: #111815;
+  --muted: #64746B;
+  --line: #E2E8F0;
+  --peach: #FCEBD7;
+  --radius: 24px;
+  --shadow-soft: 0 20px 40px -12px rgba(13, 42, 32, 0.08);
+  --shadow-lift: 0 30px 60px -15px rgba(13, 42, 32, 0.15);
 }
 * {
   box-sizing: border-box;
@@ -23,9 +23,9 @@ body {
   margin: 0;
   color: var(--ink);
   background:
-    radial-gradient(circle at 8% 2%, rgba(217, 238, 145, 0.2), transparent 24rem),
+    radial-gradient(circle at 8% 2%, rgba(197, 240, 79, 0.15), transparent 30rem),
     var(--cream);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
   line-height: 1.6;
 }
 body.modal-open {
@@ -82,18 +82,19 @@ h3 {
 }
 h1,
 h2,
+h3,
 .serif {
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: 'Outfit', sans-serif;
 }
 h1 {
-  font-size: clamp(3.2rem, 6.4vw, 6.2rem);
-  font-weight: 500;
-  letter-spacing: -0.055em;
+  font-size: clamp(3.5rem, 7vw, 7rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
 }
 h2 {
-  font-size: clamp(2rem, 4vw, 3.5rem);
-  font-weight: 500;
-  letter-spacing: -0.035em;
+  font-size: clamp(2.2rem, 4.5vw, 4rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
 }
 h3 {
   font-size: 1.2rem;
@@ -117,32 +118,41 @@ small {
   color: var(--muted);
 }
 .btn {
-  border: 1px solid var(--forest);
+  border: none;
   background: var(--forest);
   color: white;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 12px;
-  padding: 13px 23px;
+  padding: 16px 32px;
   border-radius: 100px;
-  font-weight: 700;
+  font-weight: 600;
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.05rem;
   transition:
-    background 0.2s,
-    transform 0.2s;
+    background 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .btn:hover {
   background: var(--green);
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(23, 62, 48, 0.15);
+}
+.btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 4px 8px rgba(23, 62, 48, 0.1);
 }
 .btn.light {
   background: var(--lime);
   color: var(--forest);
-  border-color: var(--lime);
+  border: none;
 }
 .btn.outline {
   background: transparent;
   color: var(--forest);
+  border: 1px solid rgba(13, 42, 32, 0.2);
 }
 .btn.outline:hover {
   background: #e9eddf;
@@ -170,14 +180,15 @@ small {
   position: sticky;
   top: 0;
   z-index: 20;
-  background: rgba(248, 247, 241, 0.84);
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--line);
-  transition: box-shadow 0.25s, background 0.25s;
+  background: rgba(250, 249, 246, 0.65);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+  transition: box-shadow 0.3s ease, background 0.3s ease;
 }
 .site-header.scrolled {
-  background: rgba(248, 247, 241, 0.96);
-  box-shadow: 0 8px 30px rgba(23, 62, 48, 0.08);
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 10px 30px rgba(13, 42, 32, 0.05);
 }
 .scroll-progress {
   position: fixed;
@@ -225,8 +236,28 @@ small {
   font-size: 0.86rem;
   font-weight: 700;
 }
+.nav-links a {
+  position: relative;
+  padding-bottom: 2px;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: #64812f;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
 .nav-links a:hover {
   color: #64812f;
+}
+.nav-links a:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
 }
 .cart-button {
   border: 1px solid var(--line);
@@ -456,11 +487,18 @@ small {
   border-radius: 100px;
   padding: 9px 17px;
   font-size: 0.83rem;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+.filter:hover {
+  background: #f0f4e8;
+  transform: translateY(-2px);
 }
 .filter.active {
   background: var(--forest);
   color: white;
   border-color: var(--forest);
+  transform: translateY(0);
 }
 .product-grid {
   display: grid;
@@ -486,19 +524,19 @@ small {
 }
 .product-card {
   background: var(--paper);
-  border: 1px solid var(--line);
-  border-radius: 18px;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  border-radius: 28px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   transition:
-    transform 0.2s,
-    box-shadow 0.2s;
-  animation: card-in 0.45s ease both;
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: card-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) backwards;
 }
 .product-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 14px 28px #173e300b;
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lift);
 }
 .product-art {
   position: relative;
@@ -571,17 +609,24 @@ small {
   height: 36px;
   font-size: 1.4rem;
   background: transparent;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .add-button:hover {
   background: var(--forest);
   color: white;
   border-color: var(--forest);
+  transform: scale(1.1) rotate(90deg);
 }
 .add-button.added {
   background: var(--lime);
   color: var(--forest);
   border-color: var(--lime);
-  animation: added-pop 0.35s ease;
+  animation: added-pop 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: scale(1) rotate(0);
 }
 .no-results {
   grid-column: 1/-1;
@@ -806,9 +851,15 @@ dialog {
   max-height: 90vh;
   box-shadow: 0 25px 100px #0003;
 }
+dialog[open] {
+  animation: dialog-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
 dialog::backdrop {
   background: #10271f90;
   backdrop-filter: blur(3px);
+}
+dialog[open]::backdrop {
+  animation: backdrop-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 .cart-header {
   padding: 23px;
@@ -929,15 +980,23 @@ dialog::backdrop {
   transform: translate(-50%, 0);
 }
 @keyframes rise-in {
-  from { opacity: 0; transform: translateY(18px); }
+  from { opacity: 0; transform: translateY(25px); }
   to { opacity: 1; transform: none; }
 }
 @keyframes card-in {
-  from { opacity: 0; transform: translateY(10px); }
+  from { opacity: 0; transform: translateY(20px) scale(0.95); }
   to { opacity: 1; transform: none; }
 }
 @keyframes added-pop {
-  50% { transform: scale(1.18); }
+  50% { transform: scale(1.2); }
+}
+@keyframes dialog-in {
+  from { opacity: 0; transform: scale(0.95) translateY(20px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+@keyframes backdrop-in {
+  from { opacity: 0; backdrop-filter: blur(0px); }
+  to { opacity: 1; backdrop-filter: blur(3px); }
 }
 .visually-hidden {
   position: absolute;

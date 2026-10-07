@@ -227,8 +227,8 @@ Search input is never interpolated into HTML.
   byId("productGrid").innerHTML = visible.length
     ? visible
         .map(
-          (product) => `
-<article class="product-card">
+          (product, index) => `
+<article class="product-card" style="animation-delay: ${index * 0.08}s">
   <div class="product-art" style="background:${product.color}">
     <span class="product-badge">${product.badge}</span>
     <svg role="img" aria-label="Illustration of ${product.name}"
@@ -250,7 +250,7 @@ Search input is never interpolated into HTML.
     </div>
   </div>
 </article>
-`,
+`
         )
         .join("")
     : '<p class="no-results">No products found. Try another search or category.</p>';
