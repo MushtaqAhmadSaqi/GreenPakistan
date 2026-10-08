@@ -305,6 +305,9 @@
           <a href="#ideas">Green ideas</a>
           <a href="#business-plan">Business plan</a>
         </nav>
+        <button class="theme-button" id="themeToggle" type="button" aria-pressed="false">
+          <span aria-hidden="true">◐</span><span class="theme-label">Night mode</span>
+        </button>
         <button class="cart-button" id="openCart" aria-haspopup="dialog">
           Bag <span class="cart-count" id="cartCount">0</span>
         </button>
@@ -926,6 +929,11 @@
         </p>
         <p id="checkoutMessage" role="status"></p>
       </div>
+    </dialog>
+
+    <dialog id="quickViewDialog" class="quick-view" aria-labelledby="quickViewTitle">
+      <button class="close-button quick-view-close" id="closeQuickView" aria-label="Close product preview">×</button>
+      <div id="quickViewContent"></div>
     </dialog>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>

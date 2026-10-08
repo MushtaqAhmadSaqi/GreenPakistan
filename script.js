@@ -96,9 +96,13 @@ const money = (amount) => "PKR " + amount.toLocaleString("en-PK");
 const byId = (id) => document.getElementById(id);
 const STORAGE_KEY = "green-pakistan-cart-v1";
 const VIEW_STORAGE_KEY = "green-pakistan-view-mode-v1";
+const FAVORITES_STORAGE_KEY = "green-pakistan-favorites-v1";
+const THEME_STORAGE_KEY = "green-pakistan-theme-v1";
 let category = "All";
 let cart = {};
+let favorites = new Set();
 let isListView = false;
+let isNightMode = false;
 let toastTimer;
 
 /* Only known product IDs and valid integer quantities are restored. */
@@ -120,6 +124,43 @@ try {
   isListView = localStorage.getItem(VIEW_STORAGE_KEY) === "list";
 } catch {
   isListView = false;
+}
+
+try {
+  const savedFavorites = JSON.parse(
+    localStorage.getItem(FAVORITES_STORAGE_KEY) || "[]",
+  );
+  if (Array.isArray(savedFavorites)) {
+    favorites = new Set(
+      savedFavorites.filter((id) => products.some((product) => product.id === id)),
+    );
+  }
+  isNightMode = localStorage.getItem(THEME_STORAGE_KEY) === "night";
+} catch {
+  favorites = new Set();
+  isNightMode = false;
+}
+
+function persistFavorites() {
+  try {
+    localStorage.setItem(FAVORITES_STORAGE_KEY, JSON.stringify([...favorites]));
+  } catch {
+    /* Favorites continue to work for the current page if storage is unavailable. */
+  }
+}
+
+function applyTheme() {
+  document.body.classList.toggle("night-mode", isNightMode);
+  const button = byId("themeToggle");
+  button.setAttribute("aria-pressed", String(isNightMode));
+  button.querySelector(".theme-label").textContent = isNightMode
+    ? "Day mode"
+    : "Night mode";
+  try {
+    localStorage.setItem(THEME_STORAGE_KEY, isNightMode ? "night" : "day");
+  } catch {
+    /* Theme still works for the current page if storage is unavailable. */
+  }
 }
 
 function persistViewMode() {
@@ -231,6 +272,9 @@ Search input is never interpolated into HTML.
 <article class="product-card" style="animation-delay: ${index * 0.08}s">
   <div class="product-art" style="background:${product.color}">
     <span class="product-badge">${product.badge}</span>
+    <button class="favorite-button ${favorites.has(product.id) ? "is-favorite" : ""}"
+            data-favorite="${product.id}" aria-pressed="${favorites.has(product.id)}"
+            aria-label="${favorites.has(product.id) ? "Remove" : "Save"} ${product.name} ${favorites.has(product.id) ? "from" : "to"} favorites">♡</button>
     <svg role="img" aria-label="Illustration of ${product.name}"
          viewBox="0 0 300 300">
       <use href="#${product.art}"></use>
@@ -239,6 +283,7 @@ Search input is never interpolated into HTML.
   <div class="product-info">
     <span class="product-category">${product.category}</span>
     <h3>${product.name}</h3>
+    <button class="quick-view-button" data-preview="${product.id}">Quick view <span>↗</span></button>
     <details>
       <summary>Product information</summary>
       <p>${product.description}</p>
@@ -325,6 +370,25 @@ function updateCart() {
 }
 
 byId("productGrid").addEventListener("click", (event) => {
+  const favoriteButton = event.target.closest("[data-favorite]");
+  if (favoriteButton) {
+    const id = favoriteButton.dataset.favorite;
+    if (favorites.has(id)) {
+      favorites.delete(id);
+      toast("Removed from favorites");
+    } else {
+      favorites.add(id);
+      toast("Saved to favorites");
+    }
+    persistFavorites();
+    renderProducts();
+    return;
+  }
+  const previewButton = event.target.closest("[data-preview]");
+  if (previewButton) {
+    openQuickView(previewButton.dataset.preview);
+    return;
+  }
   const button = event.target.closest("[data-add]");
   if (!button) return;
   const id = button.dataset.add;
@@ -342,6 +406,26 @@ byId("productGrid").addEventListener("click", (event) => {
   toast(`${product.name} added to your bag`);
 });
 
+function openQuickView(id) {
+  const product = products.find((item) => item.id === id);
+  if (!product) return;
+  const quickView = byId("quickViewDialog");
+  byId("quickViewContent").innerHTML = `
+    <div class="quick-view-art" style="background:${product.color}">
+      <svg aria-hidden="true" viewBox="0 0 300 300"><use href="#${product.art}"></use></svg>
+    </div>
+    <div class="quick-view-copy">
+      <span class="product-category">${product.category}</span>
+      <h2 id="quickViewTitle">${product.name}</h2>
+      <p>${product.description}</p>
+      <div class="quick-view-actions">
+        <strong class="price">${money(product.price)}</strong>
+        <button class="btn" data-quick-add="${product.id}">Add to bag <span>+</span></button>
+      </div>
+    </div>`;
+  quickView.showModal();
+}
+
 document.querySelectorAll(".filter").forEach((button) => {
   button.addEventListener("click", () => {
     category = button.dataset.category;
@@ -356,8 +440,14 @@ document.querySelectorAll(".filter").forEach((button) => {
 
 byId("search").addEventListener("input", renderProducts);
 byId("sort").addEventListener("change", renderProducts);
+byId("themeToggle").addEventListener("click", () => {
+  isNightMode = !isNightMode;
+  applyTheme();
+  toast(isNightMode ? "Night mode enabled" : "Day mode enabled");
+});
 
 const dialog = byId("cartDialog");
+const quickViewDialog = byId("quickViewDialog");
 
 byId("openCart").addEventListener("click", () => {
   updateCart();
@@ -369,6 +459,30 @@ byId("closeCart").addEventListener("click", () => dialog.close());
 
 dialog.addEventListener("close", () => {
   document.body.classList.remove("modal-open");
+});
+
+byId("closeQuickView").addEventListener("click", () => quickViewDialog.close());
+quickViewDialog.addEventListener("click", (event) => {
+  const bounds = quickViewDialog.getBoundingClientRect();
+  if (
+    event.target === quickViewDialog &&
+    (event.clientX < bounds.left ||
+      event.clientX > bounds.right ||
+      event.clientY < bounds.top ||
+      event.clientY > bounds.bottom)
+  ) {
+    quickViewDialog.close();
+  }
+});
+quickViewDialog.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-quick-add]");
+  if (!button) return;
+  const product = products.find((item) => item.id === button.dataset.quickAdd);
+  if (!product) return;
+  cart[product.id] = Math.min(99, (cart[product.id] || 0) + 1);
+  updateCart();
+  quickViewDialog.close();
+  toast(`${product.name} added to your bag`);
 });
 
 dialog.addEventListener("click", (event) => {
@@ -438,6 +552,7 @@ byId("printPlan").addEventListener("click", () => {
 });
 
 byId("year").textContent = new Date().getFullYear();
+applyTheme();
 initializeViewMode();
 renderProducts();
 updateCart();
