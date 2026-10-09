@@ -3,16 +3,19 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#173e30" />
+    <meta name="theme-color" content="#1a2744" />
     <meta
       name="description"
-      content="Green Pakistan: a student e-commerce concept for plants, reusable essentials, and grow-your-own kits."
+      content="ReGongches — Authentic traditional clothing, textiles and heritage gifts from Gilgit-Baltistan. Threads of Mountain Heritage."
     />
-    <title>Green Pakistan | Small changes. Greener tomorrows.</title>
+    <title>ReGongches | Threads of Mountain Heritage</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@400;500;600&family=Outfit:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="styles.css" />
   </head>
 
@@ -20,366 +23,197 @@
     <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
     <a class="skip" href="#shop">Skip to products</a>
 
-    <!-- Original reusable SVG illustrations. -->
-    <svg
-      width="0"
-      height="0"
-      aria-hidden="true"
-      style="position: absolute; overflow: hidden"
-    >
+    <!-- SVG defs for mountain logo icon -->
+    <svg width="0" height="0" aria-hidden="true" style="position:absolute;overflow:hidden">
       <defs>
-        <symbol id="leaf-logo" viewBox="0 0 40 40">
-          <path d="M8 30C5 13 16 5 34 6c0 17-8 28-24 25" fill="currentColor" />
-          <path
-            d="M8 34 26 15"
-            fill="none"
-            stroke="#173e30"
-            stroke-width="2.5"
-            stroke-linecap="round"
-          />
-        </symbol>
-
-        <symbol id="plant" viewBox="0 0 300 300">
-          <ellipse cx="150" cy="277" rx="83" ry="12" fill="#173e3012" />
-          <path
-            d="M151 219V67M151 158l-42-41M151 133l42-47M151 190l47-36"
-            fill="none"
-            stroke="#37583b"
-            stroke-width="7"
-            stroke-linecap="round"
-          />
-          <path
-            d="M150 108C103 91 113 39 146 21c27 30 29 63 4 87"
-            fill="#658745"
-          />
-          <path
-            d="M143 156C91 164 68 132 71 92c47-1 73 17 72 64"
-            fill="#375f3f"
-          />
-          <path
-            d="M159 136c-1-48 31-73 75-68 0 45-29 70-75 68"
-            fill="#769b53"
-          />
-          <path
-            d="M157 193c6-44 36-62 78-48-10 39-37 52-78 48"
-            fill="#49764a"
-          />
-          <path d="M96 215h110l-17 59h-76z" fill="#be8668" />
-          <rect x="90" y="203" width="123" height="20" rx="7" fill="#d19d7e" />
-          <path
-            d="m117 226 9 40"
-            stroke="#dfaf8e"
-            stroke-width="6"
-            stroke-linecap="round"
-          />
-        </symbol>
-
-        <symbol id="herb" viewBox="0 0 300 300">
-          <ellipse cx="150" cy="277" rx="75" ry="10" fill="#173e3012" />
-          <g stroke="#527548" stroke-width="5" fill="none">
-            <path d="M150 218V75M147 186l-50-46M153 176l47-49M149 142l-35-38" />
-          </g>
-          <g fill="#6f934e">
-            <ellipse
-              cx="144"
-              cy="73"
-              rx="18"
-              ry="31"
-              transform="rotate(-20 144 73)"
-            />
-            <ellipse
-              cx="111"
-              cy="113"
-              rx="19"
-              ry="30"
-              transform="rotate(-47 111 113)"
-            />
-            <ellipse
-              cx="94"
-              cy="144"
-              rx="21"
-              ry="32"
-              transform="rotate(-50 94 144)"
-            />
-            <ellipse
-              cx="199"
-              cy="124"
-              rx="21"
-              ry="33"
-              transform="rotate(45 199 124)"
-            />
-            <ellipse
-              cx="179"
-              cy="87"
-              rx="18"
-              ry="27"
-              transform="rotate(40 179 87)"
-            />
-          </g>
-          <g fill="#406e42">
-            <ellipse
-              cx="127"
-              cy="168"
-              rx="17"
-              ry="29"
-              transform="rotate(-38 127 168)"
-            />
-            <ellipse
-              cx="172"
-              cy="154"
-              rx="18"
-              ry="28"
-              transform="rotate(40 172 154)"
-            />
-          </g>
-          <path d="M98 214h104l-13 61h-78z" fill="#d3b28a" />
-          <rect x="91" y="201" width="118" height="20" rx="5" fill="#e3c49e" />
-        </symbol>
-
-        <symbol id="tree" viewBox="0 0 300 300">
-          <ellipse cx="150" cy="278" rx="68" ry="10" fill="#173e3012" />
-          <path
-            d="M149 232V91m0 70-37-35m37 12 39-34"
-            stroke="#8a6a46"
-            stroke-width="8"
-            fill="none"
-          />
-          <g fill="#658c47">
-            <circle cx="111" cy="99" r="37" />
-            <circle cx="149" cy="63" r="39" />
-            <circle cx="186" cy="93" r="40" />
-            <circle cx="153" cy="116" r="43" />
-          </g>
-          <g fill="#85a859">
-            <circle cx="124" cy="77" r="24" />
-            <circle cx="158" cy="49" r="23" />
-            <circle cx="181" cy="87" r="25" />
-          </g>
-          <path d="M110 222h80l-7 53h-66z" fill="#b19372" />
-          <path d="M110 231h80M115 244h70" stroke="#917454" stroke-width="2" />
-        </symbol>
-
-        <symbol id="tote" viewBox="0 0 300 300">
-          <ellipse cx="150" cy="277" rx="84" ry="10" fill="#173e3012" />
-          <path
-            d="M108 117V91a42 42 0 0 1 84 0v26"
-            stroke="#a88a58"
-            stroke-width="13"
-            fill="none"
-          />
-          <path d="M80 110h140l13 153H67z" fill="#dcc6a0" />
-          <path d="M83 112h17l-9 150H69z" fill="#c4ab7e" />
-          <path d="M205 115l12 146" stroke="#bda175" stroke-width="3" />
-          <path
-            d="M137 209c-16-45 6-65 44-66 1 38-13 67-44 66"
-            fill="#54774b"
-          />
-          <path d="m132 224 36-64" stroke="#365c3e" stroke-width="4" />
-          <text
-            x="150"
-            y="245"
-            text-anchor="middle"
-            font-family="Arial"
-            font-size="10"
-            fill="#456640"
-            letter-spacing="2"
-          >
-            GREEN PAKISTAN
-          </text>
-        </symbol>
-
-        <symbol id="bottle" viewBox="0 0 300 300">
-          <ellipse cx="150" cy="279" rx="60" ry="10" fill="#173e3012" />
-          <rect x="127" y="32" width="46" height="28" rx="6" fill="#b89b71" />
-          <path
-            d="M124 61h52v24c0 13 20 20 20 40v128c0 14-10 22-23 22h-46c-13 0-23-8-23-22V125c0-20 20-27 20-40z"
-            fill="#426951"
-          />
-          <path
-            d="M121 126v117"
-            stroke="#648a6b"
-            stroke-width="9"
-            stroke-linecap="round"
-          />
-          <path d="M146 192c-13-28 2-42 28-43 1 27-7 44-28 43" fill="#d7e6b0" />
-          <path d="m141 203 24-43" stroke="#d7e6b0" stroke-width="2" />
-          <path d="M128 39h44" stroke="#d8bf94" stroke-width="3" />
-        </symbol>
-
-        <symbol id="brush" viewBox="0 0 300 300">
-          <ellipse cx="150" cy="277" rx="68" ry="10" fill="#173e3012" />
-          <g transform="rotate(24 150 150)">
-            <rect
-              x="135"
-              y="89"
-              width="25"
-              height="182"
-              rx="12"
-              fill="#c9a773"
-            />
-            <rect
-              x="126"
-              y="37"
-              width="43"
-              height="79"
-              rx="19"
-              fill="#ddbf8c"
-            />
-            <path
-              d="M132 47h32m-33 9h33m-34 9h34m-34 9h34m-34 9h34m-33 9h33"
-              stroke="#f9f4df"
-              stroke-width="5"
-            />
-            <path d="M143 139v103" stroke="#b68e57" stroke-width="2" />
-          </g>
-        </symbol>
-
-        <symbol id="kit" viewBox="0 0 300 300">
-          <ellipse cx="150" cy="278" rx="91" ry="10" fill="#173e3012" />
-          <path d="M60 145h180v123H60z" fill="#c8aa79" />
-          <path d="M60 145h180l-28-25H83z" fill="#e1c798" />
-          <path d="M60 145h38v123H60z" fill="#b89969" />
-          <rect x="120" y="164" width="92" height="75" rx="4" fill="#f6f0dc" />
-          <path d="M165 218v-32" stroke="#47734a" stroke-width="4" />
-          <path d="M165 200c-25 1-30-14-30-24 22-1 31 8 30 24" fill="#779654" />
-          <path d="M165 190c1-22 15-28 29-24-2 17-11 26-29 24" fill="#47734a" />
-          <rect
-            x="92"
-            y="64"
-            width="68"
-            height="79"
-            rx="4"
-            fill="#f2e7c8"
-            transform="rotate(-8 92 64)"
-          />
-          <path
-            d="M119 119V87m0 19-12-10m12 3 13-11"
-            stroke="#608047"
-            stroke-width="4"
-            fill="none"
-          />
-          <path d="M183 129V73" stroke="#557343" stroke-width="5" />
-          <path d="M183 98c-25-1-33-18-30-33 21 0 34 13 30 33" fill="#6b8d4d" />
-          <path d="M183 84c2-23 18-31 36-27-2 22-18 31-36 27" fill="#8ba95c" />
-        </symbol>
-
-        <symbol id="compost" viewBox="0 0 300 300">
-          <ellipse cx="150" cy="279" rx="84" ry="10" fill="#173e3012" />
-          <path d="M89 114h122l-10 147H100z" fill="#6d7c57" />
-          <path d="M101 119h17l7 140h-15z" fill="#8b9973" />
-          <rect x="78" y="98" width="144" height="21" rx="7" fill="#4c6144" />
-          <rect x="129" y="83" width="42" height="16" rx="6" fill="#3c5037" />
-          <path
-            d="M94 139c-48 0-47 78 8 78M207 139c48 0 47 78-8 78"
-            fill="none"
-            stroke="#445940"
-            stroke-width="7"
-          />
-          <path
-            d="M146 214c-16-34 2-54 37-57 1 35-10 57-37 57"
-            fill="#d8e4bb"
-          />
-          <path d="m140 228 31-56" stroke="#d8e4bb" stroke-width="3" />
+        <symbol id="rg-logo" viewBox="0 0 60 60">
+          <!-- Mountain peaks -->
+          <polygon points="30,6 48,40 12,40" fill="currentColor" opacity="0.85"/>
+          <polygon points="18,18 36,40 0,40" fill="currentColor" opacity="0.55"/>
+          <polygon points="42,14 60,40 24,40" fill="currentColor" opacity="0.55"/>
+          <!-- Fabric wave below -->
+          <path d="M8 46 Q20 38 30 46 Q40 54 52 46" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
         </symbol>
       </defs>
     </svg>
 
-    <div class="announcement">
-      A student business concept · Thoughtful products for a greener everyday
+    <!-- Announcement bar -->
+    <div class="announcement" id="announcement">
+      🏔️ Authentic mountain heritage · Free delivery on orders above PKR 5,000 ·
+      <button class="ann-close" id="annClose" aria-label="Close announcement">✕</button>
     </div>
 
-    <header class="site-header">
+    <!-- Header -->
+    <header class="site-header" id="siteHeader">
       <div class="container nav">
-        <a href="#" class="brand" aria-label="Green Pakistan home">
-          <svg class="brand-icon" aria-hidden="true">
-            <use href="#leaf-logo" />
-          </svg>
-          <span>
-            <strong>GREEN PAKISTAN</strong>
-            <small>YOUR NAME · YOUR REG. NO.</small>
+        <a href="#" class="brand" aria-label="ReGongches home">
+          <div class="brand-icon-wrap">
+            <svg class="brand-icon" aria-hidden="true"><use href="#rg-logo" /></svg>
+          </div>
+          <span class="brand-text">
+            <strong>ReGongches</strong>
+            <small>Mushtaq Ahmad · SP25-BAI-047</small>
           </span>
         </a>
+
         <nav class="nav-links" aria-label="Main navigation">
-          <a href="#shop">The collection</a>
-          <a href="#story">Our purpose</a>
-          <a href="#ideas">Green ideas</a>
-          <a href="#business-plan">Business plan</a>
+          <a href="#shop">Shop</a>
+          <a href="#categories">Collections</a>
+          <a href="#story">Our Story</a>
+          <a href="#artisans">Artisans</a>
+          <a href="#business-plan">Business Plan</a>
         </nav>
-        <button class="theme-button" id="themeToggle" type="button" aria-pressed="false">
-          <span aria-hidden="true">◐</span><span class="theme-label">Night mode</span>
-        </button>
-        <button class="cart-button" id="openCart" aria-haspopup="dialog">
-          Bag <span class="cart-count" id="cartCount">0</span>
-        </button>
+
+        <div class="nav-actions">
+          <button class="theme-button" id="themeToggle" type="button" aria-pressed="false">
+            <span aria-hidden="true" id="themeIcon">◐</span>
+          </button>
+          <button class="cart-button" id="openCart" aria-haspopup="dialog">
+            <span aria-hidden="true">🛒</span>
+            <span class="cart-count" id="cartCount">0</span>
+          </button>
+        </div>
       </div>
     </header>
 
     <main>
-      <section class="container hero storefront" aria-labelledby="heroTitle">
-        <div class="hero-copy">
-          <span class="eyebrow">Rooted in care. Growing with you.</span>
-          <h1 id="heroTitle">
-            Small changes.<br /><em>Greener</em><br />tomorrows.
-          </h1>
-          <p>
-            A little more green. A little less throwaway. Discover plants,
-            reusable essentials, and the joy of growing something of your own.
-          </p>
-          <div class="hero-actions">
-            <a class="btn" href="#shop"
-              >Explore the collection <span>↗</span></a
-            >
-            <a class="btn outline" href="#story">Meet Green Pakistan</a>
+      <!-- ═══════════════════════════════════════ HERO ═══ -->
+      <section class="hero-section" aria-labelledby="heroTitle">
+        <div class="hero-bg">
+          <img src="hero_banner.png" alt="Traditional Gilgit-Baltistan mountain heritage clothing" class="hero-bg-img" />
+          <div class="hero-overlay"></div>
+        </div>
+        <div class="container hero-content">
+          <div class="hero-copy reveal">
+            <span class="eyebrow eyebrow-light">Gilgit-Baltistan · Est. 2026</span>
+            <h1 id="heroTitle">
+              Threads of<br /><em>Mountain</em><br />Heritage.
+            </h1>
+            <p>
+              Authentic traditional clothing and textiles from the mountains of
+              Gilgit-Baltistan — every product tells its story of origin,
+              craftsmanship and culture.
+            </p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="#shop">Explore Collection <span>↗</span></a>
+              <a class="btn btn-ghost" href="#story">Meet ReGongches</a>
+            </div>
+            <div class="hero-badges">
+              <span class="badge">✦ Handmade</span>
+              <span class="badge">✦ Verified Origin</span>
+              <span class="badge">✦ Artisan Stories</span>
+            </div>
           </div>
-          <div class="hero-note">
-            <span aria-hidden="true">↟</span>
-            Designed around everyday habits—not perfect lifestyles.
+          <div class="hero-card-float reveal-delay">
+            <div class="float-card">
+              <div class="float-card-icon">🧵</div>
+              <strong>300+ Artisan Products</strong>
+              <small>From Gilgit, Hunza, Baltistan & beyond</small>
+            </div>
+            <div class="float-card">
+              <div class="float-card-icon">📦</div>
+              <strong>Nationwide Delivery</strong>
+              <small>Cash on delivery available</small>
+            </div>
+            <div class="float-card">
+              <div class="float-card-icon">✅</div>
+              <strong>Verified Authenticity</strong>
+              <small>Origin info with every product</small>
+            </div>
           </div>
         </div>
-        <div
-          class="hero-art"
-          role="img"
-          aria-label="Illustration of a leafy plant in a terracotta pot"
-        >
-          <svg class="hero-plant" aria-hidden="true"><use href="#plant" /></svg>
-          <div class="round-stamp">LET GOOD<b>GROW</b>EVERY DAY</div>
-          <div class="art-tag">
-            <strong>Your next chapter is greener.</strong>
-            <small>Start with one plant. Build one habit.</small>
-          </div>
+        <div class="hero-scroll-hint" aria-hidden="true">
+          <span class="scroll-line"></span>
+          <span>Scroll</span>
         </div>
       </section>
 
-      <section
-        class="values-strip storefront"
-        aria-label="Our proposed approach"
-      >
+      <!-- ═══════════════════════════════════ VALUES STRIP ═══ -->
+      <section class="values-strip storefront" aria-label="Our commitments">
         <div class="container values-grid">
-          <div>
-            <span aria-hidden="true">↟</span> Plants & growing essentials
+          <div class="value-item">
+            <span class="value-icon">⛰️</span>
+            <div>
+              <strong>Verified Origin</strong>
+              <small>Region & district info on every product</small>
+            </div>
           </div>
-          <div>
-            <span aria-hidden="true">↺</span> Reuse-first product choices
+          <div class="value-item">
+            <span class="value-icon">🤲</span>
+            <div>
+              <strong>Artisan Stories</strong>
+              <small>Know who made your clothing</small>
+            </div>
           </div>
-          <div>
-            <span aria-hidden="true">◇</span> Clear materials information
+          <div class="value-item">
+            <span class="value-icon">📐</span>
+            <div>
+              <strong>Size Guidance</strong>
+              <small>Full measurement charts & custom orders</small>
+            </div>
           </div>
-          <div>
-            <span aria-hidden="true">♡</span> Beginner-friendly guidance
+          <div class="value-item">
+            <span class="value-icon">🚚</span>
+            <div>
+              <strong>Tracked Delivery</strong>
+              <small>Nationwide · Cash on delivery</small>
+            </div>
           </div>
         </div>
       </section>
 
-      <section id="shop" class="section container storefront">
+      <!-- ═══════════════════════════════════ CATEGORIES ═══ -->
+      <section id="categories" class="section container storefront" aria-labelledby="catTitle">
         <div class="section-heading">
           <div>
-            <span class="eyebrow">The everyday green edit</span>
-            <h2>Good things to grow with.</h2>
+            <span class="eyebrow">Explore by collection</span>
+            <h2 id="catTitle">Mountain Heritage Collections</h2>
           </div>
-          <p class="muted">
-            Find a new leafy companion, rethink an everyday essential, or plant
-            your first seed.
-          </p>
+          <p class="muted">Eight curated categories of traditional Gilgit-Baltistan clothing and crafts.</p>
+        </div>
+        <div class="category-grid">
+          <button class="cat-card cat-active" data-cat="All" aria-pressed="true">
+            <span class="cat-emoji">🏔️</span>
+            <strong>All Products</strong>
+          </button>
+          <button class="cat-card" data-cat="Caps" aria-pressed="false">
+            <span class="cat-emoji">🎩</span>
+            <strong>Caps &amp; Headwear</strong>
+          </button>
+          <button class="cat-card" data-cat="Shawls" aria-pressed="false">
+            <span class="cat-emoji">🧣</span>
+            <strong>Shawls &amp; Scarves</strong>
+          </button>
+          <button class="cat-card" data-cat="Dresses" aria-pressed="false">
+            <span class="cat-emoji">👘</span>
+            <strong>Traditional Dresses</strong>
+          </button>
+          <button class="cat-card" data-cat="Waistcoats" aria-pressed="false">
+            <span class="cat-emoji">🧥</span>
+            <strong>Waistcoats</strong>
+          </button>
+          <button class="cat-card" data-cat="Accessories" aria-pressed="false">
+            <span class="cat-emoji">👜</span>
+            <strong>Accessories</strong>
+          </button>
+          <button class="cat-card" data-cat="Home" aria-pressed="false">
+            <span class="cat-emoji">🏠</span>
+            <strong>Home Textiles</strong>
+          </button>
+          <button class="cat-card" data-cat="Gifts" aria-pressed="false">
+            <span class="cat-emoji">🎁</span>
+            <strong>Heritage Gifts</strong>
+          </button>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════ SHOP ═══ -->
+      <section id="shop" class="section container storefront" aria-labelledby="shopTitle">
+        <div class="section-heading">
+          <div>
+            <span class="eyebrow">Our curated selection</span>
+            <h2 id="shopTitle">The ReGongches Edit</h2>
+          </div>
         </div>
 
         <div class="shop-tools">
@@ -388,556 +222,436 @@
             id="search"
             class="search"
             type="search"
-            placeholder="Search plants, bottles, grow kits…"
+            placeholder="Search caps, shawls, waistcoats…"
           />
           <label for="sort" class="visually-hidden">Sort products</label>
           <select id="sort" class="sort">
             <option value="featured">Sort: Featured</option>
-            <option value="low">Price: Low to high</option>
-            <option value="high">Price: High to low</option>
-            <option value="name">Name: A to Z</option>
+            <option value="low">Price: Low to High</option>
+            <option value="high">Price: High to Low</option>
+            <option value="name">Name: A–Z</option>
           </select>
-          <button
-            id="viewToggle"
-            class="tool-button"
-            type="button"
-            aria-pressed="false"
-            aria-label="Switch to list view"
-          >
-            View: Grid
-          </button>
-        </div>
-
-        <div class="filters" role="group" aria-label="Product categories">
-          <button class="filter active" data-category="All" aria-pressed="true">
-            All products
-          </button>
-          <button class="filter" data-category="Plants" aria-pressed="false">
-            Plants
-          </button>
-          <button class="filter" data-category="Reusables" aria-pressed="false">
-            Reusable essentials
-          </button>
-          <button class="filter" data-category="Grow kits" aria-pressed="false">
-            Grow & compost
+          <button id="viewToggle" class="tool-button" type="button" aria-pressed="false" aria-label="Switch to list view">
+            ⊞ Grid
           </button>
         </div>
 
         <p id="resultsCount" class="visually-hidden" role="status"></p>
         <div class="product-grid" id="productGrid"></div>
-        <noscript
-          ><p>
-            Please enable JavaScript to view products and use the shopping cart.
-          </p></noscript
-        >
+        <noscript><p>Please enable JavaScript to view products and use the shopping cart.</p></noscript>
         <p class="catalog-note">
-          Student prototype: sample prices in PKR, illustrative products, and no
-          live inventory. Product materials and supplier claims require
-          verification before launch.
+          Student prototype — SP25-BAI-047 · Prices in PKR are illustrative academic planning values.
+          Final pricing requires supplier confirmation. No live inventory or payment processing.
         </p>
       </section>
 
-      <section id="story" class="container storefront">
-        <div class="story">
-          <div
-            class="story-art"
-            role="img"
-            aria-label="Illustration of a reusable shopping bag"
-          >
-            <svg aria-hidden="true"><use href="#tote" /></svg>
-          </div>
-          <div class="story-copy">
-            <span class="eyebrow">Our purpose</span>
-            <h2>A greener Pakistan<br />starts at home.</h2>
-            <p>
-              Green Pakistan is built on a simple idea: thoughtful choices
-              should feel practical, welcoming, and possible.
-            </p>
-            <p>
-              Our proposed store brings plants, reusables, and gardening
-              essentials together—with honest descriptions and helpful guidance
-              instead of exaggerated environmental promises.
-            </p>
-            <a class="btn light" href="#business-plan"
-              >Explore our business concept ↗</a
-            >
+      <!-- ═══════════════════════════════════════ STORY ═══ -->
+      <section id="story" class="story-section storefront">
+        <div class="container">
+          <div class="story-grid">
+            <div class="story-copy">
+              <span class="eyebrow eyebrow-gold">Our Purpose</span>
+              <h2>Where mountain<br />tradition meets<br />modern commerce.</h2>
+              <p>
+                ReGongches is built on a simple belief: the extraordinary clothing and
+                textile heritage of Gilgit-Baltistan deserves a trusted digital home.
+              </p>
+              <p>
+                We connect local artisans and producers with customers across Pakistan
+                and beyond — with transparent origin information, cultural storytelling,
+                fair pricing and professional service.
+              </p>
+              <blockquote class="brand-quote">
+                "Every ReGongches product tells customers who made it, where it came
+                from, what it's made of, and what tradition it represents."
+              </blockquote>
+              <a class="btn btn-gold" href="#business-plan">Read Our Business Plan ↗</a>
+            </div>
+            <div class="story-imagery">
+              <div class="story-img-grid">
+                <img src="gilgiti_cap.png" alt="Traditional Gilgiti cap with embroidery" class="story-img story-img-1" />
+                <img src="embroidered_shawl.png" alt="Handwoven embroidered shawl" class="story-img story-img-2" />
+                <div class="story-stat-card">
+                  <span class="stat-num">8+</span>
+                  <span class="stat-label">Product Categories</span>
+                </div>
+                <div class="story-stat-card">
+                  <span class="stat-num">PKR<br/>1,800</span>
+                  <span class="stat-label">Starting Price</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      <section id="ideas" class="section container storefront">
+      <!-- ═══════════════════════════════════ ARTISANS ═══ -->
+      <section id="artisans" class="section container storefront" aria-labelledby="artisanTitle">
         <div class="section-heading">
           <div>
-            <span class="eyebrow">More than a shopping list</span>
-            <h2>Make room for better habits.</h2>
+            <span class="eyebrow">The hands behind the craft</span>
+            <h2 id="artisanTitle">Meet the Artisans</h2>
           </div>
-          <p class="muted">Three ideas shaping our future collections.</p>
+          <p class="muted">Every product is connected to a real maker with a real story.</p>
         </div>
-        <div class="idea-grid">
-          <article class="idea-card">
-            <div class="idea-number">01 /</div>
-            <h3>The balcony beginnings kit</h3>
-            <p>
-              A proposed bundle of seeds, growing medium, and a reusable pot,
-              with a simple getting-started guide.
-            </p>
-          </article>
-          <article class="idea-card">
-            <div class="idea-number">02 /</div>
-            <h3>A gift that keeps growing</h3>
-            <p>
-              Planned plant gifts for birthdays, classrooms, and office desks,
-              with a personal note and care instructions.
-            </p>
-          </article>
-          <article class="idea-card">
-            <div class="idea-number">03 /</div>
-            <h3>Know before you grow</h3>
-            <p>
-              Proposed product guides covering space, light, watering, regional
-              suitability, and relevant handling cautions.
-            </p>
-          </article>
-        </div>
-      </section>
-
-      <section class="container storefront" style="padding-bottom: 75px">
-        <div class="newsletter">
-          <div>
-            <span class="eyebrow">A little green in your inbox</span>
-            <h2>Grow your green routine.</h2>
-            <p>Future plant-care notes, product stories, and launch updates.</p>
-          </div>
-          <form id="newsletterForm">
-            <label class="visually-hidden" for="email"
-              >Your email address</label
-            >
-            <div class="email-row">
-              <input
-                type="email"
-                id="email"
-                placeholder="Your email address"
-                required
-              />
-              <button class="btn" type="submit">Try signup ↗</button>
+        <div class="artisan-grid">
+          <article class="artisan-card storefront">
+            <div class="artisan-avatar">🧑‍🎨</div>
+            <div class="artisan-info">
+              <strong>Master Embroiderer, Gilgit</strong>
+              <span class="artisan-region">Gilgit District</span>
+              <p>Specializes in traditional geometric embroidery patterns on caps and shawls, using techniques passed down through four generations.</p>
+              <span class="artisan-craft">Embroidery · Caps · Shawls</span>
             </div>
-            <small>Demo only. Your email is not transmitted or saved.</small>
-            <p id="emailStatus" role="status"></p>
-          </form>
+          </article>
+          <article class="artisan-card storefront">
+            <div class="artisan-avatar">👵</div>
+            <div class="artisan-info">
+              <strong>Weaving Collective, Hunza</strong>
+              <span class="artisan-region">Hunza Valley</span>
+              <p>A women's collective producing handwoven shawls and scarves using locally sourced wool, sustaining traditional Hunza weaving heritage.</p>
+              <span class="artisan-craft">Weaving · Shawls · Scarves</span>
+            </div>
+          </article>
+          <article class="artisan-card storefront">
+            <div class="artisan-avatar">🧵</div>
+            <div class="artisan-info">
+              <strong>Tailoring Unit, Skardu</strong>
+              <span class="artisan-region">Baltistan</span>
+              <p>A family tailoring unit creating embroidered waistcoats and traditional dresses, combining heritage patterns with contemporary quality standards.</p>
+              <span class="artisan-craft">Tailoring · Waistcoats · Dresses</span>
+            </div>
+          </article>
+        </div>
+        <p class="artisan-note muted">
+          Artisan profiles shown are representative examples for this academic prototype.
+          Final profiles require individual consent and verification before publication.
+        </p>
+      </section>
+
+      <!-- ═══════════════════════════════════ NEWSLETTER ═══ -->
+      <section class="newsletter-section storefront">
+        <div class="container">
+          <div class="newsletter-card">
+            <div class="newsletter-copy">
+              <span class="eyebrow eyebrow-gold">Threads of the North Campaign</span>
+              <h2>30 days of stories from the mountains.</h2>
+              <p>Join our launch campaign — one product, craft process, artisan story or regional tradition each day.</p>
+            </div>
+            <form id="newsletterForm" class="newsletter-form">
+              <label class="visually-hidden" for="email">Your email address</label>
+              <div class="email-row">
+                <input type="email" id="email" placeholder="Your email address" required />
+                <button class="btn btn-primary" type="submit">Subscribe ↗</button>
+              </div>
+              <small>Demo only. No email is transmitted or saved.</small>
+              <p id="emailStatus" role="status"></p>
+            </form>
+          </div>
         </div>
       </section>
 
-      <!-- Assignment documentation -->
+      <!-- ═══════════════════════════════ BUSINESS PLAN ═══ -->
       <section id="business-plan" class="section plan-section">
         <div class="container">
           <div class="plan-intro">
             <div>
-              <span class="eyebrow">CLO-1 · Assignment 1</span>
-              <h2>The business behind the green.</h2>
-              <p class="muted">E-Commerce Business Concept & Planning</p>
+              <span class="eyebrow">CSC417 · Assignment 1 · SP25-BAI-047</span>
+              <h2>E-Commerce Business Plan</h2>
+              <p class="muted">ReGongches: Threads of Mountain Heritage · Mushtaq Ahmad</p>
             </div>
-            <button class="btn no-print" id="printPlan">
-              Print business plan ↗
-            </button>
+            <button class="btn btn-primary no-print" id="printPlan">Print Business Plan ↗</button>
           </div>
 
           <div class="plan-cover">
-            <div class="brand">
-              <svg class="brand-icon" aria-hidden="true">
-                <use href="#leaf-logo" />
-              </svg>
-              <span>
-                <strong>GREEN PAKISTAN</strong>
-                <small>YOUR NAME · YOUR REG. NO.</small>
-              </span>
+            <div class="plan-cover-brand">
+              <svg class="brand-icon" aria-hidden="true" style="width:56px;height:56px"><use href="#rg-logo" /></svg>
+              <div>
+                <strong>ReGongches</strong>
+                <span>Threads of Mountain Heritage</span>
+                <small>Mushtaq Ahmad · SP25-BAI-047 · COMSATS</small>
+              </div>
             </div>
-            <h3>Small changes. Greener tomorrows.</h3>
-            <p>
-              Proposed venture: an independent online retailer of plants,
-              reusable household essentials, and beginner gardening kits. This
-              is an academic concept, not an official government initiative.
-            </p>
+            <div class="plan-cover-table">
+              <table>
+                <tbody>
+                  <tr><th>Submitted By</th><td>Mushtaq Ahmad</td></tr>
+                  <tr><th>Registration No.</th><td>SP25-BAI-047</td></tr>
+                  <tr><th>Course</th><td>CSC417</td></tr>
+                  <tr><th>Instructor</th><td>Mr. Khurram Iqbal</td></tr>
+                  <tr><th>Department</th><td>Computer Science — COMSATS</td></tr>
+                  <tr><th>Submission Date</th><td>10 October 2026</td></tr>
+                </tbody>
+              </table>
+            </div>
           </div>
 
           <div class="plan-grid">
+
             <details class="plan-block" open>
-              <summary>01 · Brand identity & business description</summary>
+              <summary>01 · Executive Summary &amp; Brand Identity</summary>
               <div class="plan-content">
-                <p><strong>Brand:</strong> Green Pakistan.</p>
-                <p>
-                  <strong>Logo:</strong> A leaf inside a circular emblem, paired
-                  with the brand name, student name, and registration number.
-                </p>
-                <p>
-                  <strong>Theme:</strong> Forest green, leaf green, and cream;
-                  botanical illustrations and uncluttered product layouts.
-                </p>
-                <p>
-                  <strong>Description:</strong> Green Pakistan is a proposed
-                  online store offering plants, reusable everyday products, and
-                  gardening kits to households in Pakistan. It aims to make
-                  thoughtful purchasing easier through accessible bundles, clear
-                  product information, and beginner guidance.
-                </p>
+                <p><strong>Brand Promise:</strong> Authentic mountain clothing with a story of origin.</p>
+                <p><strong>E-Commerce Type:</strong> Business-to-Consumer (B2C).</p>
+                <p><strong>Core Offer:</strong> Traditional clothing and textile products from Gilgit-Baltistan, supported by origin information and cultural storytelling.</p>
+                <p><strong>Domain:</strong> regongches.store · <strong>Hosting:</strong> HosterSale · <strong>Platform:</strong> WordPress + WooCommerce</p>
+                <p><strong>Logo Elements:</strong> Mountain peaks (regional origin), flowing fabric (textile elegance), geometric motif (embroidery craftsmanship).</p>
+                <p><strong>Colours:</strong> Mountain Blue (trust, stability), Heritage Maroon (cultural richness), Antique Gold (quality, craftsmanship).</p>
+                <p><strong>Tagline:</strong> "Threads of Mountain Heritage" — connecting clothing with place and tradition.</p>
+                <p class="plan-note">Cultural accuracy note: Spelling and linguistic meaning of "ReGongches" should be confirmed with a native speaker or regional language expert before public launch.</p>
               </div>
             </details>
 
             <details class="plan-block" open>
-              <summary>02 · Objectives, vision & mission</summary>
+              <summary>02 · Business Objectives</summary>
               <div class="plan-content">
-                <p>
-                  <strong>Vision:</strong> To become a trusted Pakistani brand
-                  that helps people make growing and reusing part of everyday
-                  life.
-                </p>
-                <p>
-                  <strong>Mission:</strong> To offer practical plants and
-                  reusable essentials, supported by transparent product details,
-                  reliable service, and easy-to-follow educational content.
-                </p>
-                <p>
-                  <strong>Objectives:</strong> Validate customer demand,
-                  establish dependable suppliers, achieve the first 60 completed
-                  orders, and learn which products customers find genuinely
-                  useful.
-                </p>
-                <p>
-                  <strong>E-commerce type:</strong> Primarily B2C
-                  (business-to-consumer); potential later B2B sales to offices,
-                  schools, and corporate gifting buyers.
-                </p>
-                <p>
-                  <strong>Business model type:</strong> E-tailer. Green Pakistan
-                  sells its selected inventory directly rather than acting as a
-                  customer-to-customer marketplace.
-                </p>
+                <p><strong>Vision:</strong> To become a trusted digital destination for authentic traditional clothing from Gilgit-Baltistan, making the region's textile heritage accessible across Pakistan and beyond.</p>
+                <p><strong>Mission:</strong> To preserve and promote the clothing heritage of Gilgit-Baltistan by connecting local artisans with customers through authentic products, transparent sourcing, cultural storytelling and fair business practices.</p>
+                <p><strong>Strategic Objectives:</strong></p>
+                <ul>
+                  <li>Launch a mobile-friendly B2C store with a focused product catalogue.</li>
+                  <li>Build direct relationships with artisans, tailoring units and regional suppliers.</li>
+                  <li>Develop professional photography, size guidance and product storytelling.</li>
+                  <li>Reach customers across Pakistan through digital marketing and tracked delivery.</li>
+                  <li>Prepare the platform for future verified artisan marketplace participation.</li>
+                </ul>
               </div>
             </details>
 
             <details class="plan-block wide" open>
-              <summary>03 · Business model: eight essential elements</summary>
+              <summary>03 · Product Categories &amp; Pricing</summary>
+              <div class="plan-content">
+                <div class="plan-table-wrap">
+                  <table class="plan-table">
+                    <thead><tr><th>Category</th><th>Examples</th></tr></thead>
+                    <tbody>
+                      <tr><td>Traditional Dresses</td><td>Embroidered cultural dresses, ceremonial clothing and regional outfits</td></tr>
+                      <tr><td>Caps &amp; Headwear</td><td>Gilgiti caps, Baltistani caps and culturally inspired headwear</td></tr>
+                      <tr><td>Shawls &amp; Scarves</td><td>Woollen shawls, handwoven scarves and embroidered stoles</td></tr>
+                      <tr><td>Waistcoats &amp; Outerwear</td><td>Traditional waistcoats, woollen jackets and cultural outerwear</td></tr>
+                      <tr><td>Textile Accessories</td><td>Embroidered bags, purses, belts, pouches and fabric jewellery</td></tr>
+                      <tr><td>Home Textiles</td><td>Cushion covers, table runners, wall hangings</td></tr>
+                      <tr><td>Heritage Gifts</td><td>Cap-and-shawl sets, textile gift boxes and cultural souvenirs</td></tr>
+                      <tr><td>Custom &amp; Festive Wear</td><td>Made-to-order clothing for weddings, festivals and events</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+                <p style="margin-top:20px"><strong>Illustrative Pricing:</strong></p>
+                <div class="plan-table-wrap">
+                  <table class="plan-table">
+                    <thead><tr><th>Product</th><th>Cost</th><th>Selling Price</th><th>Gross Margin</th></tr></thead>
+                    <tbody>
+                      <tr><td>Traditional Gilgiti Cap</td><td>PKR 1,200</td><td>PKR 1,800</td><td>PKR 600 (33.3%)</td></tr>
+                      <tr><td>Embroidered Shawl</td><td>PKR 3,500</td><td>PKR 5,000</td><td>PKR 1,500 (30.0%)</td></tr>
+                      <tr><td>Traditional Waistcoat</td><td>PKR 4,500</td><td>PKR 6,500</td><td>PKR 2,000 (30.8%)</td></tr>
+                      <tr><td>Embroidered Handbag</td><td>PKR 1,400</td><td>PKR 2,200</td><td>PKR 800 (36.4%)</td></tr>
+                      <tr><td>Heritage Gift Set</td><td>PKR 3,800</td><td>PKR 5,500</td><td>PKR 1,700 (30.9%)</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+                <p class="plan-note">Pricing figures are illustrative academic planning values only. Final prices require supplier quotations and quality checks.</p>
+              </div>
+            </details>
+
+            <details class="plan-block" open>
+              <summary>04 · Market Strategy</summary>
+              <div class="plan-content">
+                <p><strong>Primary Audience:</strong> Young adults interested in cultural fashion, people from Gilgit-Baltistan living elsewhere, event customers, domestic tourists and gift buyers.</p>
+                <p><strong>Secondary Audience:</strong> Pakistani diaspora, universities, cultural societies, hotels and corporate gift buyers.</p>
+                <p><strong>Positioning:</strong> A trusted online destination for authentic traditional clothing and textile heritage from Gilgit-Baltistan.</p>
+                <p><strong>Promotion Channels:</strong> Short videos, artisan stories, cultural-event partnerships, Instagram, Facebook, TikTok and WhatsApp Business.</p>
+                <p><strong>Launch Campaign — Threads of the North:</strong> A 30-day digital launch campaign featuring one product, craft process, artisan story or regional tradition per day.</p>
+              </div>
+            </details>
+
+            <details class="plan-block" open>
+              <summary>05 · SMART Marketing Goal</summary>
+              <div class="plan-content">
+                <p><strong>Six-month goal (1 Jan 2027 – 30 Jun 2027):</strong> Complete 300 customer orders, gain 2,500 relevant social-media followers, achieve a 15% repeat-purchase rate and maintain at least 85% positive customer feedback.</p>
+                <ul>
+                  <li><strong>Specific:</strong> Increase orders, audience, repeat purchasing and satisfaction.</li>
+                  <li><strong>Measurable:</strong> 300 orders · 2,500 followers · 15% repeat purchase · 85% positive feedback.</li>
+                  <li><strong>Achievable:</strong> Use focused inventory, cultural content, event partnerships and referrals.</li>
+                  <li><strong>Relevant:</strong> Supports brand growth, regional craft visibility and sustainable operations.</li>
+                  <li><strong>Time-Bound:</strong> 1 January 2027 to 30 June 2027.</li>
+                </ul>
+              </div>
+            </details>
+
+            <details class="plan-block" open>
+              <summary>06 · Revenue Model &amp; Marketing Budget</summary>
+              <div class="plan-content">
+                <p><strong>Revenue Streams:</strong> Retail product margin · Heritage gift sets · Custom clothing orders · Institutional orders · Marketplace commission (future) · Premium packaging · Delivery fees.</p>
+                <p><strong>Marketing Budget (Launch Phase):</strong></p>
+                <div class="plan-table-wrap">
+                  <table class="plan-table">
+                    <thead><tr><th>Category</th><th>Amount</th></tr></thead>
+                    <tbody>
+                      <tr><td>Social-media advertising</td><td>PKR 50,000</td></tr>
+                      <tr><td>Product photography &amp; video</td><td>PKR 30,000</td></tr>
+                      <tr><td>Micro-influencers &amp; cultural creators</td><td>PKR 25,000</td></tr>
+                      <tr><td>Launch giveaway &amp; heritage gift set</td><td>PKR 15,000</td></tr>
+                      <tr><td>University cultural-event promotion</td><td>PKR 15,000</td></tr>
+                      <tr><td>Artisan-story content &amp; travel support</td><td>PKR 15,000</td></tr>
+                      <tr><td><strong>Total</strong></td><td><strong>PKR 150,000</strong></td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </details>
+
+            <details class="plan-block wide" open>
+              <summary>07 · Technology Stack &amp; Platform</summary>
               <div class="plan-content model-grid">
                 <div>
-                  <h4>i. Value proposition</h4>
-                  <p>
-                    A convenient collection of plants, reusables, and starter
-                    kits with approachable guidance, clear materials
-                    information, and beginner-oriented bundles.
-                  </p>
+                  <h4>Hosting &amp; Domain</h4>
+                  <p>Domain: <strong>regongches.store</strong> (Hostinger)<br/>Hosting Platform: HosterSale</p>
                 </div>
                 <div>
-                  <h4>ii. Revenue model</h4>
-                  <p>
-                    Direct product sales and bundle sales. Later options include
-                    corporate plant gifts and paid repotting services. Gross
-                    margin is selling price minus product cost; delivery,
-                    packaging, marketing, returns, and operating costs must also
-                    be covered.
-                  </p>
+                  <h4>CMS &amp; E-Commerce</h4>
+                  <p>WordPress + WooCommerce · Development, Test and Live environments.</p>
                 </div>
                 <div>
-                  <h4>iii. Market opportunity</h4>
-                  <p>
-                    Hypothesis: students, young professionals, and urban
-                    households may value convenient access to plants and
-                    reusable essentials. Validate through at least 30 customer
-                    interviews, supplier quotations, and a small launch test
-                    before scaling.
-                  </p>
+                  <h4>Security</h4>
+                  <p>HTTPS · SSL · Managed platform security controls and regular backups.</p>
                 </div>
                 <div>
-                  <h4>iv. Competitive environment</h4>
-                  <p>
-                    Expected competitor categories include local nurseries,
-                    online plant sellers, general marketplaces, and
-                    household-goods stores. Compare a sample of competing offers
-                    on total price, delivery coverage, product information, and
-                    service. This comparison has not yet been completed.
-                  </p>
+                  <h4>Payment Options</h4>
+                  <p>Cash on Delivery · Bank Transfer · Easypaisa · JazzCash · Card (gateway TBD)</p>
                 </div>
                 <div>
-                  <h4>v. Competitive advantage</h4>
-                  <p>
-                    Intended differentiation: a focused collection, region-aware
-                    plant selection, product-specific care cards, practical
-                    bundles, and responsive support. These are proposed
-                    capabilities, not established advantages.
-                  </p>
+                  <h4>Prototype Stack</h4>
+                  <p>HTML · CSS · JavaScript · Browser localStorage for cart demo.</p>
                 </div>
                 <div>
-                  <h4>vi. Market strategy</h4>
-                  <p>
-                    Launch a limited catalogue in one serviceable city. Publish
-                    educational short videos and search-friendly product guides,
-                    collaborate with small gardening creators, and test modest
-                    paid campaigns. Use consent-based email follow-ups and
-                    referrals to encourage repeat purchases.
-                  </p>
-                </div>
-                <div>
-                  <h4>vii. Organizational development</h4>
-                  <p>
-                    Phase 1: founder-led sourcing, catalogue setup, and demand
-                    validation. Phase 2: add part-time packing and customer
-                    support as orders grow. Phase 3: expand products and
-                    delivery coverage only after reviewing margin, plant
-                    condition on arrival, and customer feedback.
-                  </p>
-                </div>
-                <div>
-                  <h4>viii. Management team</h4>
-                  <p>
-                    Founder: YOUR NAME—strategy, finances, and customer
-                    experience. Proposed support roles: nursery/sourcing partner
-                    for plant quality; part-time operations assistant for
-                    packing; freelance content designer for campaigns; technical
-                    support for the production website. No appointments are
-                    assumed.
-                  </p>
+                  <h4>Performance</h4>
+                  <p>Caching · CDN · Git-based version control · Scalable resource upgrades.</p>
                 </div>
               </div>
             </details>
 
             <details class="plan-block" open>
-              <summary>04 · Audience & marketing material</summary>
+              <summary>08 · Risk Management</summary>
               <div class="plan-content">
-                <p>
-                  <strong>Primary audience hypothesis:</strong> Urban Pakistani
-                  students and young professionals, approximately ages 18–35,
-                  with limited space and an interest in plants or reusable
-                  products.
-                </p>
-                <p>
-                  <strong>Secondary audience:</strong> Households, gift buyers,
-                  schools, and small offices.
-                </p>
-                <p>
-                  <strong>Likely needs to validate:</strong> Affordable starter
-                  choices, understandable care instructions, clear delivery
-                  charges, and dependable product quality.
-                </p>
-                <p>
-                  <strong>Social advertisement:</strong><br />
-                  “Your first plant. Your next reusable. Start small with Green
-                  Pakistan. Explore plants and everyday essentials chosen for
-                  thoughtful living.”
-                </p>
-                <p>
-                  <strong>Call to action:</strong> “Find your first green
-                  habit.”
-                </p>
-                <p>
-                  <strong>Email subject:</strong> “A little green for your
-                  everyday.”
-                </p>
-                <p>
-                  <strong>Content ideas:</strong> Balcony setup walkthroughs,
-                  product material explainers, plant-care demonstrations, and
-                  behind-the-scenes packing videos.
-                </p>
+                <div class="plan-table-wrap">
+                  <table class="plan-table">
+                    <thead><tr><th>Risk</th><th>Mitigation</th></tr></thead>
+                    <tbody>
+                      <tr><td>Incorrect cultural or language claims</td><td>Use regional reviewers and documented approval before publication</td></tr>
+                      <tr><td>Inconsistent sizing</td><td>Measurement charts, product-specific dimensions and pre-dispatch checks</td></tr>
+                      <tr><td>Variable handmade quality</td><td>Acceptance standards, sample approval and quality-control records</td></tr>
+                      <tr><td>Delayed artisan production</td><td>Show realistic lead times; separate ready-stock from made-to-order</td></tr>
+                      <tr><td>Damage in transport</td><td>Protective packaging, dispatch photos and a clear claims process</td></tr>
+                      <tr><td>Low customer trust</td><td>Display origin info, reviews, policies, contact details and tracked delivery</td></tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </details>
 
             <details class="plan-block" open>
-              <summary>05 · SMART marketing goal</summary>
+              <summary>09 · Competitive Analysis Summary</summary>
               <div class="plan-content">
-                <p>
-                  <strong>Goal:</strong> Within the first 90 days after the
-                  commercial launch, attract 3,000 qualified website sessions
-                  and generate 60 completed, non-cancelled orders, targeting a
-                  2% session-to-order conversion rate and keeping campaign
-                  spending within PKR 30,000.
-                </p>
-                <ul>
-                  <li>
-                    <strong>Specific:</strong> Acquire customers for the initial
-                    catalogue.
-                  </li>
-                  <li>
-                    <strong>Measurable:</strong> Track sessions, completed
-                    orders, conversion, and campaign spend.
-                  </li>
-                  <li>
-                    <strong>Achievable:</strong> Treat the target as a planning
-                    hypothesis; test it through a limited launch and weekly
-                    reviews.
-                  </li>
-                  <li>
-                    <strong>Relevant:</strong> Tests demand and supports first
-                    sales.
-                  </li>
-                  <li>
-                    <strong>Time-bound:</strong> First 90 days following launch.
-                  </li>
-                </ul>
-                <p>
-                  <strong>Measurement:</strong> Use consent-aware analytics,
-                  campaign-tagged links, and the production order database.
-                  Review results weekly. These tools are not installed in this
-                  demo.
-                </p>
+                <div class="plan-table-wrap">
+                  <table class="plan-table">
+                    <thead><tr><th>Competitor</th><th>Strength</th><th>ReGongches Opportunity</th></tr></thead>
+                    <tbody>
+                      <tr><td>Karakuram Handicraft</td><td>Strong artisan-support story</td><td>Improve size guidance, checkout and clothing specialization</td></tr>
+                      <tr><td>Silk Route Bazar</td><td>Broad range, marketplace scale</td><td>Consistent standards and simpler navigation</td></tr>
+                      <tr><td>Gilgit Bazar</td><td>Visible cap variety</td><td>Premium branding, origin verification, custom-order support</td></tr>
+                      <tr><td>Hunza Art</td><td>Strong storytelling, detailed info</td><td>Broader multi-region clothing portfolio at same info quality</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+                <p><strong>Primary differentiator:</strong> Consistent clothing information — measurements, materials, origin, artisan, handmade status, care and lead time — across every listing.</p>
               </div>
             </details>
 
-            <details class="plan-block" open>
-              <summary>06 · Platform, domains & hosting plan</summary>
-              <div class="plan-content">
-                <p>
-                  <strong>Candidate domains:</strong> greenpakistanstore.pk,
-                  shopgreenpakistan.com.pk, and growwithgreenpakistan.com.
-                  Availability, ownership, and brand conflicts have not been
-                  checked.
-                </p>
-                <p>
-                  <strong>Domain registration:</strong> Consider PKNIC for a .pk
-                  or .com.pk domain. A domain registration is separate from the
-                  website's hosting.
-                </p>
-                <p>
-                  <strong>Prototype platform:</strong> HTML for page structure,
-                  CSS for appearance and responsive layouts, JavaScript for
-                  filtering and cart interactions, and browser local storage for
-                  the saved cart.
-                </p>
-                <p>
-                  <strong>Prototype hosting:</strong> Proposed static deployment
-                  on Netlify. This serves the demonstration site; it does not
-                  turn the demo cart into an order-processing system.
-                </p>
-                <p>
-                  <strong>Commercial platform option:</strong> Evaluate Shopify
-                  as a hosted commerce platform. The prototype would need to be
-                  rebuilt or adapted to its theme and commerce system—not simply
-                  uploaded as a working Shopify store.
-                </p>
-              </div>
-            </details>
-
-            <details class="plan-block" open>
-              <summary>07 · Operations, trust & launch requirements</summary>
-              <div class="plan-content">
-                <ul>
-                  <li>
-                    Start with a manageable catalogue and verified suppliers.
-                  </li>
-                  <li>
-                    Limit live-plant delivery to tested routes and packaging.
-                  </li>
-                  <li>
-                    Confirm plant identity, regional suitability, and relevant
-                    care and handling warnings for each listing.
-                  </li>
-                  <li>
-                    Disclose materials and disposal limitations; avoid
-                    unverified “zero impact” or “100% biodegradable” claims.
-                  </li>
-                  <li>
-                    Publish contact details, shipping information, returns
-                    conditions, and privacy information before accepting orders.
-                  </li>
-                  <li>
-                    Implement server-side prices, stock checks, order records,
-                    secure administration, and confirmation messages.
-                  </li>
-                  <li>
-                    Evaluate cash on delivery and locally supported payment
-                    integrations. Verify provider eligibility and fees first.
-                  </li>
-                  <li>
-                    Calculate margins using supplier costs, packaging, shipping,
-                    fees, acquisition costs, and expected returns.
-                  </li>
-                </ul>
-                <p>
-                  <strong>Demo boundary:</strong> This website does not accept
-                  payments, reserve stock, transmit emails, or place orders.
-                </p>
-              </div>
-            </details>
-          </div>
-
-          <p class="plan-note">
-            All commercial details are proposed for academic planning. Customer
-            segments, demand, prices, campaign targets, and operational
-            capabilities require validation. Replace the student placeholders
-            before submitting.
-          </p>
-        </div>
+          </div><!-- end plan-grid -->
+        </div><!-- end container -->
       </section>
+
     </main>
 
+    <!-- ══════════════════════════════════════ FOOTER ═══ -->
     <footer class="site-footer">
-      <div class="container">
-        <div class="footer-top">
-          <div>
-            <a href="#" class="brand">
-              <svg class="brand-icon" aria-hidden="true">
-                <use href="#leaf-logo" />
-              </svg>
-              <span>
-                <strong>GREEN PAKISTAN</strong>
-                <small>YOUR NAME · YOUR REG. NO.</small>
-              </span>
-            </a>
-            <p class="muted">
-              Plants, practical reusables, and a little encouragement to grow
-              something good.
-            </p>
+      <div class="container footer-grid">
+        <div class="footer-brand">
+          <div class="brand">
+            <div class="brand-icon-wrap brand-icon-wrap--sm">
+              <svg class="brand-icon" aria-hidden="true" style="width:32px;height:32px"><use href="#rg-logo" /></svg>
+            </div>
+            <span class="brand-text">
+              <strong>ReGongches</strong>
+              <small>Threads of Mountain Heritage</small>
+            </span>
           </div>
-          <div class="footer-links">
-            <a href="#shop">Shop collection</a>
-            <a href="#story">Our purpose</a>
-            <a href="#business-plan">Business plan</a>
-          </div>
+          <p>Authentic traditional clothing and textiles from Gilgit-Baltistan. Student e-commerce concept — CSC417, COMSATS.</p>
+          <p class="footer-student">Mushtaq Ahmad · SP25-BAI-047 · Instructor: Mr. Khurram Iqbal</p>
         </div>
-        <div class="footer-bottom">
-          <span
-            >© <span id="year"></span> Green Pakistan · Student concept</span
-          >
-          <span>Independent academic project · No live orders or payments</span>
+        <div class="footer-links">
+          <h4>Shop</h4>
+          <ul>
+            <li><a href="#shop">All Products</a></li>
+            <li><a href="#categories">Collections</a></li>
+            <li><a href="#shop">New Arrivals</a></li>
+            <li><a href="#shop">Heritage Gifts</a></li>
+          </ul>
         </div>
+        <div class="footer-links">
+          <h4>About</h4>
+          <ul>
+            <li><a href="#story">Our Story</a></li>
+            <li><a href="#artisans">Meet Artisans</a></li>
+            <li><a href="#business-plan">Business Plan</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="#shop">Size Guide</a></li>
+            <li><a href="#shop">Shipping Policy</a></li>
+            <li><a href="#shop">Returns &amp; Exchange</a></li>
+            <li><a href="#shop">Contact via WhatsApp</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom container">
+        <p>&copy; 2026 ReGongches · Academic prototype · All product prices are illustrative.</p>
+        <p class="footer-domain">regongches.store</p>
       </div>
     </footer>
 
-    <dialog id="cartDialog" aria-labelledby="cartTitle">
-      <div class="cart-header">
-        <h2 id="cartTitle">Your green bag</h2>
-        <button
-          class="close-button"
-          id="closeCart"
-          aria-label="Close shopping bag"
-        >
-          ×
-        </button>
+    <!-- ══════════════════════════════ CART DRAWER ═══ -->
+    <div class="cart-overlay" id="cartOverlay" role="dialog" aria-modal="true" aria-label="Shopping bag" hidden>
+      <div class="cart-drawer">
+        <div class="cart-header">
+          <h2>Your Bag</h2>
+          <button class="close-button" id="closeCart" aria-label="Close bag">✕</button>
+        </div>
+        <div class="cart-body" id="cartBody">
+          <p class="cart-empty">Your bag is empty.<br/><small>Add some mountain heritage! 🏔️</small></p>
+        </div>
+        <div class="cart-footer" id="cartFooter" hidden>
+          <div class="cart-total">
+            <span>Subtotal</span>
+            <strong id="cartTotal">PKR 0</strong>
+          </div>
+          <p class="cart-delivery-note">🚚 Free delivery on orders above PKR 5,000</p>
+          <button class="btn btn-primary w-full" id="checkoutBtn">Proceed to Checkout ↗</button>
+          <p class="cart-disclaimer">Demo prototype. No real payment is processed.</p>
+        </div>
       </div>
-      <div class="cart-body" id="cartItems"></div>
-      <div class="cart-summary">
-        <div class="total-line">
-          <span>Subtotal</span><span id="subtotal">PKR 0</span>
-        </div>
-        <div class="total-line">
-          <span>Demo delivery</span><span id="shipping">PKR 0</span>
-        </div>
-        <div class="total-line grand">
-          <span>Illustrative total</span><span id="total">PKR 0</span>
-        </div>
-        <button class="btn" id="checkoutButton">Preview demo checkout ↗</button>
-        <p>
-          Sample delivery: PKR 250 below PKR 3,000; free from PKR 3,000. Taxes
-          are not calculated in this prototype. Actual charges must be confirmed
-          before launch.
-        </p>
-        <p id="checkoutMessage" role="status"></p>
+    </div>
+
+    <!-- ═══════════════════════════ QUICK VIEW MODAL ═══ -->
+    <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-label="Product detail" hidden>
+      <div class="modal-box" id="modalBox">
+        <button class="close-button modal-close" id="closeModal" aria-label="Close">✕</button>
+        <div id="modalContent"></div>
       </div>
-    </dialog>
+    </div>
 
-    <dialog id="quickViewDialog" class="quick-view" aria-labelledby="quickViewTitle">
-      <button class="close-button quick-view-close" id="closeQuickView" aria-label="Close product preview">×</button>
-      <div id="quickViewContent"></div>
-    </dialog>
-
-    <div class="toast" id="toast" role="status" aria-live="polite"></div>
-
-    <script src="script.js" defer></script>
+    <script src="script.js"></script>
   </body>
 </html>

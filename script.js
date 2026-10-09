@@ -1,559 +1,555 @@
-"use strict";
+/* ═══════════════════════════════════════════════════════════
+   ReGongches – Threads of Mountain Heritage
+   E-Commerce Prototype · SP25-BAI-047 · Mushtaq Ahmad
+   ═══════════════════════════════════════════════════════════ */
 
-/* Sample catalogue. Prices and descriptions require supplier validation. */
-const products = [
-      {
-        id: "p1",
-        name: "Leafy Desk Plant",
-        category: "Plants",
-        price: 950,
-        art: "plant",
-        color: "#e7ecdd",
-        badge: "A little desk greenery",
-        description:
-          "Concept listing for a potted desk plant. Exact species, pot dimensions, light needs, and relevant safety information must be confirmed before sale.",
-      },
-      {
-        id: "p2",
-        name: "Kitchen Herb Pot",
-        category: "Plants",
-        price: 650,
-        art: "herb",
-        color: "#eee9d8",
-        badge: "Kitchen garden idea",
-        description:
-          "A proposed starter herb in a reusable pot. Confirm the variety, growing conditions, and supplier care instructions before listing.",
-      },
-      {
-        id: "p3",
-        name: "Regional Tree Sapling",
-        category: "Plants",
-        price: 450,
-        art: "tree",
-        color: "#e2eadc",
-        badge: "Grow beyond your home",
-        description:
-          "A sapling selected for the customer's region and planting space. Species, mature size, planting permissions, and site suitability require confirmation.",
-      },
-      {
-        id: "p4",
-        name: "Everyday Cotton Tote",
-        category: "Reusables",
-        price: 700,
-        art: "tote",
-        color: "#f0e6d8",
-        badge: "Bring it. Use it again.",
-        description:
-          "Proposed cotton shopping bag for repeated use. Confirm fibre composition, dimensions, load capacity, and washing instructions with the supplier.",
-      },
-      {
-        id: "p5",
-        name: "Reusable Steel Bottle",
-        category: "Reusables",
-        price: 1600,
-        art: "bottle",
-        color: "#e3e9e3",
-        badge: "Refill your routine",
-        description:
-          "Concept for a reusable stainless-steel bottle. Capacity, food-contact suitability, lid materials, and cleaning instructions require verification.",
-      },
-      {
-        id: "p6",
-        name: "Bamboo-Handle Brush",
-        category: "Reusables",
-        price: 250,
-        art: "brush",
-        color: "#eee7d8",
-        badge: "Material transparency",
-        description:
-          "Proposed toothbrush with a bamboo handle. Bristles may be synthetic; do not assume the whole item is biodegradable. Confirm materials and disposal guidance.",
-      },
-      {
-        id: "p7",
-        name: "Balcony Grow Kit",
-        category: "Grow kits",
-        price: 1200,
-        art: "kit",
-        color: "#e8e8d8",
-        badge: "Start something small",
-        description:
-          "Proposed bundle of seeds, growing medium, and starter containers. Final contents and season-specific sowing instructions will be confirmed before launch.",
-      },
-      {
-        id: "p8",
-        name: "Home Compost Starter",
-        category: "Grow kits",
-        price: 2400,
-        art: "compost",
-        color: "#e0e7d9",
-        badge: "A new home habit",
-        description:
-          "Concept composting starter container and guide. Capacity, suitable inputs, ventilation, maintenance, and processing method must be specified before sale.",
-      },
-    ];
+'use strict';
 
-const money = (amount) => "PKR " + amount.toLocaleString("en-PK");
-const byId = (id) => document.getElementById(id);
-const STORAGE_KEY = "green-pakistan-cart-v1";
-const VIEW_STORAGE_KEY = "green-pakistan-view-mode-v1";
-const FAVORITES_STORAGE_KEY = "green-pakistan-favorites-v1";
-const THEME_STORAGE_KEY = "green-pakistan-theme-v1";
-let category = "All";
-let cart = {};
-let favorites = new Set();
-let isListView = false;
-let isNightMode = false;
-let toastTimer;
-
-/* Only known product IDs and valid integer quantities are restored. */
-try {
-  const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
-  if (saved && typeof saved === "object" && !Array.isArray(saved)) {
-    products.forEach((product) => {
-      const quantity = saved[product.id];
-      if (Number.isInteger(quantity) && quantity > 0 && quantity <= 99) {
-        cart[product.id] = quantity;
-      }
-    });
-  }
-} catch {
-  cart = {};
-}
-
-try {
-  isListView = localStorage.getItem(VIEW_STORAGE_KEY) === "list";
-} catch {
-  isListView = false;
-}
-
-try {
-  const savedFavorites = JSON.parse(
-    localStorage.getItem(FAVORITES_STORAGE_KEY) || "[]",
-  );
-  if (Array.isArray(savedFavorites)) {
-    favorites = new Set(
-      savedFavorites.filter((id) => products.some((product) => product.id === id)),
-    );
-  }
-  isNightMode = localStorage.getItem(THEME_STORAGE_KEY) === "night";
-} catch {
-  favorites = new Set();
-  isNightMode = false;
-}
-
-function persistFavorites() {
-  try {
-    localStorage.setItem(FAVORITES_STORAGE_KEY, JSON.stringify([...favorites]));
-  } catch {
-    /* Favorites continue to work for the current page if storage is unavailable. */
-  }
-}
-
-function applyTheme() {
-  document.body.classList.toggle("night-mode", isNightMode);
-  const button = byId("themeToggle");
-  button.setAttribute("aria-pressed", String(isNightMode));
-  button.querySelector(".theme-label").textContent = isNightMode
-    ? "Day mode"
-    : "Night mode";
-  try {
-    localStorage.setItem(THEME_STORAGE_KEY, isNightMode ? "night" : "day");
-  } catch {
-    /* Theme still works for the current page if storage is unavailable. */
-  }
-}
-
-function persistViewMode() {
-  try {
-    localStorage.setItem(VIEW_STORAGE_KEY, isListView ? "list" : "grid");
-  } catch {
-    /* View mode still works if browser storage is unavailable. */
-  }
-}
-
-function updateViewModeButton() {
-  const button = byId("viewToggle");
-  if (!button) return;
-  button.textContent = isListView ? "View: List" : "View: Grid";
-  button.setAttribute("aria-pressed", String(isListView));
-  button.setAttribute(
-    "aria-label",
-    isListView ? "Switch to grid view" : "Switch to list view",
-  );
-}
-
-function applyViewMode() {
-  byId("productGrid").classList.toggle("product-grid--list", isListView);
-  updateViewModeButton();
-  persistViewMode();
-}
-
-function toggleViewMode() {
-  isListView = !isListView;
-  applyViewMode();
-  toast(isListView ? "List view enabled" : "Grid view enabled");
-}
-
-function bindViewToggle() {
-  const button = byId("viewToggle");
-  if (!button) return;
-  button.addEventListener("click", toggleViewMode);
-}
-
-function initializeViewMode() {
-  bindViewToggle();
-  applyViewMode();
-}
-
-function persistCart() {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
-  } catch {
-    /* Cart continues to work if browser storage is unavailable. */
-  }
-}
-
-function toast(message) {
-  const element = byId("toast");
-  element.textContent = message;
-  element.classList.add("show");
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => element.classList.remove("show"), 2400);
-}
-
-function updatePageChrome() {
-  const scrollable = document.documentElement.scrollHeight - window.innerHeight;
-  const progress = scrollable > 0 ? window.scrollY / scrollable : 0;
-  byId("scrollProgress").style.transform = `scaleX(${progress})`;
-  document.querySelector(".site-header").classList.toggle("scrolled", window.scrollY > 12);
-}
-
-const revealObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("is-visible");
-        revealObserver.unobserve(entry.target);
-      }
-    });
+/* ─── PRODUCT DATA ───────────────────────────────────────── */
+const PRODUCTS = [
+  {
+    id: 1, name: 'Traditional Gilgiti Cap',
+    region: 'Gilgit District', category: 'Caps',
+    price: 1800, compareAt: null,
+    badge: 'Handmade', badgeClass: 'badge-handmade',
+    img: 'gilgiti_cap.png', emoji: '🎩',
+    craft: 'Hand-embroidered · Wool blend',
+    description: 'Authentic Gilgiti cap featuring hand-stitched geometric embroidery in gold and maroon thread. Made by local artisans using traditional techniques passed down through generations. Each cap is slightly unique — a mark of true craftsmanship.',
+    material: 'Wool blend · Cotton lining',
+    status: 'Ready',
+    dispatch: '2–4 working days',
   },
-  { threshold: 0.12 },
+  {
+    id: 2, name: 'Embroidered Woollen Shawl',
+    region: 'Hunza Valley', category: 'Shawls',
+    price: 5000, compareAt: null,
+    badge: 'Handwoven', badgeClass: 'badge-handmade',
+    img: 'embroidered_shawl.png', emoji: '🧣',
+    craft: 'Handwoven · Pure wool',
+    description: 'A stunning handwoven shawl from Hunza Valley, crafted by a women\'s collective preserving traditional weaving heritage. Features intricate geometric embroidery motifs in antique gold thread on a rich maroon wool base. Warm, elegant and culturally meaningful.',
+    material: 'Pure sheep wool · Natural dyes',
+    status: 'Ready',
+    dispatch: '3–5 working days',
+  },
+  {
+    id: 3, name: 'Traditional Embroidered Waistcoat',
+    region: 'Skardu, Baltistan', category: 'Waistcoats',
+    price: 6500, compareAt: null,
+    badge: 'Handmade', badgeClass: 'badge-handmade',
+    img: 'traditional_waistcoat.png', emoji: '🧥',
+    craft: 'Hand-tailored · Embroidered',
+    description: 'A beautifully crafted traditional waistcoat from a family tailoring unit in Skardu. Features traditional Baltistani embroidery patterns along the borders and chest. Made from quality wool with careful hand-finishing at every seam.',
+    material: 'Wool · Satin lining · Gold thread embroidery',
+    status: 'Ready',
+    dispatch: '4–7 working days',
+  },
+  {
+    id: 4, name: 'Embroidered Heritage Handbag',
+    region: 'Gilgit District', category: 'Accessories',
+    price: 2200, compareAt: 2800,
+    badge: 'Handmade', badgeClass: 'badge-handmade',
+    img: 'embroidered_bag.png', emoji: '👜',
+    craft: 'Hand-embroidered · Textile',
+    description: 'A handcrafted textile handbag featuring the rich geometric embroidery tradition of Gilgit-Baltistan. Compact and practical, with a secure clasp and shoulder strap. Each piece is individually embroidered — no two are exactly alike.',
+    material: 'Heavy cotton canvas · Gold thread · Wool embroidery',
+    status: 'Ready',
+    dispatch: '2–4 working days',
+  },
+  {
+    id: 5, name: 'Heritage Mountain Gift Set',
+    region: 'Gilgit-Baltistan', category: 'Gifts',
+    price: 5500, compareAt: null,
+    badge: 'Gift Ready', badgeClass: 'badge-new',
+    img: 'heritage_gift_set.png', emoji: '🎁',
+    craft: 'Curated set · Premium packaging',
+    description: 'A thoughtfully curated heritage gift set featuring a traditional Gilgiti cap, a silk embroidered scarf, and a decorative pouch — all in premium gift packaging with an authenticity card and cultural story. Perfect for gifting at weddings, Eid, or cultural events.',
+    material: 'Silk scarf · Wool cap · Embroidered pouch · Authenticity card',
+    status: 'Ready',
+    dispatch: '3–5 working days',
+  },
+  {
+    id: 6, name: 'Baltistani Embroidered Dress',
+    region: 'Baltistan', category: 'Dresses',
+    price: 8500, compareAt: null,
+    badge: 'Custom', badgeClass: 'badge-custom',
+    img: null, emoji: '👘',
+    craft: 'Hand-tailored · Custom sizing',
+    description: 'A traditional embroidered dress from Baltistan, crafted by skilled local tailors. Features the iconic mountain geometric embroidery on the neckline, cuffs and hem. Available in standard and custom sizes — please contact us for custom orders.',
+    material: 'Cotton blend · Embroidered silk panels · Machine washable',
+    status: 'Made to Order',
+    dispatch: '7–14 working days',
+  },
+  {
+    id: 7, name: 'Handwoven Wool Scarf',
+    region: 'Hunza Valley', category: 'Shawls',
+    price: 2500, compareAt: 3000,
+    badge: 'Handwoven', badgeClass: 'badge-handmade',
+    img: null, emoji: '🧶',
+    craft: 'Handwoven · Natural wool',
+    description: 'A warm, lightweight handwoven scarf from Hunza Valley. Made on traditional wooden looms by women artisans using locally sourced wool. Beautifully soft with subtle geometric patterns woven into the fabric. A versatile everyday heritage piece.',
+    material: 'Natural sheep wool · Plant-based dyes',
+    status: 'Ready',
+    dispatch: '2–4 working days',
+  },
+  {
+    id: 8, name: 'Gilgiti Embroidered Cushion Cover',
+    region: 'Gilgit District', category: 'Home',
+    price: 1400, compareAt: null,
+    badge: 'Handmade', badgeClass: 'badge-handmade',
+    img: null, emoji: '🛋️',
+    craft: 'Hand-embroidered · Home textile',
+    description: 'A beautiful embroidered cushion cover featuring traditional Gilgiti geometric patterns. Bring the aesthetic of mountain heritage into your home. Made from durable cotton canvas with careful hand-embroidery on the front panel.',
+    material: 'Cotton canvas · Polyester fill insert not included · Zip closure',
+    status: 'Ready',
+    dispatch: '2–3 working days',
+  },
+  {
+    id: 9, name: 'Baltistani Woollen Cap',
+    region: 'Skardu, Baltistan', category: 'Caps',
+    price: 1600, compareAt: null,
+    badge: 'Handmade', badgeClass: 'badge-handmade',
+    img: null, emoji: '🧢',
+    craft: 'Hand-knitted · Pure wool',
+    description: 'A traditional Baltistani cap hand-knitted from pure wool. Warm, sturdy and deeply rooted in the textile tradition of the Skardu region. Features a distinctive banded colour pattern traditional to the Baltistan area.',
+    material: 'Pure sheep wool · Hand-knitted',
+    status: 'Ready',
+    dispatch: '2–4 working days',
+  },
+  {
+    id: 10, name: 'Mountain Embroidered Waistcoat (Women)',
+    region: 'Gilgit District', category: 'Waistcoats',
+    price: 5800, compareAt: null,
+    badge: 'New Arrival', badgeClass: 'badge-new',
+    img: null, emoji: '🧥',
+    craft: 'Hand-embroidered · Tailored',
+    description: 'A traditional women\'s waistcoat from Gilgit, featuring rich floral and geometric embroidery on a rich deep blue base. Tailored for a contemporary fit while preserving traditional embroidery aesthetics. Available in standard sizes S–XL.',
+    material: 'Wool blend · Silk lining · Gold and silver thread',
+    status: 'Ready',
+    dispatch: '4–6 working days',
+  },
+  {
+    id: 11, name: 'Embroidered Table Runner',
+    region: 'Hunza Valley', category: 'Home',
+    price: 1800, compareAt: null,
+    badge: 'Handmade', badgeClass: 'badge-handmade',
+    img: null, emoji: '🏠',
+    craft: 'Hand-embroidered · Home textile',
+    description: 'A stunning embroidered table runner from Hunza, featuring traditional mountain geometric patterns in rich jewel tones. Made from natural cotton with hand-embroidered panels at each end. A beautiful addition to any dining space.',
+    material: 'Natural cotton · Hand-embroidered · Machine washable on gentle',
+    status: 'Ready',
+    dispatch: '2–3 working days',
+  },
+  {
+    id: 12, name: 'Eid Festival Heritage Set (Deluxe)',
+    region: 'Gilgit-Baltistan', category: 'Gifts',
+    price: 9500, compareAt: null,
+    badge: 'Limited', badgeClass: 'badge-custom',
+    img: null, emoji: '✨',
+    craft: 'Curated deluxe set',
+    description: 'Our most comprehensive gift set — a deluxe Eid collection featuring a traditional Gilgiti cap, an embroidered shawl, a decorative embroidered pouch, an artisan story booklet and premium mountain-themed packaging. The ultimate cultural gift for any occasion.',
+    material: 'Multiple handmade pieces · Premium packaging · Authenticity documentation',
+    status: 'Ready',
+    dispatch: '5–7 working days',
+  },
+];
+
+/* ─── STATE ──────────────────────────────────────────────── */
+let cart = JSON.parse(localStorage.getItem('rg_cart') || '[]');
+let favorites = new Set(JSON.parse(localStorage.getItem('rg_fav') || '[]'));
+let activeCategory = 'All';
+let sortMode = 'featured';
+let listView = false;
+let searchQuery = '';
+
+/* ─── DOM REFS ───────────────────────────────────────────── */
+const $  = (sel) => document.querySelector(sel);
+const $$ = (sel) => [...document.querySelectorAll(sel)];
+
+/* ─── SCROLL PROGRESS ────────────────────────────────────── */
+const scrollBar = $('#scrollProgress');
+function updateScrollProgress() {
+  const total  = document.body.scrollHeight - window.innerHeight;
+  const filled = total > 0 ? window.scrollY / total : 0;
+  scrollBar.style.transform = `scaleX(${filled})`;
+}
+
+/* ─── HEADER SCROLL ──────────────────────────────────────── */
+const header = $('#siteHeader');
+function handleHeaderScroll() {
+  header.classList.toggle('scrolled', window.scrollY > 40);
+  updateScrollProgress();
+}
+window.addEventListener('scroll', handleHeaderScroll, { passive: true });
+
+/* ─── SCROLL REVEAL ──────────────────────────────────────── */
+const observer = new IntersectionObserver(
+  (entries) => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('is-visible'); }),
+  { threshold: 0.09, rootMargin: '0px 0px -40px 0px' }
 );
+document.querySelectorAll('.storefront').forEach(el => observer.observe(el));
 
-document.querySelectorAll(".storefront:not(.hero)").forEach((section) => {
-  revealObserver.observe(section);
+/* ─── ANNOUNCEMENT CLOSE ─────────────────────────────────── */
+$('#annClose')?.addEventListener('click', () => {
+  const ann = $('#announcement');
+  if (ann) { ann.style.display = 'none'; }
 });
-window.addEventListener("scroll", updatePageChrome, { passive: true });
-updatePageChrome();
 
-function renderProducts() {
-  const term = byId("search").value.trim().toLowerCase();
-  let visible = products.filter((product) => {
-    const categoryMatch =
-      category === "All" || product.category === category;
-    const searchable = `${product.name} ${product.category} ${product.description}`;
-    return categoryMatch && searchable.toLowerCase().includes(term);
+/* ─── NIGHT MODE ─────────────────────────────────────────── */
+const themeBtn  = $('#themeToggle');
+const themeIcon = $('#themeIcon');
+let night = localStorage.getItem('rg_dark') === 'true';
+applyTheme();
+themeBtn.addEventListener('click', () => {
+  night = !night;
+  applyTheme();
+  localStorage.setItem('rg_dark', night);
+  themeBtn.setAttribute('aria-pressed', night);
+});
+function applyTheme() {
+  document.body.classList.toggle('night-mode', night);
+  themeIcon.textContent = night ? '☀' : '◐';
+}
+
+/* ─── CATEGORY FILTERS ───────────────────────────────────── */
+$$('.cat-card').forEach(btn => {
+  btn.addEventListener('click', () => {
+    $$('.cat-card').forEach(b => {
+      b.classList.remove('cat-active');
+      b.setAttribute('aria-pressed', 'false');
+    });
+    btn.classList.add('cat-active');
+    btn.setAttribute('aria-pressed', 'true');
+    activeCategory = btn.dataset.cat;
+    renderProducts();
+    // scroll to shop
+    $('#shop')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+
+/* ─── SEARCH ─────────────────────────────────────────────── */
+$('#search').addEventListener('input', (e) => {
+  searchQuery = e.target.value.trim().toLowerCase();
+  renderProducts();
+});
+
+/* ─── SORT ───────────────────────────────────────────────── */
+$('#sort').addEventListener('change', (e) => {
+  sortMode = e.target.value;
+  renderProducts();
+});
+
+/* ─── VIEW TOGGLE ────────────────────────────────────────── */
+const viewBtn  = $('#viewToggle');
+const grid     = $('#productGrid');
+viewBtn.addEventListener('click', () => {
+  listView = !listView;
+  grid.classList.toggle('product-grid--list', listView);
+  viewBtn.textContent = listView ? '⊟ List' : '⊞ Grid';
+  viewBtn.setAttribute('aria-pressed', listView);
+});
+
+/* ─── FILTER & SORT PRODUCTS ─────────────────────────────── */
+function getFilteredProducts() {
+  let items = PRODUCTS.filter(p => {
+    const matchCat  = activeCategory === 'All' || p.category === activeCategory;
+    const matchQ    = !searchQuery ||
+      p.name.toLowerCase().includes(searchQuery)   ||
+      p.region.toLowerCase().includes(searchQuery) ||
+      p.category.toLowerCase().includes(searchQuery) ||
+      p.craft.toLowerCase().includes(searchQuery);
+    return matchCat && matchQ;
   });
 
-  const sort = byId("sort").value;
-  if (sort === "low") visible.sort((a, b) => a.price - b.price);
-  if (sort === "high") visible.sort((a, b) => b.price - a.price);
-  if (sort === "name")
-    visible.sort((a, b) => a.name.localeCompare(b.name));
-
-  /*
-Only trusted, hardcoded catalogue values enter this template.
-Search input is never interpolated into HTML.
-*/
-  byId("productGrid").innerHTML = visible.length
-    ? visible
-        .map(
-          (product, index) => `
-<article class="product-card" style="animation-delay: ${index * 0.08}s">
-  <div class="product-art" style="background:${product.color}">
-    <span class="product-badge">${product.badge}</span>
-    <button class="favorite-button ${favorites.has(product.id) ? "is-favorite" : ""}"
-            data-favorite="${product.id}" aria-pressed="${favorites.has(product.id)}"
-            aria-label="${favorites.has(product.id) ? "Remove" : "Save"} ${product.name} ${favorites.has(product.id) ? "from" : "to"} favorites">♡</button>
-    <svg role="img" aria-label="Illustration of ${product.name}"
-         viewBox="0 0 300 300">
-      <use href="#${product.art}"></use>
-    </svg>
-  </div>
-  <div class="product-info">
-    <span class="product-category">${product.category}</span>
-    <h3>${product.name}</h3>
-    <button class="quick-view-button" data-preview="${product.id}">Quick view <span>↗</span></button>
-    <details>
-      <summary>Product information</summary>
-      <p>${product.description}</p>
-    </details>
-    <div class="product-bottom">
-      <span class="price">${money(product.price)}</span>
-      <button class="add-button" data-add="${product.id}"
-              aria-label="Add ${product.name} to bag">+</button>
-    </div>
-  </div>
-</article>
-`
-        )
-        .join("")
-    : '<p class="no-results">No products found. Try another search or category.</p>';
-
-  byId("resultsCount").textContent =
-    `${visible.length} product${visible.length === 1 ? "" : "s"} found`;
+  switch (sortMode) {
+    case 'low':  items.sort((a,b) => a.price - b.price);  break;
+    case 'high': items.sort((a,b) => b.price - a.price);  break;
+    case 'name': items.sort((a,b) => a.name.localeCompare(b.name)); break;
+    default:     break; // featured = original order
+  }
+  return items;
 }
 
-function calculateCart() {
-  const count = Object.values(cart).reduce(
-    (sum, quantity) => sum + quantity,
-    0,
-  );
-  const subtotal = products.reduce(
-    (sum, product) => sum + product.price * (cart[product.id] || 0),
-    0,
-  );
-  const shipping = subtotal === 0 || subtotal >= 3000 ? 0 : 250;
-  return { count, subtotal, shipping, total: subtotal + shipping };
+/* ─── RENDER PRODUCTS ────────────────────────────────────── */
+function renderProducts() {
+  const items   = getFilteredProducts();
+  const status  = $('#resultsCount');
+  status.textContent = `${items.length} product${items.length !== 1 ? 's' : ''} shown.`;
+
+  if (items.length === 0) {
+    grid.innerHTML = `
+      <div class="no-results">
+        <span>🔍</span>
+        <p>No products found for <strong>"${searchQuery || activeCategory}"</strong>.</p>
+        <p>Try a different search or category.</p>
+      </div>`;
+    return;
+  }
+
+  grid.innerHTML = items.map((p, i) => buildCard(p, i)).join('');
+
+  // Attach card events
+  $$('.add-button').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      addToCart(+btn.dataset.id);
+    });
+  });
+  $$('.favorite-button').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleFavorite(+btn.dataset.id, btn);
+    });
+  });
+  $$('.quick-view-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      openModal(+btn.dataset.id);
+    });
+  });
 }
 
-function updateCart() {
-  const totals = calculateCart();
-  byId("cartCount").textContent = totals.count;
-  byId("openCart").setAttribute(
-    "aria-label",
-    `Open shopping bag, ${totals.count} items`,
-  );
+function buildCard(p, i) {
+  const isFav = favorites.has(p.id);
+  const artEl = p.img
+    ? `<img src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'">`
+    + `<div class="product-art-svg" style="display:none">${p.emoji}</div>`
+    : `<div class="product-art-svg">${p.emoji}</div>`;
 
-  const items = products.filter((product) => cart[product.id]);
+  const oldPrice = p.compareAt
+    ? `<span class="price-old">PKR ${p.compareAt.toLocaleString()}</span>` : '';
 
-  byId("cartItems").innerHTML = items.length
-    ? items
-        .map(
-          (product) => `
-<div class="cart-item">
-  <div class="cart-thumb">
-    <svg aria-hidden="true"><use href="#${product.art}"></use></svg>
-  </div>
-  <div>
-    <strong>${product.name}</strong>
-    <small>${money(product.price)} each</small>
-    <div class="quantity">
-      <button data-change="${product.id}" data-delta="-1"
-              aria-label="Decrease quantity of ${product.name}">−</button>
-      <span aria-label="Quantity">${cart[product.id]}</span>
-      <button data-change="${product.id}" data-delta="1"
-              ${cart[product.id] >= 99 ? "disabled" : ""}
-              aria-label="Increase quantity of ${product.name}">+</button>
-    </div>
-  </div>
-  <div>
-    <strong>${money(product.price * cart[product.id])}</strong>
-    <button class="remove" data-remove="${product.id}"
-            aria-label="Remove ${product.name} from bag">Remove</button>
-  </div>
-</div>
-`,
-        )
-        .join("")
-    : '<p style="padding:28px 0">Your bag is waiting for its first green addition.</p>';
-
-  byId("subtotal").textContent = money(totals.subtotal);
-  byId("shipping").textContent =
-    totals.subtotal > 0 && totals.shipping === 0
-      ? "Free (demo)"
-      : money(totals.shipping);
-  byId("total").textContent = money(totals.total);
-  byId("checkoutButton").disabled = totals.count === 0;
-  byId("checkoutMessage").textContent = "";
-  persistCart();
+  return `
+    <article class="product-card" style="animation-delay:${i * 0.06}s" data-id="${p.id}">
+      <div class="product-art">
+        ${artEl}
+        ${p.badge ? `<span class="product-badge ${p.badgeClass}">${p.badge}</span>` : ''}
+        <button class="favorite-button ${isFav ? 'is-favorite' : ''}"
+          data-id="${p.id}" aria-label="${isFav ? 'Remove from' : 'Add to'} favourites" title="Favourite">
+          ${isFav ? '♥' : '♡'}
+        </button>
+      </div>
+      <div class="product-info">
+        <span class="product-region">${p.region}</span>
+        <h3>${p.name}</h3>
+        <span class="product-craft">${p.craft}</span>
+        <button class="quick-view-btn" data-id="${p.id}" aria-label="Quick view ${p.name}">
+          Quick view ↗
+        </button>
+        <div class="product-bottom">
+          <div>
+            <span class="price">PKR ${p.price.toLocaleString()}</span>${oldPrice}
+          </div>
+          <button class="add-button" data-id="${p.id}" aria-label="Add ${p.name} to bag" title="Add to bag">+</button>
+        </div>
+      </div>
+    </article>`;
 }
 
-byId("productGrid").addEventListener("click", (event) => {
-  const favoriteButton = event.target.closest("[data-favorite]");
-  if (favoriteButton) {
-    const id = favoriteButton.dataset.favorite;
-    if (favorites.has(id)) {
-      favorites.delete(id);
-      toast("Removed from favorites");
-    } else {
-      favorites.add(id);
-      toast("Saved to favorites");
-    }
-    persistFavorites();
-    renderProducts();
-    return;
+/* ─── FAVOURITES ─────────────────────────────────────────── */
+function toggleFavorite(id, btn) {
+  if (favorites.has(id)) {
+    favorites.delete(id);
+    btn.classList.remove('is-favorite');
+    btn.textContent = '♡';
+    btn.setAttribute('aria-label', 'Add to favourites');
+  } else {
+    favorites.add(id);
+    btn.classList.add('is-favorite');
+    btn.textContent = '♥';
+    btn.setAttribute('aria-label', 'Remove from favourites');
   }
-  const previewButton = event.target.closest("[data-preview]");
-  if (previewButton) {
-    openQuickView(previewButton.dataset.preview);
-    return;
-  }
-  const button = event.target.closest("[data-add]");
-  if (!button) return;
-  const id = button.dataset.add;
-  const product = products.find((item) => item.id === id);
-  if (!product) return;
+  localStorage.setItem('rg_fav', JSON.stringify([...favorites]));
+}
 
-  if ((cart[id] || 0) >= 99) {
-    toast("Maximum demo quantity: 99 per product.");
+/* ─── CART ───────────────────────────────────────────────── */
+function saveCart() { localStorage.setItem('rg_cart', JSON.stringify(cart)); }
+
+function addToCart(id) {
+  const p = PRODUCTS.find(x => x.id === id);
+  if (!p) return;
+  const existing = cart.find(x => x.id === id);
+  if (existing) {
+    existing.qty += 1;
+  } else {
+    cart.push({ id: p.id, name: p.name, price: p.price, emoji: p.emoji, img: p.img, region: p.region, qty: 1 });
+  }
+  saveCart();
+  updateCartCount();
+  flashAddBtn(id);
+  // Flash cart button
+  const cartBtn = $('#openCart');
+  cartBtn.style.transform = 'scale(1.15)';
+  setTimeout(() => { cartBtn.style.transform = ''; }, 300);
+}
+
+function flashAddBtn(id) {
+  const btn = document.querySelector(`.add-button[data-id="${id}"]`);
+  if (!btn) return;
+  btn.classList.add('added');
+  btn.textContent = '✓';
+  setTimeout(() => { btn.classList.remove('added'); btn.textContent = '+'; }, 1200);
+}
+
+function updateCartCount() {
+  const total = cart.reduce((sum, i) => sum + i.qty, 0);
+  $('#cartCount').textContent = total;
+}
+
+function renderCart() {
+  const body = $('#cartBody');
+  const footer = $('#cartFooter');
+
+  if (cart.length === 0) {
+    body.innerHTML = `<p class="cart-empty">Your bag is empty.<br/><small>Add some mountain heritage! 🏔️</small></p>`;
+    footer.hidden = true;
     return;
   }
-  cart[id] = (cart[id] || 0) + 1;
-  updateCart();
-  button.classList.add("added");
-  setTimeout(() => button.classList.remove("added"), 380);
-  toast(`${product.name} added to your bag`);
+
+  body.innerHTML = cart.map(item => {
+    const artEl = item.img
+      ? `<img class="cart-item-img" src="${item.img}" alt="${item.name}" onerror="this.outerHTML='<div class=\\'cart-item-img\\'>' + item.emoji + '</div>'">`
+      : `<div class="cart-item-img">${item.emoji}</div>`;
+    return `
+      <div class="cart-item" data-id="${item.id}">
+        ${artEl}
+        <div class="cart-item-info">
+          <div class="cart-item-name">${item.name}</div>
+          <div class="cart-item-region">${item.region}</div>
+          <div class="cart-item-actions">
+            <button class="qty-btn" data-action="dec" data-id="${item.id}" aria-label="Decrease quantity">−</button>
+            <span class="qty-num">${item.qty}</span>
+            <button class="qty-btn" data-action="inc" data-id="${item.id}" aria-label="Increase quantity">+</button>
+            <button class="remove-btn" data-id="${item.id}">Remove</button>
+          </div>
+        </div>
+        <div class="cart-item-price">PKR ${(item.price * item.qty).toLocaleString()}</div>
+      </div>`;
+  }).join('');
+
+  const total = cart.reduce((sum, i) => sum + i.price * i.qty, 0);
+  $('#cartTotal').textContent = `PKR ${total.toLocaleString()}`;
+  footer.hidden = false;
+
+  // qty/remove events
+  $$('.qty-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id  = +btn.dataset.id;
+      const act = btn.dataset.action;
+      const item = cart.find(x => x.id === id);
+      if (!item) return;
+      if (act === 'inc') { item.qty += 1; }
+      else if (act === 'dec') {
+        item.qty -= 1;
+        if (item.qty <= 0) { cart = cart.filter(x => x.id !== id); }
+      }
+      saveCart(); updateCartCount(); renderCart();
+    });
+  });
+  $$('.remove-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      cart = cart.filter(x => x.id !== +btn.dataset.id);
+      saveCart(); updateCartCount(); renderCart();
+    });
+  });
+}
+
+// Open/close cart
+$('#openCart').addEventListener('click', () => {
+  renderCart();
+  const overlay = $('#cartOverlay');
+  overlay.hidden = false;
+  document.body.classList.add('modal-open');
+  setTimeout(() => $('#closeCart')?.focus(), 50);
+});
+$('#closeCart').addEventListener('click', closeCart);
+$('#cartOverlay').addEventListener('click', (e) => {
+  if (e.target === $('#cartOverlay')) closeCart();
+});
+function closeCart() {
+  $('#cartOverlay').hidden = true;
+  document.body.classList.remove('modal-open');
+}
+
+$('#checkoutBtn').addEventListener('click', () => {
+  alert('🏔️ ReGongches · Academic Prototype\n\nThank you for your interest! This is a student demonstration — no payment will be processed.\n\nIn the live store, you would proceed to checkout with:\n• Cash on Delivery\n• Bank Transfer\n• Easypaisa / JazzCash\n\nYour total: PKR ' + cart.reduce((s,i) => s + i.price * i.qty, 0).toLocaleString());
 });
 
-function openQuickView(id) {
-  const product = products.find((item) => item.id === id);
-  if (!product) return;
-  const quickView = byId("quickViewDialog");
-  byId("quickViewContent").innerHTML = `
-    <div class="quick-view-art" style="background:${product.color}">
-      <svg aria-hidden="true" viewBox="0 0 300 300"><use href="#${product.art}"></use></svg>
-    </div>
-    <div class="quick-view-copy">
-      <span class="product-category">${product.category}</span>
-      <h2 id="quickViewTitle">${product.name}</h2>
-      <p>${product.description}</p>
-      <div class="quick-view-actions">
-        <strong class="price">${money(product.price)}</strong>
-        <button class="btn" data-quick-add="${product.id}">Add to bag <span>+</span></button>
+/* ─── QUICK VIEW MODAL ───────────────────────────────────── */
+function openModal(id) {
+  const p = PRODUCTS.find(x => x.id === id);
+  if (!p) return;
+
+  const artEl = p.img
+    ? `<img class="modal-img" src="${p.img}" alt="${p.name}" onerror="this.outerHTML='<div class=\\'modal-img-placeholder\\'>${p.emoji}</div>'">`
+    : `<div class="modal-img-placeholder">${p.emoji}</div>`;
+
+  const oldPrice = p.compareAt
+    ? `<small class="price-old" style="display:block;margin-top:4px">Was PKR ${p.compareAt.toLocaleString()}</small>` : '';
+
+  $('#modalContent').innerHTML = `
+    <div class="modal-product">
+      ${artEl}
+      <div class="modal-info">
+        <span class="product-region">${p.region}</span>
+        <h3>${p.name}</h3>
+        <span class="price">PKR ${p.price.toLocaleString()}</span>
+        ${oldPrice}
+        <p>${p.description}</p>
+        <div class="modal-meta">
+          <span>🧵 ${p.material}</span>
+          <span>📦 ${p.status}</span>
+          <span>🚚 ${p.dispatch}</span>
+          ${p.badge ? `<span>✦ ${p.badge}</span>` : ''}
+        </div>
+        <button class="btn btn-primary modal-add-btn" data-id="${p.id}">Add to Bag +</button>
       </div>
     </div>`;
-  quickView.showModal();
+
+  const overlay = $('#modalOverlay');
+  overlay.hidden = false;
+  document.body.classList.add('modal-open');
+  setTimeout(() => $('#closeModal')?.focus(), 50);
+
+  // Attach add button
+  overlay.querySelector('.modal-add-btn').addEventListener('click', () => {
+    addToCart(p.id);
+    closeModal();
+  });
 }
 
-document.querySelectorAll(".filter").forEach((button) => {
-  button.addEventListener("click", () => {
-    category = button.dataset.category;
-    document.querySelectorAll(".filter").forEach((filter) => {
-      const selected = filter === button;
-      filter.classList.toggle("active", selected);
-      filter.setAttribute("aria-pressed", String(selected));
-    });
-    renderProducts();
-  });
+$('#closeModal').addEventListener('click', closeModal);
+$('#modalOverlay').addEventListener('click', (e) => {
+  if (e.target === $('#modalOverlay')) closeModal();
+});
+function closeModal() {
+  $('#modalOverlay').hidden = true;
+  document.body.classList.remove('modal-open');
+}
+
+/* ─── KEYBOARD ESC ───────────────────────────────────────── */
+document.addEventListener('keydown', (e) => {
+  if (e.key !== 'Escape') return;
+  if (!$('#cartOverlay').hidden)  closeCart();
+  if (!$('#modalOverlay').hidden) closeModal();
 });
 
-byId("search").addEventListener("input", renderProducts);
-byId("sort").addEventListener("change", renderProducts);
-byId("themeToggle").addEventListener("click", () => {
-  isNightMode = !isNightMode;
-  applyTheme();
-  toast(isNightMode ? "Night mode enabled" : "Day mode enabled");
+/* ─── NEWSLETTER ─────────────────────────────────────────── */
+$('#newsletterForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const status = $('#emailStatus');
+  status.textContent = '✦ Thank you! You\'ve joined the Threads of the North campaign. (Demo only — no data is stored.)';
+  e.target.reset();
+  setTimeout(() => { status.textContent = ''; }, 6000);
 });
 
-const dialog = byId("cartDialog");
-const quickViewDialog = byId("quickViewDialog");
+/* ─── PRINT ──────────────────────────────────────────────── */
+$('#printPlan')?.addEventListener('click', () => window.print());
 
-byId("openCart").addEventListener("click", () => {
-  updateCart();
-  dialog.showModal();
-  document.body.classList.add("modal-open");
-});
-
-byId("closeCart").addEventListener("click", () => dialog.close());
-
-dialog.addEventListener("close", () => {
-  document.body.classList.remove("modal-open");
-});
-
-byId("closeQuickView").addEventListener("click", () => quickViewDialog.close());
-quickViewDialog.addEventListener("click", (event) => {
-  const bounds = quickViewDialog.getBoundingClientRect();
-  if (
-    event.target === quickViewDialog &&
-    (event.clientX < bounds.left ||
-      event.clientX > bounds.right ||
-      event.clientY < bounds.top ||
-      event.clientY > bounds.bottom)
-  ) {
-    quickViewDialog.close();
-  }
-});
-quickViewDialog.addEventListener("click", (event) => {
-  const button = event.target.closest("[data-quick-add]");
-  if (!button) return;
-  const product = products.find((item) => item.id === button.dataset.quickAdd);
-  if (!product) return;
-  cart[product.id] = Math.min(99, (cart[product.id] || 0) + 1);
-  updateCart();
-  quickViewDialog.close();
-  toast(`${product.name} added to your bag`);
-});
-
-dialog.addEventListener("click", (event) => {
-  const bounds = dialog.getBoundingClientRect();
-  if (
-    event.target === dialog &&
-    (event.clientX < bounds.left ||
-      event.clientX > bounds.right ||
-      event.clientY < bounds.top ||
-      event.clientY > bounds.bottom)
-  ) {
-    dialog.close();
-  }
-});
-
-byId("cartItems").addEventListener("click", (event) => {
-  const change = event.target.closest("[data-change]");
-  const remove = event.target.closest("[data-remove]");
-  if (!change && !remove) return;
-
-  const id = change ? change.dataset.change : remove.dataset.remove;
-  if (!products.some((product) => product.id === id)) return;
-
-  if (change) {
-    cart[id] = Math.max(
-      0,
-      Math.min(99, (cart[id] || 0) + Number(change.dataset.delta)),
-    );
-    if (cart[id] === 0) delete cart[id];
-  } else {
-    delete cart[id];
-  }
-
-  updateCart();
-
-  /* Preserve a useful keyboard focus target after rebuilding cart rows. */
-  const selector = change
-    ? `[data-change="${id}"][data-delta="${change.dataset.delta}"]`
-    : `[data-remove="${id}"]`;
-  const replacement = byId("cartItems").querySelector(selector);
-  if (replacement && !replacement.disabled) replacement.focus();
-  else byId("closeCart").focus();
-});
-
-byId("checkoutButton").addEventListener("click", () => {
-  const totals = calculateCart();
-  if (!totals.count) return;
-  byId("checkoutMessage").textContent =
-    `Demo checkout preview: ${totals.count} item(s), illustrative total ` +
-    `${money(totals.total)}. No order has been placed and no payment has ` +
-    `been taken. A live store needs a secure backend and a verified payment ` +
-    `or cash-on-delivery workflow.`;
-});
-
-byId("newsletterForm").addEventListener("submit", (event) => {
-  event.preventDefault();
-  byId("emailStatus").textContent =
-    "Demo complete. You have not been subscribed; no email was saved or sent.";
-  event.target.reset();
-});
-
-byId("printPlan").addEventListener("click", () => {
-  document.querySelectorAll(".plan-block").forEach((block) => {
-    block.open = true;
-  });
-  window.print();
-});
-
-byId("year").textContent = new Date().getFullYear();
-applyTheme();
-initializeViewMode();
+/* ─── INIT ───────────────────────────────────────────────── */
+updateCartCount();
 renderProducts();
-updateCart();
-  
+
+// Re-observe any dynamically added storefront elements
+setTimeout(() => {
+  document.querySelectorAll('.storefront').forEach(el => observer.observe(el));
+}, 100);
