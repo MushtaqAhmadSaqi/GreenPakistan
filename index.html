@@ -59,7 +59,10 @@
                 <button aria-label="Search"><i class="ph ph-magnifying-glass"></i></button>
                 <button aria-label="Account" class="hide-mobile"><i class="ph ph-user"></i></button>
                 <button aria-label="Wishlist"><i class="ph ph-heart"></i></button>
-                <button aria-label="Cart"><i class="ph ph-shopping-bag"></i></button>
+                <button class="cart-button" aria-label="Cart" type="button">
+                    <i class="ph ph-shopping-bag"></i>
+                    <span class="cart-count" aria-live="polite">0</span>
+                </button>
                 <div class="currency-selector hide-mobile">
                     <span>PKR</span> <i class="ph ph-caret-down"></i>
                 </div>
@@ -557,6 +560,19 @@
     <a href="#" class="whatsapp-float" aria-label="Chat on WhatsApp">
         <i class="ph ph-whatsapp-logo"></i>
     </a>
+
+    <aside class="cart-panel" aria-label="Shopping cart" aria-hidden="true">
+        <div class="cart-panel-header">
+            <h2>Your Cart</h2>
+            <button class="cart-close" type="button" aria-label="Close cart">&times;</button>
+        </div>
+        <div class="cart-items"></div>
+        <div class="cart-panel-footer">
+            <div class="cart-total"><span>Total</span><strong>PKR 0</strong></div>
+            <button class="btn btn-primary full-width checkout-button" type="button">Checkout</button>
+        </div>
+    </aside>
+    <div class="cart-backdrop" aria-hidden="true"></div>
 
     <script src="script.js"></script>
 </body>
