@@ -585,6 +585,32 @@ function initHero() {
 }
 
 /* ══════════════════════════════════════════════════════════════
+   PREMIUM MOTION
+══════════════════════════════════════════════════════════════ */
+function initPremiumMotion() {
+  const hero = $('#hero');
+  if (!hero || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  let frame = 0;
+  hero.addEventListener('pointermove', event => {
+    const bounds = hero.getBoundingClientRect();
+    const x = ((event.clientX - bounds.left) / bounds.width - 0.5) * 8;
+    const y = ((event.clientY - bounds.top) / bounds.height - 0.5) * 5;
+
+    cancelAnimationFrame(frame);
+    frame = requestAnimationFrame(() => {
+      hero.style.setProperty('--hero-x', x.toFixed(2));
+      hero.style.setProperty('--hero-y', y.toFixed(2));
+    });
+  });
+
+  hero.addEventListener('pointerleave', () => {
+    hero.style.setProperty('--hero-x', '0');
+    hero.style.setProperty('--hero-y', '0');
+  });
+}
+
+/* ══════════════════════════════════════════════════════════════
    CATALOGUE — rendering, filtering, sorting
 ══════════════════════════════════════════════════════════════ */
 function initCatalogue() {
@@ -1816,6 +1842,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initCurrency();
   initReveal();
   initHero();
+  initPremiumMotion();
   initCatalogue();
   initQuickView();
   initCart();
