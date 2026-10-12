@@ -76,7 +76,7 @@ const PRODUCTS = [
       { label: 'Forest Green',  hex: '#2D5A3D' }
     ],
     images: ['gilgiti-wool-cap.webp', 'gilgiti-wool-cap.webp'],
-    shortStory: 'Baltistan's embroidery tradition uses geometric motifs passed down through family lineages. Each cap's border pattern carries regional significance that varies by valley.',
+    shortStory: "Baltistan's embroidery tradition uses geometric motifs passed down through family lineages. Each cap's border pattern carries regional significance that varies by valley.",
     artisanNote: null,
     isNew: true,
     isBestseller: false,
@@ -102,7 +102,7 @@ const PRODUCTS = [
       { label: 'Charcoal & Red', hex: '#252525' }
     ],
     images: ['embroidered-wool-shawl.webp', 'embroidered-wool-shawl.webp'],
-    shortStory: 'Woven in the high valleys of Baltistan, this shawl's border pattern is inspired by the geometric tilework of historic Balti architecture — a tradition of embellishment adapted to textile by local weavers.',
+    shortStory: "Woven in the high valleys of Baltistan, this shawl's border pattern is inspired by the geometric tilework of historic Balti architecture — a tradition of embellishment adapted to textile by local weavers.",
     artisanNote: null,
     isNew: false,
     isBestseller: true,
@@ -331,7 +331,7 @@ const PRODUCTS = [
       { label: 'Natural Heritage Palette', hex: '#C8B89A' }
     ],
     images: ['heritage-gift-box.webp', 'heritage-gift-box.webp'],
-    shortStory: 'This curated set pairs two of Gilgit-Baltistan's most iconic textile objects — the pakol cap and the woven shawl — in premium gift packaging with an authenticity card and cultural story insert.',
+    shortStory: "This curated set pairs two of Gilgit-Baltistan's most iconic textile objects — the pakol cap and the woven shawl — in premium gift packaging with an authenticity card and cultural story insert.",
     artisanNote: null,
     isNew: false,
     isBestseller: true,
@@ -379,7 +379,7 @@ const PRODUCTS = [
       { label: 'Seasonal Selection', hex: '#C59A3D' }
     ],
     images: ['heritage-gift-box.webp', 'heritage-gift-box.webp'],
-    shortStory: 'The Heritage Box brings together a seasonally curated selection of small textile objects from the Hunza valley — a considered introduction to the material culture of one of Pakistan's most celebrated mountain regions.',
+    shortStory: "The Heritage Box brings together a seasonally curated selection of small textile objects from the Hunza valley — a considered introduction to the material culture of one of Pakistan's most celebrated mountain regions.",
     artisanNote: null,
     isNew: false,
     isBestseller: false,
@@ -400,19 +400,19 @@ const REGIONS = [
     name: 'Baltistan',
     descriptor: 'Ancient Silk Road heritage and mountain embroidery',
     crafts: 'Embroidered caps, geometric shawls, decorative textiles',
-    description: 'Baltistan's position on historic trade routes connecting Central Asia and South Asia gave it access to a rich variety of textile influences. The region is particularly known for its distinctive geometric embroidery, worked in silk thread on wool grounds, with motifs that carry documented historical significance.'
+    description: "Baltistan's position on historic trade routes connecting Central Asia and South Asia gave it access to a rich variety of textile influences. The region is particularly known for its distinctive geometric embroidery, worked in silk thread on wool grounds, with motifs that carry documented historical significance."
   },
   {
     name: 'Hunza',
     descriptor: 'Celebrated valley famous for pattu weaving traditions',
     crafts: 'Pattu shawls, hand-woven belts, dyed textiles',
-    description: 'The Hunza valley has long attracted attention for its distinctive material culture, including the pattu — a hand-woven wool textile produced on traditional frame looms. Hunza weavers are known for their precision and the exceptional warmth of their products, suited to the valley's high altitude.'
+    description: "The Hunza valley has long attracted attention for its distinctive material culture, including the pattu — a hand-woven wool textile produced on traditional frame looms. Hunza weavers are known for their precision and the exceptional warmth of their products, suited to the valley's high altitude."
   },
   {
     name: 'Ghizer',
     descriptor: 'Remote western district with distinct robe-making heritage',
     crafts: 'Shuqa robes, woollen garments, woven sashes',
-    description: 'Ghizer district, in the western part of Gilgit-Baltistan, maintains a distinct textile identity centred on the shuqa — a full-length woollen robe that is both practical outerwear and a ceremonial garment. The district's relative isolation has helped preserve older production techniques.'
+    description: "Ghizer district, in the western part of Gilgit-Baltistan, maintains a distinct textile identity centred on the shuqa — a full-length woollen robe that is both practical outerwear and a ceremonial garment. The district's relative isolation has helped preserve older production techniques."
   },
   {
     name: 'Nagar',
