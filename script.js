@@ -219,15 +219,23 @@ function initHeader() {
   if (!header) return;
 
   let lastY = 0;
+  let frame = 0;
 
   function onScroll() {
-    const y = window.scrollY;
-    header.classList.toggle('is-scrolled', y > 20);
-    if (hero) {
-      const heroBottom = hero.offsetTop + hero.offsetHeight - 80;
-      header.classList.toggle('is-hero-top', y < heroBottom && y < 60);
-    }
-    lastY = y;
+    cancelAnimationFrame(frame);
+    frame = requestAnimationFrame(() => {
+      const y = window.scrollY;
+      const scrolled = header.classList.contains('is-scrolled');
+      header.classList.toggle('is-scrolled', scrolled ? y > 40 : y > 80);
+      if (hero) {
+        const heroBottom = hero.offsetTop + hero.offsetHeight - 80;
+        header.classList.toggle('is-hero-top', y < heroBottom && y < 60);
+      }
+      if (window.matchMedia('(max-width: 768px)').matches && Math.abs(y - lastY) > 10) {
+        header.classList.toggle('is-hidden-on-scroll', y > lastY && y > 120);
+        lastY = y;
+      }
+    });
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });
@@ -565,13 +573,37 @@ function initReveal() {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
+        if (entry.target.hasAttribute('data-reveal-stagger')) {
+          [...entry.target.children].slice(0, 8).forEach((child, index) => {
+            child.style.setProperty('--reveal-index', index);
+          });
+        }
         entry.target.classList.add('is-visible');
         observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.12 });
+  }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
 
   $$('[data-reveal], [data-reveal-stagger]').forEach(el => observer.observe(el));
+}
+
+function initScrollProgress() {
+  const progress = document.createElement('div');
+  progress.className = 'scroll-progress';
+  progress.setAttribute('aria-hidden', 'true');
+  document.body.prepend(progress);
+
+  let frame = 0;
+  const update = () => {
+    cancelAnimationFrame(frame);
+    frame = requestAnimationFrame(() => {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      progress.style.transform = `scaleX(${max > 0 ? window.scrollY / max : 0})`;
+    });
+  };
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update, { passive: true });
+  update();
 }
 
 /* ══════════════════════════════════════════════════════════════
@@ -1841,6 +1873,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initSearch();
   initCurrency();
   initReveal();
+  initScrollProgress();
   initHero();
   initPremiumMotion();
   initCatalogue();
