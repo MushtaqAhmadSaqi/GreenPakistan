@@ -66,6 +66,17 @@
 </head>
 <body>
 
+  <!-- PHASE 10 PRELOADER -->
+  <div id="preloader" aria-hidden="true" role="presentation">
+    <div class="preloader-wordmark">ReGongches</div>
+    <div class="preloader-line-wrap">
+      <div class="preloader-line-fill"></div>
+    </div>
+  </div>
+
+  <!-- PHASE 10 CURSOR DOT (desktop only) -->
+  <div id="cursor-dot" aria-hidden="true"></div>
+
   <!-- SKIP LINK -->
   <a class="skip-link" href="#main-content">Skip to main content</a>
 
@@ -99,7 +110,9 @@
 
       <!-- Mobile menu toggle -->
       <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-nav-drawer">
-        <i class="ph ph-list"></i>
+        <span class="hamburger-bar" aria-hidden="true"></span>
+        <span class="hamburger-bar" aria-hidden="true"></span>
+        <span class="hamburger-bar" aria-hidden="true"></span>
       </button>
 
       <!-- Logo -->
@@ -1576,5 +1589,6 @@
   <!-- Scripts -->
   <script src="products.js"></script>
   <script src="script.js"></script>
+  <script src="phase10.js"></script>
 </body>
 </html>

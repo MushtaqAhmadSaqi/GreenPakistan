@@ -112,13 +112,23 @@
   --r-modal: 12px;
   --r-pill:  999px;
 
-  /* Motion Tokens */
+  /* Phase 10 Motion Tokens — use exclusively, no hardcoded easings */
+  --ease-out:      cubic-bezier(0.16, 1, 0.3, 1);
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-in-out:   cubic-bezier(0.4, 0, 0.2, 1);
-  --dur-fast:   150ms;
-  --dur-med:    300ms;
-  --dur-slow:   500ms;
-  --dur-slower: 800ms;
+  --ease-in-out:   cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-in:       cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-soft:     cubic-bezier(0.25, 0.1, 0.25, 1);
+  --dur-instant:  100ms;
+  --dur-fast:     200ms;
+  --dur-base:     350ms;
+  --dur-med:      350ms;
+  --dur-slow:     550ms;
+  --dur-slower:   900ms;
+  --stagger:       75ms;
+  --lift-y:        -6px;
+  --rise-y:        20px;
+  --scale-press:   0.98;
+  --scale-hover-img: 1.04;
 
   /* Layout */
   --container-max:   1200px;
@@ -4120,7 +4130,569 @@ body {
     font-size: clamp(2.35rem, 7.5vw, 4rem);
   }
 
-  .product-card:hover {
-    transform: translateY(-4px);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   PHASE 10 — MOTION, TRANSITIONS & PREMIUM UI/UX
+═══════════════════════════════════════════════════════════════ */
+
+/* ── 10.3 PRELOADER ── */
+#preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: var(--c-ivory);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  pointer-events: none;
+  transition: opacity 500ms var(--ease-in), visibility 500ms;
+}
+#preloader.is-done {
+  opacity: 0;
+  visibility: hidden;
+}
+.preloader-wordmark {
+  font-family: var(--f-heading);
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--c-charcoal);
+}
+.preloader-line-wrap {
+  width: 140px;
+  height: 2px;
+  background: var(--c-sand);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+}
+.preloader-line-fill {
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  width: 0%;
+  background: var(--c-gold);
+  animation: preloader-fill 600ms var(--ease-out) forwards 300ms;
+}
+@keyframes preloader-fill {
+  to { width: 100%; }
+}
+
+/* ── 10.3 HERO ENTRANCE SEQUENCE ── */
+/* Word-split spans injected by JS */
+.hero-title .word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(var(--rise-y));
+  animation: word-rise var(--dur-slow) var(--ease-out) forwards;
+  animation-fill-mode: both;
+}
+.hero-eyebrow[data-hero-animate] {
+  opacity: 0;
+  transform: translateY(16px);
+  animation: word-rise var(--dur-slow) var(--ease-out) 0ms both;
+}
+.hero-rule[data-hero-animate] {
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: rule-draw var(--dur-slow) var(--ease-out) 100ms both;
+}
+.hero-text[data-hero-animate],
+.hero-buttons[data-hero-animate] {
+  opacity: 0;
+  transform: translateY(16px);
+  animation: word-rise var(--dur-slow) var(--ease-out) both;
+}
+.scroll-cue {
+  opacity: 0;
+  animation: word-rise var(--dur-base) var(--ease-out) 1000ms both;
+}
+@keyframes word-rise {
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes rule-draw {
+  to { opacity: 1; transform: scaleX(1); }
+}
+
+/* ── 10.3 HERO KEN BURNS ── */
+@media (prefers-reduced-motion: no-preference) {
+  .hero-animated .hero-bg-img {
+    animation: ken-burns 20s ease-in-out infinite alternate;
+  }
+  @keyframes ken-burns {
+    from { transform: scale(1.0) translate3d(0, 0, 0); }
+    to   { transform: scale(1.06) translate3d(0, 0, 0); }
+  }
+  .hero-animated .hero-pattern {
+    animation: pattern-drift 60s linear infinite;
+  }
+  @keyframes pattern-drift {
+    from { background-position: 0 0; }
+    to   { background-position: 40px 40px; }
   }
 }
+
+/* ── 10.4 SCROLL REVEAL VARIANTS ── */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(var(--rise-y));
+  transition:
+    opacity var(--dur-slow) var(--ease-out),
+    transform var(--dur-slow) var(--ease-out);
+  animation-fill-mode: both;
+}
+[data-reveal="fade"] { transform: none; }
+[data-reveal="scale"] { transform: scale(0.96); }
+[data-reveal="line"]  { opacity: 1; transform: scaleX(0); transform-origin: left; }
+[data-reveal="clip"]  {
+  clip-path: inset(0 0 100% 0);
+  transform: none;
+  transition:
+    clip-path 700ms var(--ease-out),
+    opacity var(--dur-slow) var(--ease-out);
+}
+[data-reveal].is-visible            { opacity: 1; transform: none; }
+[data-reveal="scale"].is-visible    { transform: scale(1); }
+[data-reveal="line"].is-visible     { transform: scaleX(1); }
+[data-reveal="clip"].is-visible     { clip-path: inset(0 0 0% 0); }
+
+/* Stagger group — JS sets --i on each child */
+[data-reveal-stagger] > * {
+  opacity: 0;
+  transform: translateY(var(--rise-y));
+  transition:
+    opacity var(--dur-slow) var(--ease-out) calc(min(var(--i, 0), 7) * var(--stagger)),
+    transform var(--dur-slow) var(--ease-out) calc(min(var(--i, 0), 7) * var(--stagger));
+}
+[data-reveal-stagger].is-visible > * {
+  opacity: 1;
+  transform: none;
+}
+
+/* Section-title gold hairline draws 150ms after title appears */
+.section-title { position: relative; }
+.section-title::after {
+  content: '';
+  display: block;
+  width: 42px;
+  height: 2px;
+  margin: 18px auto 0;
+  background: linear-gradient(90deg, transparent, var(--c-gold), transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-slow) var(--ease-out) 150ms;
+}
+.is-visible.section-title::after,
+[data-reveal].is-visible.section-title::after { transform: scaleX(1); }
+
+/* ── 10.4 SCROLL PROGRESS BAR ── */
+.scroll-progress {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: calc(var(--z-toast) + 10);
+  height: 2px;
+  background: var(--c-gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* ── 10.5 HEADER MOTION ── */
+.header {
+  transition:
+    background var(--dur-base) var(--ease-soft),
+    box-shadow var(--dur-base) var(--ease-soft),
+    backdrop-filter var(--dur-base) var(--ease-soft),
+    transform var(--dur-base) var(--ease-in-out);
+}
+.header.is-scrolled {
+  background: rgba(247, 241, 231, 0.84);
+  backdrop-filter: blur(12px) saturate(1.2);
+  box-shadow: 0 2px 20px rgba(33, 76, 99, 0.1);
+}
+.header.is-hidden-on-scroll { transform: translateY(-100%); }
+
+/* ── 10.5 HAMBURGER → X MORPH ── */
+.hamburger-bar {
+  display: block;
+  width: 22px; height: 2px;
+  background: currentColor;
+  border-radius: 2px;
+  transition:
+    transform var(--dur-base) var(--ease-in-out),
+    opacity var(--dur-fast) var(--ease-soft);
+}
+.mobile-menu-btn { flex-direction: column; gap: 5px; }
+.mobile-menu-btn.is-open .hamburger-bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.mobile-menu-btn.is-open .hamburger-bar:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.mobile-menu-btn.is-open .hamburger-bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ── 10.5 MEGA MENU COLUMN STAGGER ── */
+.mega-col {
+  opacity: 0;
+  transform: translateY(-6px);
+  transition:
+    opacity var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+}
+.mega-menu.is-open .mega-col:nth-child(1) { opacity: 1; transform: none; transition-delay:   0ms; }
+.mega-menu.is-open .mega-col:nth-child(2) { opacity: 1; transform: none; transition-delay:  50ms; }
+.mega-menu.is-open .mega-col:nth-child(3) { opacity: 1; transform: none; transition-delay: 100ms; }
+.mega-menu.is-open .mega-col:nth-child(4) { opacity: 1; transform: none; transition-delay: 150ms; }
+
+/* ── 10.5 MOBILE DRAWER LINK STAGGER ── */
+.mobile-nav > ul > li > .mobile-nav-link,
+.mobile-nav > ul > li > .mobile-accordion-btn {
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity var(--dur-base) var(--ease-out),
+    transform var(--dur-base) var(--ease-out);
+}
+.mobile-drawer.is-open .mobile-nav > ul > li:nth-child(1) > .mobile-nav-link,
+.mobile-drawer.is-open .mobile-nav > ul > li:nth-child(1) > .mobile-accordion-btn { opacity: 1; transform: none; transition-delay: 200ms; }
+.mobile-drawer.is-open .mobile-nav > ul > li:nth-child(2) > .mobile-nav-link,
+.mobile-drawer.is-open .mobile-nav > ul > li:nth-child(2) > .mobile-accordion-btn { opacity: 1; transform: none; transition-delay: 260ms; }
+.mobile-drawer.is-open .mobile-nav > ul > li:nth-child(3) > .mobile-nav-link,
+.mobile-drawer.is-open .mobile-nav > ul > li:nth-child(3) > .mobile-accordion-btn { opacity: 1; transform: none; transition-delay: 320ms; }
+.mobile-drawer.is-open .mobile-nav > ul > li:nth-child(4) > .mobile-nav-link,
+.mobile-drawer.is-open .mobile-nav > ul > li:nth-child(4) > .mobile-accordion-btn { opacity: 1; transform: none; transition-delay: 380ms; }
+.mobile-drawer.is-open .mobile-nav > ul > li:nth-child(n+5) > .mobile-nav-link,
+.mobile-drawer.is-open .mobile-nav > ul > li:nth-child(n+5) > .mobile-accordion-btn { opacity: 1; transform: none; transition-delay: 440ms; }
+
+/* ── 10.5 CART BADGE POP ── */
+@keyframes badge-pop {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.35); }
+  70%  { transform: scale(0.9); }
+  100% { transform: scale(1); }
+}
+.cart-badge.is-popping {
+  animation: badge-pop 400ms var(--ease-out);
+}
+
+/* ── 10.6 PRODUCT CARD HOVER — GPU-only, pseudo shadow ── */
+.product-card { position: relative; }
+.product-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: 0 22px 42px rgba(33, 76, 99, 0.18);
+  opacity: 0;
+  transition: opacity var(--dur-base) var(--ease-soft);
+  pointer-events: none;
+  z-index: 0;
+}
+.product-card:hover::before { opacity: 1; }
+.product-card {
+  transition:
+    transform var(--dur-base) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-soft);
+}
+.product-card:hover { transform: translateY(var(--lift-y)); border-color: rgba(197,154,61,.4); }
+.product-card:active { transform: translateY(0) scale(var(--scale-press)); }
+
+/* Quick Add slide up */
+.card-img-wrap { overflow: hidden; position: relative; }
+.card-quick-add {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  transform: translateY(100%);
+  transition: transform var(--dur-base) var(--ease-out);
+  will-change: transform;
+}
+.product-card:hover .card-quick-add { transform: translateY(0); }
+
+/* Image crossfade on hover */
+.card-img-hover {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 400ms var(--ease-soft), transform 900ms var(--ease-soft);
+}
+.card-img { transition: transform 900ms var(--ease-soft); }
+.product-card:hover .card-img-hover { opacity: 1; }
+.product-card:hover .card-img,
+.product-card:hover .card-img-hover { transform: scale(var(--scale-hover-img)); }
+
+/* ── 10.6 WISHLIST HEART BURST ── */
+@keyframes heart-pop {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.3); }
+  70%  { transform: scale(0.9); }
+  100% { transform: scale(1); }
+}
+.card-wishlist-btn.is-animating { animation: heart-pop 350ms var(--ease-out); }
+.heart-particle {
+  position: absolute;
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--c-gold);
+  pointer-events: none;
+  opacity: 0;
+  animation: particle-burst 600ms var(--ease-out) forwards;
+}
+@keyframes particle-burst {
+  0%   { opacity: 1; transform: translate(0, 0) scale(1); }
+  100% { opacity: 0; transform: var(--tx, translate(0,-20px)) scale(0.2); }
+}
+
+/* ── 10.6 ADD-TO-CART STATES ── */
+.btn-atc { position: relative; overflow: hidden; }
+.atc-loading, .atc-success { position: absolute; display: flex; align-items: center; gap: 6px; }
+.atc-label  { transition: opacity var(--dur-fast) var(--ease-soft), transform var(--dur-fast) var(--ease-soft); }
+.atc-loading { opacity: 0; transform: translateY(4px); transition: opacity var(--dur-fast) var(--ease-soft), transform var(--dur-fast) var(--ease-soft); }
+.atc-success { opacity: 0; transform: translateY(4px); transition: opacity var(--dur-fast) var(--ease-soft), transform var(--dur-fast) var(--ease-soft); }
+.btn-atc.is-loading .atc-label  { opacity: 0; transform: scale(0.8); }
+.btn-atc.is-loading .atc-loading { opacity: 1; transform: none; }
+.btn-atc.is-success .atc-label  { opacity: 0; }
+.btn-atc.is-success .atc-loading { opacity: 0; }
+.btn-atc.is-success .atc-success { opacity: 1; transform: none; }
+.btn-atc.is-success { background: var(--c-blue) !important; border-color: var(--c-blue) !important; }
+.atc-spinner {
+  width: 16px; height: 16px;
+  border: 2px solid rgba(255,255,255,.4);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  display: inline-block;
+  flex-shrink: 0;
+}
+.atc-check {
+  width: 18px; height: 18px;
+  stroke-dasharray: 30;
+  stroke-dashoffset: 30;
+  flex-shrink: 0;
+}
+.btn-atc.is-success .atc-check { animation: check-draw 350ms var(--ease-out) forwards; }
+@keyframes check-draw { to { stroke-dashoffset: 0; } }
+
+/* ── 10.6 FLY-TO-CART CLONE ── */
+.fly-to-cart-clone {
+  position: fixed;
+  z-index: 9998;
+  border-radius: var(--r-card);
+  overflow: hidden;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+/* ── 10.6 IMAGE BLUR-UP ── */
+img[data-blur-up] {
+  filter: blur(12px) saturate(0.7);
+  transform: scale(1.02);
+  opacity: 0;
+  transition:
+    filter 500ms var(--ease-out),
+    transform 500ms var(--ease-out),
+    opacity 500ms var(--ease-out);
+}
+img[data-blur-up].is-loaded {
+  filter: blur(0) saturate(1);
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* ── 10.6 SKELETON SHIMMER ── */
+.skeleton-img, .skeleton-line {
+  background: linear-gradient(90deg, var(--c-sand) 25%, var(--c-sand-lt) 50%, var(--c-sand) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
+@keyframes shimmer {
+  from { background-position: 200% 0; }
+  to   { background-position: -200% 0; }
+}
+
+/* ── 10.7 CART DRAWER ── */
+.cart-drawer {
+  transform: translateX(100%);
+  transition: transform var(--dur-slow) var(--ease-in-out);
+}
+.cart-drawer.is-open { transform: translateX(0); }
+#fdbar-fill {
+  transition: width 600ms var(--ease-out);
+}
+#fdbar-fill.is-reached { background: var(--c-gold); }
+
+/* ── 10.7 TOAST ── */
+.toast {
+  opacity: 0;
+  transform: translateY(16px);
+  animation: toast-in var(--dur-base) var(--ease-out) forwards;
+  position: relative;
+  overflow: hidden;
+}
+@keyframes toast-in { to { opacity: 1; transform: translateY(0); } }
+.toast.is-leaving { animation: toast-out 250ms var(--ease-in) forwards; }
+@keyframes toast-out { to { opacity: 0; transform: translateY(8px) scale(0.96); } }
+.toast-progress {
+  position: absolute;
+  bottom: 0; left: 0;
+  height: 2px;
+  background: rgba(255,255,255,0.4);
+  animation: toast-drain linear forwards;
+}
+.toast:hover .toast-progress { animation-play-state: paused; }
+@keyframes toast-drain { from { width: 100%; } to { width: 0%; } }
+
+/* ── 10.7 MODAL ENTER ── */
+.quickview-modal,
+.checkout-modal,
+.modal-panel {
+  transition:
+    opacity var(--dur-base) var(--ease-out),
+    transform var(--dur-base) var(--ease-out);
+  transform: scale(0.96) translateY(12px);
+  opacity: 0;
+}
+.modal-overlay.is-open .quickview-modal,
+.modal-overlay.is-open .checkout-modal,
+.modal-overlay.is-open .modal-panel {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+}
+
+/* ── 10.8 PRIMARY BUTTON SHEEN ── */
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 60%; height: 100%;
+  background: linear-gradient(105deg, transparent 30%, rgba(255,255,255,.15) 50%, transparent 70%);
+  transform: skewX(-20deg);
+  pointer-events: none;
+}
+.btn:hover::before { left: 150%; transition: left 600ms var(--ease-out); }
+
+/* ── 10.8 LINK UNDERLINE REVEAL ── */
+.link-reveal { position: relative; display: inline-block; }
+.link-reveal::after {
+  content: '';
+  position: absolute;
+  bottom: -1px; left: 0;
+  width: 100%; height: 1px;
+  background: var(--c-gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 250ms var(--ease-out);
+}
+.link-reveal:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+.link-reveal:not(:hover)::after { transform-origin: right; }
+
+/* ── 10.8 BACK-TO-TOP ── */
+#back-to-top {
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+  transition:
+    opacity var(--dur-base) var(--ease-soft),
+    transform var(--dur-base) var(--ease-soft);
+}
+#back-to-top.is-visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+
+/* ── 10.8 WHATSAPP PULSE RING ── */
+.whatsapp-float {
+  position: relative;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .whatsapp-float::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 2px solid rgba(37, 211, 102, 0.5);
+    animation: wa-pulse 2.5s ease-out infinite;
+  }
+}
+@keyframes wa-pulse {
+  0%   { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(1.4); opacity: 0; }
+}
+
+/* ── 10.9 SCROLL-SNAP + EDGE FADE ── */
+.reviews-carousel {
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+}
+.reviews-carousel::-webkit-scrollbar { display: none; }
+.region-scroll {
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+}
+.region-scroll::-webkit-scrollbar { display: none; }
+.review-card, .region-pill { scroll-snap-align: start; }
+
+/* ── 10.9 DESKTOP CURSOR FOLLOWER ── */
+#cursor-dot {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9997;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--c-gold);
+  opacity: 0.7;
+  transform: translate(-50%, -50%);
+  transition:
+    width var(--dur-base) var(--ease-out),
+    height var(--dur-base) var(--ease-out),
+    opacity var(--dur-base) var(--ease-soft),
+    background var(--dur-fast) var(--ease-soft);
+  mix-blend-mode: multiply;
+  font-size: 0;
+}
+#cursor-dot.is-expanded {
+  width: 48px; height: 48px;
+  opacity: 0.5;
+  background: var(--c-charcoal);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--c-white);
+}
+@media (pointer: coarse), (max-width: 1023px) {
+  #cursor-dot { display: none; }
+}
+
+/* ── 10.10 PERFORMANCE ── */
+.product-card { contain: layout paint; }
+
+/* ── 10.11 REDUCED-MOTION OVERRIDES ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  [data-reveal], [data-reveal-stagger] > * {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: opacity 0.01ms !important;
+  }
+  [data-hero-animate], .hero-title .word {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+  .hero-animated .hero-bg-img,
+  .hero-animated .hero-pattern,
+  .whatsapp-float::before,
+  .preloader-line-fill,
+  .skeleton-img, .skeleton-line { animation: none !important; }
+  #cursor-dot { display: none !important; }
+  .mega-col, .mobile-nav-link, .mobile-accordion-btn { opacity: 1 !important; transform: none !important; }
+  .scroll-progress { transition: none !important; }
+}
+

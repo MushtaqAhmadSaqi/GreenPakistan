@@ -1089,12 +1089,13 @@ const Cart = (() => {
     }
     save();
     updateCartUI();
-    Toast.show(`"${product.name}" added to cart`, 'cart');
-    // Animate badge
+    Toast.show(`"${product.name}" added to your cart`, 'cart');
+    // Phase 10: badge pop via is-popping class (handled in phase10.js)
     const badge = $('#cart-badge');
-    badge?.classList.remove('bounce');
+    badge?.classList.remove('bounce', 'is-popping');
     void badge?.offsetWidth;
-    badge?.classList.add('bounce');
+    badge?.classList.add('is-popping');
+    badge?.addEventListener('animationend', () => badge.classList.remove('is-popping'), { once: true });
   }
 
   function remove(key) {
@@ -1860,9 +1861,11 @@ function initMisc() {
    INIT
 ══════════════════════════════════════════════════════════════ */
 document.addEventListener('DOMContentLoaded', () => {
-  // Expose openCart/openWishlist/openSearch to global scope for tab bar buttons
+  // Expose openCart/closeCart/openWishlist/closeWishlist/openSearch to global scope
   window.openCart     = openCart;
+  window.closeCart    = closeCart;
   window.openWishlist = openWishlist;
+  window.closeWishlist= closeWishlist;
 
   // Run all module initialisers in order
   initAnnouncement();
