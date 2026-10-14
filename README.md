@@ -13,7 +13,7 @@ The project is currently implemented as a static website in
 ## Features
 
 - Responsive storefront layout for desktop and mobile screens
-- Editorial hero section with animated visual treatment
+- Editorial hero section with a looping mountain video background and animated visual treatment
 - Product catalogue with:
   - Category filters
   - Search
@@ -66,6 +66,7 @@ http://localhost:8000
 ├── index.html   # Site markup and inline SVG illustration symbols
 ├── styles.css   # Complete site styling
 ├── script.js    # Catalogue, cart, and interactive behavior
+├── Generated Video October 13, 2026 - 10_13PM.mp4  # Hero background video
 └── README.md    # Project documentation
 ```
 

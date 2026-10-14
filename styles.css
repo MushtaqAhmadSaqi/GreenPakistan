@@ -1177,6 +1177,12 @@ details > summary { list-style: none; }
   inset: 0;
   z-index: 0;
 }
+.hero-bg-video {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  display: block;
+}
 .hero-bg-img {
   width: 100%; height: 100%;
   object-fit: cover;
@@ -3859,6 +3865,7 @@ details > summary { list-style: none; }
     scroll-behavior: auto !important;
   }
   .hero-bg-img { animation: none; }
+  .hero-bg-video { transform: none; }
   .scroll-cue  { animation: none; }
   [data-reveal],
   [data-reveal-stagger] > * {
@@ -3943,7 +3950,7 @@ body {
   isolation: isolate;
 }
 
-.hero-bg-img {
+.hero-bg-video {
   transform: scale(1.03) translate3d(calc(var(--hero-x, 0) * 1px), calc(var(--hero-y, 0) * 1px), 0);
   transition: transform 1.2s var(--ease-premium);
   will-change: transform;
@@ -4122,7 +4129,7 @@ body {
     padding-top: 2.5rem;
   }
 
-  .hero-bg-img {
+  .hero-bg-video {
     object-position: 68% 30%;
   }
 
@@ -4219,7 +4226,7 @@ body {
 
 /* ── 10.3 HERO KEN BURNS ── */
 @media (prefers-reduced-motion: no-preference) {
-  .hero-animated .hero-bg-img {
+  .hero-animated .hero-bg-video {
     animation: ken-burns 20s ease-in-out infinite alternate;
   }
   @keyframes ken-burns {
@@ -4694,5 +4701,374 @@ img[data-blur-up].is-loaded {
   #cursor-dot { display: none !important; }
   .mega-col, .mobile-nav-link, .mobile-accordion-btn { opacity: 1 !important; transform: none !important; }
   .scroll-progress { transition: none !important; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   PHASE 10 v2 — NEW INTERACTION STYLES
+═══════════════════════════════════════════════════════════════ */
+
+/* ── 3-D CARD TILT (perspective applied via JS inline style) ── */
+.product-card,
+.category-card,
+.gift-card,
+.journal-card {
+  /* preserve-3d is set via JS; this prevents flash */
+  transform-style: flat;
+}
+
+/* Ensure inner content doesn't clip the tilt gloss */
+.product-card { isolation: isolate; }
+
+/* ── INK-WAVE RIPPLE ── */
+/* p10-ripple spans are injected by JS and self-remove */
+.p10-ripple {
+  /* Inherits animation from the injected keyframe */
+  display: block;
+}
+
+/* Prevent ripple from overflowing visible boundary */
+.btn, .filter-chip, .carousel-arrow, .density-btn {
+  overflow: hidden;
+}
+
+/* ── MAGNETIC BUTTON — no extra CSS needed; JS handles inline transform ── */
+/* Ensure smooth spring-back doesn't fight existing :hover transform */
+.btn-gold,
+.hero-buttons .btn {
+  will-change: transform;
+}
+
+/* ── CART ITEM STAGGER ── */
+/* Base state (JS overrides inline; this prevents flash of unstyled content) */
+.cart-item {
+  transition:
+    opacity 380ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 380ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ── REGION PANEL CROSSFADE ── */
+.region-panel {
+  transition:
+    opacity 300ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+/* Panels that are NOT active should be hidden but not layout-collapsing */
+.region-panel:not(.is-active) {
+  pointer-events: none;
+}
+
+/* ── DRAG-TO-SCROLL CURSOR ── */
+/* Applied dynamically; provide visual affordance */
+.reviews-carousel,
+.social-gallery,
+.value-bar-inner,
+#region-pills,
+.filter-chips {
+  cursor: grab;
+}
+.reviews-carousel:active,
+.social-gallery:active,
+.value-bar-inner:active,
+#region-pills:active,
+.filter-chips:active {
+  cursor: grabbing;
+}
+
+/* ── COUNT-UP NUMBERS ── */
+.feature-num,
+.stat-number {
+  /* Tabular figures so width doesn't jump during count */
+  font-variant-numeric: tabular-nums;
+  display: inline-block;
+  min-width: 2ch;
+}
+
+/* ── FILTER CHIP SLIDING PILL ── */
+.p10-filter-pill {
+  /* Base styles set by JS; this ensures it doesn't flash */
+  position: absolute;
+  bottom: 0;
+  height: 2px;
+  background: var(--c-gold);
+  border-radius: 2px;
+  pointer-events: none;
+  opacity: 0;
+  transition:
+    left  300ms cubic-bezier(0.16, 1, 0.3, 1),
+    width 300ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 200ms;
+}
+
+/* ── GIFT CARD 3-D FLIP REVEAL ── */
+/* Replaces simple opacity reveal with proper perspective flip */
+.gift-card {
+  perspective: 900px;
+  transform-style: preserve-3d;
+  cursor: pointer;
+}
+
+.gift-img,
+.gift-reveal,
+.gift-info {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.gift-reveal {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1.5rem;
+  background: linear-gradient(
+    160deg,
+    var(--c-blue-dk) 0%,
+    var(--c-blue) 100%
+  );
+  color: var(--c-white);
+  border-radius: inherit;
+  transform: rotateY(180deg);
+  opacity: 0;
+  transition:
+    transform 550ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 150ms ease;
+  pointer-events: none;
+}
+
+/* Front face */
+.gift-img {
+  transition: transform 550ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Flip on hover / focus */
+@media (prefers-reduced-motion: no-preference) {
+  .gift-card:hover .gift-img,
+  .gift-card:focus-visible .gift-img {
+    transform: rotateY(-180deg);
+  }
+  .gift-card:hover .gift-reveal,
+  .gift-card:focus-visible .gift-reveal {
+    transform: rotateY(0deg);
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+/* Fallback for reduced-motion: simple fade */
+@media (prefers-reduced-motion: reduce) {
+  .gift-reveal {
+    transform: none !important;
+    transition: opacity 150ms !important;
+  }
+  .gift-img {
+    transform: none !important;
+  }
+  .gift-card:hover .gift-reveal,
+  .gift-card:focus-visible .gift-reveal {
+    opacity: 1;
+  }
+}
+
+/* Gift reveal list styling */
+.gift-reveal ul {
+  list-style: none;
+  margin: 0.75rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.gift-reveal ul li {
+  font-size: var(--fs-sm);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0.9;
+}
+.gift-reveal ul li::before {
+  content: '';
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--c-gold);
+  flex-shrink: 0;
+}
+.gift-reveal-title {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: var(--ls-widest);
+  color: var(--c-gold);
+  margin: 0;
+}
+
+/* ── IMPROVED SECTION TITLE — animated gradient underline ── */
+.section-title {
+  background: linear-gradient(
+    135deg,
+    var(--c-charcoal) 0%,
+    color-mix(in srgb, var(--c-charcoal) 80%, var(--c-gold)) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Light sections keep white */
+.text-light .section-title,
+.bg-blue .section-title,
+.bg-charcoal .section-title {
+  background: none;
+  -webkit-text-fill-color: var(--c-white);
+  color: var(--c-white);
+}
+
+/* ── SOCIAL TILE OVERLAY SCALE ── */
+.social-tile-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(33, 76, 99, 0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: var(--c-white);
+  opacity: 0;
+  transition:
+    background var(--dur-base) var(--ease-soft),
+    opacity var(--dur-base) var(--ease-soft);
+}
+.social-tile:hover .social-tile-overlay,
+.social-tile:focus-visible .social-tile-overlay {
+  background: rgba(33, 76, 99, 0.55);
+  opacity: 1;
+}
+.social-tile-overlay i {
+  transform: scale(0.7);
+  transition: transform var(--dur-base) var(--ease-out);
+}
+.social-tile:hover .social-tile-overlay i,
+.social-tile:focus-visible .social-tile-overlay i {
+  transform: scale(1);
+}
+
+/* ── FEATURE CARD NUMBER — gold stroke reveal ── */
+.feature-num {
+  position: relative;
+  display: inline-block;
+  font-size: var(--fs-4xl);
+  font-weight: 700;
+  font-family: var(--f-heading);
+  color: transparent;
+  -webkit-text-stroke: 1px var(--c-gold);
+  letter-spacing: -0.02em;
+  line-height: 1;
+  transition: color var(--dur-base) var(--ease-soft);
+}
+.feature-card:hover .feature-num {
+  color: var(--c-gold);
+  -webkit-text-stroke: 0;
+}
+
+/* ── ANNOUNCEMENT BAR — crossfade variant ── */
+.ann-item {
+  transition:
+    opacity var(--dur-base) var(--ease-soft),
+    transform var(--dur-base) var(--ease-out);
+}
+.ann-item.is-leaving {
+  opacity: 0;
+  transform: translateY(-8px);
+  position: absolute;
+}
+.ann-item.is-entering {
+  opacity: 0;
+  transform: translateY(8px);
+}
+.ann-item.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── STEP CONNECTORS — animated fill on section reveal ── */
+.step-connector {
+  position: relative;
+  overflow: hidden;
+}
+.step-connector::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--c-gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 700ms var(--ease-out) 300ms;
+}
+[data-reveal-stagger].is-visible .step-connector::before {
+  transform: scaleX(1);
+}
+
+/* ── REVIEW CARD HOVER LIFT ── */
+.review-card {
+  transition:
+    transform var(--dur-base) var(--ease-out),
+    box-shadow var(--dur-base) var(--ease-soft);
+}
+.review-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 32px rgba(33, 76, 99, 0.12);
+}
+
+/* ── TRUST ITEM HOVER ── */
+.trust-item {
+  transition:
+    background var(--dur-fast) var(--ease-soft),
+    transform var(--dur-base) var(--ease-out);
+}
+.trust-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+  transform: translateY(-3px);
+}
+
+/* ── NAV LINK ACTIVE STATE ── */
+.desktop-nav .nav-link.active {
+  color: var(--c-gold);
+}
+.desktop-nav .nav-link {
+  position: relative;
+}
+.desktop-nav .nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 0;
+  width: 100%; height: 1.5px;
+  background: var(--c-gold);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 250ms var(--ease-out);
+  border-radius: 1px;
+}
+.desktop-nav .nav-link.active::after,
+.desktop-nav .nav-link:hover::after {
+  transform: scaleX(1);
+}
+
+/* ── REDUCED-MOTION ADDITIONS for v2 ── */
+@media (prefers-reduced-motion: reduce) {
+  .product-card,
+  .category-card,
+  .gift-card,
+  .journal-card {
+    transform: none !important;
+    transition: none !important;
+  }
+  .cart-item { transition: none !important; }
+  .region-panel { transition: none !important; }
+  .reviews-carousel,
+  .social-gallery,
+  .filter-chips { cursor: auto; }
+  .feature-num { transition: none !important; }
+  .p10-filter-pill { transition: none !important; }
+  .social-tile-overlay i { transition: none !important; }
 }
 
