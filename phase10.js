@@ -273,7 +273,7 @@ function initCartItemStagger() {
   mo.observe(cartDrawer, { attributes: true, attributeFilter: ['class'] });
 
   // Also stagger when cart contents update while open
-  const cartList = p10$('#cart-items-list');
+  const cartList = p10$('#cart-items-wrap');
   if (cartList) {
     const listMo = new MutationObserver(() => {
       if (!cartDrawer.classList.contains('is-open')) return;
@@ -644,8 +644,6 @@ function upgradeATCButtons() {
 
   const mo = new MutationObserver(() => {
     p10$$('.card-quick-add').forEach(upgrade);
-    const qv = p10$('#qv-add-btn');
-    if (qv) upgrade(qv);
   });
   mo.observe(document.body, { childList: true, subtree: true });
   p10$$('.card-quick-add').forEach(upgrade);
