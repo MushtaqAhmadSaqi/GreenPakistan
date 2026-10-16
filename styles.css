@@ -1636,6 +1636,26 @@ details > summary {
   justify-content: center;
   flex-wrap: wrap;
   opacity: 0;
+  align-items: center;
+}
+.hero-button {
+  min-width: 190px;
+  min-height: 52px;
+  border-radius: var(--r-pill);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  box-shadow: 0 8px 24px rgba(10, 27, 36, 0.16);
+}
+.hero-button--primary {
+  padding-inline: 26px;
+}
+.hero-button--secondary {
+  background: rgba(10, 27, 36, 0.2);
+  border-color: rgba(255, 255, 255, 0.52);
+}
+.hero-button--secondary:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: var(--c-white);
 }
 
 /* Hero entrance animations */
@@ -1671,44 +1691,79 @@ details > summary {
 /* Editorial strip */
 .hero-edit-strip {
   position: absolute;
-  bottom: 3.5rem;
+  bottom: 2.35rem;
   left: 50%;
   transform: translateX(-50%);
   z-index: 2;
-  display: flex;
-  gap: var(--sp-3);
-  white-space: nowrap;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(150px, 1fr));
+  gap: 10px;
+  width: min(calc(100% - 40px), 860px);
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 18px;
+  background: rgba(10, 27, 36, 0.46);
+  box-shadow: 0 12px 36px rgba(5, 18, 25, 0.2);
+  backdrop-filter: blur(14px);
+}
+.hero-edit-label {
+  position: absolute;
+  left: 18px;
+  top: -24px;
+  color: rgba(255, 255, 255, 0.74);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: var(--ls-widest);
+  text-transform: uppercase;
 }
 .edit-tile {
   display: flex;
   align-items: center;
   gap: var(--sp-2);
-  background: rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  border-radius: var(--r-pill);
-  padding: 8px 16px;
-  font-size: var(--fs-xs);
+  min-width: 0;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 11px;
+  padding: 10px 12px;
+  font-size: 0.74rem;
   font-weight: 600;
   color: var(--c-white);
   letter-spacing: var(--ls-wide);
   text-transform: uppercase;
   transition:
     background var(--dur-med),
-    border-color var(--dur-med);
-  min-height: 44px;
+    border-color var(--dur-med),
+    transform var(--dur-med);
+  min-height: 62px;
 }
 .edit-tile:hover {
-  background: rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.16);
   border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-3px);
+}
+.edit-tile > span {
+  min-width: 0;
+  line-height: 1.25;
+}
+.edit-tile small {
+  display: block;
+  margin-top: 4px;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 0.62rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
 }
 .edit-tile-img {
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   background: var(--c-blue);
   flex-shrink: 0;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .edit-tile-img--new {
   background: linear-gradient(135deg, var(--c-gold) 0%, #8c6a1e 100%);
