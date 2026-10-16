@@ -1,102 +1,77 @@
-# Green Pakistan
+ReGongches | Threads of Mountain Heritage
 
-Green Pakistan is a responsive single-page e-commerce prototype for plants,
-reusable essentials, and grow-your-own products. It is designed around the
-idea that sustainable habits should feel practical, welcoming, and easy to
-start.
+ReGongches is a luxury editorial e-commerce storefront celebrating authentic traditional clothing, hand-loomed pattu textiles, embroidered headwear, and cultural gift boxes from the 7 districts of Gilgit-Baltistan, Pakistan (Gilgit, Baltistan, Hunza, Ghizer, Nagar, Diamer, and Astore).
 
-## Preview
+Built with zero external build dependencies using semantic HTML5, modular CSS3, and Vanilla JavaScript (ES6+), the storefront runs directly in any modern browser or static hosting environment.
 
-The project is currently implemented as a static website in
-[`index.html`](./index.html).
+Key Storefront & UI/UX Features
 
-## Features
+1. Editorial Discovery & Resilient Visual Architecture
 
-- Responsive storefront layout for desktop and mobile screens
-- Editorial hero section with a looping mountain video background and animated visual treatment
-- Product catalogue with:
-  - Category filters
-  - Search
-  - Price and name sorting
-  - Grid/list view toggle (saved in `localStorage`)
-  - Product information disclosures
-- Demo shopping bag with:
-  - Add, remove, and quantity controls
-  - Persistent cart state through `localStorage`
-  - Demo delivery calculation
-  - Illustrative checkout preview
-- Scroll progress indicator
-- Sticky, scroll-aware navigation header
-- Reveal-on-scroll and product interaction animations
-- Newsletter signup demonstration
-- Business plan section with print support
-- Accessibility basics including:
-  - Skip link
-  - Keyboard focus states
-  - Semantic labels
-  - Reduced-motion support
+Bespoke 3-Angle SVG Studio Fallbacks: Every product features 3 distinct gallery views (Garment View, Macro Weave & Motif Study, and Archive Packaging & Story Card) with automatic fallback to bespoke SVG textile illustrations when external .webp photos are absent.
 
-## Running locally
+Karakoram Night Mode (data-theme="dark"): Instant header toggle switching between Warm Ivory Daylight and Obsidian/Gold Karakoram Night Mode.
 
-No build tools or dependencies are required.
+Interactive "Shop the Mountain Lookbook": Curated highland ensembles (The Highland Dignitary Edit and The Baltistan Silk-Road Edit) with pulsing gold hotspot pins, individual piece previews, and 1-click Add All 4 Pieces to Bag bundle checkout.
 
-### Option 1: Open directly
+7-District Region Explorer: Interactive regional tabs with altitude metadata, verified artisan counts, signature motifs, and live regional product previews.
 
-Open `index.html` in a modern browser.
+2. Advanced Catalogue, Filtering & Comparison
 
-### Option 2: Use a local server
+16-Piece Provenance Catalogue: Covers Headwear, Shawls & Textiles, Clothing, Waistcoats, Accessories, and Heritage Gifts.
 
-From the project directory, run any static file server. For example, with
-Python:
+Multi-Facet Filtering & Sorting: Filter by category chips, inline keyword search, district of origin, price range (Under PKR 2,500, PKR 2,500 – 6,500, Above PKR 6,500), availability status, and sort by Featured, Highest Rated, Newest, or Price.
 
-```bash
-python -m http.server 8000
-```
+Interactive Card Swatches: Preview colour palettes directly on product cards before adding to bag.
 
-Then visit:
+Side-by-Side Comparison Matrix: Compare up to 3 heritage pieces across Origin Valley, Rating, Craft Technique, Artisan Guild, Material Composition, Warmth/Weight, and Lead Time.
 
-```text
-http://localhost:8000
-```
+3. Upgraded Quick View & Provenance Passport
 
-## Project structure
+Interactive Hover-Zoom Loupe: Cursor-tracked 1.75× textile weave inspection on the main product image.
 
-```text
+Provenance Passport Card: Displays verified Origin Valley, Craft Technique, Artisan Collective, SKU, and Weight/Warmth specs.
+
+Express "Buy Now" & Utility Bar: Supports both Add to Bag and instant Buy Now checkout, alongside Compare, Wishlist, and Copy Link.
+
+4. Smart Cart, Promo Engine & 4-Step Checkout
+
+Two-Tier Progress Bar: Tracks progress toward Complimentary Nationwide Delivery (PKR 8,000) and a Complimentary Himalayan Cedar Sachet & Story Booklet (PKR 15,000).
+
+Live Promo Code Engine: Supports HERITAGE10 (10% off), HUNZA15 (15% off orders over PKR 10,000), and FREESHIP (free shipping) with 1-click apply pills.
+
+Dynamic City Shipping Estimator: Calculates delivery timelines and courier rates across 13+ cities in Pakistan (Gilgit, Hunza, Skardu, Islamabad, Rawalpindi, Lahore, Karachi, Peshawar, etc.).
+
+Payment Options & Printable Invoice: Supports Cash on Delivery (COD), Direct Bank Transfer (IBAN), and JazzCash/EasyPaisa, generating a printable official invoice (@media print) and saving the order to local storage.
+
+5. Interactive Modals & Customer Care Hub
+
+5-Stage Live Order Tracker: Look up any saved order reference (or test with RG-DEMO101) to view its 5-stage dispatch progress from the Gilgit studio.
+
+Interactive Size & Care Guide: Toggle measurements between cm and inches, use the live Quick Fit Finder calculator, and review the 3-step Highland Wool Care Protocol.
+
+Cultural Journal Reader: Full long-form essay modal with pull quotes and shoppable related pieces.
+
+Artisan Guilds & Searchable FAQ Modal: Profiles of 4 documented artisan collectives across Gilgit-Baltistan plus searchable policies.
+
+Customer Review Publishing: Collectors can submit verified star ratings and reviews that persist in localStorage.
+
+Project Structure
+
 .
-├── index.html   # Site markup and inline SVG illustration symbols
-├── styles.css   # Complete site styling
-├── script.js    # Catalogue, cart, and interactive behavior
-├── Generated Video October 13, 2026 - 10_13PM.mp4  # Hero background video
-└── README.md    # Project documentation
-```
+├── index.html # Storefront markup, Lookbook stage, and interactive modals
+├── styles.css # Design tokens, responsive layouts, Night Mode, and print styles
+├── products.js # 16 products, SVG studio art generator, regions, lookbook, promos, FAQs
+├── script.js # Core e-commerce state engine, filters, cart, checkout, and modals
+├── phase10.js # GPU-accelerated micro-interactions, 3D card tilt, FLIP grid, and ripples
+└── README.md # Documentation and setup guide
 
-## Technology
+Running Locally
 
-- HTML5
-- CSS3
-- Vanilla JavaScript
-- Inline SVG illustrations
-- Browser `localStorage` for the demo shopping bag and catalog view preference
+Place all files (index.html, styles.css, products.js, script.js, phase10.js) in the same folder.
 
-## Important prototype notes
+Open index.html directly in any modern browser, or serve locally via Python:
 
-This is a student/business concept prototype rather than a production commerce
-system.
+python3 -m http.server 8000
 
-- Product prices are illustrative and shown in PKR.
-- Product descriptions and supplier claims require verification.
-- No real orders or payments are processed.
-- Newsletter submissions are demonstrations only; no email is saved or sent.
-- A production launch would require a secure backend, server-side price and
-  stock validation, verified suppliers, shipping and returns policies, privacy
-  information, and a payment or cash-on-delivery workflow.
-
-## Customization
-
-The main catalogue is defined in `script.js` in the
-`products` array. Each product includes its name, category, price,
-illustration reference, color, badge, and description.
-
-The primary visual theme is defined at the top of `styles.css` in the CSS
-`:root` variables, including the forest green, lime, cream, and neutral
-surface colors.
+Then visit http://localhost:8000.
