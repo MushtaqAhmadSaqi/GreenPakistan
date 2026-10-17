@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shop the Archive | ReGongches</title>
+  <meta name="description" content="Shop verified clothing, shawls, headwear and heritage gifts from Gilgit-Baltistan.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="storefront-pages.css">
+  <script src="https://unpkg.com/@phosphor-icons/web@2.1.1" defer></script>
+</head>
+<body class="page-body">
+  <header class="page-header"><nav class="page-nav" aria-label="Main navigation">
+    <button class="page-menu-btn" data-page-menu aria-label="Open menu"><i class="ph ph-list"></i></button>
+    <a class="page-logo" href="index.html"><img src="brand-logo.webp" alt="ReGongches"></a>
+    <div class="page-links">
+      <a href="index.html">Home</a><a href="shop.html" aria-current="page">Shop</a><a href="collections.html">Collections</a><a href="story.html">Our Story</a><a href="journal.html">Journal</a><a href="contact.html">Contact</a>
+    </div>
+    <div class="page-actions"><a class="page-icon-btn" href="shop.html" aria-label="Search"><i class="ph ph-magnifying-glass"></i></a><a class="page-icon-btn" href="shop.html" aria-label="Shopping bag"><i class="ph ph-shopping-bag"></i></a><span class="page-cart-count" data-page-cart-count>0</span></div>
+  </nav></header>
+  <main>
+    <section class="page-hero"><div><span class="page-eyebrow">The ReGongches Archive</span><h1>Objects with an origin.</h1><p>Hand-finished clothing, textiles and keepsakes, documented from valley to doorstep.</p></div></section>
+    <section class="page-section">
+      <div class="page-section-heading"><div><span class="page-eyebrow">Shop the collection</span><h2>Find your piece</h2></div><p class="page-section-intro">Every item is selected for its material, maker and connection to the living textile traditions of northern Pakistan.</p></div>
+      <div class="page-toolbar">
+        <input data-page-search type="search" placeholder="Search by piece, region or craft..." aria-label="Search products">
+        <select data-page-category aria-label="Filter by category"><option value="">All categories</option><option>Clothing</option><option>Headwear</option><option>Shawls &amp; Textiles</option><option>Waistcoats</option><option>Accessories</option><option>Heritage Gifts</option></select>
+        <button class="page-filter" data-page-filter="New">New arrivals</button><button class="page-filter" data-page-filter="Bestseller">Best sellers</button>
+        <span data-page-result-count aria-live="polite"></span>
+      </div>
+      <div class="page-product-grid" data-page-product-grid></div>
+    </section>
+  </main>
+  <div class="page-toast" role="status"></div>
+  <footer class="page-footer"><div class="page-footer-inner"><div><img src="brand-logo.webp" alt="ReGongches" style="width:150px;filter:brightness(0) invert(1);"><p style="margin-top:16px;max-width:260px;">Threads of mountain heritage, made with care in Gilgit-Baltistan.</p></div><div><h3>Explore</h3><a href="shop.html">All pieces</a><a href="collections.html">Collections</a><a href="journal.html">Journal</a></div><div><h3>Care</h3><a href="contact.html">Contact us</a><a href="index.html#size-care">Size &amp; care</a><a href="index.html#track-order">Track an order</a></div><div><h3>Visit the valleys</h3><p>Cash on Delivery nationwide<br>Free shipping over PKR 8,000</p></div></div><div class="page-footer-bottom">© <span data-page-year></span> ReGongches. Authentic by origin.</div></footer>
+  <script src="products.js"></script><script src="storefront-pages.js"></script>
+</body>
+</html>
