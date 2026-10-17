@@ -64,11 +64,22 @@ Project Structure
 ├── products.js # 16 products, SVG studio art generator, regions, lookbook, promos, FAQs
 ├── script.js # Core e-commerce state engine, filters, cart, checkout, and modals
 ├── phase10.js # GPU-accelerated micro-interactions, 3D card tilt, FLIP grid, and ripples
+├── shop.html # Dedicated product archive
+├── collections.html # Curated collection landing page
+├── story.html # Brand and artisan story
+├── journal.html # Cultural journal landing page
+├── contact.html # Customer care and custom order contact page
+├── storefront-pages.css # Shared styles for dedicated storefront pages
+├── storefront-pages.js # Shared page navigation, filters, and cart helpers
+├── assets/
+│   ├── images/ # Logos, product photography, and hero imagery
+│   └── video/ # Hero video assets
 └── README.md # Documentation and setup guide
 
 Running Locally
 
-Place all files (index.html, styles.css, products.js, script.js, phase10.js) in the same folder.
+Keep the HTML, CSS, and JavaScript files in the project root. Media is organized under
+`assets/images` and `assets/video`; preserve these relative paths when deploying.
 
 Open index.html directly in any modern browser, or serve locally via Python:
 

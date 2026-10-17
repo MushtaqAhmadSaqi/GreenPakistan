@@ -215,7 +215,7 @@ function createProductSvg(config) {
   return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
 }
 
-/* ── BRAND LOGO SVG DATA URI (Used if brand-logo.webp is unavailable) ────── */
+/* ── BRAND LOGO SVG DATA URI (Used if assets/images/brand-logo.webp is unavailable) ────── */
 const BRAND_LOGO_DARK_SVG = 'data:image/svg+xml;utf8,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 54" width="220" height="54">
   <rect x="2" y="7" width="40" height="40" rx="8" fill="#214C63" stroke="#C59A3D" stroke-width="1.5"/>
   <polygon points="22,13 35,37 9,37" fill="none" stroke="#C59A3D" stroke-width="1.5" opacity="0.45"/>
@@ -268,7 +268,7 @@ const PRODUCTS = [
       { label: 'Mountain Brown',  hex: '#7A5C3A' }
     ],
     images: [
-      'gilgiti-wool-cap.webp',
+      'assets/images/gilgiti-wool-cap.webp',
       createProductSvg({ bg1: '#172F3D', bg2: '#214C63', accent: '#C59A3D', secondary: '#7A263A', garment: '#D8C4A8', region: 'Gilgit', title: 'Gilgiti Pakol Cap', subtitle: 'Weave & Brim Detail', type: 'cap', view: 2 }),
       createProductSvg({ bg1: '#172F3D', bg2: '#214C63', accent: '#C59A3D', secondary: '#7A263A', garment: '#D8C4A8', region: 'Gilgit', title: 'Gilgiti Pakol Cap', subtitle: 'Origin Story Card', type: 'cap', view: 3 })
     ],
@@ -312,7 +312,7 @@ const PRODUCTS = [
       { label: 'Forest Green',  hex: '#2D5A3D' }
     ],
     images: [
-      'gilgiti-wool-cap.webp',
+      'assets/images/gilgiti-wool-cap.webp',
       createProductSvg({ bg1: '#3E1520', bg2: '#7A263A', accent: '#C59A3D', secondary: '#214C63', garment: '#F7F1E7', region: 'Baltistan', title: 'Balti Embroidered Cap', subtitle: 'Silk Motif Macro', type: 'cap', view: 2 }),
       createProductSvg({ bg1: '#3E1520', bg2: '#7A263A', accent: '#C59A3D', secondary: '#214C63', garment: '#F7F1E7', region: 'Baltistan', title: 'Balti Embroidered Cap', subtitle: 'Archive Packaging', type: 'cap', view: 3 })
     ],
@@ -357,7 +357,7 @@ const PRODUCTS = [
       { label: 'Charcoal & Red', hex: '#252525' }
     ],
     images: [
-      'embroidered-wool-shawl.webp',
+      'assets/images/embroidered-wool-shawl.webp',
       createProductSvg({ bg1: '#233845', bg2: '#214C63', accent: '#C59A3D', secondary: '#7A263A', garment: '#F7F1E7', region: 'Baltistan', title: 'Embroidered Mountain Shawl', subtitle: 'Border Stitch Detail', type: 'shawl', view: 2 }),
       createProductSvg({ bg1: '#233845', bg2: '#214C63', accent: '#C59A3D', secondary: '#7A263A', garment: '#F7F1E7', region: 'Baltistan', title: 'Embroidered Mountain Shawl', subtitle: 'Gift Box & Story Card', type: 'shawl', view: 3 })
     ],
@@ -401,7 +401,7 @@ const PRODUCTS = [
       { label: 'Earthy Rust',    hex: '#8B4513' }
     ],
     images: [
-      'embroidered-wool-shawl.webp',
+      'assets/images/embroidered-wool-shawl.webp',
       createProductSvg({ bg1: '#3D2B1F', bg2: '#5C4033', accent: '#C59A3D', secondary: '#7A263A', garment: '#E8D8BF', region: 'Hunza', title: 'Hunza Pattu Shawl', subtitle: 'Herringbone Twill Macro', type: 'shawl', view: 2 }),
       createProductSvg({ bg1: '#3D2B1F', bg2: '#5C4033', accent: '#C59A3D', secondary: '#7A263A', garment: '#E8D8BF', region: 'Hunza', title: 'Hunza Pattu Shawl', subtitle: 'Provenance Certificate', type: 'shawl', view: 3 })
     ],
@@ -446,7 +446,7 @@ const PRODUCTS = [
       { label: 'Karakoram Slate', hex: '#214C63' }
     ],
     images: [
-      'embroidered-wool-shawl.webp',
+      'assets/images/embroidered-wool-shawl.webp',
       createProductSvg({ bg1: '#4A1926', bg2: '#7A263A', accent: '#C59A3D', secondary: '#214C63', garment: '#F7F1E7', region: 'Baltistan', title: 'Apricot-Blossom Wrap', subtitle: 'Botanical Stitch Detail', type: 'shawl', view: 2 }),
       createProductSvg({ bg1: '#4A1926', bg2: '#7A263A', accent: '#C59A3D', secondary: '#214C63', garment: '#F7F1E7', region: 'Baltistan', title: 'Apricot-Blossom Wrap', subtitle: 'Heritage Presentation', type: 'shawl', view: 3 })
     ],
@@ -492,7 +492,7 @@ const PRODUCTS = [
       { label: 'Ivory Ceremonial', hex: '#EDE3D2' }
     ],
     images: [
-      'embroidered-wool-waistcoat.webp',
+      'assets/images/embroidered-wool-waistcoat.webp',
       createProductSvg({ bg1: '#1A3444', bg2: '#2C4A5E', accent: '#C59A3D', secondary: '#7A263A', garment: '#D8C4A8', region: 'Ghizer', title: 'Ghizer Shuqa Robe', subtitle: 'Collar Cord & Weave', type: 'robe', view: 2 }),
       createProductSvg({ bg1: '#1A3444', bg2: '#2C4A5E', accent: '#C59A3D', secondary: '#7A263A', garment: '#D8C4A8', region: 'Ghizer', title: 'Ghizer Shuqa Robe', subtitle: 'Garment Cover & Card', type: 'robe', view: 3 })
     ],
@@ -536,7 +536,7 @@ const PRODUCTS = [
       { label: 'Warm Maroon',   hex: '#7A263A' }
     ],
     images: [
-      'embroidered-wool-waistcoat.webp',
+      'assets/images/embroidered-wool-waistcoat.webp',
       createProductSvg({ bg1: '#1E2952', bg2: '#2C3E7A', accent: '#C59A3D', secondary: '#7A263A', garment: '#F7F1E7', region: 'Astore', title: 'Astore Ceremonial Dress', subtitle: 'Dardic Collar Stitch', type: 'robe', view: 2 }),
       createProductSvg({ bg1: '#1E2952', bg2: '#2C3E7A', accent: '#C59A3D', secondary: '#7A263A', garment: '#F7F1E7', region: 'Astore', title: 'Astore Ceremonial Dress', subtitle: 'Bespoke Presentation', type: 'robe', view: 3 })
     ],
@@ -582,7 +582,7 @@ const PRODUCTS = [
       { label: 'Navy Slate',     hex: '#2C3E50' }
     ],
     images: [
-      'embroidered-wool-waistcoat.webp',
+      'assets/images/embroidered-wool-waistcoat.webp',
       createProductSvg({ bg1: '#1E3F2B', bg2: '#2D5A3D', accent: '#C59A3D', secondary: '#7A263A', garment: '#E8D8BF', region: 'Ghizer', title: 'Embroidered Waistcoat', subtitle: 'Crewel Panel Detail', type: 'waistcoat', view: 2 }),
       createProductSvg({ bg1: '#1E3F2B', bg2: '#2D5A3D', accent: '#C59A3D', secondary: '#7A263A', garment: '#E8D8BF', region: 'Ghizer', title: 'Embroidered Waistcoat', subtitle: 'Origin Verification', type: 'waistcoat', view: 3 })
     ],
@@ -626,7 +626,7 @@ const PRODUCTS = [
       { label: 'Terracotta',    hex: '#A0522D' }
     ],
     images: [
-      'embroidered-wool-waistcoat.webp',
+      'assets/images/embroidered-wool-waistcoat.webp',
       createProductSvg({ bg1: '#142038', bg2: '#1B2A4A', accent: '#C59A3D', secondary: '#7A263A', garment: '#F7F1E7', region: 'Nagar', title: 'Nagar Embroidered Jacket', subtitle: 'Silk-on-Wool Macro', type: 'waistcoat', view: 2 }),
       createProductSvg({ bg1: '#142038', bg2: '#1B2A4A', accent: '#C59A3D', secondary: '#7A263A', garment: '#F7F1E7', region: 'Nagar', title: 'Nagar Embroidered Jacket', subtitle: 'Archive Box & Card', type: 'waistcoat', view: 3 })
     ],
@@ -671,7 +671,7 @@ const PRODUCTS = [
       { label: 'Maroon & Ivory',  hex: '#7A263A' }
     ],
     images: [
-      'embroidered-textile-handbag.webp',
+      'assets/images/embroidered-textile-handbag.webp',
       createProductSvg({ bg1: '#4A1A28', bg2: '#7A263A', accent: '#C59A3D', secondary: '#214C63', garment: '#E8D8BF', region: 'Nagar', title: 'Embroidered Handbag', subtitle: 'Textile Panel Macro', type: 'accessory', view: 2 }),
       createProductSvg({ bg1: '#4A1A28', bg2: '#7A263A', accent: '#C59A3D', secondary: '#214C63', garment: '#E8D8BF', region: 'Nagar', title: 'Embroidered Handbag', subtitle: 'Dust Bag & Story Card', type: 'accessory', view: 3 })
     ],
@@ -715,7 +715,7 @@ const PRODUCTS = [
       { label: 'Indigo & Natural', hex: '#2C3E7A' }
     ],
     images: [
-      'embroidered-textile-handbag.webp',
+      'assets/images/embroidered-textile-handbag.webp',
       createProductSvg({ bg1: '#1D2E5C', bg2: '#2C3E7A', accent: '#C59A3D', secondary: '#7A263A', garment: '#F7F1E7', region: 'Hunza', title: 'Hunza Woven Belt', subtitle: 'Warp-Faced Motif Detail', type: 'accessory', view: 2 }),
       createProductSvg({ bg1: '#1D2E5C', bg2: '#2C3E7A', accent: '#C59A3D', secondary: '#7A263A', garment: '#F7F1E7', region: 'Hunza', title: 'Hunza Woven Belt', subtitle: 'Gift Pouch Included', type: 'accessory', view: 3 })
     ],
@@ -759,7 +759,7 @@ const PRODUCTS = [
       { label: 'Off-White',      hex: '#F5F5DC' }
     ],
     images: [
-      'embroidered-textile-handbag.webp',
+      'assets/images/embroidered-textile-handbag.webp',
       createProductSvg({ bg1: '#4A3828', bg2: '#6B513A', accent: '#C59A3D', secondary: '#7A263A', garment: '#F5F5DC', region: 'Diamer', title: 'Diamer Cushion Cover', subtitle: 'Chain-Stitch Rosette', type: 'accessory', view: 2 }),
       createProductSvg({ bg1: '#4A3828', bg2: '#6B513A', accent: '#C59A3D', secondary: '#7A263A', garment: '#F5F5DC', region: 'Diamer', title: 'Diamer Cushion Cover', subtitle: 'Origin Story Card', type: 'accessory', view: 3 })
     ],
@@ -803,7 +803,7 @@ const PRODUCTS = [
       { label: 'Warm Heritage Brass',        hex: '#C59A3D' }
     ],
     images: [
-      'embroidered-textile-handbag.webp',
+      'assets/images/embroidered-textile-handbag.webp',
       createProductSvg({ bg1: '#172F3D', bg2: '#214C63', accent: '#C59A3D', secondary: '#7A263A', garment: '#F7F1E7', region: 'Hunza', title: 'Heritage Cap Brooch', subtitle: 'Filigree & Stone Detail', type: 'accessory', view: 2 }),
       createProductSvg({ bg1: '#172F3D', bg2: '#214C63', accent: '#C59A3D', secondary: '#7A263A', garment: '#F7F1E7', region: 'Hunza', title: 'Heritage Cap Brooch', subtitle: 'Velvet Keepsake Box', type: 'accessory', view: 3 })
     ],
@@ -848,7 +848,7 @@ const PRODUCTS = [
       { label: 'Charcoal & Ivory Pairing', hex: '#252525' }
     ],
     images: [
-      'heritage-gift-box.webp',
+      'assets/images/heritage-gift-box.webp',
       createProductSvg({ bg1: '#172F3D', bg2: '#214C63', accent: '#C59A3D', secondary: '#7A263A', garment: '#F7F1E7', region: 'Gilgit', title: 'Cap & Shawl Gift Set', subtitle: 'Paired Textile Detail', type: 'gift', view: 2 }),
       createProductSvg({ bg1: '#172F3D', bg2: '#214C63', accent: '#C59A3D', secondary: '#7A263A', garment: '#F7F1E7', region: 'Gilgit', title: 'Cap & Shawl Gift Set', subtitle: 'Seal & Story Booklet', type: 'gift', view: 3 })
     ],
@@ -892,7 +892,7 @@ const PRODUCTS = [
       { label: 'Oatmeal & Indigo', hex: '#214C63' }
     ],
     images: [
-      'heritage-gift-box.webp',
+      'assets/images/heritage-gift-box.webp',
       createProductSvg({ bg1: '#4A1A28', bg2: '#7A263A', accent: '#C59A3D', secondary: '#214C63', garment: '#F7F1E7', region: 'Baltistan', title: 'Accessories Gift Set', subtitle: 'Motif & Weave Pairing', type: 'gift', view: 2 }),
       createProductSvg({ bg1: '#4A1A28', bg2: '#7A263A', accent: '#C59A3D', secondary: '#214C63', garment: '#F7F1E7', region: 'Baltistan', title: 'Accessories Gift Set', subtitle: 'Luxury Gift Packaging', type: 'gift', view: 3 })
     ],
@@ -935,7 +935,7 @@ const PRODUCTS = [
       { label: 'Seasonal Gold & Ivory Edition', hex: '#C59A3D' }
     ],
     images: [
-      'heritage-gift-box.webp',
+      'assets/images/heritage-gift-box.webp',
       createProductSvg({ bg1: '#252525', bg2: '#172F3D', accent: '#C59A3D', secondary: '#7A263A', garment: '#F7F1E7', region: 'Hunza', title: 'Cultural Heritage Box', subtitle: '4-Piece Textile Curation', type: 'gift', view: 2 }),
       createProductSvg({ bg1: '#252525', bg2: '#172F3D', accent: '#C59A3D', secondary: '#7A263A', garment: '#F7F1E7', region: 'Hunza', title: 'Cultural Heritage Box', subtitle: 'Booklet & Seal', type: 'gift', view: 3 })
     ],
