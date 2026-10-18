@@ -1,88 +1,45 @@
-ReGongches | Threads of Mountain Heritage
+# ReGongches — Threads of Mountain Heritage
 
-ReGongches is a luxury editorial e-commerce storefront celebrating authentic traditional clothing, hand-loomed pattu textiles, embroidered headwear, and cultural gift boxes from the 7 districts of Gilgit-Baltistan, Pakistan (Gilgit, Baltistan, Hunza, Ghizer, Nagar, Diamer, and Astore).
+ReGongches is a zero-build, production-ready luxury editorial e-commerce storefront celebrating authentic traditional clothing, hand-loomed *pattu* textiles, embroidered headwear, and cultural gift boxes from the **7 districts of Gilgit-Baltistan, Pakistan** (`Gilgit`, `Hunza`, `Nagar`, `Ghizer`, `Baltistan (Skardu)`, `Diamer`, and `Astore`).
 
-Built with zero external build dependencies using semantic HTML5, modular CSS3, and Vanilla JavaScript (ES6+), the storefront runs directly in any modern browser or static hosting environment.
+## Architecture & Modular ES6+ File Structure
 
-Key Storefront & UI/UX Features
+```text
+regongches-storefront/
+├── index.html               # Home storefront (Hero, Marquee, Categories, Curated Rails, Catalogue, Lookbook, 7-District SVG Map, 4 Pillars, 4-Step Authenticity, Gifts, Bespoke, Reviews, Journal, Social, Newsletter)
+├── shop.html                # Dedicated 16-product archive with URL-synced multi-facet filters & mobile filter bottom-sheet drawer
+├── product.html             # Shareable Product Detail Page (?id=...) with 3-angle hover/tap zoom gallery, Provenance Passport, sticky mobile ATC bar & dynamic Product JSON-LD in PKR
+├── collections.html         # Curated themed rails (Gifts for Him, Wedding Season, Under PKR 5,000, Winter Warmth: Pattu, From Hunza) & Lookbook ensembles
+├── story.html               # Brand narrative, Founder/Artisan's Pick, 4-Step Authenticity Promise, Partner Guilds & Interactive 7-District Map
+├── journal.html             # Cultural Journal & interactive full-essay reader
+├── contact.html             # Customer care hub, validated contact form with WhatsApp hand-off, studio coordinates & searchable FAQ
+├── 404.html                 # Custom high-altitude 404 page
+├── styles.css               # Unified design system (Ivory Daylight & Karakoram Night Mode, WCAG AA, 320px–1920px responsive)
+├── storefront-pages.css     # Compatibility stylesheet alias importing styles.css
+├── config.js                # SINGLE SOURCE OF TRUTH for phone, WhatsApp, IBAN, wallet, COD limit (PKR 25,000), shipping, promo codes, currency rates & webhook URL
+├── data/
+│   └── products.js          # 16 products, bespoke 3-angle SVG fallbacks, 3D badge icons, 7 regions, themed rails, curated reviews, journal essays, artisans & FAQs
+├── cart.js                  # Safe localStorage store, multi-tab sync, cart maths, non-stacking promo validator, 2-tier progress bar, wishlist & compare
+├── checkout.js              # Consistent 3-step checkout (1. Delivery -> 2. Payment -> 3. Review & Confirm) + Confirmation, COD limit enforcer, WhatsApp & webhook hand-off, printable invoice
+├── filters.js               # Multi-facet filtering, URL query string sync, mobile filter bottom-sheet drawer & card renderer
+├── ui.js                    # Accessible modals/drawers, focus trap, single announcement bar, sequenced storage & newsletter notices, search overlay & honest reviews
+├── motion.js                # Desktop-only hero video controller, word-by-word reveal, scroll reveals & prefers-reduced-motion compliance
+├── main.js                  # Application bootstrapper & page-specific view builders
+├── manifest.webmanifest     # Web app manifest with ReGongches branding
+├── sitemap.xml              # Search engine sitemap for https://regongches.store/
+├── robots.txt               # Crawler directives
+└── assets/
+    ├── images/              # 8 WebP brand & product photos
+    └── video/
+        └── hero-loom.mp4    # Web-safe hero background video (plays on desktop only when reduced-motion is off)
+```
 
-1. Editorial Discovery & Resilient Visual Architecture
+## Running Locally
 
-Bespoke 3-Angle SVG Studio Fallbacks: Every product features 3 distinct gallery views (Garment View, Macro Weave & Motif Study, and Archive Packaging & Story Card) with automatic fallback to bespoke SVG textile illustrations when external .webp photos are absent.
+Because the site uses zero build steps, you can open `index.html` directly or serve it locally via Python:
 
-Karakoram Night Mode (data-theme="dark"): Instant header toggle switching between Warm Ivory Daylight and Obsidian/Gold Karakoram Night Mode.
-
-Interactive "Shop the Mountain Lookbook": Curated highland ensembles (The Highland Dignitary Edit and The Baltistan Silk-Road Edit) with pulsing gold hotspot pins, individual piece previews, and 1-click Add All 4 Pieces to Bag bundle checkout.
-
-7-District Region Explorer: Interactive regional tabs with altitude metadata, verified artisan counts, signature motifs, and live regional product previews.
-
-2. Advanced Catalogue, Filtering & Comparison
-
-16-Piece Provenance Catalogue: Covers Headwear, Shawls & Textiles, Clothing, Waistcoats, Accessories, and Heritage Gifts.
-
-Multi-Facet Filtering & Sorting: Filter by category chips, inline keyword search, district of origin, price range (Under PKR 2,500, PKR 2,500 – 6,500, Above PKR 6,500), availability status, and sort by Featured, Highest Rated, Newest, or Price.
-
-Interactive Card Swatches: Preview colour palettes directly on product cards before adding to bag.
-
-Side-by-Side Comparison Matrix: Compare up to 3 heritage pieces across Origin Valley, Rating, Craft Technique, Artisan Guild, Material Composition, Warmth/Weight, and Lead Time.
-
-3. Upgraded Quick View & Provenance Passport
-
-Interactive Hover-Zoom Loupe: Cursor-tracked 1.75× textile weave inspection on the main product image.
-
-Provenance Passport Card: Displays verified Origin Valley, Craft Technique, Artisan Collective, SKU, and Weight/Warmth specs.
-
-Express "Buy Now" & Utility Bar: Supports both Add to Bag and instant Buy Now checkout, alongside Compare, Wishlist, and Copy Link.
-
-4. Smart Cart, Promo Engine & 4-Step Checkout
-
-Two-Tier Progress Bar: Tracks progress toward Complimentary Nationwide Delivery (PKR 8,000) and a Complimentary Himalayan Cedar Sachet & Story Booklet (PKR 15,000).
-
-Live Promo Code Engine: Supports HERITAGE10 (10% off), HUNZA15 (15% off orders over PKR 10,000), and FREESHIP (free shipping) with 1-click apply pills.
-
-Dynamic City Shipping Estimator: Calculates delivery timelines and courier rates across 13+ cities in Pakistan (Gilgit, Hunza, Skardu, Islamabad, Rawalpindi, Lahore, Karachi, Peshawar, etc.).
-
-Payment Options & Printable Invoice: Supports Cash on Delivery (COD), Direct Bank Transfer (IBAN), and JazzCash/EasyPaisa, generating a printable official invoice (@media print) and saving the order to local storage.
-
-5. Interactive Modals & Customer Care Hub
-
-5-Stage Live Order Tracker: Look up any saved order reference (or test with RG-DEMO101) to view its 5-stage dispatch progress from the Gilgit studio.
-
-Interactive Size & Care Guide: Toggle measurements between cm and inches, use the live Quick Fit Finder calculator, and review the 3-step Highland Wool Care Protocol.
-
-Cultural Journal Reader: Full long-form essay modal with pull quotes and shoppable related pieces.
-
-Artisan Guilds & Searchable FAQ Modal: Profiles of 4 documented artisan collectives across Gilgit-Baltistan plus searchable policies.
-
-Customer Review Publishing: Collectors can submit verified star ratings and reviews that persist in localStorage.
-
-Project Structure
-
-.
-├── index.html # Storefront markup, Lookbook stage, and interactive modals
-├── styles.css # Design tokens, responsive layouts, Night Mode, and print styles
-├── products.js # 16 products, SVG studio art generator, regions, lookbook, promos, FAQs
-├── script.js # Core e-commerce state engine, filters, cart, checkout, and modals
-├── phase10.js # GPU-accelerated micro-interactions, 3D card tilt, FLIP grid, and ripples
-├── shop.html # Dedicated product archive
-├── collections.html # Curated collection landing page
-├── story.html # Brand and artisan story
-├── journal.html # Cultural journal landing page
-├── contact.html # Customer care and custom order contact page
-├── storefront-pages.css # Shared styles for dedicated storefront pages
-├── storefront-pages.js # Shared page navigation, filters, and cart helpers
-├── assets/
-│   ├── images/ # Logos, product photography, and hero imagery
-│   └── video/ # Hero video assets
-└── README.md # Documentation and setup guide
-
-Running Locally
-
-Keep the HTML, CSS, and JavaScript files in the project root. Media is organized under
-`assets/images` and `assets/video`; preserve these relative paths when deploying.
-
-Open index.html directly in any modern browser, or serve locally via Python:
-
+```bash
 python3 -m http.server 8000
+```
 
-Then visit http://localhost:8000.
+Then visit `http://localhost:8000`.

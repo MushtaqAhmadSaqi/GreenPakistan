@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://regongches.store/sitemap.xml

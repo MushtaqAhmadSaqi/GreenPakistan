@@ -1,0 +1,16 @@
+{
+  "name": "ReGongches — Threads of Mountain Heritage",
+  "short_name": "ReGongches",
+  "description": "Authentic traditional clothing, frame-loomed pattu shawls, embroidered headwear, and cultural gift boxes from the 7 districts of Gilgit-Baltistan, Pakistan.",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#F7F1E7",
+  "theme_color": "#214C63",
+  "icons": [
+    {
+      "src": "assets/images/brand-icon.webp",
+      "sizes": "512x512",
+      "type": "image/webp"
+    }
+  ]
+}
