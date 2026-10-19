@@ -1471,7 +1471,7 @@ const UI = {
           <div class="review-card-top">
             <div class="stars" aria-label="${r.rating} out of 5 stars">${'★'.repeat(r.rating)}</div>
             <span class="verified-badge">
-              <i class="ph ph-seal-check" aria-hidden="true"></i> Verified purchase
+              <i class="ph ph-user" aria-hidden="true"></i> Collector review
             </span>
           </div>
           <blockquote class="review-text"><p>"${esc(r.comment)}"</p></blockquote>
@@ -1568,11 +1568,48 @@ const UI = {
       }
       if (errEl) errEl.textContent = '';
       emailInput?.classList.remove('is-error');
-      document.getElementById('newsletter-form-wrap')?.setAttribute('hidden', '');
-      document.getElementById('newsletter-success')?.removeAttribute('hidden');
-      window.RG.SafeStorage.set(keys.newsletterSubscribed, true);
-      this.suppressNewsletterForDays(popupCfg.newsletterCooldownDays);
-      window.RG.Cart.applyPromo('HERITAGE10', true);
+
+      // P0-3 FIX: Only show success if a newsletter endpoint is configured.
+      // Currently no newsletter service is set up. Show honest message instead.
+      const successEl = document.getElementById('newsletter-success');
+      const formWrapEl = document.getElementById('newsletter-form-wrap');
+      // Check if a newsletter endpoint has been configured (future: add CONFIG.newsletterEndpoint)
+      const newsletterEndpoint = (window.RG?.CONFIG?.newsletterEndpoint || '').trim();
+      if (newsletterEndpoint) {
+        // POST to configured endpoint
+        fetch(newsletterEndpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email })
+        }).then(res => {
+          if (res.ok) {
+            formWrapEl?.setAttribute('hidden', '');
+            if (successEl) successEl.removeAttribute('hidden');
+            window.RG.SafeStorage.set(keys.newsletterSubscribed, true);
+            this.suppressNewsletterForDays(popupCfg.newsletterCooldownDays);
+            window.RG.Cart.applyPromo('HERITAGE10', true);
+          } else {
+            if (errEl) errEl.textContent = 'Sign-up temporarily unavailable. Please try again later.';
+          }
+        }).catch(() => {
+          if (errEl) errEl.textContent = 'Unable to connect. Please try again later.';
+        });
+      } else {
+        // No backend configured — honest degradation
+        formWrapEl?.setAttribute('hidden', '');
+        if (successEl) {
+          successEl.removeAttribute('hidden');
+          // Override success message to be honest
+          const msgEl = successEl.querySelector('p, .newsletter-success-text');
+          if (msgEl) {
+            msgEl.textContent = 'Thank you for your interest! Our newsletter is coming soon. Follow us on Instagram @regongches for seasonal releases and artisan stories.';
+          }
+        }
+        window.RG.SafeStorage.set(keys.newsletterSubscribed, true);
+        this.suppressNewsletterForDays(popupCfg.newsletterCooldownDays);
+        // Still apply welcome code as goodwill even without backend
+        window.RG.Cart.applyPromo('HERITAGE10', true);
+      }
     });
 
     // 3. Newsletter Popup (NEVER on first mobile page view, NEVER for 14 days once dismissed,
@@ -1672,6 +1709,7 @@ const UI = {
       window.RG.SafeStorage.set(keys.newsletterSubscribed, true);
       closeNewsletterPopup();
       window.RG.Cart.applyPromo('HERITAGE10', true);
+      Toast.show('Thank you! Welcome code HERITAGE10 (10% off) has been applied to your cart.', 'success', 5000);
     });
   },
 

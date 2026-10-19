@@ -4,15 +4,20 @@
  * ============================================================================
  * Features:
  *  - Unified 3-Step Checkout Progress (1. Delivery -> 2. Payment -> 3. Review & Confirm)
- *    followed by Order Confirmation & Printable Official Invoice (@media print).
+ *    followed by Order Request screen (NOT "Confirmed" — static site cannot guarantee order receipt).
  *  - 13-City Shipping Estimator with automatic free shipping at PKR 8,000 or FREESHIP.
  *  - Pakistani Phone Validation (+92 3XX XXXXXXX or 03XX XXXXXXX) & Address Validation.
  *  - Strict COD Limit Enforcement (PKR 25,000): disables COD above PKR 25,000 with clear explanation.
  *  - Always displays exact PKR totals at checkout alongside any foreign currency approximation.
- *  - Real Static-Hosting Order Hand-Off:
+ *  - Placeholder IBAN/phone detection: blocks display of unconfigured test values.
+ *  - Static-Hosting Order Hand-Off (REQUIRES CONFIGURATION BEFORE LAUNCH):
  *      (a) Pre-filled WhatsApp Studio Dispatch message (auto-opened + 1-click button)
  *      (b) Configurable Formspree / Google Apps Script webhook POST (`CONFIG.orderHandoff.endpointUrl`)
- *      (c) Honest Local Browser Order Tracker persistence (`localStorage`)
+ *      (c) Local Browser Order History persistence (`localStorage`) — honestly labelled, not live tracking
+ *
+ * ⚠️ LAUNCH BLOCKERS:
+ *  - Set CONFIG.orderHandoff.endpointUrl before going live.
+ *  - Replace all [REPLACE BEFORE LAUNCH] values in config.js.
  */
 
 'use strict';
@@ -95,25 +100,63 @@ const Checkout = {
     });
   },
 
+  /**
+   * Detects whether config values are still the default [REPLACE BEFORE LAUNCH] placeholders.
+   * Returns true if the value appears to be a placeholder that should not be shown to customers.
+   */
+  isPlaceholder(value, type = 'generic') {
+    if (!value || typeof value !== 'string') return true;
+    const v = value.trim();
+    // Known placeholder IBAN
+    if (type === 'iban' && v === 'PK36 MEZN 0001 2345 6789 0102') return true;
+    // Known placeholder phones
+    if ((type === 'phone' || type === 'wallet') && (v === '0300-1234567' || v === '+923001234567' || v.includes('123 4567'))) return true;
+    // Known placeholder WhatsApp
+    if (type === 'whatsapp' && v === '923001234567') return true;
+    // Generic placeholder text
+    if (v.includes('[REPLACE') || v.includes('PLACEHOLDER') || v.includes('123 4567')) return true;
+    return false;
+  },
+
   populatePaymentInstructions() {
     const bankBox = document.getElementById('bank-instructions-box');
     if (bankBox) {
       const b = this.cfg.payment.bank;
-      bankBox.innerHTML = `
-        <span><strong>Bank:</strong> ${window.RG.escapeHtml(b.bankName)}</span>
-        <span><strong>Account Title:</strong> ${window.RG.escapeHtml(b.accountTitle)}</span>
-        <span><strong>IBAN:</strong> <code>${window.RG.escapeHtml(b.iban)}</code></span>
-        <span><strong>Branch:</strong> ${window.RG.escapeHtml(b.branch)}</span>
-      `;
+      const ibanIsPlaceholder = this.isPlaceholder(b.iban, 'iban');
+      if (ibanIsPlaceholder) {
+        bankBox.innerHTML = `
+          <span class="payment-placeholder-warning">
+            <strong>⚠️ Bank transfer details not yet configured.</strong><br>
+            Please contact us on WhatsApp to arrange payment.
+          </span>
+        `;
+      } else {
+        bankBox.innerHTML = `
+          <span><strong>Bank:</strong> ${window.RG.escapeHtml(b.bankName)}</span>
+          <span><strong>Account Title:</strong> ${window.RG.escapeHtml(b.accountTitle)}</span>
+          <span><strong>IBAN:</strong> <code>${window.RG.escapeHtml(b.iban)}</code></span>
+          <span><strong>Branch:</strong> ${window.RG.escapeHtml(b.branch)}</span>
+        `;
+      }
     }
     const walletBox = document.getElementById('wallet-instructions-box');
     if (walletBox) {
       const w = this.cfg.payment.wallet;
-      walletBox.innerHTML = `
-        <span><strong>Services:</strong> ${window.RG.escapeHtml(w.providers)}</span>
-        <span><strong>Account Title:</strong> ${window.RG.escapeHtml(w.accountTitle)}</span>
-        <span><strong>Wallet Number:</strong> <code>${window.RG.escapeHtml(w.number)}</code></span>
-      `;
+      const walletIsPlaceholder = this.isPlaceholder(w.number, 'wallet');
+      if (walletIsPlaceholder) {
+        walletBox.innerHTML = `
+          <span class="payment-placeholder-warning">
+            <strong>⚠️ Wallet details not yet configured.</strong><br>
+            Please contact us on WhatsApp to arrange payment.
+          </span>
+        `;
+      } else {
+        walletBox.innerHTML = `
+          <span><strong>Services:</strong> ${window.RG.escapeHtml(w.providers)}</span>
+          <span><strong>Account Title:</strong> ${window.RG.escapeHtml(w.accountTitle)}</span>
+          <span><strong>Wallet Number:</strong> <code>${window.RG.escapeHtml(w.number)}</code></span>
+        `;
+      }
     }
   },
 
@@ -509,7 +552,7 @@ const Checkout = {
       }
     } else if (webhookStatusEl) {
       webhookStatusEl.hidden = false;
-      webhookStatusEl.textContent = 'Static storefront hand-off: Your pre-filled WhatsApp order message is ready below (and saved to this browser’s Order Tracker).';
+      webhookStatusEl.textContent = '\u26a0\ufe0f Order endpoint not configured - your request is saved in this browser only. Please send via WhatsApp below to notify our studio. Your order is NOT confirmed until acknowledged.';
     }
 
     // 4. Clear cart & render confirmation screen
@@ -529,7 +572,12 @@ const Checkout = {
     const esc = window.RG.escapeHtml;
     const numEl = document.getElementById('order-num');
     if (numEl) {
-      numEl.innerHTML = `Official Order Reference: <strong>${esc(order.id)}</strong>`;
+      // HONEST LANGUAGE: This is a request, not a confirmed order, until WhatsApp/webhook is acknowledged
+      const endpointConfigured = Boolean((this.cfg.orderHandoff.endpointUrl || '').trim());
+      const statusLabel = endpointConfigured
+        ? 'Order Request Submitted'
+        : 'Order Request Prepared — Action Required';
+      numEl.innerHTML = `${esc(statusLabel)}: <strong>${esc(order.id)}</strong>`;
     }
 
     const waBtn = document.getElementById('order-whatsapp-btn');

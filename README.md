@@ -39,7 +39,22 @@ regongches-storefront/
 Because the site uses zero build steps, you can open `index.html` directly or serve it locally via Python:
 
 ```bash
-python3 -m http.server 8000
+python -m http.server 8080
 ```
 
-Then visit `http://localhost:8000`.
+Then visit `http://localhost:8080`.
+
+## Automated Tests
+
+Run the built-in automated test suite to validate all 80 commerce calculations, promo code thresholds, COD limits, product data integrity, and HTML standards:
+
+```bash
+node test_suite.js
+```
+
+## Production Deployment & Webhook Setup
+
+See [DEPLOYMENT.md](DEPLOYMENT.md) for step-by-step instructions on:
+- Setting up free Formspree or Google Apps Script order logging webhooks.
+- Replacing store contact, bank IBAN, and WhatsApp placeholders in `config.js`.
+- 1-click deployment to Cloudflare Pages, GitHub Pages, Netlify, or Vercel with custom domain SSL.

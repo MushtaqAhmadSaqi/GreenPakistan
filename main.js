@@ -49,6 +49,36 @@ const App = {
     }
 
     window.RG.Motion.init();
+    this.checkLaunchReadiness();
+  },
+
+  checkLaunchReadiness() {
+    const isDev = location.hostname === 'localhost' || location.hostname === '127.0.0.1' || location.protocol === 'file:';
+    if (!isDev) return;
+
+    const issues = [];
+    const cfg = window.RG?.CONFIG;
+    if (!cfg) return;
+
+    if (!cfg.orderHandoff?.endpointUrl) {
+      issues.push('CONFIG.orderHandoff.endpointUrl is blank (Formspree or Google Apps Script webhook needed for automatic backend order logging).');
+    }
+    if (cfg.contact?.whatsappNumber === '923001234567') {
+      issues.push('CONFIG.contact.whatsappNumber has placeholder digits "923001234567".');
+    }
+    if (cfg.payment?.bank?.iban === 'PK36 MEZN 0001 2345 6789 0102') {
+      issues.push('CONFIG.payment.bank.iban has placeholder IBAN.');
+    }
+
+    if (issues.length) {
+      console.warn(
+        `%c✦ ReGongches Storefront Launch Readiness Audit ✦\n%cThe following ${issues.length} items must be configured before production deployment:\n` +
+        issues.map((it, i) => ` ${i + 1}. ${it}`).join('\n') +
+        '\n\nSee config.js and DEPLOYMENT.md for step-by-step setup instructions.',
+        'color:#d97b54;font-weight:bold;font-size:14px;',
+        'color:#4f5b63;font-size:12px;'
+      );
+    }
   },
 
   /* ── 1. SLOW 7-DISTRICT MARQUEE STRIP (Inspired by Scrolltide) ── */
@@ -515,6 +545,34 @@ const App = {
       bcCat.href = `shop.html?category=${encodeURIComponent(product.category)}`;
     }
 
+    // Dynamic Canonical & Open Graph / Twitter Card for shareable product URLs
+    const shareUrl = `https://regongches.store/product.html?id=${encodeURIComponent(product.id)}`;
+    let canonicalEl = document.querySelector('link[rel="canonical"]');
+    if (!canonicalEl) {
+      canonicalEl = document.createElement('link');
+      canonicalEl.setAttribute('rel', 'canonical');
+      document.head.appendChild(canonicalEl);
+    }
+    canonicalEl.setAttribute('href', shareUrl);
+
+    const setMeta = (attr, key, val) => {
+      let el = document.querySelector(`meta[${attr}="${key}"]`);
+      if (!el) {
+        el = document.createElement('meta');
+        el.setAttribute(attr, key);
+        document.head.appendChild(el);
+      }
+      el.setAttribute('content', val);
+    };
+    setMeta('property', 'og:title', `${product.name} | ReGongches Heritage Archive`);
+    setMeta('property', 'og:description', product.shortStory);
+    setMeta('property', 'og:url', shareUrl);
+    if (product.images?.[0]) {
+      setMeta('property', 'og:image', new URL(product.images[0], window.location.href).href);
+    }
+    setMeta('name', 'twitter:title', `${product.name} | ReGongches`);
+    setMeta('name', 'twitter:description', product.shortStory);
+
     // Inject Product JSON-LD in PKR
     let ldScript = document.getElementById('pdp-jsonld');
     if (!ldScript) {
@@ -541,7 +599,7 @@ const App = {
       },
       offers: {
         '@type': 'Offer',
-        url: window.location.href,
+        url: shareUrl,
         priceCurrency: 'PKR',
         price: String(product.price),
         availability: product.status === 'Low Stock'
@@ -713,7 +771,7 @@ const App = {
             <!-- Trust Micro-Row -->
             <div class="qv-shipping-note">
               <i class="ph ph-shield-check" aria-hidden="true"></i>
-              <span>Cash on Delivery (up to PKR 25,000) · Free delivery over PKR 8,000 · Numbered Origin Card · 14-day exchange</span>
+              <span>Cash on Delivery (up to PKR 25,000) · Free delivery over PKR 8,000 · Numbered Origin & Story Card · 14-day exchange</span>
             </div>
 
             <!-- Detailed Accordions -->
@@ -896,6 +954,18 @@ const App = {
       ].filter(Boolean).join('\n');
 
       const waUrl = `${window.RG.CONFIG.contact.whatsappBaseUrl}?text=${encodeURIComponent(waMsg)}`;
+      const mailtoUrl = `mailto:${window.RG.CONFIG.contact.email}?subject=${encodeURIComponent(`[Concierge] ${topic} - ${name}`)}&body=${encodeURIComponent(waMsg.replace(/[*✦•]/g, ''))}`;
+
+      const statusWrap = document.getElementById('cf-status-wrap');
+      const waActionBtn = document.getElementById('cf-wa-action-btn');
+      const emailActionBtn = document.getElementById('cf-email-action-btn');
+
+      if (statusWrap) {
+        statusWrap.hidden = false;
+        if (waActionBtn) waActionBtn.href = waUrl;
+        if (emailActionBtn) emailActionBtn.href = mailtoUrl;
+      }
+
       window.RG.Toast.show('Thank you! Opening WhatsApp to connect you directly with our Gilgit studio concierge.', 'success', 5000);
       try { window.open(waUrl, '_blank', 'noopener,noreferrer'); } catch {}
       form.reset();

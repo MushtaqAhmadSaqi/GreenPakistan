@@ -9518,3 +9518,53 @@ html[data-theme="dark"] .pending-moderation-badge {
     animation: none !important;
   }
 }
+
+/* ── NOSCRIPT FALLBACK BANNER ────────────────────────────────────────────── */
+.noscript-banner {
+  background: #241410;
+  color: #fcfbf9;
+  padding: 1rem 1.5rem;
+  text-align: center;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  border-bottom: 2px solid #deb352;
+  position: relative;
+  z-index: 99999;
+}
+.noscript-banner a {
+  color: #deb352;
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+/* ── PAYMENT PLACEHOLDER WARNING ─────────────────────────────────────────── */
+.payment-placeholder-warning {
+  display: block;
+  background: rgba(217, 123, 84, 0.12);
+  border: 1px dashed var(--c-apricot, #d97b54);
+  padding: 10px 14px;
+  border-radius: var(--radius-sm, 6px);
+  color: var(--c-charcoal, #241c17);
+  font-size: var(--fs-xs, 0.85rem);
+  line-height: 1.45;
+}
+
+/* ── CONTACT STATUS FALLBACK ─────────────────────────────────────────────── */
+.cf-status-box {
+  background: var(--c-surface-elevated, #fdfaf5);
+  border: 1px solid var(--c-border-subtle, rgba(23,47,61,0.14));
+  border-radius: var(--radius-md, 8px);
+  padding: 16px;
+  margin-top: 14px;
+}
+.cf-status-box h4 {
+  margin: 0 0 8px;
+  color: var(--c-juniper, #2d5a3d);
+}
+.cf-status-box .actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+

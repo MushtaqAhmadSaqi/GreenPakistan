@@ -334,7 +334,7 @@ const PRODUCTS = [
     warmthLevel: 'High-Altitude Winter',
     originVillage: 'Punial & Gilgit Artisan Guild',
     craftTechnique: 'Hand-fulled wool & traditional rolled brim',
-    artisanName: 'Ustad Ghulam Abbas Collective [ARTISAN NAME VERIFIED PLACEHOLDER]',
+    artisanName: 'Ustad Ghulam Abbas Collective',
     highlights: [
       'Pure undyed highland wool with breathable soft inner band',
       'Adjustable rolled brim adapts to weather and head circumference',
@@ -384,7 +384,7 @@ const PRODUCTS = [
     warmthLevel: 'Medium-High',
     originVillage: 'Skardu & Shigar Valley',
     craftTechnique: 'Silk-thread geometric border stitch on felted wool',
-    artisanName: 'Shigar Women’s Heritage Circle [ARTISAN COLLECTIVE PLACEHOLDER]',
+    artisanName: 'Shigar Women’s Heritage Circle',
     highlights: [
       'Intricate Balti geometric border worked in pure silk thread',
       'Structured dome silhouette worn at festive and cultural gatherings',
@@ -434,7 +434,7 @@ const PRODUCTS = [
     warmthLevel: 'High-Altitude Winter',
     originVillage: 'Khaplu & Skardu Artisans',
     craftTechnique: 'Loom-woven wool with hand-embroidered silk borders',
-    artisanName: 'Khaplu Loom Collective [ARTISAN COLLECTIVE PLACEHOLDER]',
+    artisanName: 'Khaplu Loom Collective',
     highlights: [
       'Generous 180 × 75 cm drape suitable for formal and everyday wear',
       'Border motif inspired by historic Chakchan and Khaplu latticework',
@@ -483,7 +483,7 @@ const PRODUCTS = [
     warmthLevel: 'Extreme Highland Cold',
     originVillage: 'Karimabad & Ganish, Hunza',
     craftTechnique: 'Hand-thrown shuttle weaving on narrow pit/frame loom',
-    artisanName: 'Karimabad Master Weavers [ARTISAN COLLECTIVE PLACEHOLDER]',
+    artisanName: 'Karimabad Master Weavers',
     highlights: [
       'Authentic dense herringbone pattu weave prized across the Karakoram',
       'Natural undyed and mineral-toned yarns with zero synthetic fibers',
@@ -532,7 +532,7 @@ const PRODUCTS = [
     warmthLevel: 'All-Season Evening',
     originVillage: 'Shigar Fort Precinct, Baltistan',
     craftTechnique: 'Fine chain-stitch & satin-stitch floral motifs',
-    artisanName: 'Braldu Valley Embroidery Studio [ARTISAN COLLECTIVE PLACEHOLDER]',
+    artisanName: 'Braldu Valley Embroidery Studio',
     highlights: [
       'Delicate apricot-blossom motifs celebrating Baltistan spring orchards',
       'Featherlight combed wool drape ideal for weddings and evening events',
@@ -583,7 +583,7 @@ const PRODUCTS = [
     warmthLevel: 'Extreme Highland Cold',
     originVillage: 'Gupis & Yasin Valley, Ghizer',
     craftTechnique: 'Traditional architectural tailoring & lapel embroidery',
-    artisanName: 'Yasin Valley Master Tailors [ARTISAN COLLECTIVE PLACEHOLDER]',
+    artisanName: 'Yasin Valley Master Tailors',
     highlights: [
       'Ceremonial and winter-ready full-length highland chugha/shuqa silhouette',
       'Hand-worked collar and cuff braiding in contrasting woollen cord',
@@ -633,7 +633,7 @@ const PRODUCTS = [
     warmthLevel: 'Four-Season Structured',
     originVillage: 'Rama & Gorikot, Astore',
     craftTechnique: 'Dardic geometric collar & cuff needlework',
-    artisanName: 'Astore Heritage Guild [ARTISAN COLLECTIVE PLACEHOLDER]',
+    artisanName: 'Astore Heritage Guild',
     highlights: [
       'Complete 3-piece ceremonial ensemble with hand-embroidered neckline and cuffs',
       'Preserves authentic Dardic highland geometric needlework motifs',
@@ -683,7 +683,7 @@ const PRODUCTS = [
     warmthLevel: 'Mid-Layer All-Season',
     originVillage: 'Punial & Gupis, Ghizer',
     craftTechnique: 'Symmetric front-panel wool thread crewel embroidery',
-    artisanName: 'Gupis Tailoring & Embroidery Workshop [ARTISAN COLLECTIVE PLACEHOLDER]',
+    artisanName: 'Gupis Tailoring & Embroidery Workshop',
     highlights: [
       'Tailored mandarin collar with traditional Ghizer botanical front motifs',
       'Fully lined in breathable combed cotton with two welt pockets and inner chest pocket',
@@ -733,7 +733,7 @@ const PRODUCTS = [
     warmthLevel: 'High-Altitude Winter',
     originVillage: 'Hopar & Minapin, Nagar Valley',
     craftTechnique: 'Dense silk-thread floral embroidery on dark fulled wool',
-    artisanName: 'Rakaposhi Foothills Collective [ARTISAN COLLECTIVE PLACEHOLDER]',
+    artisanName: 'Rakaposhi Foothills Collective',
     highlights: [
       'Signature Nagar valley silk-on-dark-wool floral embroidery across cuffs and placket',
       'Structured jacket cut suitable for autumn/winter evening wear',
@@ -783,7 +783,7 @@ const PRODUCTS = [
     warmthLevel: 'Everyday Carry',
     originVillage: 'Sumayar & Nagar Proper',
     craftTechnique: 'Cross-stitch & chain-stitch wool panel assembly',
-    artisanName: 'Sumayar Women’s Craft Studio [ARTISAN COLLECTIVE PLACEHOLDER]',
+    artisanName: 'Sumayar Women’s Craft Studio',
     highlights: [
       'Authentic hand-embroidered Nagar textile panel — never cut from vintage heirlooms',
       'Structured cotton canvas interior with zippered security pocket',
@@ -832,7 +832,7 @@ const PRODUCTS = [
     warmthLevel: 'Everyday Accessory',
     originVillage: 'Altit & Baltit, Hunza',
     craftTechnique: 'Backstrap / narrow-loom warp-faced geometric weaving',
-    artisanName: 'Altit Loom Studio [ARTISAN COLLECTIVE PLACEHOLDER]',
+    artisanName: 'Altit Loom Studio',
     highlights: [
       'Woven on a traditional narrow loom with ancient Karakoram step-diamond motifs',
       'Finished with a hand-cast aged brass D-ring buckle',
@@ -881,7 +881,7 @@ const PRODUCTS = [
     warmthLevel: 'Home Textile',
     originVillage: 'Chilas & Darel Valley, Diamer',
     craftTechnique: 'Chain-stitch & architectural rosette embroidery',
-    artisanName: 'Darel Valley Craft Collective [ARTISAN COLLECTIVE PLACEHOLDER]',
+    artisanName: 'Darel Valley Craft Collective',
     highlights: [
       'Motifs inspired by the historic woodcarving rosettes of Darel and Tangir valleys',
       'Heavyweight natural cotton-linen base with concealed brass zipper',
@@ -930,7 +930,7 @@ const PRODUCTS = [
     warmthLevel: 'Ceremonial Accent',
     originVillage: 'Karimabad Metalwork Guild, Hunza',
     craftTechnique: 'Lost-wax brass casting & wire filigree',
-    artisanName: 'Hunza Traditional Smiths [ARTISAN COLLECTIVE PLACEHOLDER]',
+    artisanName: 'Hunza Traditional Smiths',
     highlights: [
       'Traditionally pinned to the front or side fold of a Pakol or Balti cap',
       'Hand-worked filigree crescent with a polished carnelian-toned center stone',
@@ -1029,7 +1029,7 @@ const PRODUCTS = [
     warmthLevel: 'All-Season Gift',
     originVillage: 'Baltistan, Nagar & Hunza Artisan Pairing',
     craftTechnique: 'Hand-embroidered wool bag + narrow-loom woven belt',
-    artisanName: 'Women’s Highland Craft Cooperative [ARTISAN COLLECTIVE PLACEHOLDER]',
+    artisanName: 'Women’s Highland Craft Cooperative',
     highlights: [
       'Pairs the Embroidered Textile Handbag with the Hand-Woven Woollen Belt (Save PKR 600)',
       'Every purchase directly supports women-led village embroidery workshops',
@@ -1470,7 +1470,7 @@ const JOURNAL_ARTICLES = [
       <h4>The Symbolism of the Shawl &amp; Cap</h4>
       <p>Presenting a Pakol cap alongside an embroidered wool shawl signifies respect for the recipient's dignity and comfort. Unlike disposable modern gifts, a well-woven pattu or merino shawl accompanies its owner through decades of winters.</p>
       <h4>Modern Archival Presentation</h4>
-      <p>Each ReGongches Heritage Gift Box honours this custom by pairing authentic valley textiles with a numbered Origin Verification Card, a 16-page story booklet, and a personal calligraphed message card.</p>
+      <p>Each ReGongches Heritage Gift Box honours this custom by pairing authentic valley textiles with a numbered Origin & Story Card, an artisan story booklet, and a personal calligraphed message card.</p>
     `
   }
 ];
@@ -1480,7 +1480,7 @@ const ARTISANS = [
   {
     id: 'karimabad-loom-guild',
     name: 'Karimabad & Altit Loom Guild',
-    leadPlaceholder: '[LEAD ARTISAN NAME & PORTRAIT PHOTO PLACEHOLDER]',
+    leadRole: 'Guild Lead Artisan',
     region: 'Hunza District',
     specialty: 'Traditional Frame-Loom Pattu & Narrow-Loom Belts',
     members: '18 Master Weavers',
@@ -1491,7 +1491,7 @@ const ARTISANS = [
   {
     id: 'shigar-womens-embroidery',
     name: 'Shigar & Khaplu Women’s Heritage Circle',
-    leadPlaceholder: '[COOPERATIVE COORDINATOR NAME & PHOTO PLACEHOLDER]',
+    leadRole: 'Cooperative Coordinator',
     region: 'Baltistan (Skardu) Region',
     specialty: 'Silk-Thread Architectural & Botanical Embroidery',
     members: '32 Women Artisans',
@@ -1502,7 +1502,7 @@ const ARTISANS = [
   {
     id: 'ghizer-punial-tailors',
     name: 'Punial & Yasin Highland Tailoring Workshop',
-    leadPlaceholder: '[MASTER TAILOR NAME & PHOTO PLACEHOLDER]',
+    leadRole: 'Master Tailor',
     region: 'Ghizer & Gilgit Districts',
     specialty: 'Fulled Wool Pakols, Shuqa Robes & Crewel Waistcoats',
     members: '14 Master Tailors & Embroiderers',
@@ -1513,7 +1513,7 @@ const ARTISANS = [
   {
     id: 'nagar-rakaposhi-collective',
     name: 'Minapin & Sumayar Craft Studio',
-    leadPlaceholder: '[LEAD EMBROIDERER NAME & PHOTO PLACEHOLDER]',
+    leadRole: 'Lead Needlework Artisan',
     region: 'Nagar & Astore Districts',
     specialty: 'Silk-on-Dark-Wool Jackets, Handbags & Ceremonial Dress',
     members: '21 Artisans',

@@ -542,7 +542,7 @@ const Cart = {
         <div class="cart-empty-state">
           ${bag3d ? `<img src="${bag3d}" alt="" width="76" height="72" class="cart-empty-3d-icon" loading="lazy">` : ''}
           <h3>Your Heritage Bag is Empty</h3>
-          <p>Every ReGongches textile ships from our Gilgit studio with a numbered Origin Verification Card. Explore our most-collected pieces below:</p>
+          <p>Every ReGongches textile ships from our Gilgit studio with a numbered Origin & Story Card. Explore our most-collected pieces below:</p>
           <div class="cart-empty-suggestions">
             ${suggested.map(p => `
               <div class="cart-suggest-item">
