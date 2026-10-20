@@ -74,7 +74,27 @@ const UI = {
     this.initReviews();
     this.initSequencedNotices();
     this.initBackToTopAndFloatingWhatsApp();
+    this.initHeroVideo();
     this.initGlobalDelegation();
+  },
+
+  /* Hero Video Autoplay Management (Desktop loop, paused on reduced-motion/mobile) */
+  initHeroVideo() {
+    const video = document.querySelector('.hero-bg-video');
+    if (!video) return;
+    const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isMobile = window.matchMedia('(max-width: 767px)').matches;
+    const isSaveData = navigator.connection && navigator.connection.saveData;
+    if (isReducedMotion || isMobile || isSaveData) {
+      video.pause();
+      return;
+    }
+    const playPromise = video.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        // Autoplay policy or power saver blocked video; crisp WebP poster remains visible
+      });
+    }
   },
 
   /* Global image error fallback listener (replaces inline onerror attributes!) */

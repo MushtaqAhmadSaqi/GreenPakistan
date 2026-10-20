@@ -49,6 +49,8 @@
       rel="preload"
       as="image"
       href="assets/images/hero-mountain-textiles.webp"
+      type="image/webp"
+      fetchpriority="high"
     />
 
     <!-- Favicon (Inline SVG Data URI) -->
@@ -815,13 +817,26 @@
               opacity="0.92"
             />
           </svg>
+          <picture class="hero-bg-picture">
+            <img
+              src="assets/images/hero-mountain-textiles.webp"
+              alt="Hand-loomed Karakoram mountain textiles and Gilgit-Baltistan weavers"
+              class="hero-bg-img"
+              width="1440"
+              height="900"
+              fetchpriority="high"
+              decoding="async"
+            />
+          </picture>
           <video
             class="hero-bg-video"
+            autoplay
             muted
             loop
             playsinline
-            preload="none"
+            preload="metadata"
             poster="assets/images/hero-mountain-textiles.webp"
+            aria-hidden="true"
           >
             <source src="assets/video/hero-loom.mp4" type="video/mp4" />
           </video>
@@ -1666,7 +1681,9 @@
           <div class="features-grid" data-reveal-stagger>
             <div class="feature-card">
               <span class="feature-num" aria-hidden="true">01</span>
-              <i class="ph ph-map-pin-line" aria-hidden="true"></i>
+              <div class="feature-icon-badge">
+                <i class="ph ph-map-pin-line" aria-hidden="true"></i>
+              </div>
               <h3>Verified Origin</h3>
               <p>
                 Products are assigned to a district only after their workshop
@@ -1676,7 +1693,9 @@
             </div>
             <div class="feature-card">
               <span class="feature-num" aria-hidden="true">02</span>
-              <i class="ph ph-hands-clapping" aria-hidden="true"></i>
+              <div class="feature-icon-badge">
+                <i class="ph ph-hands-clapping" aria-hidden="true"></i>
+              </div>
               <h3>Artisan Craftsmanship</h3>
               <p>
                 Discover the guilds and makers behind every piece — presented
@@ -1685,7 +1704,9 @@
             </div>
             <div class="feature-card">
               <span class="feature-num" aria-hidden="true">03</span>
-              <i class="ph ph-leaf" aria-hidden="true"></i>
+              <div class="feature-icon-badge">
+                <i class="ph ph-leaf" aria-hidden="true"></i>
+              </div>
               <h3>Material Transparency</h3>
               <p>
                 Understand the exact highland wool grade, frame-loom
@@ -1695,7 +1716,9 @@
             </div>
             <div class="feature-card">
               <span class="feature-num" aria-hidden="true">04</span>
-              <i class="ph ph-book-open-text" aria-hidden="true"></i>
+              <div class="feature-icon-badge">
+                <i class="ph ph-book-open-text" aria-hidden="true"></i>
+              </div>
               <h3>Cultural Story</h3>
               <p>
                 Explore the respectful cultural context connected to each motif

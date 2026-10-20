@@ -1573,11 +1573,12 @@ details > summary {
   inset: 0;
   z-index: 0;
 }
-.hero-bg-video {
+.hero-bg-picture {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: center 30%;
+  z-index: 0;
   display: block;
 }
 .hero-bg-img {
@@ -1586,6 +1587,21 @@ details > summary {
   object-fit: cover;
   object-position: center 30%;
   animation: ken-burns 20s ease-in-out infinite alternate;
+}
+.hero-bg-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  display: block;
+  z-index: 1;
+}
+@media (max-width: 767px) {
+  .hero-bg-video {
+    display: none;
+  }
 }
 @keyframes ken-burns {
   from {
@@ -2027,10 +2043,28 @@ details > summary {
   pointer-events: none;
   user-select: none;
 }
-.feature-card i {
-  font-size: clamp(2rem, 4vw, 2.8rem);
-  color: var(--c-gold);
+.feature-icon-badge {
+  width: 64px;
+  height: 64px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, rgba(197, 154, 61, 0.16) 0%, rgba(33, 76, 99, 0.1) 100%);
+  border: 1.5px solid rgba(197, 154, 61, 0.35);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   margin-bottom: var(--sp-4);
+  box-shadow: 0 8px 20px rgba(14, 23, 31, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  transition: transform var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out);
+}
+.feature-card:hover .feature-icon-badge {
+  transform: translateY(-4px) scale(1.06);
+  box-shadow: 0 14px 28px rgba(197, 154, 61, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+.feature-icon-badge i,
+.feature-card i {
+  font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+  color: var(--c-gold);
+  margin-bottom: 0;
   display: block;
 }
 .feature-card h3 {
