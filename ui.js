@@ -176,7 +176,7 @@ const UI = {
     if (!bar) return;
 
     const keys = this.cfg.storageKeys;
-    if (window.RG.SafeStorage.getSession(keys.announcementDismissed, false)) {
+    if (window.RG.SafeStorage.get(keys.announcementDismissed, false)) {
       bar.hidden = true;
       document.documentElement.style.setProperty('--ann-bar-h', '0px');
       return;
@@ -228,7 +228,7 @@ const UI = {
       clearInterval(timer);
       bar.hidden = true;
       document.documentElement.style.setProperty('--ann-bar-h', '0px');
-      window.RG.SafeStorage.setSession(keys.announcementDismissed, true);
+      window.RG.SafeStorage.set(keys.announcementDismissed, true);
     });
 
     startRotation();
@@ -590,7 +590,9 @@ const UI = {
     });
 
     document.addEventListener('keydown', (e) => {
-      if (e.key === '/' && !overlay.classList.contains('is-open') && !['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement?.tagName)) {
+      const isCmdK = (e.key === 'k' || e.key === 'K') && (e.metaKey || e.ctrlKey);
+      const isSlash = e.key === '/' && !['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement?.tagName);
+      if ((isCmdK || isSlash) && !overlay.classList.contains('is-open')) {
         e.preventDefault();
         this.openSearch();
       } else if (e.key === 'Escape' && overlay.classList.contains('is-open')) {

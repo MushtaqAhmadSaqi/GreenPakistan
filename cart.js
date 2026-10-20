@@ -492,9 +492,10 @@ const Cart = {
   renderCartUI() {
     const totals = this.getTotals();
 
-    // Update all header & mobile tab bar cart count badges
+    // Update all header & mobile tab bar cart count badges with accessible live announcements
     document.querySelectorAll('#cart-badge, #tab-cart-badge, [data-cart-count]').forEach(el => {
       el.textContent = totals.itemCount;
+      el.setAttribute('aria-label', `${totals.itemCount} item${totals.itemCount !== 1 ? 's' : ''} in bag`);
       el.classList.toggle('has-items', totals.itemCount > 0);
     });
 
@@ -732,6 +733,7 @@ const Wishlist = {
     const cnt = Store.state.wishlist.length;
     document.querySelectorAll('#wishlist-count, [data-wishlist-count]').forEach(el => {
       el.textContent = cnt;
+      el.setAttribute('aria-label', `${cnt} saved piece${cnt !== 1 ? 's' : ''} in wishlist`);
       el.hidden = cnt === 0;
     });
 
