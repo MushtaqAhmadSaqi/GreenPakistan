@@ -78,6 +78,18 @@ const Checkout = {
     document.getElementById('co-step3-back')?.addEventListener('click', () => this.goToStep(2));
     document.getElementById('co-place-order')?.addEventListener('click', () => this.completeOrder());
 
+    // Copy code button handler
+    document.addEventListener('click', (e) => {
+      const copyBtn = e.target.closest('.btn-copy-code');
+      if (copyBtn && copyBtn.dataset.copyText) {
+        const text = copyBtn.dataset.copyText;
+        if (navigator.clipboard?.writeText) {
+          navigator.clipboard.writeText(text).catch(() => {});
+        }
+        window.RG.Toast?.show('Copied to clipboard!', 'success', 2200);
+      }
+    });
+
     // Post-order actions
     document.getElementById('print-invoice-btn')?.addEventListener('click', () => window.print());
     document.getElementById('copy-order-summary-btn')?.addEventListener('click', () => {
@@ -134,7 +146,12 @@ const Checkout = {
         bankBox.innerHTML = `
           <span><strong>Bank:</strong> ${window.RG.escapeHtml(b.bankName)}</span>
           <span><strong>Account Title:</strong> ${window.RG.escapeHtml(b.accountTitle)}</span>
-          <span><strong>IBAN:</strong> <code>${window.RG.escapeHtml(b.iban)}</code></span>
+          <div class="copy-line-row">
+            <span><strong>IBAN:</strong> <code id="co-iban-code">${window.RG.escapeHtml(b.iban)}</code></span>
+            <button type="button" class="btn-copy-code" data-copy-text="${window.RG.escapeHtml(b.iban.replace(/\s+/g, ''))}" aria-label="Copy IBAN to clipboard">
+              <i class="ph ph-copy" aria-hidden="true"></i> Copy IBAN
+            </button>
+          </div>
           <span><strong>Branch:</strong> ${window.RG.escapeHtml(b.branch)}</span>
         `;
       }
@@ -154,7 +171,12 @@ const Checkout = {
         walletBox.innerHTML = `
           <span><strong>Services:</strong> ${window.RG.escapeHtml(w.providers)}</span>
           <span><strong>Account Title:</strong> ${window.RG.escapeHtml(w.accountTitle)}</span>
-          <span><strong>Wallet Number:</strong> <code>${window.RG.escapeHtml(w.number)}</code></span>
+          <div class="copy-line-row">
+            <span><strong>Wallet Number:</strong> <code id="co-wallet-code">${window.RG.escapeHtml(w.number)}</code></span>
+            <button type="button" class="btn-copy-code" data-copy-text="${window.RG.escapeHtml(w.number.replace(/[-\s]/g, ''))}" aria-label="Copy wallet number to clipboard">
+              <i class="ph ph-copy" aria-hidden="true"></i> Copy Number
+            </button>
+          </div>
         `;
       }
     }

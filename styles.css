@@ -9365,6 +9365,38 @@ html[data-theme="dark"] .pdp-not-found-body {
   color: var(--c-white);
 }
 
+/* 1-Tap Copy-to-Clipboard Buttons for IBAN and Wallet */
+.copy-line-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 4px 0;
+}
+.btn-copy-code {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: var(--r-btn);
+  border: 1px solid var(--c-gold);
+  background: rgba(197, 154, 61, 0.12);
+  color: var(--c-gold-text);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--dur-fast);
+}
+.btn-copy-code:hover {
+  background: var(--c-gold);
+  color: var(--c-charcoal);
+}
+html[data-theme="dark"] .btn-copy-code {
+  color: var(--c-gold-lt);
+  background: rgba(197, 154, 61, 0.2);
+}
+
 /* Sticky Mobile Add-to-Cart Bar (Coordinates with Floating WhatsApp & Tab Bar) */
 .pdp-sticky-mobile-bar {
   display: none;
