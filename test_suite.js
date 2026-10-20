@@ -183,6 +183,33 @@ function runTests() {
   assert(manifestContent.display === 'standalone', 'Manifest display is standalone');
   assert(Array.isArray(manifestContent.icons) && manifestContent.icons.length >= 1, 'Manifest has icons array');
 
+  // 6. MULTI-FACET FILTER ENGINE & CARD ARCHITECTURE AUDIT
+  console.log('\n--- Suite 6: Multi-Facet Filter & Card Architecture ---');
+  const stylesContent = fs.readFileSync(path.join(__dirname, 'styles.css'), 'utf8');
+  assert(stylesContent.includes('aspect-ratio: 4/5') || stylesContent.includes('aspect-ratio: 4 / 5'), 'Card image wrap locks 4:5 aspect ratio to prevent CLS');
+
+  const filtersCode = fs.readFileSync(path.join(__dirname, 'filters.js'), 'utf8');
+  vm.runInContext(filtersCode, sandbox);
+  const Filters = sandbox.window.RG.Filters;
+  assert(Filters !== undefined, 'Filters module loaded in window.RG.Filters');
+
+  const headwearItems = Filters.getFilteredProducts({ category: 'Headwear' });
+  assert(headwearItems.length === 2, 'Category filter "Headwear" returns exactly 2 products');
+
+  const hunzaMatches = Filters.matchesRegion('Hunza', 'hunza');
+  assert(hunzaMatches === true, 'Region matcher is case-insensitive for "Hunza"');
+
+  const skarduMatches = Filters.matchesRegion('Baltistan (Skardu)', 'Skardu');
+  assert(skarduMatches === true, 'Region matcher bridges "Baltistan" and "Skardu" aliases');
+
+  const under5k = Filters.getFilteredProducts({ priceRange: 'under-5000' });
+  assert(under5k.length > 0 && under5k.every(p => p.price < 5000), 'Price filter "under-5000" returns only items under PKR 5,000');
+
+  const sampleCard = Filters.renderProductCard(PRODUCTS[0]);
+  assert(sampleCard.includes('width="400"') && sampleCard.includes('height="500"'), 'Product card HTML includes explicit width and height attributes');
+  assert(sampleCard.includes('data-wishlist-id='), 'Product card includes accessible wishlist toggle');
+  assert(sampleCard.includes('data-quickadd-id='), 'Product card includes direct quick-add action');
+
   // SUMMARY
   console.log('\n========================================');
   console.log(`Test Results: ${passedTests} Passed, ${failedTests} Failed`);
