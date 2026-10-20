@@ -43,6 +43,7 @@ const App = {
     this.initRecentlyViewedSection();
     this.initProductDetailPage();
     this.initContactPage();
+    this.initStandalonePages();
 
     if (document.getElementById('product-grid')) {
       window.RG.Filters.init();
@@ -1071,6 +1072,54 @@ const App = {
       try { window.open(waUrl, '_blank', 'noopener,noreferrer'); } catch {}
       form.reset();
     });
+  },
+
+  /* ── 11. STANDALONE SUPPORTING & POLICY PAGES ── */
+  initStandalonePages() {
+    // 1. Standalone Order Tracker Page
+    const trackerForm = document.getElementById('tracker-lookup-form');
+    const isStandaloneTracker = trackerForm && !trackerForm.closest('.modal-overlay');
+    if (isStandaloneTracker) {
+      const urlParams = new URLSearchParams(window.location.search);
+      const queryRef = urlParams.get('ref') || urlParams.get('id');
+      const savedOrders = window.RG.SafeStorage?.get(window.RG.CONFIG?.storageKeys?.orders, []) || [];
+      const defaultRef = queryRef || savedOrders[0]?.id || window.RG.CONFIG?.orderHandoff?.demoOrderRef || 'RG-DEMO101';
+      const input = document.getElementById('tracker-input');
+      if (input && !input.value) input.value = defaultRef;
+      window.RG.UI?.renderTrackerResult(defaultRef);
+      window.RG.UI?.renderSavedOrdersList();
+    }
+
+    // 2. Standalone Size Guide Page
+    const sizeContainer = document.getElementById('size-tables-container');
+    const isStandaloneSize = sizeContainer && !sizeContainer.closest('.modal-overlay');
+    if (isStandaloneSize) {
+      window.RG.UI?.renderSizeGuideTables();
+    }
+
+    // Print Size Guide Cheat Sheet
+    const printBtn = document.getElementById('btn-print-size-guide');
+    if (printBtn) {
+      printBtn.addEventListener('click', () => window.print());
+    }
+
+    // 3. Standalone Privacy Page - Clear Browser Data Button
+    const clearBtn = document.getElementById('btn-clear-browser-data');
+    if (clearBtn) {
+      clearBtn.addEventListener('click', () => {
+        if (!confirm('Are you sure you want to clear your local bag, wishlist, and saved order history from this browser?')) return;
+        const keys = window.RG.CONFIG?.storageKeys || {};
+        if (keys.cart) window.RG.SafeStorage.remove(keys.cart);
+        if (keys.wishlist) window.RG.SafeStorage.remove(keys.wishlist);
+        if (keys.orders) window.RG.SafeStorage.remove(keys.orders);
+        if (keys.currency) window.RG.SafeStorage.remove(keys.currency);
+        if (keys.announcement) window.RG.SafeStorage.remove(keys.announcement);
+        window.RG.Store?.init();
+        window.RG.Cart?.renderCartUI();
+        window.RG.Wishlist?.renderWishlistUI();
+        window.RG.Toast?.show('All browser storage for ReGongches has been cleared.', 'info');
+      });
+    }
   }
 };
 
