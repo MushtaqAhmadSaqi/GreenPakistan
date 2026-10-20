@@ -55,46 +55,68 @@
   --c-maroon: #7a263a;
   --c-maroon-dk: #5a1a28;
   --c-gold: #c59a3d;
+  --c-gold-text: #8a661d; /* WCAG 2.2 AA compliant text gold against light backgrounds (5.2:1 contrast) */
   --c-gold-lt: #d4ae5a;
+  --c-apricot: #d97b54;
+  --c-apricot-dk: #b35935;
+  --c-juniper: #2d5a3d;
+  --c-glacier: #366e8a;
+  --c-parchment: #f3eadc;
+  --c-walnut: #241c17;
   --c-ivory: #f7f1e7;
   --c-sand: #d8c4a8;
   --c-sand-lt: #e8d8bf;
   --c-charcoal: #252525;
   --c-charcoal-lt: #3a3a3a;
   --c-white: #ffffff;
+  --c-surface: #ffffff;
+  --c-surface-elevated: #fdfaf5;
+  --c-border: rgba(33, 76, 99, 0.12);
+  --c-border-subtle: rgba(23, 47, 61, 0.14);
+  --c-border-strong: rgba(33, 76, 99, 0.24);
+  --c-text-muted: #4f5b63;
 
   /* Semantic */
   --c-status-available: #2d7a4f;
   --c-status-made-to-order: #c59a3d;
   --c-status-low-stock: #7a263a;
 
-  /* Elevation (blue-tinted shadows) */
+  /* Elevation (tactile shadows) */
+  --shadow-sm: 0 1px 3px rgba(14, 23, 31, 0.08);
+  --shadow-md: 0 4px 16px rgba(14, 23, 31, 0.12);
+  --shadow-lg: 0 12px 32px rgba(14, 23, 31, 0.16);
+  --shadow-gold: 0 8px 24px rgba(197, 154, 61, 0.22);
   --shadow-1: 0 1px 4px rgba(33, 76, 99, 0.08);
   --shadow-2: 0 4px 16px rgba(33, 76, 99, 0.12);
   --shadow-3: 0 12px 40px rgba(33, 76, 99, 0.18);
 
   /* Typography */
+  --f-display: "Playfair Display", Georgia, serif;
+  --f-serif: "Cormorant Garamond", Georgia, serif;
   --f-heading: "Playfair Display", Georgia, serif;
-  --f-body: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  --f-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --f-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 
-  /* Fluid Type Scale */
-  --fs-xs: clamp(0.7rem, 1vw, 0.8rem);
-  --fs-sm: clamp(0.85rem, 1.2vw, 0.95rem);
-  --fs-base: clamp(0.95rem, 1.5vw, 1rem);
-  --fs-lg: clamp(1.05rem, 1.8vw, 1.15rem);
-  --fs-xl: clamp(1.2rem, 2.5vw, 1.4rem);
-  --fs-2xl: clamp(1.5rem, 3vw, 2rem);
-  --fs-3xl: clamp(2rem, 4vw, 3rem);
-  --fs-4xl: clamp(2.5rem, 6vw, 5rem);
+  /* Fluid Type Scale (clamp) */
+  --fs-xs: clamp(0.72rem, 0.7rem + 0.2vw, 0.82rem);
+  --fs-sm: clamp(0.85rem, 0.8rem + 0.3vw, 0.95rem);
+  --fs-base: clamp(1rem, 0.95rem + 0.35vw, 1.08rem);
+  --fs-md: clamp(1.15rem, 1.08rem + 0.5vw, 1.28rem);
+  --fs-lg: clamp(1.35rem, 1.25rem + 0.8vw, 1.6rem);
+  --fs-xl: clamp(1.65rem, 1.5rem + 1.2vw, 2.1rem);
+  --fs-2xl: clamp(2.1rem, 1.85rem + 1.8vw, 2.85rem);
+  --fs-3xl: clamp(2.75rem, 2.35rem + 2.8vw, 4.2rem);
+  --fs-4xl: clamp(3.2rem, 2.8rem + 4vw, 5.8rem);
+  --fs-hero: clamp(3.2rem, 2.8rem + 4vw, 5.8rem);
 
   /* Letter-spacing tokens */
-  --ls-tight: -0.02em;
+  --ls-tight: -0.025em;
   --ls-normal: 0;
   --ls-wide: 0.04em;
   --ls-wider: 0.1em;
   --ls-widest: 0.2em;
 
-  /* Spacing Scale */
+  /* Spacing Scale (8-Point Grid) */
   --sp-1: 4px;
   --sp-2: 8px;
   --sp-3: 12px;
@@ -108,21 +130,23 @@
 
   /* Border Radius */
   --r-btn: 2px;
+  --r-badge: 4px;
   --r-card: 8px;
   --r-modal: 12px;
   --r-pill: 999px;
 
-  /* Phase 10 Motion Tokens — use exclusively, no hardcoded easings */
+  /* Motion Tokens */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
   --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
   --ease-soft: cubic-bezier(0.25, 0.1, 0.25, 1);
   --dur-instant: 100ms;
-  --dur-fast: 200ms;
-  --dur-base: 350ms;
+  --dur-fast: 180ms;
+  --dur-base: 320ms;
   --dur-med: 350ms;
-  --dur-slow: 550ms;
+  --dur-slow: 540ms;
+  --dur-reveal: 850ms;
   --dur-slower: 900ms;
   --stagger: 75ms;
   --lift-y: -6px;
@@ -138,6 +162,7 @@
   /* Header */
   --header-h: 72px;
   --ann-bar-h: 40px;
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
 
   /* Z-Index Layers */
   --z-float: 500;
@@ -359,7 +384,7 @@ details > summary {
   margin-bottom: var(--sp-3);
 }
 .eyebrow--gold {
-  color: var(--c-gold);
+  color: var(--c-gold-text);
 }
 
 /* Backgrounds */
@@ -7155,19 +7180,10 @@ img[data-blur-up].is-loaded {
    42. PREMIUM STOREFRONT UPGRADE — LOOKBOOK, COMPARE, TRACKER, MODALS & DARK THEME
    ═══════════════════════════════════════════════════════════════════════════ */
 
-/* ── 42.1 KARAKORAM NIGHT MODE (DARK THEME) ── */
+/* Note: Core dark theme custom properties are consolidated in Design Tokens */
 html[data-theme="dark"] {
-  --c-ivory: #0e1a22;
-  --c-sand: #243847;
-  --c-sand-lt: #152633;
-  --c-charcoal: #f3ece0;
-  --c-charcoal-lt: #d8c4a8;
-  --c-white: #182b38;
-  --surface-glass: rgba(14, 26, 34, 0.86);
-  --line-soft: rgba(197, 154, 61, 0.2);
-  --shadow-1: 0 2px 10px rgba(0, 0, 0, 0.35);
-  --shadow-2: 0 8px 24px rgba(0, 0, 0, 0.45);
-  --shadow-3: 0 18px 48px rgba(0, 0, 0, 0.6);
+  --surface-glass: rgba(14, 23, 31, 0.88);
+  --line-soft: rgba(222, 179, 82, 0.2);
 }
 
 html[data-theme="dark"] body {
@@ -8611,19 +8627,31 @@ html[data-theme="dark"] .cart-note-input {
 
 html[data-theme="dark"] {
   --c-ivory: #0e171f;
+  --c-ivory-warm: #121d27;
   --c-sand: #15232f;
   --c-sand-lt: #1c2e3d;
   --c-white: #14212b;
   --c-surface: #14212b;
   --c-surface-elevated: #1b2c39;
+  --c-surface-glass: rgba(14, 23, 31, 0.88);
   --c-charcoal: #f5ede0;
   --c-charcoal-lt: #d7cbb8;
   --c-text-muted: #b8c4ce;
   --c-blue: #4fa3c7;
   --c-blue-dk: #0b141b;
+  --c-blue-lt: #6ab3d3;
   --c-maroon: #e58b73;
+  --c-apricot: #f0a586;
   --c-gold: #deb352;
+  --c-gold-text: #deb352;
+  --c-gold-lt: #f2d58b;
+  --c-border: rgba(222, 179, 82, 0.18);
   --c-border-subtle: rgba(245, 237, 224, 0.16);
+  --c-border-strong: rgba(222, 179, 82, 0.32);
+  --line-soft: rgba(222, 179, 82, 0.2);
+  --shadow-1: 0 2px 10px rgba(0, 0, 0, 0.35);
+  --shadow-2: 0 8px 24px rgba(0, 0, 0, 0.45);
+  --shadow-3: 0 18px 48px rgba(0, 0, 0, 0.6);
 }
 
 html[data-theme="dark"] body {
