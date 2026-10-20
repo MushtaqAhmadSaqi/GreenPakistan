@@ -526,8 +526,21 @@ const App = {
 
     const params = new URLSearchParams(window.location.search);
     const hashId = window.location.hash.replace(/^#product\//, '').trim();
-    const requestedId = params.get('id') || hashId || window.RG.PRODUCTS[0].id;
-    const product = window.RG.PRODUCTS.find(p => p.id === requestedId) || window.RG.PRODUCTS[0];
+    const explicitQuery = params.get('id') || hashId;
+    let isInvalidRequestedId = false;
+    let product;
+
+    if (explicitQuery) {
+      const found = window.RG.PRODUCTS.find(p => p.id === explicitQuery);
+      if (found) {
+        product = found;
+      } else {
+        isInvalidRequestedId = true;
+        product = window.RG.PRODUCTS[0];
+      }
+    } else {
+      product = window.RG.PRODUCTS[0];
+    }
 
     window.RG.UI.recordRecentlyViewed(product.id);
 
@@ -573,7 +586,7 @@ const App = {
     setMeta('name', 'twitter:title', `${product.name} | ReGongches`);
     setMeta('name', 'twitter:description', product.shortStory);
 
-    // Inject Product JSON-LD in PKR
+    // Inject Product & BreadcrumbList JSON-LD in PKR
     let ldScript = document.getElementById('pdp-jsonld');
     if (!ldScript) {
       ldScript = document.createElement('script');
@@ -583,30 +596,57 @@ const App = {
     }
     const schemaObj = {
       '@context': 'https://schema.org/',
-      '@type': 'Product',
-      name: product.name,
-      sku: product.sku,
-      description: product.shortStory,
-      category: product.category,
-      brand: { '@type': 'Brand', name: 'ReGongches' },
-      countryOfOrigin: 'PK',
-      material: product.materials,
-      image: [new URL(product.images[0], window.location.href).href],
-      aggregateRating: {
-        '@type': 'AggregateRating',
-        ratingValue: String(product.rating || 4.9),
-        reviewCount: String(product.reviewCount || 24)
-      },
-      offers: {
-        '@type': 'Offer',
-        url: shareUrl,
-        priceCurrency: 'PKR',
-        price: String(product.price),
-        availability: product.status === 'Low Stock'
-          ? 'https://schema.org/LimitedAvailability'
-          : 'https://schema.org/InStock',
-        itemCondition: 'https://schema.org/NewCondition'
-      }
+      '@graph': [
+        {
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            {
+              '@type': 'ListItem',
+              position: 1,
+              name: 'Home',
+              item: 'https://regongches.store/'
+            },
+            {
+              '@type': 'ListItem',
+              position: 2,
+              name: product.category,
+              item: `https://regongches.store/shop.html?category=${encodeURIComponent(product.category)}`
+            },
+            {
+              '@type': 'ListItem',
+              position: 3,
+              name: product.name,
+              item: shareUrl
+            }
+          ]
+        },
+        {
+          '@type': 'Product',
+          name: product.name,
+          sku: product.sku,
+          description: product.shortStory,
+          category: product.category,
+          brand: { '@type': 'Brand', name: 'ReGongches' },
+          countryOfOrigin: 'PK',
+          material: product.materials,
+          image: [new URL(product.images[0], window.location.href).href],
+          aggregateRating: {
+            '@type': 'AggregateRating',
+            ratingValue: String(product.rating || 4.9),
+            reviewCount: String(product.reviewCount || 24)
+          },
+          offers: {
+            '@type': 'Offer',
+            url: shareUrl,
+            priceCurrency: 'PKR',
+            price: String(product.price),
+            availability: product.status === 'Low Stock'
+              ? 'https://schema.org/LimitedAvailability'
+              : 'https://schema.org/InStock',
+            itemCondition: 'https://schema.org/NewCondition'
+          }
+        }
+      ]
     };
     ldScript.textContent = JSON.stringify(schemaObj, null, 2);
 
@@ -627,13 +667,27 @@ const App = {
     ];
     const thumbLabels = ['01 · Garment View', '02 · Weave & Motif', '03 · Archival Box'];
 
+    let selectedCity = 'Islamabad';
+
     const renderPdp = () => {
       const esc = window.RG.escapeHtml;
       const wished = window.RG.Wishlist.isWishlisted(product.id);
       const compared = window.RG.Store.state.compare.includes(product.id);
       const waInquiryUrl = `${window.RG.CONFIG.contact.whatsappBaseUrl}?text=${encodeURIComponent(`Assalam-o-Alaikum ReGongches Studio, I am viewing ${product.name} (${product.sku}) and would like sizing/provenance advice.`)}`;
+      const cityInfo = window.RG.CONFIG.shipping.cities[selectedCity] || window.RG.CONFIG.shipping.cities['Other'];
+      const isCodEligible = product.price <= window.RG.CONFIG.payment.codLimitPkr;
 
       pdpRoot.innerHTML = `
+        ${isInvalidRequestedId ? `
+          <div class="pdp-not-found-banner" role="alert">
+            <i class="ph ph-warning-circle" aria-hidden="true"></i>
+            <div class="pdp-not-found-body">
+              <strong>Archive Record Not Found:</strong>
+              <span>No piece matching ID "<em>${esc(explicitQuery)}</em>" was found in our heritage ledger. Displaying our featured piece "<strong>${esc(product.name)}</strong>" from ${esc(product.region)} below.</span>
+            </div>
+            <a href="shop.html" class="btn btn-secondary btn-sm">Explore Archive →</a>
+          </div>
+        ` : ''}
         <div class="pdp-layout">
           <!-- Left: 3-Angle Gallery with Hover/Tap Zoom Loupe -->
           <div class="pdp-gallery-col">
@@ -771,7 +825,36 @@ const App = {
             <!-- Trust Micro-Row -->
             <div class="qv-shipping-note">
               <i class="ph ph-shield-check" aria-hidden="true"></i>
-              <span>Cash on Delivery (up to PKR 25,000) · Free delivery over PKR 8,000 · Numbered Origin & Story Card · 14-day exchange</span>
+              <span>Cash on Delivery (up to PKR 25,000) · Free delivery over PKR 8,000 · Numbered Origin &amp; Story Card · 14-day exchange</span>
+            </div>
+
+            <!-- Pakistani City Delivery & COD Estimator -->
+            <div class="pdp-delivery-calc" role="region" aria-label="City delivery and COD calculator">
+              <div class="pdp-calc-header">
+                <i class="ph ph-truck" aria-hidden="true"></i>
+                <label for="pdp-city-select"><strong>Check Delivery &amp; COD for Your City:</strong></label>
+              </div>
+              <div class="pdp-calc-row">
+                <select id="pdp-city-select" class="pdp-city-select" aria-label="Select destination city">
+                  ${Object.keys(window.RG.CONFIG.shipping.cities).map(c => `
+                    <option value="${esc(c)}" ${c === selectedCity ? 'selected' : ''}>${esc(c)}</option>
+                  `).join('')}
+                </select>
+              </div>
+              <div class="pdp-calc-results" id="pdp-calc-results">
+                <div class="pdp-calc-item">
+                  <i class="ph ph-clock" aria-hidden="true"></i>
+                  <span><strong>Transit ETA:</strong> <span id="pdp-est-days">${esc(cityInfo.days)}</span></span>
+                </div>
+                <div class="pdp-calc-item">
+                  <i class="ph ph-currency-circle-dollar" aria-hidden="true"></i>
+                  <span><strong>Courier Rate:</strong> <span id="pdp-est-fee">${product.price >= 8000 ? '<strong class="text-green">FREE Tracked Delivery</strong> (Order ≥ PKR 8,000)' : `PKR ${cityInfo.fee} (FREE over PKR 8,000)`}</span></span>
+                </div>
+                <div class="pdp-calc-item">
+                  <i class="ph ph-check-circle" aria-hidden="true"></i>
+                  <span><strong>Payment:</strong> <span id="pdp-est-cod">${isCodEligible ? 'Cash on Delivery eligible nationwide' : 'Exceeds PKR 25,000 COD limit (Direct Bank / Raast required)'}</span></span>
+                </div>
+              </div>
             </div>
 
             <!-- Detailed Accordions -->
@@ -810,6 +893,24 @@ const App = {
       `;
 
       // Bind PDP interactions
+      document.getElementById('pdp-city-select')?.addEventListener('change', (e) => {
+        selectedCity = e.target.value;
+        const cData = window.RG.CONFIG.shipping.cities[selectedCity] || window.RG.CONFIG.shipping.cities['Other'];
+        const daysEl = document.getElementById('pdp-est-days');
+        const feeEl = document.getElementById('pdp-est-fee');
+        const codEl = document.getElementById('pdp-est-cod');
+        if (daysEl) daysEl.textContent = cData.days;
+        if (feeEl) {
+          feeEl.innerHTML = product.price >= 8000
+            ? '<strong class="text-green">FREE Tracked Delivery</strong> (Order ≥ PKR 8,000)'
+            : `PKR ${cData.fee} (FREE over PKR 8,000)`;
+        }
+        if (codEl) {
+          codEl.textContent = product.price <= window.RG.CONFIG.payment.codLimitPkr
+            ? 'Cash on Delivery eligible nationwide'
+            : 'Exceeds PKR 25,000 COD limit (Direct Bank / Raast required)';
+        }
+      });
       pdpRoot.querySelectorAll('[data-pdp-angle]').forEach(btn => {
         btn.addEventListener('click', () => {
           activeImgIdx = parseInt(btn.dataset.pdpAngle, 10);

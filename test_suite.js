@@ -210,6 +210,18 @@ function runTests() {
   assert(sampleCard.includes('data-wishlist-id='), 'Product card includes accessible wishlist toggle');
   assert(sampleCard.includes('data-quickadd-id='), 'Product card includes direct quick-add action');
 
+  // 7. PDP & PROVENANCE ENGINE AUDIT
+  console.log('\n--- Suite 7: Product Detail & Provenance Engine ---');
+  const mainCode = fs.readFileSync(path.join(__dirname, 'main.js'), 'utf8');
+  assert(mainCode.includes('isInvalidRequestedId') && mainCode.includes('pdp-not-found-banner'), 'PDP replaces silent fallback with explicit Archive Record Not Found banner');
+  assert(mainCode.includes('BreadcrumbList') && mainCode.includes('@graph'), 'PDP injects Schema.org BreadcrumbList alongside Product in JSON-LD');
+  assert(mainCode.includes('pdp-delivery-calc') && mainCode.includes('pdp-city-select'), 'PDP includes interactive Pakistani City Delivery & COD Estimator');
+
+  const allHaveProvenance = PRODUCTS.every(p => p.originVillage && p.craftTechnique && p.weight && p.warmthLevel);
+  assert(allHaveProvenance === true, 'All 16 products have complete Archival Provenance Passport fields');
+
+  assert(stylesContent.includes('.pdp-not-found-banner') && stylesContent.includes('.pdp-delivery-calc'), 'styles.css defines rules for not-found banner and delivery calculator');
+
   // SUMMARY
   console.log('\n========================================');
   console.log(`Test Results: ${passedTests} Passed, ${failedTests} Failed`);

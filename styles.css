@@ -9266,6 +9266,105 @@ button,
   flex: 1 1 200px;
 }
 
+/* PDP Invalid SKU Fallback Banner */
+.pdp-not-found-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  background: rgba(197, 154, 61, 0.12);
+  border: 1.5px solid var(--c-gold);
+  border-radius: var(--r-card);
+  padding: var(--sp-4) var(--sp-5);
+  margin-bottom: var(--sp-6);
+  flex-wrap: wrap;
+}
+.pdp-not-found-banner i {
+  font-size: 1.75rem;
+  color: var(--c-gold-text);
+  flex-shrink: 0;
+}
+.pdp-not-found-body {
+  flex: 1 1 300px;
+  font-size: var(--fs-sm);
+  color: var(--c-charcoal);
+}
+.pdp-not-found-body strong {
+  display: block;
+  margin-bottom: 2px;
+}
+
+/* Interactive City Delivery & COD Estimator */
+.pdp-delivery-calc {
+  background: var(--c-sand-lt);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-card);
+  padding: var(--sp-4);
+  margin: var(--sp-4) 0 var(--sp-5);
+}
+.pdp-calc-header {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  margin-bottom: var(--sp-3);
+  font-size: var(--fs-sm);
+  color: var(--c-charcoal);
+}
+.pdp-calc-header i {
+  color: var(--c-blue);
+  font-size: 1.25rem;
+}
+.pdp-city-select {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: var(--r-btn);
+  border: 1px solid var(--c-border-strong);
+  background: var(--c-white);
+  color: var(--c-charcoal);
+  font-family: var(--f-body);
+  font-size: var(--fs-sm);
+  margin-bottom: var(--sp-3);
+  transition: border-color var(--dur-fast);
+}
+.pdp-city-select:focus-visible {
+  outline: 2px solid var(--c-gold);
+}
+.pdp-calc-results {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: var(--fs-xs);
+  color: var(--c-text-muted);
+}
+.pdp-calc-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.pdp-calc-item i {
+  color: var(--c-gold-text);
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+.text-green {
+  color: #2e7d32;
+  font-weight: 700;
+}
+html[data-theme="dark"] .pdp-delivery-calc {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: var(--c-border);
+}
+html[data-theme="dark"] .pdp-city-select {
+  background: var(--c-charcoal);
+  color: var(--c-white);
+}
+html[data-theme="dark"] .text-green {
+  color: #66bb6a;
+}
+html[data-theme="dark"] .pdp-not-found-body {
+  color: var(--c-white);
+}
+
 /* Sticky Mobile Add-to-Cart Bar (Coordinates with Floating WhatsApp & Tab Bar) */
 .pdp-sticky-mobile-bar {
   display: none;
