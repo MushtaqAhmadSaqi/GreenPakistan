@@ -965,9 +965,21 @@ const App = {
         if (el) el.textContent = qty;
       });
 
-      document.getElementById('pdp-add-btn')?.addEventListener('click', () => {
+      document.getElementById('pdp-add-btn')?.addEventListener('click', (e) => {
+        const btn = e.currentTarget;
         window.RG.Cart.add(product, qty, selectedSize, selectedColor);
-        window.RG.UI.openCartDrawer();
+        if (btn && !btn.classList.contains('btn-added-state')) {
+          const origHtml = btn.innerHTML;
+          btn.classList.add('btn-added-state');
+          btn.innerHTML = '<i class="ph-bold ph-check" aria-hidden="true"></i> Added to Bag';
+          setTimeout(() => {
+            btn.classList.remove('btn-added-state');
+            btn.innerHTML = origHtml;
+            window.RG.UI.openCartDrawer();
+          }, 600);
+        } else {
+          window.RG.UI.openCartDrawer();
+        }
       });
       document.getElementById('pdp-buy-btn')?.addEventListener('click', () => {
         window.RG.Cart.add(product, qty, selectedSize, selectedColor, true);
@@ -978,25 +990,62 @@ const App = {
         window.RG.Toast.show('Product URL copied to clipboard!', 'success');
       });
 
-      // Sticky Mobile Add-to-Cart Bar
-      const stickyBar = document.getElementById('pdp-sticky-mobile-bar');
-      if (stickyBar) {
-        stickyBar.hidden = false;
-        document.body.classList.add('has-sticky-atc');
-        stickyBar.innerHTML = `
-          <div class="sticky-atc-info">
-            <strong>${esc(product.name)}</strong>
-            <span>${window.RG.formatPrice(product.price)} · ${esc(selectedSize)}</span>
+      // Universal Sticky Add-to-Cart Bar (Desktop & Mobile, Aimé Leon Dore style)
+      let stickyBar = document.getElementById('pdp-sticky-bar');
+      if (!stickyBar) {
+        stickyBar = document.createElement('div');
+        stickyBar.id = 'pdp-sticky-bar';
+        stickyBar.className = 'pdp-sticky-bar';
+        stickyBar.setAttribute('role', 'region');
+        stickyBar.setAttribute('aria-label', 'Floating quick purchase bar');
+        document.body.appendChild(stickyBar);
+      }
+      stickyBar.innerHTML = `
+        <div class="sticky-bar-left">
+          <img src="${esc(gallery[0])}" alt="" class="sticky-bar-thumb" width="44" height="55" loading="lazy">
+          <div class="sticky-bar-meta">
+            <h4 class="sticky-bar-title">${esc(product.name)}</h4>
+            <p class="sticky-bar-sub">${esc(product.region)} · <span id="sticky-bar-size">${esc(selectedSize)}</span></p>
           </div>
-          <button type="button" class="btn btn-primary btn-sm" id="sticky-atc-btn">
+        </div>
+        <div class="sticky-bar-right">
+          <span class="sticky-bar-price">${window.RG.formatPrice(product.price)}</span>
+          <button type="button" class="btn btn-primary btn-sm" id="sticky-bar-add-btn">
             <i class="ph ph-shopping-bag" aria-hidden="true"></i> Add to Bag
           </button>
-        `;
-        document.getElementById('sticky-atc-btn')?.addEventListener('click', () => {
-          window.RG.Cart.add(product, qty, selectedSize, selectedColor);
+        </div>
+      `;
+
+      document.getElementById('sticky-bar-add-btn')?.addEventListener('click', (e) => {
+        const sBtn = e.currentTarget;
+        window.RG.Cart.add(product, qty, selectedSize, selectedColor);
+        if (sBtn && !sBtn.classList.contains('btn-added-state')) {
+          const sOrig = sBtn.innerHTML;
+          sBtn.classList.add('btn-added-state');
+          sBtn.innerHTML = '<i class="ph-bold ph-check" aria-hidden="true"></i> Added';
+          setTimeout(() => {
+            sBtn.classList.remove('btn-added-state');
+            sBtn.innerHTML = sOrig;
+            window.RG.UI.openCartDrawer();
+          }, 600);
+        } else {
           window.RG.UI.openCartDrawer();
-        });
-      }
+        }
+      });
+
+      // Coordinate with viewport scroll: reveal when main add-to-cart box scrolls off-screen
+      const mainCta = document.getElementById('pdp-add-btn');
+      const checkStickyScroll = () => {
+        if (!mainCta) return;
+        const rect = mainCta.getBoundingClientRect();
+        const pastBuyBox = rect.bottom < 80;
+        stickyBar.classList.toggle('is-visible', pastBuyBox);
+      };
+      window.addEventListener('scroll', checkStickyScroll, { passive: true });
+
+      // Keep legacy pdp-sticky-mobile-bar hidden or synced
+      const oldMobileBar = document.getElementById('pdp-sticky-mobile-bar');
+      if (oldMobileBar) oldMobileBar.hidden = true;
     };
 
     renderPdp();

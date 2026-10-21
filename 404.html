@@ -326,15 +326,48 @@
   <div class="search-backdrop" id="search-backdrop" aria-hidden="true"></div>
 
   <main id="main-content">
-    <section class="section bg-ivory text-center" style="min-height:68dvh;display:grid;place-items:center;padding:80px 20px">
+    <section class="section bg-ivory text-center" style="min-height:72dvh;display:grid;place-items:center;padding:clamp(60px, 8vw, 100px) 20px">
       <div class="container max-w-700 mx-auto">
-        <span class="eyebrow">Error 404 · High-Altitude Pass Closed</span>
-        <h1 class="section-title" style="font-size:clamp(2.4rem,6vw,4.5rem);margin:10px 0 16px">This Mountain Trail Could Not Be Found</h1>
-        <p class="section-subtitle">The page or archive link you followed may have moved. Use the buttons below to return to our verified Gilgit-Baltistan collection or search for a specific piece.</p>
-        <div class="center-btn-container mt-4">
+        <span class="eyebrow"><i class="ph ph-compass" aria-hidden="true"></i> Error 404 · High-Altitude Mountain Pass Closed</span>
+        <h1 class="section-title" style="font-size:clamp(2.4rem,6vw,4.2rem);margin:10px 0 16px">This Mountain Trail Could Not Be Found</h1>
+        <p class="section-subtitle" style="margin-bottom:28px">
+          The heritage piece, artisan story, or trail link you followed may have moved or closed for winter. Search our 16-piece Gilgit-Baltistan collection below or explore popular craft searches:
+        </p>
+
+        <!-- Dedicated 404 Search Form -->
+        <form action="shop.html" method="get" class="search-field-wrap" style="max-width:540px;margin:0 auto 24px;border:1.5px solid var(--c-gold);border-radius:30px;background:var(--c-white);padding:4px 6px 4px 18px;display:flex;align-items:center;box-shadow:var(--shadow-sm)">
+          <i class="ph ph-magnifying-glass" style="font-size:1.3rem;color:var(--c-gold);margin-right:8px" aria-hidden="true"></i>
+          <input
+            type="search"
+            name="q"
+            class="search-input"
+            style="border:none;outline:none;width:100%;font-size:1rem;background:transparent;padding:10px 0"
+            placeholder="Search pakols, pattu shawls, Shuqa robes, districts…"
+            aria-label="Search collection from 404 page"
+            required
+          >
+          <button type="submit" class="btn btn-primary btn-sm" style="border-radius:24px;padding:8px 20px">
+            Search Archive
+          </button>
+        </form>
+
+        <!-- Popular Heritage Search Chips -->
+        <div class="search-popular mt-3" style="max-width:560px;margin:0 auto">
+          <p class="search-label" style="font-size:var(--fs-xs);text-transform:uppercase;letter-spacing:0.06em;color:var(--c-text-muted);margin-bottom:8px">Popular Mountain Searches</p>
+          <div class="search-chips" style="justify-content:center;display:flex;flex-wrap:wrap;gap:8px">
+            <a href="shop.html?q=pakol" class="search-chip">Gilgiti Pakol</a>
+            <a href="shop.html?q=pattu" class="search-chip">Hunza Pattu Shawl</a>
+            <a href="shop.html?q=balti" class="search-chip">Balti Cap</a>
+            <a href="shop.html?q=shuqa" class="search-chip">Ghizer Shuqa Robe</a>
+            <a href="shop.html?q=waistcoat" class="search-chip">Embroidered Waistcoat</a>
+            <a href="shop.html?q=gift" class="search-chip">Heritage Gift Box</a>
+          </div>
+        </div>
+
+        <div class="center-btn-container mt-4" style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
           <a href="index.html" class="btn btn-primary btn-lg">Return to Home Storefront</a>
           <a href="shop.html" class="btn btn-secondary btn-lg">Browse 16-Piece Archive</a>
-          <button type="button" class="btn btn-gold btn-lg" data-open-modal="tracker">Track an Order</button>
+          <a href="track-order.html" class="btn btn-gold btn-lg">Track an Order</a>
         </div>
       </div>
     </section>
@@ -396,19 +429,20 @@
           </ul>
         </div>
 
-        <!-- Column 3: Customer Care -->
+        <!-- Column 3: Customer Care (Updated Standalone Links) -->
         <div class="footer-col">
           <h3>Customer Care</h3>
           <button type="button" class="footer-col-toggle" aria-expanded="false">
             <span>Customer Care</span> <i class="ph ph-caret-down" aria-hidden="true"></i>
           </button>
           <ul role="list">
-            <li><button type="button" class="footer-modal-link" data-open-modal="tracker">Track Your Order (RG-DEMO101)</button></li>
-            <li><button type="button" class="footer-modal-link" data-open-modal="size-care">Size Guide (cm / in) &amp; Fit Finder</button></li>
-            <li><button type="button" class="footer-modal-link" data-open-modal="size-care">Highland Wool Care Protocol</button></li>
-            <li><button type="button" class="footer-modal-link" data-open-modal="faq" data-modal-param="shipping">Shipping &amp; Delivery Rates</button></li>
-            <li><button type="button" class="footer-modal-link" data-open-modal="faq" data-modal-param="exchange">14-Day Easy Exchange Policy</button></li>
-            <li><button type="button" class="footer-modal-link" data-open-modal="faq" data-modal-param="privacy">Privacy Policy &amp; Terms</button></li>
+            <li><a href="track-order.html">Track Your Order (RG-DEMO101)</a></li>
+            <li><a href="size-guide.html">Size Guide (cm / in) &amp; Fit Finder</a></li>
+            <li><a href="care.html">Highland Wool Care Protocol</a></li>
+            <li><a href="shipping.html">Shipping &amp; Delivery Rates</a></li>
+            <li><a href="exchanges.html">14-Day Easy Exchange Policy</a></li>
+            <li><a href="privacy.html">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms of Service</a></li>
           </ul>
         </div>
 

@@ -157,7 +157,14 @@ function runTests() {
     'story.html',
     'contact.html',
     'journal.html',
-    '404.html'
+    '404.html',
+    'track-order.html',
+    'size-guide.html',
+    'care.html',
+    'shipping.html',
+    'exchanges.html',
+    'privacy.html',
+    'terms.html'
   ];
 
   htmlPages.forEach(page => {
@@ -221,6 +228,44 @@ function runTests() {
   assert(allHaveProvenance === true, 'All 16 products have complete Archival Provenance Passport fields');
 
   assert(stylesContent.includes('.pdp-not-found-banner') && stylesContent.includes('.pdp-delivery-calc'), 'styles.css defines rules for not-found banner and delivery calculator');
+
+  // 8. LUXURY UI/UX & POLICY AUDIT
+  console.log('\n--- Suite 8: Luxury UI/UX & Standalone Policy Pages Audit ---');
+  assert(stylesContent.includes('.badge-bounce'), 'styles.css defines spring .badge-bounce animation');
+  assert(stylesContent.includes('.btn-added-state'), 'styles.css defines tactile .btn-added-state feedback');
+  assert(stylesContent.includes('.card-inspect-pill'), 'styles.css defines .card-inspect-pill weave inspection badge');
+  assert(stylesContent.includes('.cart-unboxing-card'), 'styles.css defines .cart-unboxing-card presentation');
+  assert(stylesContent.includes('.pdp-sticky-bar'), 'styles.css defines .pdp-sticky-bar floating purchase bar');
+  assert(stylesContent.includes('.concierge-card'), 'styles.css defines .concierge-card VIP desk');
+
+  const cartJsCode = fs.readFileSync(path.join(__dirname, 'cart.js'), 'utf8');
+  assert(cartJsCode.includes('triggerBadgeBounce'), 'cart.js implements triggerBadgeBounce');
+  assert(cartJsCode.includes('cart-unboxing-card'), 'cart.js includes archival unboxing card in cart drawer');
+
+  const uiJsCode = fs.readFileSync(path.join(__dirname, 'ui.js'), 'utf8');
+  assert(uiJsCode.includes('btn-added-state'), 'ui.js triggers tactile btn-added-state on quick add');
+  assert(uiJsCode.includes('studio-concierge-card'), 'ui.js injects smart VIP studio concierge');
+
+  const trackContent = fs.readFileSync(path.join(__dirname, 'track-order.html'), 'utf8');
+  assert(trackContent.includes('RG-DEMO101') && trackContent.includes('tracker-input'), 'track-order.html includes demo reference and search input');
+
+  const sizeContent = fs.readFileSync(path.join(__dirname, 'size-guide.html'), 'utf8');
+  assert(sizeContent.includes('data-unit') && sizeContent.includes('fit-chest-input'), 'size-guide.html includes unit toggle and Quick Fit Finder');
+
+  const careContent = fs.readFileSync(path.join(__dirname, 'care.html'), 'utf8');
+  assert(careContent.includes('Highland Wool Care') && careContent.includes('stain'), 'care.html includes highland wool rules and stain matrix');
+
+  const shippingContent = fs.readFileSync(path.join(__dirname, 'shipping.html'), 'utf8');
+  assert(shippingContent.includes('TCS') && shippingContent.includes('8,000'), 'shipping.html details courier partners and free shipping threshold');
+
+  const exchangeContent = fs.readFileSync(path.join(__dirname, 'exchanges.html'), 'utf8');
+  assert(exchangeContent.includes('14-Day') && exchangeContent.includes('Doorstep'), 'exchanges.html specifies 14-day exchange and pickup terms');
+
+  const privacyContent = fs.readFileSync(path.join(__dirname, 'privacy.html'), 'utf8');
+  assert(privacyContent.includes('Zero Trackers') && privacyContent.includes('btn-clear-browser-data'), 'privacy.html discloses zero trackers and 1-tap data reset');
+
+  const termsContent = fs.readFileSync(path.join(__dirname, 'terms.html'), 'utf8');
+  assert(termsContent.includes('Handmade Craft Variations') && termsContent.includes('25,000'), 'terms.html details craft variation disclaimer and COD limit');
 
   // SUMMARY
   console.log('\n========================================');

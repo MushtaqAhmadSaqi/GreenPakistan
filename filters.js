@@ -461,6 +461,7 @@ const Filters = {
             <img class="card-img" src="${esc(imgSrc)}" data-fallback="${esc(p.fallbackImage)}" alt="${esc(altMain)}" loading="lazy" decoding="async" width="400" height="500">
             <img class="card-img-hover" src="${esc(imgHov)}" alt="" aria-hidden="true" loading="lazy" decoding="async" width="400" height="500">
           </a>
+          <span class="card-inspect-pill" aria-hidden="true"><i class="ph ph-magnifying-glass-plus"></i> View Piece</span>
           <div class="card-badges">
             <span class="badge badge--region">${esc(p.region)}</span>
             ${p.handmade ? `<span class="badge badge--handmade">${esc(p.handmadeLabel)}</span>` : ''}

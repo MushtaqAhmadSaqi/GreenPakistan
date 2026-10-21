@@ -10005,4 +10005,323 @@ html[data-theme="dark"] .pending-moderation-badge {
   }
 }
 
+/* ─────────────────────────────────────────────────────────────
+   42. LUXURY UI/UX MICRO-INTERACTIONS & ELEVATIONS (Aimé Leon Dore / Bode / Toast UK Standard)
+───────────────────────────────────────────────────────────── */
+
+/* Haptic Spring Badge Bounce */
+@keyframes badgeBounce {
+  0% { transform: scale(1); }
+  25% { transform: scale(1.42); }
+  50% { transform: scale(0.92); }
+  75% { transform: scale(1.12); }
+  100% { transform: scale(1); }
+}
+.badge-bounce {
+  animation: badgeBounce 0.48s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+}
+
+/* Tactile "Added to Bag" Button State */
+.btn-added-state {
+  background: var(--c-status-available, #2d5a3d) !important;
+  color: #ffffff !important;
+  border-color: var(--c-status-available, #2d5a3d) !important;
+  pointer-events: none;
+  transform: scale(0.98);
+  box-shadow: 0 0 0 3px rgba(45, 90, 61, 0.25) !important;
+  transition: all var(--dur-fast, 180ms) ease !important;
+}
+.btn-added-state i {
+  color: var(--c-gold, #c59a3d) !important;
+  animation: checkPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+@keyframes checkPop {
+  0% { transform: scale(0); opacity: 0; }
+  70% { transform: scale(1.3); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Toast UK / Loewe Product Card Hover Zoom & Weave Inspect Pill */
+.product-card:hover .card-img-hover {
+  opacity: 1;
+  transform: scale(1.045);
+}
+.card-img-hover {
+  transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+.card-inspect-pill {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -40%) scale(0.9);
+  background: rgba(23, 47, 61, 0.82);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #f7f1e7;
+  border: 1px solid rgba(197, 154, 61, 0.5);
+  border-radius: var(--r-pill, 9999px);
+  padding: 8px 16px;
+  font-size: var(--fs-xs, 0.78rem);
+  font-weight: 600;
+  letter-spacing: var(--ls-wide, 0.05em);
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 3;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+.card-inspect-pill i {
+  color: var(--c-gold, #c59a3d);
+  font-size: 1rem;
+}
+.product-card:hover .card-inspect-pill {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Archival Collector Unboxing Presentation in Cart Drawer */
+.cart-unboxing-card {
+  margin: 16px 0 12px;
+  padding: 14px 16px;
+  background: linear-gradient(135deg, rgba(33, 76, 99, 0.08) 0%, rgba(197, 154, 61, 0.12) 100%);
+  border: 1px solid rgba(197, 154, 61, 0.35);
+  border-radius: 8px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  color: var(--c-charcoal, #252525);
+  font-size: var(--fs-xs, 0.82rem);
+  line-height: 1.45;
+}
+[data-theme="dark"] .cart-unboxing-card {
+  background: linear-gradient(135deg, rgba(33, 76, 99, 0.25) 0%, rgba(197, 154, 61, 0.18) 100%);
+  border-color: rgba(197, 154, 61, 0.4);
+  color: #f7f1e7;
+}
+.cart-unboxing-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--c-blue, #214c63);
+  color: var(--c-gold, #c59a3d);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 1.1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+.cart-unboxing-text strong {
+  display: block;
+  font-size: var(--fs-sm, 0.88rem);
+  font-family: var(--f-serif, 'Playfair Display', serif);
+  color: var(--c-blue, #214c63);
+  margin-bottom: 2px;
+}
+[data-theme="dark"] .cart-unboxing-text strong {
+  color: var(--c-gold, #c59a3d);
+}
+.cart-unboxing-text p {
+  margin: 0;
+  opacity: 0.88;
+}
+
+/* Universal Floating Sticky PDP Bar for Desktop & Mobile */
+.pdp-sticky-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(253, 250, 245, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid rgba(197, 154, 61, 0.35);
+  box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.08);
+  padding: 10px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  z-index: 900;
+  transform: translateY(100%);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+}
+[data-theme="dark"] .pdp-sticky-bar {
+  background: rgba(23, 47, 61, 0.95);
+  border-top-color: rgba(197, 154, 61, 0.3);
+  box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.4);
+}
+.pdp-sticky-bar.is-visible {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+.sticky-bar-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+.sticky-bar-thumb {
+  width: 44px;
+  height: 55px;
+  border-radius: 4px;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+.sticky-bar-meta {
+  min-width: 0;
+}
+.sticky-bar-title {
+  font-family: var(--f-serif, 'Playfair Display', serif);
+  font-weight: 600;
+  font-size: var(--fs-sm, 0.92rem);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0;
+  color: var(--c-charcoal, #252525);
+}
+[data-theme="dark"] .sticky-bar-title {
+  color: #f7f1e7;
+}
+.sticky-bar-sub {
+  font-size: var(--fs-xs, 0.78rem);
+  opacity: 0.75;
+  margin: 0;
+}
+.sticky-bar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+.sticky-bar-price {
+  font-family: var(--f-serif, 'Playfair Display', serif);
+  font-weight: 700;
+  font-size: var(--fs-md, 1.1rem);
+  color: var(--c-blue, #214c63);
+}
+[data-theme="dark"] .sticky-bar-price {
+  color: var(--c-gold, #c59a3d);
+}
+@media (max-width: 767px) {
+  .pdp-sticky-bar {
+    bottom: var(--mobile-tab-h, 60px);
+    padding: 8px 12px;
+  }
+  .sticky-bar-sub {
+    display: none;
+  }
+}
+
+/* Interactive Smart VIP Studio Concierge Menu */
+.concierge-card {
+  position: fixed;
+  bottom: calc(var(--sp-5, 24px) + 64px);
+  right: var(--sp-5, 24px);
+  width: 310px;
+  background: rgba(253, 250, 245, 0.96);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(197, 154, 61, 0.4);
+  border-radius: 12px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.16);
+  padding: 16px;
+  z-index: 850;
+  opacity: 0;
+  transform: translateY(16px) scale(0.95);
+  pointer-events: none;
+  transition: opacity 0.28s ease, transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+[data-theme="dark"] .concierge-card {
+  background: rgba(23, 47, 61, 0.96);
+  border-color: rgba(197, 154, 61, 0.35);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5);
+  color: #f7f1e7;
+}
+.concierge-card.is-open {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+.concierge-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+[data-theme="dark"] .concierge-header {
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+.concierge-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--fs-xs, 0.8rem);
+  font-weight: 600;
+  color: var(--c-blue, #214c63);
+}
+[data-theme="dark"] .concierge-status {
+  color: var(--c-gold, #c59a3d);
+}
+.concierge-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #25d366;
+  box-shadow: 0 0 0 2px rgba(37, 211, 102, 0.3);
+  animation: pulseDot 2s infinite;
+}
+@keyframes pulseDot {
+  0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5); }
+  70% { box-shadow: 0 0 0 6px rgba(37, 211, 102, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+}
+.concierge-chips {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+}
+.concierge-chip {
+  background: var(--c-surface, #ffffff);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 6px;
+  padding: 8px 12px;
+  text-align: left;
+  font-size: var(--fs-xs, 0.82rem);
+  color: var(--c-charcoal, #252525);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+[data-theme="dark"] .concierge-chip {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #f7f1e7;
+}
+.concierge-chip:hover {
+  background: var(--c-blue, #214c63);
+  color: #ffffff;
+  border-color: var(--c-blue, #214c63);
+  transform: translateX(4px);
+}
+.concierge-chip i {
+  color: var(--c-gold, #c59a3d);
+  font-size: 1rem;
+}
+
+
 

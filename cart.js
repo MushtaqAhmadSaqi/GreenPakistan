@@ -347,9 +347,19 @@ const Cart = {
     }
     this.save();
     this.renderCartUI();
+    this.triggerBadgeBounce();
     if (!silent && window.RG.Toast) {
       window.RG.Toast.show(`"${product.name}" added to your bag`, 'cart');
     }
+  },
+
+  triggerBadgeBounce() {
+    document.querySelectorAll('#cart-badge, #tab-cart-badge, .cart-badge, [data-cart-count]').forEach(el => {
+      el.classList.remove('badge-bounce');
+      void el.offsetWidth;
+      el.classList.add('badge-bounce');
+      setTimeout(() => el.classList.remove('badge-bounce'), 550);
+    });
   },
 
   updateQty(key, delta) {
@@ -591,7 +601,15 @@ const Cart = {
           </div>
         </div>
       `;
-    }).join('');
+    }).join('') + `
+      <div class="cart-unboxing-card" role="note" aria-label="Collector packaging details">
+        <div class="cart-unboxing-icon"><i class="ph-fill ph-package" aria-hidden="true"></i></div>
+        <div class="cart-unboxing-text">
+          <strong>Collector Presentation Included</strong>
+          <p>Every piece arrives in our midnight-blue debossed gift box with Himalayan cedar shavings, numbered certificate, and master artisan lineage notes.</p>
+        </div>
+      </div>
+    `;
 
     // Update totals in footer
     const rawSubEl = document.getElementById('cart-raw-subtotal');

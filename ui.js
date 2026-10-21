@@ -1740,14 +1740,80 @@ const UI = {
     window.RG.SafeStorage.set(this.cfg.storageKeys.newsletterDismissedUntil, until);
   },
 
-  /* ── BACK TO TOP & FLOATING WHATSAPP (Coordinates with Sticky Mobile ATC) ── */
+  /* ── BACK TO TOP & SMART FLOATING WHATSAPP CONCIERGE ── */
   initBackToTopAndFloatingWhatsApp() {
     const backBtn = document.getElementById('back-to-top');
     const waFloat = document.getElementById('whatsapp-float');
 
     if (waFloat) {
-      const msg = 'Assalam-o-Alaikum ReGongches Studio, I would like assistance choosing a Gilgit-Baltistan heritage piece.';
-      waFloat.href = `${this.cfg.contact.whatsappBaseUrl}?text=${encodeURIComponent(msg)}`;
+      const defaultMsg = 'Assalam-o-Alaikum ReGongches Studio, I would like assistance choosing a Gilgit-Baltistan heritage piece.';
+      waFloat.href = `${this.cfg.contact.whatsappBaseUrl}?text=${encodeURIComponent(defaultMsg)}`;
+
+      // Inject Smart Studio Concierge Card if not already present
+      let conciergeCard = document.getElementById('studio-concierge-card');
+      if (!conciergeCard) {
+        conciergeCard = document.createElement('div');
+        conciergeCard.id = 'studio-concierge-card';
+        conciergeCard.className = 'concierge-card';
+        conciergeCard.setAttribute('role', 'dialog');
+        conciergeCard.setAttribute('aria-label', 'Gilgit Heritage Studio Desk Concierge');
+        conciergeCard.innerHTML = `
+          <div class="concierge-header">
+            <span class="concierge-status">
+              <span class="concierge-dot" aria-hidden="true"></span>
+              Gilgit Studio Desk · Online
+            </span>
+            <button type="button" class="drawer-close-btn" id="concierge-close-btn" aria-label="Close concierge desk" style="width:24px;height:24px;font-size:12px;">
+              <i class="ph ph-x" aria-hidden="true"></i>
+            </button>
+          </div>
+          <p style="font-size:var(--fs-xs, 0.8rem);margin:0 0 10px;line-height:1.4;opacity:0.85;">
+            Master weavers &amp; studio guild ready to assist you:
+          </p>
+          <div class="concierge-chips">
+            <button type="button" class="concierge-chip" data-wa-prompt="Assalam-o-Alaikum ReGongches, I need advice on bespoke sizing and fitting for mountain apparel.">
+              <i class="ph ph-ruler" aria-hidden="true"></i> Custom Sizing Advice
+            </button>
+            <button type="button" class="concierge-chip" data-wa-prompt="Assalam-o-Alaikum ReGongches, could you share details on highland wool warmth and fabric grade?">
+              <i class="ph ph-feather" aria-hidden="true"></i> Fabric Weight &amp; Warmth
+            </button>
+            <button type="button" class="concierge-chip" data-wa-prompt="Assalam-o-Alaikum ReGongches, what is the dispatch time and COD availability to my city?">
+              <i class="ph ph-truck" aria-hidden="true"></i> Delivery &amp; COD Verification
+            </button>
+            <button type="button" class="concierge-chip" data-wa-prompt="Assalam-o-Alaikum ReGongches Studio, I would like to consult on an authentic wedding / heritage gift box commission.">
+              <i class="ph ph-gift" aria-hidden="true"></i> Wedding &amp; Gift Commissions
+            </button>
+          </div>
+        `;
+        document.body.appendChild(conciergeCard);
+
+        conciergeCard.querySelector('#concierge-close-btn')?.addEventListener('click', (e) => {
+          e.stopPropagation();
+          conciergeCard.classList.remove('is-open');
+        });
+
+        conciergeCard.querySelectorAll('[data-wa-prompt]').forEach(chip => {
+          chip.addEventListener('click', () => {
+            const prompt = chip.dataset.waPrompt;
+            const url = `${this.cfg.contact.whatsappBaseUrl}?text=${encodeURIComponent(prompt)}`;
+            window.open(url, '_blank', 'noopener,noreferrer');
+            conciergeCard.classList.remove('is-open');
+          });
+        });
+
+        waFloat.addEventListener('click', (e) => {
+          if (!window.matchMedia('(max-width: 767px)').matches) {
+            e.preventDefault();
+            conciergeCard.classList.toggle('is-open');
+          }
+        });
+
+        document.addEventListener('click', (e) => {
+          if (!conciergeCard.contains(e.target) && e.target !== waFloat && !waFloat.contains(e.target)) {
+            conciergeCard.classList.remove('is-open');
+          }
+        });
+      }
     }
 
     if (backBtn) {
@@ -1804,6 +1870,17 @@ const UI = {
         if (prod) {
           const color = window.RG.Store.state.cardColorMap[prod.id] || prod.colors?.[0]?.label || '';
           window.RG.Cart.add(prod, 1, prod.sizes?.[0] || 'One Size', color);
+
+          // Tactile feedback on button (Aimé Leon Dore / Bode standard)
+          if (!quickAddBtn.classList.contains('btn-added-state')) {
+            const originalHtml = quickAddBtn.innerHTML;
+            quickAddBtn.classList.add('btn-added-state');
+            quickAddBtn.innerHTML = '<i class="ph-bold ph-check" aria-hidden="true"></i> Added';
+            setTimeout(() => {
+              quickAddBtn.classList.remove('btn-added-state');
+              quickAddBtn.innerHTML = originalHtml;
+            }, 1800);
+          }
         }
         return;
       }
