@@ -27,7 +27,7 @@ window.RG_DATA.artisans = [
     "craft": "Master Patti Cap Maker & Woollen Waistcoat Tailor",
     "experienceYears": 26,
     "permissionStatus": "Shown with documented artisan permission [PLACEHOLDER — verify before launch]",
-    "shortBio": "Second-generation master tailor shaping hand-felted sheep wool patti into structured Gilgiti caps and bespoke waistcoats.",
+    "shortBio": "Second-generation master tailor shaping hand-felted sheep wool patti into structured Gilgiti caps and custom-measured waistcoats.",
     "quote": "A cap or waistcoat is all about proportion. If we know your exact head circumference or chest measure in centimetres, we shape it to sit like a crown [PLACEHOLDER QUOTE — verify].",
     "story": "Specialising in traditional wool patti blocking and structured canvas interlining, this tailoring unit combines heritage hand-finishing with precise centimetre sizing charts so customers across Pakistan receive a dependable fit.",
     "avatar": "assets/img/artisans/artisan-2.webp",

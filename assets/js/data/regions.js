@@ -62,7 +62,7 @@ window.RG_DATA.regions = [
     ],
     "productCount": 2,
     "shortDescription": "Stretching from Punial to Yasin and Ishkoman, blending orchard-inspired motifs with durable pastoral wool craft.",
-    "culturalNote": "Artisans across Ghizer valleys combine vibrant silk threads with undyed grey and walnut-brown sheep wool [CULTURAL NOTE — verify with regional reviewer].",
+    "culturalNote": "Artisans across Ghizer valleys combine vivid silk threads with undyed grey and walnut-brown sheep wool [CULTURAL NOTE — verify with regional reviewer].",
     "banner": "assets/img/regions/ghizer.webp"
   },
   {

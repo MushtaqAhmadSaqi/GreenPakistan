@@ -1,6 +1,6 @@
 /* ==========================================================================
    ReGongches Instant Search & Index Module (assets/js/search.js)
-   Searches products, categories, regions, and journal posts with recent chips
+   Searches products, categories, regions, and journal posts with <mark>
    ========================================================================== */
 (function (window) {
   'use strict';
@@ -36,6 +36,13 @@
 
     saveSearchTerm(term) {
       addRecent(term);
+    },
+
+    highlight(text, query) {
+      const q = String(query || '').trim();
+      if (!q) return text;
+      const safe = q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      return String(text || '').replace(new RegExp(`(${safe})`, 'gi'), '<mark style="background:var(--rg-antique-gold-soft);color:inherit;padding:0 2px;border-radius:2px;">$1</mark>');
     },
 
     query(rawTerm) {

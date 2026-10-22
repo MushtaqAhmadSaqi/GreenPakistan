@@ -1,7 +1,5 @@
 /* ==========================================================================
    ReGongches Local Data — site-config.js
-   Loaded via <script> (no fetch() required; works on file:// and static servers)
-   
    ========================================================================== */
 window.RG_DATA = window.RG_DATA || {};
 window.RG_DATA.config = {
@@ -24,10 +22,10 @@ window.RG_DATA.config = {
     "pickQuote": "Every time a student or traveller wears a hand-spun Gilgiti cap, they carry the patience of a mountain household. We built ReGongches so you never have to guess where a piece was woven or how it will fit."
   },
   "announcements": [
-    "Free tracked delivery across Pakistan on orders over PKR 5,000",
-    "Cash on Delivery available nationwide on ready-to-ship pieces",
-    "Made-to-order wedding & cultural event wear: book 3–4 weeks ahead",
-    "Every piece includes a printed Origin & Care card"
+    "Free tracked delivery across Pakistan on orders over PKR 5,000 · Cash on Delivery available",
+    "Every piece ships with a printed Origin Card naming its valley, maker & material",
+    "Unsure of your cap or waistcoat size? Use our interactive cm & inch Size Finder",
+    "Made-to-order wedding & cultural event wear: book 3–4 weeks ahead"
   ],
   "coupons": {
     "THREADS10": {
@@ -86,5 +84,6 @@ window.RG_DATA.config = {
       "ready": "4–7 working days",
       "courier": "Nationwide Tracked Courier"
     }
-  }
+  },
+  "dispatchCutoffHourPKT": 16
 };

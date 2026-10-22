@@ -1,7 +1,5 @@
 /* ==========================================================================
    ReGongches Local Data — reviews.js
-   Loaded via <script> (no fetch() required; works on file:// and static servers)
-   NOTE: Sample customer reviews are placeholders for academic prototype demonstration.
    ========================================================================== */
 window.RG_DATA = window.RG_DATA || {};
 window.RG_DATA.reviews = [
@@ -17,7 +15,10 @@ window.RG_DATA.reviews = [
     "verifiedBuyer": true,
     "title": "Measured 56 cm using the size guide and it fit spot on",
     "comment": "Ordered for our university cultural day in Islamabad. On social media pages nobody tells you cap circumference in cm, so ReGongches' size chart saved me. The wool patti feels genuinely thick and came with the artisan origin card.",
-    "photo": "assets/img/products/traditional-gilgiti-cap-1.webp"
+    "photo": "assets/img/products/traditional-gilgiti-cap-1.webp",
+    "helpfulCount": 6,
+    "verifiedPurchase": true,
+    "fitFeedback": "True to size"
   },
   {
     "id": "rev-2",
@@ -31,7 +32,10 @@ window.RG_DATA.reviews = [
     "verifiedBuyer": true,
     "title": "Gifted this to our visiting faculty guest—packaging is outstanding",
     "comment": "Usually traditional gifts arrive in plastic courier bags. This came in a rigid presentation box with an authenticity card explaining the Hunza and Gilgit craft behind it. Worth every rupee.",
-    "photo": "assets/img/products/heritage-gift-set-1.webp"
+    "photo": "assets/img/products/heritage-gift-set-1.webp",
+    "helpfulCount": 9,
+    "verifiedPurchase": true,
+    "fitFeedback": "True to size"
   },
   {
     "id": "rev-3",
@@ -45,7 +49,10 @@ window.RG_DATA.reviews = [
     "verifiedBuyer": true,
     "title": "Even cross-stitch tension on both sides of the border",
     "comment": "You can immediately tell the difference between machine-stamped trim and hand-counted cross-stitch. The maroon lozenge border against the undyed snow wool is heirloom quality.",
-    "photo": "assets/img/craft-weaving.webp"
+    "photo": "assets/img/craft-weaving.webp",
+    "helpfulCount": 12,
+    "verifiedPurchase": true,
+    "fitFeedback": "True to size"
   },
   {
     "id": "rev-4",
@@ -59,7 +66,10 @@ window.RG_DATA.reviews = [
     "verifiedBuyer": true,
     "title": "Sharp shoulders and authentic pattu texture",
     "comment": "Ordered Size L (42 chest) for my cousin's Nikkah. The mandarin collar sits flat without gaping and the wool has a rich, matte hand-loomed texture.",
-    "photo": "assets/img/products/traditional-waistcoat-1.webp"
+    "photo": "assets/img/products/traditional-waistcoat-1.webp",
+    "helpfulCount": 15,
+    "verifiedPurchase": true,
+    "fitFeedback": "True to size"
   },
   {
     "id": "rev-5",
@@ -73,7 +83,10 @@ window.RG_DATA.reviews = [
     "verifiedBuyer": true,
     "title": "Fits my 13-inch notebook and gets compliments every day",
     "comment": "Love that it has a proper brass zipper and padded lining inside while showing off authentic Ghizer cross-stitch on the outside.",
-    "photo": "assets/img/products/embroidered-handbag-1.webp"
+    "photo": "assets/img/products/embroidered-handbag-1.webp",
+    "helpfulCount": 18,
+    "verifiedPurchase": true,
+    "fitFeedback": "True to size"
   },
   {
     "id": "rev-6",
@@ -87,7 +100,10 @@ window.RG_DATA.reviews = [
     "verifiedBuyer": true,
     "title": "Clear garment measurements meant zero alterations needed",
     "comment": "Wore this for our department cultural evening. Having chest, shoulder, and length in both cm and inches made ordering online stress-free.",
-    "photo": "assets/img/products/karimabad-silk-embroidered-kameez-1.webp"
+    "photo": "assets/img/products/karimabad-silk-embroidered-kameez-1.webp",
+    "helpfulCount": 21,
+    "verifiedPurchase": true,
+    "fitFeedback": "True to size"
   },
   {
     "id": "rev-7",
@@ -101,7 +117,10 @@ window.RG_DATA.reviews = [
     "verifiedBuyer": true,
     "title": "Respectful presentation and dense needlework",
     "comment": "As someone from the north living in Punjab, it is refreshing to see a store credit the craft tradition respectfully and get the stitch density right.",
-    "photo": null
+    "photo": null,
+    "helpfulCount": 24,
+    "verifiedPurchase": true,
+    "fitFeedback": "True to size"
   },
   {
     "id": "rev-8",
@@ -115,7 +134,10 @@ window.RG_DATA.reviews = [
     "verifiedBuyer": true,
     "title": "Featherlight chashm-e-bulbul weave",
     "comment": "The walnut shade is completely natural and the diamond weave holds warmth without feeling heavy on the shoulders.",
-    "photo": null
+    "photo": null,
+    "helpfulCount": 8,
+    "verifiedPurchase": true,
+    "fitFeedback": "True to size"
   },
   {
     "id": "rev-9",
@@ -129,7 +151,10 @@ window.RG_DATA.reviews = [
     "verifiedBuyer": true,
     "title": "Warm, crushable, and arrived in 3 days via COD",
     "comment": "Great everyday winter cap. You can adjust the rolled rim easily to fit.",
-    "photo": null
+    "photo": null,
+    "helpfulCount": 11,
+    "verifiedPurchase": true,
+    "fitFeedback": "True to size"
   },
   {
     "id": "rev-10",
@@ -143,7 +168,10 @@ window.RG_DATA.reviews = [
     "verifiedBuyer": true,
     "title": "Bought four of these as Eid gifts for nieces",
     "comment": "Under PKR 1,500 and every single pouch had neat stitching and an origin tag inside.",
-    "photo": null
+    "photo": null,
+    "helpfulCount": 14,
+    "verifiedPurchase": true,
+    "fitFeedback": "True to size"
   },
   {
     "id": "rev-11",
@@ -155,9 +183,12 @@ window.RG_DATA.reviews = [
     "rating": 5,
     "fitScore": "True to size",
     "verifiedBuyer": true,
-    "title": "Architectural geometry that elevates our lounge",
+    "title": "Architectural geometry that enhances our lounge",
     "comment": "The Shigar lattice motif looks like a gallery textile piece on our sofa.",
-    "photo": null
+    "photo": null,
+    "helpfulCount": 17,
+    "verifiedPurchase": true,
+    "fitFeedback": "True to size"
   },
   {
     "id": "rev-12",
@@ -171,6 +202,9 @@ window.RG_DATA.reviews = [
     "verifiedBuyer": true,
     "title": "Ordered made-to-order for my brother's wedding",
     "comment": "Took 11 days as promised on the dispatch calculator. If you wear thick winter kurtas underneath, consider sizing up 1 inch on chest.",
-    "photo": null
+    "photo": null,
+    "helpfulCount": 20,
+    "verifiedPurchase": true,
+    "fitFeedback": "Runs small"
   }
 ];

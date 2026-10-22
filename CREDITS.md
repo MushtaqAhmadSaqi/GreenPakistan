@@ -7,7 +7,7 @@
 
 ## 2. Photography & Product Placeholders
 - **Hero & Editorial Craft Visuals (`hero-mountains.webp`, `craft-weaving.webp`, `heritage-flatlay.webp`):** Custom-generated studio & landscape visual assets stored locally in `/assets/img/`.
-- **Product, Artisan & Regional WebP Placeholders (`/assets/img/products/*.webp`, `/assets/img/artisans/*.webp`, `/assets/img/regions/*.webp`):** 88 bespoke textile-patterned local WebP assets generated programmatically with Pillow, named by product slug (`{slug}-1.webp`, `{slug}-2.webp`, `{slug}-scale.webp`).
+- **Product, Artisan & Regional WebP Placeholders (`/assets/img/products/*.webp`, `/assets/img/artisans/*.webp`, `/assets/img/regions/*.webp`):** 88 custom-measured textile-patterned local WebP assets generated programmatically with Pillow, named by product slug (`{slug}-1.webp`, `{slug}-2.webp`, `{slug}-scale.webp`).
 
 ## 3. Cultural & Linguistic Accuracy Notice
 - All artisan names, workshop names, quotes, and cultural background descriptions are **academic prototype placeholders** clearly marked with `[verify]`.

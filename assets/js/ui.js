@@ -17,12 +17,18 @@
     'Emerald Pine': '#2F6B4F'
   };
 
+  let compareIds = [];
+  try {
+    compareIds = JSON.parse(window.localStorage.getItem('rg_compare_v1') || '[]');
+  } catch (e) { compareIds = []; }
+
   const RGUI = {
     /* <!-- WP PARTIAL: template-parts/content-product-card.php --> */
     renderProductCard(product) {
       if (!product) return '';
       const fmt = window.RG.data.formatPKR;
       const inWishlist = window.RG.wishlist && window.RG.wishlist.has(product.id);
+      const inCompare = compareIds.includes(Number(product.id));
       const img1 = (product.images && product.images[0] && product.images[0].src) || 'assets/img/heritage-flatlay.webp';
       const img1Alt = (product.images && product.images[0] && product.images[0].alt) || product.name;
       const img2 = (product.images && product.images[1] && product.images[1].src) || img1;
@@ -37,12 +43,14 @@
       if (product.craft_type === 'handmade') {
         badges.push('<span class="rg-badge rg-badge--handmade">Handmade</span>');
       } else if (product.craft_type === 'hand-finished') {
-        badges.push('<span class="rg-badge rg-badge--hand-finished">Hand-Finished</span>');
+        badges.push('<span class="rg-badge rg-badge--hand-finished">Hand-finished</span>');
+      } else if (product.craft_type === 'machine-made') {
+        badges.push('<span class="rg-badge rg-badge--machine-made">Machine-made</span>');
       }
       if (product.availability === 'made-to-order') {
-        badges.push('<span class="rg-badge rg-badge--mto">Made to Order</span>');
+        badges.push('<span class="rg-badge rg-badge--mto">Made to order</span>');
       } else if (product.stock_quantity && product.stock_quantity <= 5) {
-        badges.push('<span class="rg-badge rg-badge--mto">Low Stock</span>');
+        badges.push('<span class="rg-badge rg-badge--mto">Low stock</span>');
       }
 
       const priceHtml = (product.sale_price && product.sale_price < product.regular_price)
@@ -54,7 +62,8 @@
         const hexMatch = c.match(/#[0-9A-Fa-f]{6}/);
         const hex = hexMatch ? hexMatch[0] : (SWATCH_MAP[c] || '#7A1F2B');
         const label = c.replace(/\s*\(#[0-9A-Fa-f]{6}\)/, '');
-        return `<span class="rg-swatch ${idx === 0 ? 'is-selected' : ''}" style="background-color:${hex}" title="${label}" aria-label="${label}"></span>`;
+        const imgForSwatch = (product.images && product.images[idx % product.images.length] && product.images[idx % product.images.length].src) || img1;
+        return `<button type="button" class="rg-swatch ${idx === 0 ? 'is-selected' : ''}" data-rg-card-swatch="${imgForSwatch}" style="background-color:${hex}" title="${label}" aria-label="Preview ${label}"></button>`;
       }).join('');
 
       return `
@@ -87,10 +96,15 @@
             </h2>
             <!-- WP: wc_price() -->
             ${priceHtml}
-            <div class="rg-swatches" aria-label="Available colours">${swatchesHtml}</div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-block-start:4px;">
+              <div class="rg-swatches" aria-label="Available colours">${swatchesHtml}</div>
+              <label style="font-size:11px;color:var(--text-secondary);display:inline-flex;align-items:center;gap:4px;cursor:pointer;">
+                <input type="checkbox" data-rg-compare-toggle="${product.id}" ${inCompare ? 'checked' : ''}> Compare
+              </label>
+            </div>
             <div class="rg-product-card__footer">
               <a href="product.html?id=${product.id}" class="button add_to_cart_button" data-rg-add-to-cart="${product.id}">
-                Add to Bag
+                Add to Cart
               </a>
             </div>
           </div>
@@ -145,7 +159,7 @@
               <a href="journal-post.html?id=${post.id}">${post.title}</a>
             </h3>
             <p style="font-size:var(--text-sm);color:var(--text-secondary);flex:1;">${post.excerpt}</p>
-            <a href="journal-post.html?id=${post.id}" style="font-size:var(--text-sm);font-weight:600;color:var(--brand-primary);display:inline-flex;align-items:center;gap:4px;">
+            <a href="journal-post.html?id=${post.id}" class="rg-stitched-link" style="font-size:var(--text-sm);font-weight:600;color:var(--brand-primary);">
               Read Story →
             </a>
           </div>
@@ -157,18 +171,27 @@
     renderReviewCard(rev) {
       if (!rev) return '';
       const stars = '★'.repeat(rev.rating) + '☆'.repeat(Math.max(0, 5 - rev.rating));
+      const helpful = rev.helpfulCount || 4;
       return `
         <!-- WP PARTIAL: template-parts/content-review-card.php (Sample placeholder review) -->
-        <article class="rg-review-card" style="background:var(--bg-elevated);border:1px solid var(--rg-border);border-radius:var(--radius-card);padding:var(--space-5);display:flex;flex-direction:column;gap:var(--space-3);">
+        <article class="rg-review-card" data-review-rating="${rev.rating}" style="background:var(--bg-elevated);border:1px solid var(--rg-border);border-radius:var(--radius-card);padding:var(--space-5);display:flex;flex-direction:column;gap:var(--space-3);">
           <div style="display:flex;align-items:center;justify-content:space-between;gap:var(--space-2);">
             <span class="star-rating" aria-label="${rev.rating} out of 5 stars">${stars}</span>
             <span class="rg-badge rg-badge--hand-finished">${rev.source} · ${rev.date}</span>
           </div>
           <h4 style="font-size:var(--text-base);margin:0;">"${rev.title}"</h4>
           <p style="font-size:var(--text-sm);color:var(--text-secondary);margin:0;flex:1;">${rev.comment}</p>
+          ${rev.photo ? `
+            <button type="button" data-rg-lightbox-img="${rev.photo}" style="align-self:flex-start;border-radius:6px;overflow:hidden;border:1px solid var(--rg-border);">
+              <img src="${rev.photo}" alt="Customer review photo" width="56" height="56" loading="lazy" style="width:56px;height:56px;object-fit:cover;">
+            </button>
+          ` : ''}
           <div style="display:flex;align-items:center;justify-content:space-between;font-size:var(--text-xs);padding-block-start:var(--space-3);border-block-start:1px dashed var(--rg-border);">
-            <strong>${rev.reviewer}</strong>
-            <span style="color:var(--rg-success);font-weight:600;">Fit: ${rev.fitScore}</span>
+            <div>
+              <strong>${rev.reviewer}</strong>
+              <span style="display:block;color:var(--rg-success);font-weight:600;">Fit: ${rev.fitScore}</span>
+            </div>
+            <button type="button" class="rg-chip" data-rg-helpful-btn="${rev.id}">Helpful (${helpful})</button>
           </div>
         </article>
       `;
@@ -187,6 +210,7 @@
       el.className = 'rg-toast';
       el.innerHTML = `
         <span>${message}</span>
+        ${options.viewCart ? '<a href="cart.html" class="rg-btn rg-btn--sm" style="background:var(--rg-antique-gold);color:#1A1A1A;min-height:30px;padding:4px 10px;">View cart</a>' : ''}
         ${options.undo ? '<button type="button" class="rg-btn rg-btn--sm" style="background:var(--rg-antique-gold);color:#1A1A1A;min-height:30px;padding:4px 10px;" data-rg-toast-undo>Undo</button>' : ''}
       `;
       stack.appendChild(el);
@@ -201,7 +225,171 @@
       }
       setTimeout(() => {
         if (el.parentNode) el.remove();
-      }, 4200);
+      }, 4400);
+    },
+
+    animateFlyToCart(sourceEl) {
+      if (!sourceEl || (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
+      const cartBtn = document.querySelector('[data-rg-open-drawer="rg-minicart-drawer"]');
+      if (!cartBtn) return;
+      const sRect = sourceEl.getBoundingClientRect();
+      const cRect = cartBtn.getBoundingClientRect();
+      const dot = document.createElement('div');
+      dot.style.cssText = `position:fixed;left:${sRect.left + sRect.width / 2}px;top:${sRect.top + sRect.height / 2}px;width:18px;height:18px;border-radius:50%;background:var(--rg-heritage-maroon);border:2px solid var(--rg-antique-gold);z-index:2000;pointer-events:none;transition:transform 520ms cubic-bezier(0.22,1,0.36,1),opacity 520ms;`;
+      document.body.appendChild(dot);
+      requestAnimationFrame(() => {
+        const dx = cRect.left - sRect.left;
+        const dy = cRect.top - sRect.top;
+        dot.style.transform = `translate(${dx}px, ${dy}px) scale(0.3)`;
+        dot.style.opacity = '0.2';
+      });
+      setTimeout(() => dot.remove(), 550);
+    },
+
+    toggleCompare(productId) {
+      const id = Number(productId);
+      if (compareIds.includes(id)) {
+        compareIds = compareIds.filter((x) => x !== id);
+      } else {
+        if (compareIds.length >= 3) {
+          this.toast('You can compare up to 3 pieces at a time.');
+          return false;
+        }
+        compareIds.push(id);
+      }
+      try { window.localStorage.setItem('rg_compare_v1', JSON.stringify(compareIds)); } catch (e) {}
+      this.renderCompareTray();
+      return compareIds.includes(id);
+    },
+
+    renderCompareTray() {
+      let tray = document.getElementById('rg-compare-tray');
+      if (!tray) {
+        tray = document.createElement('div');
+        tray.id = 'rg-compare-tray';
+        tray.className = 'rg-compare-bar';
+        document.body.appendChild(tray);
+      }
+      if (!compareIds.length) {
+        tray.classList.remove('is-open');
+        return;
+      }
+      const items = compareIds.map((id) => window.RG.data.getProductById(id)).filter(Boolean);
+      tray.classList.add('is-open');
+      tray.innerHTML = `
+        <div class="rg-container" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;">
+          <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+            <strong style="font-size:var(--text-xs);text-transform:uppercase;">Compare (${items.length}/3):</strong>
+            ${items.map((p) => `
+              <span class="rg-chip">
+                ${p.name}
+                <button type="button" data-rg-compare-remove="${p.id}" aria-label="Remove ${p.name}">✕</button>
+              </span>
+            `).join('')}
+          </div>
+          <div style="display:flex;gap:8px;">
+            <button type="button" class="rg-btn rg-btn--primary rg-btn--sm" data-rg-open-compare-modal>Compare Side-by-Side</button>
+            <button type="button" class="rg-btn rg-btn--outline rg-btn--sm" data-rg-clear-compare>Clear</button>
+          </div>
+        </div>
+      `;
+    },
+
+    openCompareModal() {
+      const items = compareIds.map((id) => window.RG.data.getProductById(id)).filter(Boolean);
+      if (!items.length) return;
+      const modal = document.getElementById('rg-quickview-modal');
+      const body = document.getElementById('rg-quickview-body');
+      if (!modal || !body) return;
+      const fmt = window.RG.data.formatPKR;
+      body.innerHTML = `
+        <span class="rg-section__eyebrow">Side-by-Side Comparison</span>
+        <h2 style="margin-block-end:16px;">Compare Mountain Heritage Pieces</h2>
+        <div style="overflow-x:auto;">
+          <table class="shop_table cart">
+            <thead>
+              <tr>
+                <th>Attribute</th>
+                ${items.map((p) => `<th><a href="product.html?id=${p.id}">${p.name}</a></th>`).join('')}
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>Price</strong></td>${items.map((p) => `<td>${fmt(p.price)}</td>`).join('')}</tr>
+              <tr><td><strong>Region / District</strong></td>${items.map((p) => `<td>${p.district || p.region}</td>`).join('')}</tr>
+              <tr><td><strong>Craft Type</strong></td>${items.map((p) => `<td><span class="rg-badge rg-badge--handmade">${p.craft_type}</span></td>`).join('')}</tr>
+              <tr><td><strong>Material</strong></td>${items.map((p) => `<td>${(p.attributes.material || []).join(', ')}</td>`).join('')}</tr>
+              <tr><td><strong>Sizes</strong></td>${items.map((p) => `<td>${(p.attributes.size || []).join(', ')}</td>`).join('')}</tr>
+              <tr><td><strong>Time to Make</strong></td>${items.map((p) => `<td>${p.time_to_make}</td>`).join('')}</tr>
+              <tr><td><strong>Dispatch Window</strong></td>${items.map((p) => `<td>${p.dispatch_days ? p.dispatch_days.join('–') + ' days' : '1–2 days'}</td>`).join('')}</tr>
+            </tbody>
+          </table>
+        </div>
+      `;
+      this.openModal('rg-quickview-modal');
+    },
+
+    openGiftFinderModal() {
+      const modal = document.getElementById('rg-quickview-modal');
+      const body = document.getElementById('rg-quickview-body');
+      if (!modal || !body) return;
+      body.innerHTML = `
+        <span class="rg-section__eyebrow">4-Step Heritage Concierge</span>
+        <h2 style="margin-block-end:8px;">Find the Right Mountain Gift</h2>
+        <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-block-end:16px;">Answer four quick questions and we will recommend three documented pieces from Gilgit-Baltistan.</p>
+        <form id="rg-gift-quiz-form" style="display:grid;gap:14px;">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;">
+            <div class="rg-form-row">
+              <label>1. Who is it for?</label>
+              <select name="recipient">
+                <option value="him">Father, Brother, Groom or Friend</option>
+                <option value="her">Mother, Sister, Bride or Colleague</option>
+                <option value="guest">University Guest / Delegation</option>
+              </select>
+            </div>
+            <div class="rg-form-row">
+              <label>2. What is the occasion?</label>
+              <select name="occasion">
+                <option value="Wedding">Wedding / Nikkah</option>
+                <option value="Cultural event">University Cultural Event</option>
+                <option value="Gift">Hospitality / Birthday / Eid</option>
+              </select>
+            </div>
+            <div class="rg-form-row">
+              <label>3. Target Budget</label>
+              <select name="budget">
+                <option value="3000">Under PKR 3,000</option>
+                <option value="7000">PKR 3,000 – PKR 7,000</option>
+                <option value="25000">PKR 7,000+ (Ceremonial)</option>
+              </select>
+            </div>
+            <div class="rg-form-row">
+              <label>4. Preferred Valley</label>
+              <select name="region">
+                <option value="">Any District</option>
+                <option value="Hunza">Hunza</option>
+                <option value="Gilgit">Gilgit</option>
+                <option value="Skardu">Skardu</option>
+                <option value="Shigar">Shigar</option>
+              </select>
+            </div>
+          </div>
+          <button type="submit" class="rg-btn rg-btn--primary rg-btn--sm" style="justify-self:start;">Reveal 3 Recommended Gifts →</button>
+        </form>
+        <div id="rg-gift-quiz-results" style="margin-block-start:20px;"></div>
+      `;
+      const form = body.querySelector('#rg-gift-quiz-form');
+      const resBox = body.querySelector('#rg-gift-quiz-results');
+      if (form && resBox) {
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const maxB = Number(form.elements.budget.value) || 25000;
+          const reg = form.elements.region.value;
+          let matches = window.RG.data.getProducts().filter((p) => p.price <= maxB && (!reg || p.region === reg));
+          if (matches.length < 3) matches = window.RG.data.getProducts().slice(0, 3);
+          resBox.innerHTML = `<ul class="products" data-columns="3">${matches.slice(0, 3).map((p) => this.renderProductCard(p)).join('')}</ul>`;
+        });
+      }
+      this.openModal('rg-quickview-modal');
     },
 
     openSizeGuideModal(type = 'cap') {
@@ -235,6 +423,7 @@
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:var(--space-6);align-items:start;">
           <div>
             <img src="${product.images[0].src}" alt="${product.images[0].alt}" style="width:100%;border-radius:var(--radius-card);border:1px solid var(--rg-border);">
+            <small style="display:block;margin-block-start:6px;color:var(--text-secondary);font-size:11px;">Illustrative image · ${product.region}</small>
           </div>
           <div>
             <div style="display:flex;gap:8px;margin-block-end:8px;">
@@ -255,12 +444,12 @@
             </div>
             <div style="margin-block-end:16px;">
               <strong style="font-size:var(--text-xs);text-transform:uppercase;display:block;margin-block-end:6px;">Colour: <span data-qv-colour-label>${colours[0]}</span></strong>
-              <div style="display:flex;gap:8px;">
+              <div style="display:flex;gap:8px;flex-wrap:wrap;">
                 ${colours.map((c, idx) => `<button type="button" class="rg-btn rg-btn--sm ${idx === 0 ? 'rg-btn--secondary' : 'rg-btn--outline'}" data-qv-colour="${c}">${c.replace(/\s*\(#[0-9A-Fa-f]{6}\)/, '')}</button>`).join('')}
               </div>
             </div>
             <div style="display:flex;gap:12px;flex-wrap:wrap;">
-              <button type="button" class="rg-btn rg-btn--primary" style="flex:1;" data-qv-add="${product.id}">Add to Bag — ${fmt(product.price)}</button>
+              <button type="button" class="rg-btn rg-btn--primary" style="flex:1;" data-qv-add="${product.id}">Add to Cart — ${fmt(product.price)}</button>
               <a href="product.html?id=${product.id}" class="rg-btn rg-btn--outline">Full Details & Origin Card</a>
             </div>
           </div>
@@ -297,7 +486,7 @@
           window.RG.cart.addItem(product.id, 1, { size, colour });
           this.closeModal('rg-quickview-modal');
           this.openDrawer('rg-minicart-drawer');
-          this.toast(`Added "${product.name}" (${size}) to your bag.`);
+          this.toast(`Added to your cart: ${product.name}, ${size}.`, { viewCart: true });
         });
       }
 
@@ -348,19 +537,18 @@
       if (!body || !footer) return;
 
       const shipMsg = summary.freeShippingRemaining > 0
-        ? `You're <strong>${fmt(summary.freeShippingRemaining)}</strong> away from free nationwide delivery`
-        : `<strong style="color:var(--rg-success);">✓ You've unlocked Free Tracked Delivery across Pakistan!</strong>`;
+        ? `Add <strong>${fmt(summary.freeShippingRemaining)}</strong> more for free delivery across Pakistan.`
+        : `<strong style="color:var(--rg-success);">You've unlocked free nationwide delivery.</strong>`;
 
       if (summary.items.length === 0) {
         const suggested = window.RG.data.getProducts().slice(0, 3);
         body.innerHTML = `
           <div style="text-align:center;padding-block:var(--space-6);">
-            <p style="font-family:var(--font-display);font-size:var(--text-lg);margin-block-end:8px;">Your heritage bag is empty</p>
-            <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-block-end:16px;">Explore authentic caps, hand-loomed shawls, and gift sets from Gilgit-Baltistan.</p>
-            <a href="shop.html" class="rg-btn rg-btn--primary rg-btn--sm">Browse Catalogue</a>
+            <p style="font-family:var(--font-display);font-size:var(--text-md);margin-block-end:8px;">Your cart is empty, for now. Start with our most-loved pieces from Gilgit and Hunza, or explore by valley.</p>
+            <a href="shop.html" class="rg-btn rg-btn--primary rg-btn--sm">Explore the Collection</a>
           </div>
           <hr class="rg-stitch-line" style="margin-block:16px;">
-          <h4 style="font-size:var(--text-xs);text-transform:uppercase;letter-spacing:0.08em;margin-block-end:12px;">Popular Mountain Pieces</h4>
+          <h4 style="font-size:var(--text-xs);text-transform:uppercase;letter-spacing:0.08em;margin-block-end:12px;">Most-Loved Pieces</h4>
           <div style="display:grid;gap:12px;">
             ${suggested.map((p) => `
               <div style="display:flex;align-items:center;gap:12px;padding:8px;background:var(--bg-secondary);border-radius:var(--radius-editorial);">
@@ -422,7 +610,7 @@
           <span>${fmt(summary.total)}</span>
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-          <a href="cart.html" class="rg-btn rg-btn--outline">View Bag</a>
+          <a href="cart.html" class="rg-btn rg-btn--outline">View Cart</a>
           <a href="checkout.html" class="rg-btn rg-btn--primary">Checkout</a>
         </div>
       `;

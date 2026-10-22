@@ -37,9 +37,9 @@
 ├── account.html                # My Account demo (Orders, 5-step Tracking Timeline, Mountain Points)
 ├── wishlist.html               # Saved wishlist items persisted in localStorage
 ├── search.html                 # Full search results page (?q=)
-├── collections.html            # Curated seasonal & event collections index
+├── collections.html            # Selected seasonal & event collections index
 ├── gift-sets.html              # Interactive 3-piece Gift Set Builder + Institutional Quote form
-├── custom-orders.html          # Made-to-order bespoke measurement configurator
+├── custom-orders.html          # Made-to-order custom-measured measurement configurator
 ├── artisans.html               # Filterable directory of partner artisans & guilds
 ├── artisan.html                # Single artisan profile (?id=artisan-1) + their pieces
 ├── journal.html                # Cultural Journal blog index

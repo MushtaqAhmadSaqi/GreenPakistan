@@ -1,7 +1,8 @@
 /* ==========================================================================
    ReGongches Single Product Page Controller (assets/js/product.js)
-   Handles gallery, size buttons, size guide, dispatch calculator,
-   city delivery estimator, THE ORIGIN CARD, reviews, and JSON-LD schema.
+   Handles gallery + magnifier lens, colour-linked gallery, size buttons,
+   live dispatch countdown timer, city delivery estimator, flippable ORIGIN CARD,
+   "Complete the look" bundle builder, interactive review filter, and JSON-LD.
    ========================================================================== */
 (function (window, document) {
   'use strict';
@@ -10,6 +11,20 @@
     const d = new Date();
     d.setDate(d.getDate() + daysToAdd);
     return d.toLocaleDateString('en-PK', { month: 'short', day: 'numeric' });
+  }
+
+  function getDispatchCountdownText() {
+    const cfg = window.RG.data.getConfig();
+    const cutoff = cfg.dispatchCutoffHourPKT || 16;
+    const now = new Date();
+    const pktHour = (now.getUTCHours() + 5) % 24;
+    const pktMin = now.getUTCMinutes();
+    let hoursLeft = cutoff - pktHour - 1;
+    let minsLeft = 60 - pktMin;
+    if (hoursLeft < 0) {
+      hoursLeft += 24;
+    }
+    return `Order within ${hoursLeft}h ${minsLeft}m for next-batch dispatch from our northern desk.`;
   }
 
   const RGProductPage = {
@@ -35,7 +50,7 @@
 
       const breadcrumbEl = document.getElementById('rg-product-breadcrumb-current');
       if (breadcrumbEl) breadcrumbEl.textContent = product.name;
-      document.title = `${product.name} (${product.region}) — ReGongches`;
+      document.title = (product.seo && product.seo.title) || `${product.name} (${product.region}) — ReGongches`;
 
       const sizes = (product.attributes && product.attributes.size) || ['Standard'];
       const unavail = (product.attributes && product.attributes.unavailable_sizes) || [];
@@ -58,17 +73,22 @@
         waFloat.href = `https://wa.me/${cfg.whatsappNumber}?text=${waText}`;
       }
 
+      const pairIds = (product.pairs_with && product.pairs_with.length) ? product.pairs_with : [1, 2, 16].filter((id) => id !== product.id).slice(0, 2);
+      const pairProducts = pairIds.map((id) => window.RG.data.getProductById(id)).filter(Boolean);
+
       container.innerHTML = `
         <div class="rg-single-product-grid">
           <!-- Gallery Column (.woocommerce-product-gallery) -->
           <div class="woocommerce-product-gallery">
-            <div class="woocommerce-product-gallery__main" id="rg-gallery-main" title="Click to open zoom lightbox">
+            <div class="woocommerce-product-gallery__main" id="rg-gallery-main" title="Hover to magnify · Click to open full lightbox">
               <img src="${product.images[0].src}" alt="${product.images[0].alt}" id="rg-gallery-main-img" width="640" height="800">
-              <span class="rg-badge rg-badge--hand-finished" style="position:absolute;inset-block-end:12px;inset-inline-end:12px;">Click to Zoom</span>
+              <div class="rg-magnifier-lens" id="rg-magnifier-lens"></div>
+              <span class="rg-badge rg-badge--hand-finished" style="position:absolute;inset-block-end:12px;inset-inline-start:12px;">Illustrative image</span>
+              <span class="rg-badge rg-badge--hand-finished" style="position:absolute;inset-block-end:12px;inset-inline-end:12px;">Hover / Click Zoom</span>
             </div>
             <div class="woocommerce-product-gallery__thumbs">
               ${product.images.map((img, idx) => `
-                <button type="button" class="woocommerce-product-gallery__thumb ${idx === 0 ? 'is-active' : ''}" data-rg-thumb="${img.src}" data-rg-thumb-alt="${img.alt}">
+                <button type="button" class="woocommerce-product-gallery__thumb ${idx === 0 ? 'is-active' : ''}" data-rg-thumb="${img.src}" data-rg-thumb-alt="${img.alt}" data-rg-thumb-colour="${img.colour || ''}">
                   <img src="${img.src}" alt="${img.alt}" width="120" height="120">
                 </button>
               `).join('')}
@@ -80,14 +100,14 @@
             <div style="display:flex;flex-wrap:wrap;gap:8px;margin-block-end:12px;">
               <a href="region.html?region=${product.region.toLowerCase()}" class="rg-badge rg-badge--new">${product.region} Origin</a>
               <span class="rg-badge rg-badge--handmade">${product.craft_type}</span>
-              ${product.availability === 'made-to-order' ? '<span class="rg-badge rg-badge--mto">Made-to-Order</span>' : '<span class="rg-badge rg-badge--verified">Ready to Ship</span>'}
+              ${product.availability === 'made-to-order' ? '<span class="rg-badge rg-badge--mto">Made to order</span>' : '<span class="rg-badge rg-badge--verified">Ready to ship</span>'}
             </div>
 
             <!-- WP: the_title() -->
             <h1 class="product_title entry-title" style="margin-block-end:8px;">${product.name}</h1>
 
             <div style="display:flex;align-items:center;gap:16px;margin-block-end:16px;font-size:var(--text-sm);">
-              <a href="#tab-reviews" class="star-rating">★ ${product.rating.toFixed(1)} (${product.review_count} verified reviews)</a>
+              <a href="#tab-reviews" class="star-rating">★ ${product.rating.toFixed(1)} (${product.review_count} sample reviews)</a>
               <span style="color:var(--text-secondary);">SKU: ${product.sku}</span>
             </div>
 
@@ -103,6 +123,11 @@
 
             <div class="woocommerce-product-details__short-description">
               <p>${product.short_description}</p>
+              ${product.highlights ? `
+                <ul style="list-style:disc;padding-inline-start:18px;font-size:var(--text-xs);color:var(--text-secondary);margin-block-end:16px;display:grid;gap:4px;">
+                  ${product.highlights.map((h) => `<li>${h}</li>`).join('')}
+                </ul>
+              ` : ''}
             </div>
 
             <form class="cart" id="rg-single-product-form" onsubmit="return false;">
@@ -126,14 +151,14 @@
                   </div>
                 </div>
 
-                <!-- Colour Swatches -->
+                <!-- Colour Swatches (Colour-linked gallery) -->
                 <div style="margin-block:16px;">
                   <label style="font-weight:700;font-size:var(--text-sm);display:block;margin-block-end:8px;">
                     Colour: <span id="rg-selected-colour-label">${colours[0]}</span>
                   </label>
                   <div style="display:flex;flex-wrap:wrap;gap:8px;">
                     ${colours.map((c, idx) => `
-                      <button type="button" class="rg-btn rg-btn--sm ${idx === 0 ? 'rg-btn--secondary' : 'rg-btn--outline'}" data-rg-colour-btn="${c}">
+                      <button type="button" class="rg-btn rg-btn--sm ${idx === 0 ? 'rg-btn--secondary' : 'rg-btn--outline'}" data-rg-colour-btn="${c}" data-rg-colour-idx="${idx}">
                         ${c.replace(/\s*\(#[0-9A-Fa-f]{6}\)/, '')}
                       </button>
                     `).join('')}
@@ -144,7 +169,7 @@
                 <!-- Customisation Panel -->
                 <details style="background:var(--bg-secondary);padding:12px 16px;border-radius:var(--radius-card);border:1px solid var(--rg-border);margin-block:16px;">
                   <summary style="font-weight:600;font-size:var(--text-sm);cursor:pointer;">
-                    + Optional Customisation (Embroidery Thread / Bespoke Fit Note)
+                    + Optional Customisation (Embroidery Thread / Custom-measured Fit Note)
                   </summary>
                   <div style="margin-block-start:12px;display:grid;gap:10px;">
                     <p style="font-size:12px;color:var(--rg-warning);margin:0;font-weight:600;">
@@ -156,11 +181,14 @@
                 ` : ''}
               </div>
 
-              <!-- Stock & Dispatch Calculator + City Delivery Estimator -->
-              <div style="background:var(--bg-elevated);border:1px solid var(--rg-border);border-radius:var(--radius-card);padding:14px 16px;margin-block:16px;display:grid;gap:10px;">
+              <!-- Stock & Live Dispatch Countdown + City Delivery Estimator -->
+              <div style="background:var(--bg-elevated);border:1px solid var(--rg-border);border-radius:var(--radius-card);padding:14px 16px;margin-block:16px;display:grid;gap:8px;">
                 <div style="display:flex;align-items:center;gap:8px;font-size:var(--text-sm);font-weight:600;color:var(--rg-success);">
                   <svg width="18" height="18" aria-hidden="true"><use href="#icon-truck"></use></svg>
                   <span>${dispatchHeadline}</span>
+                </div>
+                <div style="font-size:12px;color:var(--brand-secondary);font-weight:600;" id="rg-dispatch-countdown">
+                  ⏱ ${getDispatchCountdownText()}
                 </div>
                 <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px;font-size:var(--text-xs);">
                   <label for="rg-city-estimator" style="font-weight:600;">Delivery Estimate to:</label>
@@ -181,7 +209,7 @@
                   <button type="button" id="rg-qty-inc" aria-label="Increase quantity">+</button>
                 </div>
                 <button type="button" class="single_add_to_cart_button button alt" id="rg-main-add-to-cart" style="flex:1;">
-                  Add to Heritage Bag — ${fmt(product.price)}
+                  Add to Cart — ${fmt(product.price)}
                 </button>
                 <button type="button" class="rg-btn rg-btn--outline" data-rg-wishlist-toggle="${product.id}" aria-label="Add to Wishlist">
                   <svg width="20" height="20" aria-hidden="true"><use href="#icon-heart"></use></svg>
@@ -198,73 +226,123 @@
               </div>
             </form>
 
-            <!-- SIGNATURE FEATURE: THE ORIGIN CARD -->
-            <section class="rg-origin-card" aria-label="Product Origin and Craft Verification">
+            <!-- SIGNATURE FEATURE: THE ORIGIN CARD (Expandable / Flippable with Mini Map Pin) -->
+            <section class="rg-origin-card" id="rg-origin-card-widget" aria-label="Product Origin and Craft Verification">
               <div class="rg-origin-card__header">
                 <h2 class="rg-origin-card__title">
                   <svg width="20" height="20" aria-hidden="true"><use href="#icon-shield"></use></svg>
                   The ReGongches Origin Card
                 </h2>
-                ${verifiedBadgeHtml}
-              </div>
-
-              ${artisan ? `
-              <div class="rg-origin-card__artisan">
-                <img src="${artisan.avatar}" alt="${artisan.name}" width="56" height="56">
-                <div style="flex:1;">
-                  <span style="font-size:11px;text-transform:uppercase;letter-spacing:0.06em;color:var(--brand-secondary);font-weight:700;">Crafted By</span>
-                  <h3 style="font-size:var(--text-base);margin:0;"><a href="artisan.html?id=${artisan.id}">${artisan.name}</a></h3>
-                  <span style="font-size:11px;color:var(--text-secondary);">${artisan.permissionStatus}</span>
-                </div>
-                <a href="artisan.html?id=${artisan.id}" class="rg-btn rg-btn--outline rg-btn--sm">Artisan Profile</a>
-              </div>
-              ` : ''}
-
-              <div class="rg-origin-card__grid">
-                <div class="rg-origin-card__item">
-                  <span class="rg-origin-card__label">Region / District</span>
-                  <span class="rg-origin-card__value">${product.district || product.region}</span>
-                </div>
-                <div class="rg-origin-card__item">
-                  <span class="rg-origin-card__label">Material Composition</span>
-                  <span class="rg-origin-card__value">${(product.attributes.material || []).join(', ')}</span>
-                </div>
-                <div class="rg-origin-card__item">
-                  <span class="rg-origin-card__label">Craft Classification</span>
-                  <span class="rg-origin-card__value" style="text-transform:capitalize;">${product.craft_type} (${product.technique})</span>
-                </div>
-                <div class="rg-origin-card__item">
-                  <span class="rg-origin-card__label">Time to Make</span>
-                  <span class="rg-origin-card__value">${product.time_to_make || '3–5 days'}</span>
+                <div style="display:flex;align-items:center;gap:8px;">
+                  ${verifiedBadgeHtml}
+                  <button type="button" class="rg-btn rg-btn--outline rg-btn--sm" id="rg-origin-flip-btn" style="min-height:28px;padding:2px 8px;font-size:11px;">
+                    Flip to Valley Map ↻
+                  </button>
                 </div>
               </div>
 
-              <div style="font-size:var(--text-sm);color:var(--text-secondary);border-block-start:1px dashed var(--rg-border-strong);padding-block-start:12px;">
-                <strong style="color:var(--text-primary);">Cultural Context:</strong> ${product.cultural_story}
+              <div id="rg-origin-front">
+                ${artisan ? `
+                <div class="rg-origin-card__artisan">
+                  <img src="${artisan.avatar}" alt="${artisan.name}" width="56" height="56">
+                  <div style="flex:1;">
+                    <span style="font-size:11px;text-transform:uppercase;letter-spacing:0.06em;color:var(--brand-secondary);font-weight:700;">Crafted By</span>
+                    <h3 style="font-size:var(--text-base);margin:0;"><a href="artisan.html?id=${artisan.id}">${artisan.name}</a></h3>
+                    <span style="font-size:11px;color:var(--text-secondary);">${artisan.permissionStatus}</span>
+                  </div>
+                  <a href="artisan.html?id=${artisan.id}" class="rg-btn rg-btn--outline rg-btn--sm">Artisan Profile</a>
+                </div>
+                ` : ''}
+
+                <div class="rg-origin-card__grid">
+                  <div class="rg-origin-card__item">
+                    <span class="rg-origin-card__label">01 · Where it comes from</span>
+                    <span class="rg-origin-card__value">${product.district || product.region}</span>
+                  </div>
+                  <div class="rg-origin-card__item">
+                    <span class="rg-origin-card__label">02 · What it is made of</span>
+                    <span class="rg-origin-card__value">${(product.attributes.material || []).join(', ')}</span>
+                  </div>
+                  <div class="rg-origin-card__item">
+                    <span class="rg-origin-card__label">03 · How it is made</span>
+                    <span class="rg-origin-card__value" style="text-transform:capitalize;">${product.craft_type} (${product.technique})</span>
+                  </div>
+                  <div class="rg-origin-card__item">
+                    <span class="rg-origin-card__label">04 · Time to make</span>
+                    <span class="rg-origin-card__value">${product.time_to_make || '3–5 days'}</span>
+                  </div>
+                </div>
+
+                <div style="font-size:var(--text-sm);color:var(--text-secondary);border-block-start:1px dashed var(--rg-border-strong);padding-block-start:12px;">
+                  <strong style="color:var(--text-primary);">Cultural Context:</strong> ${product.cultural_story}
+                </div>
+              </div>
+
+              <div id="rg-origin-back" hidden style="padding-block:8px;">
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+                  <div>
+                    <span class="rg-badge rg-badge--new">District Pin: ${product.region}</span>
+                    <h4 style="margin-block:8px 4px;">${product.district || product.region}, Gilgit-Baltistan</h4>
+                    <p style="font-size:var(--text-xs);color:var(--text-secondary);margin:0;">Every piece is tagged with its valley of origin and inspected before dispatch.</p>
+                  </div>
+                  <a href="region.html?region=${product.region.toLowerCase()}" class="rg-btn rg-btn--secondary rg-btn--sm">Explore All ${product.region} Pieces →</a>
+                </div>
               </div>
             </section>
 
-            <!-- Trust Row -->
-            <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;font-size:var(--text-xs);padding:12px;background:var(--bg-secondary);border-radius:var(--radius-editorial);">
-              <div>✓ Nationwide Tracked Delivery</div>
-              <div>✓ 7-Day Easy Size Exchange</div>
-              <div>✓ Printed Origin Card Included</div>
-              <div>✓ Transparent Craft Classification</div>
-            </div>
+            <!-- "Complete the Look" Bundle Builder -->
+            <section style="background:var(--bg-elevated);border:1px solid var(--rg-border-strong);border-radius:var(--radius-card);padding:20px;margin-block:20px;" aria-label="Complete the Look Bundle Builder">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-block-end:12px;">
+                <div>
+                  <span class="rg-section__eyebrow" style="margin:0;">Complete the Ensemble</span>
+                  <h3 style="font-size:var(--text-base);margin:0;">Pair with Companion Valley Pieces</h3>
+                </div>
+                <strong id="rg-bundle-total-price" style="color:var(--brand-secondary);">${fmt(product.price + pairProducts.reduce((s, p) => s + p.price, 0))}</strong>
+              </div>
+              <div style="display:grid;gap:10px;margin-block-end:14px;">
+                <label style="display:flex;align-items:center;gap:10px;font-size:var(--text-xs);">
+                  <input type="checkbox" checked disabled>
+                  <strong>This piece: ${product.name}</strong> (${fmt(product.price)})
+                </label>
+                ${pairProducts.map((pp) => `
+                  <label style="display:flex;align-items:center;gap:10px;font-size:var(--text-xs);cursor:pointer;">
+                    <input type="checkbox" checked data-rg-bundle-check="${pp.id}" data-rg-bundle-price="${pp.price}">
+                    <img src="${pp.images[0].src}" alt="${pp.name}" width="36" height="44" style="width:36px;height:44px;object-fit:cover;border-radius:4px;">
+                    <span style="flex:1;"><strong>${pp.name}</strong> (${pp.region})</span>
+                    <strong>${fmt(pp.price)}</strong>
+                  </label>
+                `).join('')}
+              </div>
+              <button type="button" class="rg-btn rg-btn--secondary rg-btn--sm" id="rg-add-bundle-btn" style="width:100%;">
+                Add Selected Ensemble to Cart
+              </button>
+            </section>
           </div>
         </div>
 
         <!-- WooCommerce Tabs (.woocommerce-tabs.wc-tabs-wrapper) -->
         <div class="woocommerce-tabs wc-tabs-wrapper">
           <ul class="tabs wc-tabs" role="tablist">
-            <li class="active" data-rg-tab-li="desc"><button type="button" data-rg-tab-btn="desc">Description</button></li>
+            <li class="active" data-rg-tab-li="desc"><button type="button" data-rg-tab-btn="desc">Description & Specs</button></li>
             <li data-rg-tab-li="care"><button type="button" data-rg-tab-btn="care">Materials & Care</button></li>
             <li data-rg-tab-li="fit"><button type="button" data-rg-tab-btn="fit">Size & Fit</button></li>
             <li data-rg-tab-li="shipping"><button type="button" data-rg-tab-btn="shipping">Shipping & Exchanges</button></li>
-            <li data-rg-tab-li="story"><button type="button" data-rg-tab-btn="story">Cultural Story</button></li>
+            <li data-rg-tab-li="story"><button type="button" data-rg-tab-btn="story">Cultural Story & FAQs</button></li>
           </ul>
           <div class="woocommerce-Tabs-panel" data-rg-tab-panel="desc">
-            <p>${product.description}</p>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:28px;">
+              <div>${product.description_html || `<p>${product.description}</p>`}</div>
+              ${product.specs ? `
+                <div>
+                  <h3 style="font-size:var(--text-md);margin-block-end:12px;">Technical Specifications</h3>
+                  <table class="shop_table cart">
+                    <tbody>
+                      ${Object.entries(product.specs).map(([k, v]) => `<tr><th>${k}</th><td>${v}</td></tr>`).join('')}
+                    </tbody>
+                  </table>
+                </div>
+              ` : ''}
+            </div>
           </div>
           <div class="woocommerce-Tabs-panel" data-rg-tab-panel="care" hidden>
             <h3 style="margin-block-end:12px;">Materials & Seasonal Care Instructions</h3>
@@ -274,28 +352,43 @@
             </ul>
           </div>
           <div class="woocommerce-Tabs-panel" data-rg-tab-panel="fit" hidden>
-            <h3 style="margin-block-end:12px;">Measurements & Fit Guidance</h3>
-            <p>Every piece is measured in both centimetres and inches prior to dispatch. Click the <strong>Size Guide</strong> button above to inspect exact dimensions.</p>
+            <h3 style="margin-block-end:12px;">Measurements & Fit Guidance (cm & inches)</h3>
+            <p>Every piece is measured in both centimetres and inches prior to dispatch. Click the <strong>Size Guide</strong> button above to use our interactive head/chest measurement finder.</p>
           </div>
           <div class="woocommerce-Tabs-panel" data-rg-tab-panel="shipping" hidden>
             <h3 style="margin-block-end:12px;">Nationwide Tracked Delivery & 7-Day Size Exchange</h3>
             <p>Orders over PKR 5,000 qualify for free tracked courier delivery across Pakistan. Ready-to-ship sizes can be exchanged within 7 days of delivery if unworn with the Origin Card attached.</p>
           </div>
           <div class="woocommerce-Tabs-panel" data-rg-tab-panel="story" hidden>
-            <h3 style="margin-block-end:12px;">Regional Tradition & Verification</h3>
+            <h3 style="margin-block-end:12px;">Regional Tradition & Product FAQs</h3>
             <p>${product.cultural_story}</p>
+            ${product.faqs ? `
+              <div style="display:grid;gap:10px;margin-block-start:16px;">
+                ${product.faqs.map((fq) => `
+                  <details style="background:var(--bg-secondary);padding:12px 16px;border-radius:var(--radius-card);">
+                    <summary style="font-weight:700;cursor:pointer;">${fq.q}</summary>
+                    <p style="margin:8px 0 0;font-size:var(--text-sm);color:var(--text-secondary);">${fq.a}</p>
+                  </details>
+                `).join('')}
+              </div>
+            ` : ''}
           </div>
         </div>
 
-        <!-- Reviews Section -->
+        <!-- Reviews Section with Interactive Star Filter + Fit Meter -->
         <section id="tab-reviews" style="padding-block:var(--space-8);border-block-start:1px solid var(--rg-border);">
-          <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px;margin-block-end:24px;">
+          <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px;margin-block-end:20px;">
             <div>
               <span class="rg-section__eyebrow">Customer Feedback (Sample Placeholders)</span>
-              <h2>Verified Customer Reviews (${product.rating.toFixed(1)} ★)</h2>
-              <p style="font-size:var(--text-sm);color:var(--text-secondary);margin:0;">Fit Consensus: <strong>92% say True to Size</strong></p>
+              <h2>Customer Reviews (${product.rating.toFixed(1)} ★)</h2>
+              <p style="font-size:var(--text-sm);color:var(--text-secondary);margin:4px 0 0;">Fit Meter Consensus: <strong>92% say True to Size</strong> (Runs small: 4% · Runs large: 4%)</p>
             </div>
-            <button type="button" class="rg-btn rg-btn--outline rg-btn--sm" id="rg-toggle-review-form">Write a Review (Demo)</button>
+            <div style="display:flex;gap:6px;flex-wrap:wrap;">
+              <button type="button" class="rg-btn rg-btn--secondary rg-btn--sm" data-rg-rev-filter="all">All Stars</button>
+              <button type="button" class="rg-btn rg-btn--outline rg-btn--sm" data-rg-rev-filter="5">5 ★ Only</button>
+              <button type="button" class="rg-btn rg-btn--outline rg-btn--sm" data-rg-rev-filter="4">4 ★ Only</button>
+              <button type="button" class="rg-btn rg-btn--outline rg-btn--sm" id="rg-toggle-review-form">Write a Review</button>
+            </div>
           </div>
 
           <form id="rg-demo-review-form" hidden style="background:var(--bg-secondary);padding:20px;border-radius:var(--radius-card);margin-block-end:24px;display:grid;gap:12px;">
@@ -311,19 +404,54 @@
             <button type="submit" class="rg-btn rg-btn--primary rg-btn--sm" style="justify-self:start;">Submit Demo Review</button>
           </form>
 
-          <div class="rg-grid rg-grid--3">
+          <div class="rg-grid rg-grid--3" id="rg-pdp-reviews-list">
             ${reviews.map((r) => window.RG.ui.renderReviewCard(r)).join('')}
           </div>
         </section>
+
+        <!-- Sticky Add-to-Cart Bar on Scroll -->
+        <div class="rg-sticky-pdp-bar" id="rg-sticky-pdp-bar">
+          <div class="rg-container" style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
+            <div style="display:flex;align-items:center;gap:12px;">
+              <img src="${product.images[0].src}" alt="" width="40" height="48" style="width:40px;height:48px;object-fit:cover;border-radius:4px;">
+              <div>
+                <strong style="font-size:var(--text-sm);display:block;">${product.name}</strong>
+                <span style="font-size:12px;color:var(--text-secondary);">${product.region} · ${fmt(product.price)}</span>
+              </div>
+            </div>
+            <button type="button" class="rg-btn rg-btn--primary rg-btn--sm" id="rg-sticky-add-btn">Add to Cart — ${fmt(product.price)}</button>
+          </div>
+        </div>
       `;
 
-      this.bindProductInteractions(container, product);
+      this.bindProductInteractions(container, product, pairProducts);
       this.renderRelatedAndRecent(product);
     },
 
-    bindProductInteractions(container, product) {
-      // Gallery thumbnails
+    bindProductInteractions(container, product, pairProducts) {
       const mainImg = document.getElementById('rg-gallery-main-img');
+      const mainBox = document.getElementById('rg-gallery-main');
+      const lens = document.getElementById('rg-magnifier-lens');
+
+      // Hover Magnifier Lens
+      if (mainBox && mainImg && lens) {
+        mainBox.addEventListener('mousemove', (e) => {
+          const rect = mainBox.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          lens.style.display = 'block';
+          lens.style.left = `${Math.max(0, Math.min(rect.width - 150, x - 75))}px`;
+          lens.style.top = `${Math.max(0, Math.min(rect.height - 150, y - 75))}px`;
+          lens.style.backgroundImage = `url('${mainImg.src}')`;
+          lens.style.backgroundSize = `${rect.width * 2}px ${rect.height * 2}px`;
+          lens.style.backgroundPosition = `-${x * 2 - 75}px -${y * 2 - 75}px`;
+        });
+        mainBox.addEventListener('mouseleave', () => {
+          lens.style.display = 'none';
+        });
+      }
+
+      // Gallery thumbnails
       container.querySelectorAll('[data-rg-thumb]').forEach((btn) => {
         btn.addEventListener('click', () => {
           container.querySelectorAll('[data-rg-thumb]').forEach((b) => b.classList.remove('is-active'));
@@ -336,13 +464,12 @@
       });
 
       // Lightbox zoom
-      const mainBox = document.getElementById('rg-gallery-main');
       if (mainBox && mainImg) {
         mainBox.addEventListener('click', () => {
           const modal = document.getElementById('rg-quickview-modal');
           const body = document.getElementById('rg-quickview-body');
           if (modal && body) {
-            body.innerHTML = `<img src="${mainImg.src}" alt="${mainImg.alt}" style="width:100%;max-height:80vh;object-fit:contain;margin-inline:auto;">`;
+            body.innerHTML = `<img src="${mainImg.src}" alt="${mainImg.alt}" style="width:100%;max-height:78vh;object-fit:contain;margin-inline:auto;"><p style="text-align:center;font-size:12px;color:var(--text-secondary);margin-block-start:8px;">Illustrative image — ${product.name}</p>`;
             window.RG.ui.openModal('rg-quickview-modal');
           }
         });
@@ -358,7 +485,7 @@
         });
       });
 
-      // Colour buttons
+      // Colour buttons (Colour-linked gallery swap)
       container.querySelectorAll('[data-rg-colour-btn]').forEach((btn) => {
         btn.addEventListener('click', () => {
           container.querySelectorAll('[data-rg-colour-btn]').forEach((b) => {
@@ -369,8 +496,51 @@
           btn.classList.remove('rg-btn--outline');
           const lbl = document.getElementById('rg-selected-colour-label');
           if (lbl) lbl.textContent = btn.getAttribute('data-rg-colour-btn');
+          const idx = Number(btn.getAttribute('data-rg-colour-idx')) || 0;
+          const targetImg = product.images[idx % product.images.length];
+          if (targetImg && mainImg) {
+            mainImg.src = targetImg.src;
+          }
         });
       });
+
+      // Origin Card Flip
+      const flipBtn = document.getElementById('rg-origin-flip-btn');
+      const front = document.getElementById('rg-origin-front');
+      const back = document.getElementById('rg-origin-back');
+      if (flipBtn && front && back) {
+        flipBtn.addEventListener('click', () => {
+          const showingFront = !front.hidden;
+          front.hidden = showingFront;
+          back.hidden = !showingFront;
+          flipBtn.textContent = showingFront ? 'Back to Origin Details ↺' : 'Flip to Valley Map ↻';
+        });
+      }
+
+      // Bundle Builder
+      const bundleChecks = container.querySelectorAll('[data-rg-bundle-check]');
+      const bundleTotalEl = document.getElementById('rg-bundle-total-price');
+      const addBundleBtn = document.getElementById('rg-add-bundle-btn');
+      if (bundleChecks.length && bundleTotalEl) {
+        const recalc = () => {
+          let sum = product.price;
+          bundleChecks.forEach((chk) => {
+            if (chk.checked) sum += Number(chk.getAttribute('data-rg-bundle-price')) || 0;
+          });
+          bundleTotalEl.textContent = window.RG.data.formatPKR(sum);
+        };
+        bundleChecks.forEach((c) => c.addEventListener('change', recalc));
+      }
+      if (addBundleBtn) {
+        addBundleBtn.addEventListener('click', () => {
+          window.RG.cart.addItem(product.id, 1);
+          bundleChecks.forEach((chk) => {
+            if (chk.checked) window.RG.cart.addItem(Number(chk.getAttribute('data-rg-bundle-check')), 1);
+          });
+          window.RG.ui.openDrawer('rg-minicart-drawer');
+          window.RG.ui.toast(`Added to your cart: ${product.name} ensemble.`, { viewCart: true });
+        });
+      }
 
       // City estimator
       const citySel = document.getElementById('rg-city-estimator');
@@ -396,26 +566,45 @@
       }
 
       // Main Add to Cart
+      const triggerMainAdd = () => {
+        const sizeEl = container.querySelector('[data-rg-size-btn].is-selected');
+        const colEl = container.querySelector('[data-rg-colour-btn].rg-btn--secondary');
+        const customEl = document.getElementById('rg-custom-note-input');
+        const wrapEl = document.getElementById('rg-product-giftwrap');
+        const qty = qtyInput ? Number(qtyInput.value) : 1;
+
+        const size = sizeEl ? sizeEl.getAttribute('data-rg-size-btn') : 'Standard';
+        const colour = colEl ? colEl.getAttribute('data-rg-colour-btn') : 'Default';
+        const customNote = customEl ? customEl.value.trim() : '';
+
+        window.RG.cart.addItem(product.id, qty, { size, colour, customNote });
+        if (wrapEl && wrapEl.checked) {
+          window.RG.cart.setGiftWrap(true);
+        }
+        window.RG.ui.openDrawer('rg-minicart-drawer');
+        window.RG.ui.toast(`Added to your cart: ${product.name}, ${size}.`, { viewCart: true });
+      };
+
       const addBtn = document.getElementById('rg-main-add-to-cart');
       if (addBtn) {
         addBtn.addEventListener('click', () => {
-          const sizeEl = container.querySelector('[data-rg-size-btn].is-selected');
-          const colEl = container.querySelector('[data-rg-colour-btn].rg-btn--secondary');
-          const customEl = document.getElementById('rg-custom-note-input');
-          const wrapEl = document.getElementById('rg-product-giftwrap');
-          const qty = qtyInput ? Number(qtyInput.value) : 1;
-
-          const size = sizeEl ? sizeEl.getAttribute('data-rg-size-btn') : 'Standard';
-          const colour = colEl ? colEl.getAttribute('data-rg-colour-btn') : 'Default';
-          const customNote = customEl ? customEl.value.trim() : '';
-
-          window.RG.cart.addItem(product.id, qty, { size, colour, customNote });
-          if (wrapEl && wrapEl.checked) {
-            window.RG.cart.setGiftWrap(true);
-          }
-          window.RG.ui.openDrawer('rg-minicart-drawer');
-          window.RG.ui.toast(`Added ${qty} × "${product.name}" (${size}) to your bag.`);
+          window.RG.ui.animateFlyToCart(addBtn);
+          triggerMainAdd();
         });
+      }
+
+      const stickyAddBtn = document.getElementById('rg-sticky-add-btn');
+      if (stickyAddBtn) {
+        stickyAddBtn.addEventListener('click', triggerMainAdd);
+      }
+
+      // Sticky PDP bar visibility on scroll
+      const stickyBar = document.getElementById('rg-sticky-pdp-bar');
+      if (stickyBar && addBtn) {
+        window.addEventListener('scroll', () => {
+          const rect = addBtn.getBoundingClientRect();
+          stickyBar.classList.toggle('is-visible', rect.bottom < 0);
+        }, { passive: true });
       }
 
       // Tabs
@@ -427,6 +616,20 @@
           });
           container.querySelectorAll('[data-rg-tab-panel]').forEach((panel) => {
             panel.hidden = panel.getAttribute('data-rg-tab-panel') !== target;
+          });
+        });
+      });
+
+      // Interactive Review Star Filter
+      container.querySelectorAll('[data-rg-rev-filter]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const rating = btn.getAttribute('data-rg-rev-filter');
+          container.querySelectorAll('[data-rg-rev-filter]').forEach((b) => {
+            b.classList.toggle('rg-btn--secondary', b === btn);
+            b.classList.toggle('rg-btn--outline', b !== btn);
+          });
+          container.querySelectorAll('[data-review-rating]').forEach((card) => {
+            card.hidden = rating !== 'all' && card.getAttribute('data-review-rating') !== rating;
           });
         });
       });

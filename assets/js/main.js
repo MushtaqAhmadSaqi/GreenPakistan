@@ -1,7 +1,8 @@
 /* ==========================================================================
    ReGongches Main Application Bootstrapper (assets/js/main.js)
    Initialises global header/footer interactions, theme presets, search,
-   mini-cart, and page-specific interactive sections.
+   mini-cart, compare tray, gift finder quiz, cap size finder, hotspots,
+   before/after craft slider, reading progress, and page controllers.
    ========================================================================== */
 (function (window, document) {
   'use strict';
@@ -87,6 +88,7 @@
   function initStickyHeaderAndMenus() {
     const header = document.querySelector('.site-header');
     const backToTop = document.getElementById('rg-back-to-top');
+    const readingBar = document.getElementById('rg-reading-progress');
     let lastY = window.scrollY;
 
     window.addEventListener('scroll', () => {
@@ -102,6 +104,11 @@
       if (backToTop) {
         backToTop.classList.toggle('is-visible', y > 450);
       }
+      if (readingBar) {
+        const docH = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+        const pct = Math.min(100, Math.max(0, (y / docH) * 100));
+        readingBar.style.width = `${pct}%`;
+      }
       lastY = y;
     }, { passive: true });
 
@@ -111,7 +118,6 @@
       });
     }
 
-    // Mega menu keyboard + click accessibility
     document.querySelectorAll('.menu-item-has-children').forEach((item) => {
       const toggleBtn = item.querySelector('[data-rg-mega-toggle]');
       if (toggleBtn) {
@@ -123,7 +129,6 @@
       }
     });
 
-    // District hover inside Mega Menu & Home Map
     document.querySelectorAll('[data-district]').forEach((path) => {
       path.addEventListener('mouseenter', () => {
         const id = path.getAttribute('data-district');
@@ -140,11 +145,14 @@
       });
       path.addEventListener('click', () => {
         const id = path.getAttribute('data-district');
-        window.location.href = `region.html?region=${id}`;
+        if (window.navigateToRoute) {
+          window.navigateToRoute(`region.html?region=${id}`);
+        } else {
+          window.location.href = `region.html?region=${id}`;
+        }
       });
     });
 
-    // Escape closes all menus/modals/drawers
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         document.querySelectorAll('.menu-item-has-children.is-open').forEach((m) => m.classList.remove('is-open'));
@@ -162,35 +170,47 @@
     const renderInstant = (term) => {
       const res = window.RG.search.query(term);
       const fmt = window.RG.data.formatPKR;
+      const recentList = window.RG.search.getRecentSearches();
       if (!term.trim()) {
-        resultsBox.innerHTML = '';
+        if (recentList.length) {
+          resultsBox.innerHTML = `
+            <div style="padding-block-start:14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+              <span style="font-size:12px;color:var(--text-secondary);font-weight:600;">Recent searches:</span>
+              ${recentList.map((r) => `<button type="button" class="rg-chip" data-rg-search-chip="${r}">${r}</button>`).join('')}
+            </div>
+          `;
+        } else {
+          resultsBox.innerHTML = '';
+        }
         return;
       }
-      if (!res.products.length && !res.journal.length && !res.regions.length) {
+      if (!res.products.length && !res.journal.length && !res.regions.length && !(res.artisans && res.artisans.length)) {
         resultsBox.innerHTML = `<p style="padding-block:16px;color:var(--text-secondary);">No instant matches for "${term}". Press Enter to search full catalogue.</p>`;
         return;
       }
+      const hi = (txt) => window.RG.search.highlight ? window.RG.search.highlight(txt, term) : txt;
       resultsBox.innerHTML = `
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;padding-block-start:20px;">
           <div>
             <h4 style="font-size:var(--text-xs);text-transform:uppercase;margin-block-end:10px;">Matching Products (${res.products.length})</h4>
             <div style="display:grid;gap:10px;">
-              ${res.products.slice(0, 4).map((p) => `
+              ${res.products.slice(0, 5).map((p) => `
                 <a href="product.html?id=${p.id}" style="display:flex;align-items:center;gap:10px;padding:6px;background:var(--bg-secondary);border-radius:4px;">
                   <img src="${p.images[0].src}" alt="${p.name}" width="44" height="54" style="width:44px;height:54px;object-fit:cover;">
                   <div>
-                    <strong style="font-size:var(--text-xs);display:block;">${p.name}</strong>
-                    <span style="font-size:11px;color:var(--text-secondary);">${p.region} · ${fmt(p.price)}</span>
+                    <strong style="font-size:var(--text-xs);display:block;">${hi(p.name)}</strong>
+                    <span style="font-size:11px;color:var(--text-secondary);">${hi(p.region)} · ${fmt(p.price)}</span>
                   </div>
                 </a>
               `).join('')}
             </div>
           </div>
           <div>
-            <h4 style="font-size:var(--text-xs);text-transform:uppercase;margin-block-end:10px;">Regions & Journal</h4>
+            <h4 style="font-size:var(--text-xs);text-transform:uppercase;margin-block-end:10px;">Regions, Artisans & Journal</h4>
             <div style="display:grid;gap:8px;">
-              ${res.regions.slice(0, 3).map((r) => `<a href="region.html?region=${r.id}" class="rg-chip">Region: ${r.name} (${r.productCount})</a>`).join('')}
-              ${res.journal.slice(0, 3).map((j) => `<a href="journal-post.html?id=${j.id}" style="font-size:var(--text-xs);font-weight:600;display:block;">📖 ${j.title}</a>`).join('')}
+              ${res.regions.slice(0, 3).map((r) => `<a href="region.html?region=${r.id}" class="rg-chip">Region: ${hi(r.name)} (${r.productCount})</a>`).join('')}
+              ${(res.artisans || []).slice(0, 2).map((a) => `<a href="artisan.html?id=${a.id}" class="rg-chip">Artisan: ${hi(a.name)}</a>`).join('')}
+              ${res.journal.slice(0, 3).map((j) => `<a href="journal-post.html?id=${j.id}" style="font-size:var(--text-xs);font-weight:600;display:block;">📖 ${hi(j.title)}</a>`).join('')}
             </div>
           </div>
         </div>
@@ -198,12 +218,50 @@
     };
 
     input.addEventListener('input', () => renderInstant(input.value));
-    overlay.querySelectorAll('[data-rg-search-chip]').forEach((chip) => {
-      chip.addEventListener('click', () => {
+    overlay.addEventListener('click', (e) => {
+      const chip = e.target.closest('[data-rg-search-chip]');
+      if (chip) {
         input.value = chip.getAttribute('data-rg-search-chip');
+        window.RG.search.saveSearchTerm(input.value);
         renderInstant(input.value);
         input.focus();
-      });
+      }
+    });
+  }
+
+  function initCapSizeSlider() {
+    document.querySelectorAll('[data-rg-cap-slider]').forEach((slider) => {
+      const updateOut = () => {
+        const cm = Number(slider.value);
+        const inches = (cm / 2.54).toFixed(1);
+        let rec = 'Medium (M — 56 cm)';
+        if (cm <= 54.5) rec = 'Small (S — 54 cm)';
+        else if (cm <= 56.8) rec = 'Medium (M — 56 cm)';
+        else if (cm <= 58.8) rec = 'Large (L — 58 cm)';
+        else rec = 'Extra Large (XL — 60 cm)';
+        const out = document.getElementById(slider.getAttribute('data-rg-cap-slider'));
+        if (out) {
+          out.innerHTML = `Head Circumference: <strong>${cm} cm (${inches} in)</strong> → Recommended ReGongches Size: <span class="rg-badge rg-badge--verified">${rec}</span>`;
+        }
+      };
+      slider.addEventListener('input', updateOut);
+      updateOut();
+    });
+  }
+
+  function initBeforeAfterSliders() {
+    document.querySelectorAll('[data-rg-ba-slider]').forEach((wrap) => {
+      const range = wrap.querySelector('input[type="range"]');
+      const beforeLayer = wrap.querySelector('.rg-ba-slider__before');
+      const handle = wrap.querySelector('.rg-ba-slider__handle');
+      if (!range || !beforeLayer) return;
+      const sync = () => {
+        const val = `${range.value}%`;
+        beforeLayer.style.width = val;
+        if (handle) handle.style.insetInlineStart = val;
+      };
+      range.addEventListener('input', sync);
+      sync();
     });
   }
 
@@ -229,6 +287,57 @@
       if (qvBtn) {
         e.preventDefault();
         window.RG.ui.openQuickView(qvBtn.getAttribute('data-rg-quick-view'));
+        return;
+      }
+
+      // Compare toggle button
+      const cmpBtn = target.closest('[data-rg-compare-toggle]');
+      if (cmpBtn) {
+        e.preventDefault();
+        window.RG.ui.toggleCompare(cmpBtn.getAttribute('data-rg-compare-toggle'));
+        return;
+      }
+
+      if (target.closest('[data-rg-open-compare-modal]')) {
+        e.preventDefault();
+        window.RG.ui.openCompareModal();
+        return;
+      }
+
+      if (target.closest('[data-rg-clear-compare]')) {
+        e.preventDefault();
+        window.RG.ui.clearCompare();
+        return;
+      }
+
+      // Gift Finder Quiz trigger
+      if (target.closest('[data-rg-open-quiz]')) {
+        e.preventDefault();
+        window.RG.ui.openGiftQuizModal();
+        return;
+      }
+
+      // Swatch click on product card
+      const swatch = target.closest('[data-rg-swatch-img]');
+      if (swatch) {
+        const card = swatch.closest('li.product');
+        if (card) {
+          card.querySelectorAll('.rg-swatch').forEach((s) => s.classList.remove('is-selected'));
+          swatch.classList.add('is-selected');
+          const primaryImg = card.querySelector('.rg-product-card__img-primary');
+          const newSrc = swatch.getAttribute('data-rg-swatch-img');
+          if (primaryImg && newSrc) primaryImg.src = newSrc;
+        }
+        return;
+      }
+
+      // Hotspot pin toggle
+      const pin = target.closest('[data-rg-hotspot]');
+      if (pin) {
+        e.preventDefault();
+        const wasOpen = pin.classList.contains('is-open');
+        document.querySelectorAll('[data-rg-hotspot].is-open').forEach((p) => p.classList.remove('is-open'));
+        if (!wasOpen) pin.classList.add('is-open');
         return;
       }
 
@@ -279,7 +388,6 @@
         return;
       }
 
-      // Close overlays
       if (target.closest('[data-rg-close-overlays]') || target.id === 'rg-global-backdrop') {
         window.RG.ui.closeAllOverlays();
         return;
@@ -289,14 +397,13 @@
         window.print();
         return;
       }
-      // Toggle Style Preset Switcher
+
       if (target.closest('[data-rg-toggle-styles]')) {
         const sw = document.getElementById('rg-style-switcher');
         if (sw) sw.hidden = !sw.hidden;
         return;
       }
 
-      // Cart item controls
       const inc = target.closest('[data-rg-cart-inc]');
       if (inc) {
         const key = inc.getAttribute('data-rg-cart-inc');
@@ -365,7 +472,6 @@
       journalGrid.innerHTML = window.RG.data.getJournalPosts().slice(0, 3).map((j) => window.RG.ui.renderJournalCard(j)).join('');
     }
 
-    // 30-day "Threads of the North" campaign strip
     const campaignGrid = document.getElementById('rg-campaign-calendar-grid');
     const campaignDetail = document.getElementById('rg-campaign-day-detail');
     if (campaignGrid) {
@@ -400,7 +506,6 @@
       });
     }
 
-    // Craft Scroll Story interactive step buttons
     document.querySelectorAll('[data-rg-craft-step]').forEach((stepEl) => {
       stepEl.addEventListener('mouseenter', () => {
         const imgPath = stepEl.getAttribute('data-rg-craft-img');
@@ -411,7 +516,9 @@
   }
 
   function initSecondaryPages() {
-    // Wishlist page
+    initCapSizeSlider();
+    initBeforeAfterSliders();
+
     const wlGrid = document.getElementById('rg-wishlist-page-grid');
     if (wlGrid) {
       const renderWl = () => {
@@ -426,7 +533,6 @@
       window.addEventListener('rg:wishlist:updated', renderWl);
     }
 
-    // Artisans directory page
     const artGrid = document.getElementById('rg-artisans-directory-grid');
     if (artGrid) {
       const renderArts = (regionFilter = '') => {
@@ -441,7 +547,6 @@
       });
     }
 
-    // Single Artisan profile page
     const singleArtBox = document.getElementById('rg-single-artisan-container');
     if (singleArtBox) {
       const params = new URLSearchParams(window.location.search);
@@ -467,7 +572,6 @@
       }
     }
 
-    // Journal index & single post
     const journalIndexGrid = document.getElementById('rg-journal-index-grid');
     if (journalIndexGrid) {
       const renderPosts = (cat = '') => {
@@ -508,7 +612,6 @@
       }
     }
 
-    // Gift Set Builder (gift-sets.html)
     const giftBuilderForm = document.getElementById('rg-gift-builder-form');
     if (giftBuilderForm) {
       const updateGiftBuilder = () => {
@@ -521,7 +624,7 @@
         const p2 = window.RG.data.getProductById(shawlId);
         const p3 = window.RG.data.getProductById(accId);
         const bundleTotal = (p1 ? p1.price : 0) + (p2 ? p2.price : 0) + (p3 ? p3.price : 0) + boxFee;
-        const discounted = Math.round(bundleTotal * 0.92); // 8% curated set saving
+        const discounted = Math.round(bundleTotal * 0.92);
 
         const totalEl = document.getElementById('rg-gift-builder-total');
         if (totalEl) totalEl.textContent = window.RG.data.formatPKR(discounted);
@@ -540,7 +643,6 @@
       });
     }
 
-    // FAQ Searchable Accordion
     const faqSearch = document.getElementById('rg-faq-search-input');
     if (faqSearch) {
       faqSearch.addEventListener('input', () => {
@@ -553,7 +655,29 @@
       });
     }
 
-    // Demo forms (Newsletter, Institutional Quote, Custom Orders, Contact)
+    // Contact page order tracking lookup (RG-2026-0104 & RG-2026-0089)
+    const contactTrackForm = document.getElementById('rg-contact-track-form');
+    const contactTrackOut = document.getElementById('rg-contact-track-output');
+    if (contactTrackForm && contactTrackOut) {
+      contactTrackForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const idVal = (contactTrackForm.elements.track_id.value || '').trim().toUpperCase();
+        const demoMap = {
+          'RG-2026-0104': { status: 'In Transit via Leopards Tracked Courier', dest: 'Islamabad Capital Territory', items: '1 × Traditional Gilgiti Cap (56 cm) + 1 × Embroidered Shawl', eta: 'Arriving Tomorrow by 5:00 PM' },
+          'RG-2026-0089': { status: 'Quality & Centimetre Verification Complete', dest: 'DHA Phase 5, Lahore', items: '1 × Executive Mountain Tribute Box', eta: 'Dispatched from Gilgit Hub — Est. 2 working days' }
+        };
+        const found = demoMap[idVal] || { status: 'Order Confirmed & Assigned to Artisan Guild', dest: 'Nationwide Tracked Route', items: 'Verified Heritage Order', eta: 'Standard 2–4 Working Days' };
+        contactTrackOut.hidden = false;
+        contactTrackOut.innerHTML = `
+          <div style="padding:16px;background:var(--rg-success-bg);border-inline-start:4px solid var(--rg-success);border-radius:var(--radius-card);font-size:var(--text-sm);">
+            <strong>Order ${idVal || 'RG-2026-0104'}: ${found.status}</strong><br>
+            <span>Destination: ${found.dest} · Items: ${found.items}</span><br>
+            <span style="color:var(--rg-success);font-weight:600;">${found.eta}</span>
+          </div>
+        `;
+      });
+    }
+
     document.querySelectorAll('[data-rg-demo-form]').forEach((form) => {
       form.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -571,6 +695,17 @@
     });
   }
 
+  window.RG = window.RG || {};
+  window.RG.reinitPageControllers = function () {
+    initHomeSections();
+    if (window.RG.filters) window.RG.filters.init();
+    if (window.RG.productPage) window.RG.productPage.init();
+    if (window.RG.checkout) window.RG.checkout.init();
+    if (window.RG.account) window.RG.account.init();
+    initSecondaryPages();
+    if (window.RG.motion) window.RG.motion.init();
+  };
+
   document.addEventListener('DOMContentLoaded', () => {
     initThemePresets();
     initFirstVisitLoader();
@@ -580,16 +715,11 @@
     initGlobalDelegation();
 
     window.RG.ui.renderMiniCart();
+    window.RG.ui.renderCompareTray();
     updateWishlistBadges();
     window.addEventListener('rg:cart:updated', () => window.RG.ui.renderMiniCart());
     window.addEventListener('rg:wishlist:updated', updateWishlistBadges);
 
-    initHomeSections();
-    if (window.RG.filters) window.RG.filters.init();
-    if (window.RG.productPage) window.RG.productPage.init();
-    if (window.RG.checkout) window.RG.checkout.init();
-    if (window.RG.account) window.RG.account.init();
-    initSecondaryPages();
-    if (window.RG.motion) window.RG.motion.init();
+    window.RG.reinitPageControllers();
   });
 })(window, document);

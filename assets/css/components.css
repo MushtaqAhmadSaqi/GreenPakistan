@@ -488,3 +488,185 @@
 .rg-rail > * {
   scroll-snap-align: start;
 }
+
+
+/* ==========================================================================
+   Phase 2 Interactive Features & Micro-Interactions
+   ========================================================================== */
+:focus-visible {
+  outline: 2px solid var(--rg-antique-gold) !important;
+  outline-offset: 3px;
+  box-shadow: 0 0 0 3px rgba(184, 145, 58, 0.35) !important;
+}
+
+/* Stitched link underline */
+.rg-stitched-link {
+  position: relative;
+  display: inline-block;
+}
+.rg-stitched-link::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: -2px;
+  height: 1.5px;
+  border-block-end: 1.5px dashed var(--brand-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--duration-base) var(--ease-out);
+}
+.rg-stitched-link:hover::after {
+  transform: scaleX(1);
+}
+
+/* Compare Tray */
+.rg-compare-bar {
+  position: fixed;
+  inset-block-end: 0;
+  inset-inline: 0;
+  z-index: 1035;
+  background: var(--bg-elevated);
+  border-block-start: 2px solid var(--brand-accent);
+  box-shadow: var(--shadow-lg);
+  padding: 12px 0;
+  transform: translateY(100%);
+  visibility: hidden;
+  transition: transform var(--duration-base) var(--ease-out), visibility var(--duration-base);
+}
+.rg-compare-bar.is-open {
+  transform: translateY(0);
+  visibility: visible;
+}
+
+/* Sticky Add-to-Cart Bar on PDP */
+.rg-sticky-pdp-bar {
+  position: fixed;
+  inset-block-end: 0;
+  inset-inline: 0;
+  z-index: 1025;
+  background: var(--bg-elevated);
+  border-block-start: 1px solid var(--rg-border-strong);
+  box-shadow: var(--shadow-lg);
+  padding: 10px 0;
+  transform: translateY(100%);
+  visibility: hidden;
+  transition: transform var(--duration-base) var(--ease-out), visibility var(--duration-base);
+}
+.rg-sticky-pdp-bar.is-visible {
+  transform: translateY(0);
+  visibility: visible;
+}
+
+/* Shop the Look Hotspot Pin */
+.rg-hotspot {
+  position: relative;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+}
+.rg-hotspot__pin {
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--rg-heritage-maroon);
+  color: #FFFFFF;
+  border: 2px solid var(--rg-antique-gold);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 13px;
+  box-shadow: var(--shadow-md);
+  cursor: pointer;
+  z-index: 5;
+  transition: transform var(--duration-fast);
+}
+.rg-hotspot__pin:hover,
+.rg-hotspot__pin:focus-visible {
+  transform: scale(1.18);
+}
+.rg-hotspot__card {
+  position: absolute;
+  z-index: 10;
+  width: 230px;
+  background: var(--bg-elevated);
+  color: var(--text-primary);
+  border: 1px solid var(--rg-border-strong);
+  border-radius: var(--radius-card);
+  padding: 10px;
+  box-shadow: var(--shadow-lg);
+}
+
+/* Before / After Comparison Slider */
+.rg-compare-slider {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-card);
+  border: 1px solid var(--rg-border-strong);
+  aspect-ratio: 16 / 9;
+  user-select: none;
+}
+.rg-compare-slider__after,
+.rg-compare-slider__before {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.rg-compare-slider__before {
+  width: 50%;
+  overflow: hidden;
+  border-inline-end: 3px solid var(--rg-antique-gold);
+}
+.rg-compare-slider img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Pausable Marquee */
+.rg-marquee {
+  overflow: hidden;
+  position: relative;
+  padding-block: 8px;
+}
+.rg-marquee__track {
+  display: flex;
+  gap: 20px;
+  width: max-content;
+  animation: rgMarqueeScroll 38s linear infinite;
+}
+.rg-marquee:hover .rg-marquee__track,
+.rg-marquee.is-paused .rg-marquee__track {
+  animation-play-state: paused;
+}
+@keyframes rgMarqueeScroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* Reading Progress Thread Bar */
+.rg-reading-progress {
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--rg-heritage-maroon), var(--rg-antique-gold));
+  z-index: 1090;
+  width: 0%;
+  transition: width 80ms linear;
+}
+
+/* Magnifier Lens */
+.rg-magnifier-lens {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 2px solid var(--rg-antique-gold);
+  box-shadow: var(--shadow-lg);
+  pointer-events: none;
+  display: none;
+  z-index: 10;
+  background-repeat: no-repeat;
+}

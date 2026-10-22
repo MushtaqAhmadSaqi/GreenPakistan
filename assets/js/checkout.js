@@ -43,7 +43,7 @@
       if (summary.items.length === 0) {
         wrap.innerHTML = `
           <div style="text-align:center;padding:var(--space-12);background:var(--bg-elevated);border:1px solid var(--rg-border);border-radius:var(--radius-card);">
-            <h2>Your shopping bag is currently empty</h2>
+            <h2>Your cart is empty, for now. Start with our most-loved pieces from Gilgit and Hunza, or explore by valley.</h2>
             <p style="margin-inline:auto;color:var(--text-secondary);">Explore authentic caps, hand-loomed shawls, and heritage gifts from Gilgit-Baltistan.</p>
             <a href="shop.html" class="rg-btn rg-btn--primary">Explore the Collection</a>
           </div>
@@ -55,8 +55,8 @@
         <div class="rg-shipping-bar" style="margin-block-end:24px;">
           <div>
             ${summary.freeShippingRemaining > 0
-              ? `Add <strong>${fmt(summary.freeShippingRemaining)}</strong> more to unlock <strong>Free Nationwide Tracked Delivery</strong>`
-              : `<strong style="color:var(--rg-success);">✓ Your order qualifies for Free Nationwide Tracked Delivery!</strong>`}
+              ? `Add <strong>${fmt(summary.freeShippingRemaining)}</strong> more for free delivery across Pakistan.`
+              : `<strong style="color:var(--rg-success);">You've unlocked free nationwide delivery.</strong>`}
           </div>
           <div class="rg-shipping-bar__track"><div class="rg-shipping-bar__fill" style="width:${summary.freeShippingProgress}%"></div></div>
         </div>

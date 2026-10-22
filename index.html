@@ -190,7 +190,7 @@
                   <li><a href="size-guide.html">Size Guide (cm &amp; inches)</a></li>
                   <li><a href="authenticity.html">How We Verify Origin</a></li>
                   <li><a href="artisans.html">Meet the Artisans</a></li>
-                  <li><a href="collections.html">Curated Seasonal Edits</a></li>
+                  <li><a href="collections.html">Selected Seasonal Edits</a></li>
                 </ul>
               </div>
               <div class="rg-mega-col" style="background:var(--bg-secondary);padding:16px;border-radius:var(--radius-card);border:1px solid var(--rg-border);">
@@ -390,6 +390,16 @@
 
     <!-- Cap Size Panel -->
     <div data-size-panel="cap">
+      <div style="background:var(--bg-secondary);padding:14px 16px;border-radius:var(--radius-card);border:1px solid var(--rg-border-strong);margin-block-end:14px;">
+        <label for="rg-modal-cap-slider" style="font-size:var(--text-xs);font-weight:700;text-transform:uppercase;display:block;margin-block-end:6px;">
+          Interactive Cap Size Finder (Slide 53 cm – 61 cm):
+        </label>
+        <input type="range" id="rg-modal-cap-slider" min="53" max="61" step="0.5" value="56" data-rg-cap-slider="rg-modal-cap-slider-out" style="width:100%;">
+        <div id="rg-modal-cap-slider-out" style="font-size:var(--text-xs);margin-block-start:6px;">
+          Head Circumference: <strong>56 cm (22.0 in)</strong> → Recommended ReGongches Size: <span class="rg-badge rg-badge--verified">Medium (M — 56 cm)</span>
+        </div>
+      </div>
+
       <p style="font-size:var(--text-sm);color:var(--text-secondary);">
         <strong>How to measure your head for a Gilgiti or Hunza Cap:</strong> Wrap a flexible tape measure around your head 1.5 cm (0.6 in) above your ears and across the middle of your forehead. Hold comfortably snug.
       </p>
@@ -492,7 +502,7 @@
 
   <!-- 1. HERO (Full-Viewport Cinematic Mountain & SVG Thread Drawing) -->
   <section class="rg-hero">
-    <img src="assets/img/hero-mountains.webp" alt="Snow-capped Karakoram and Hunza Valley peaks at sunrise" width="1600" height="900" class="rg-hero__bg-img">
+    <img src="assets/img/banners/rg-hero-hunza-2026.webp" alt="Snow-capped Karakoram and Hunza Valley peaks at sunrise" width="1600" height="900" class="rg-hero__bg-img">
     <div class="rg-hero__overlay"></div>
     <svg class="rg-hero__thread-svg" viewBox="0 0 1440 180" fill="none" aria-hidden="true">
       <path class="rg-hero__thread-path" d="M-20 130 C240 20, 460 170, 740 70 C1020 -20, 1220 140, 1460 40" stroke="#B8913A" stroke-width="2.5" stroke-linecap="round"/>
@@ -556,7 +566,7 @@
         </a>
         <a href="gift-sets.html" class="rg-cat-tile">
           <img src="assets/img/heritage-flatlay.webp" alt="Heritage Gifts" width="640" height="800" loading="lazy">
-          <div class="rg-cat-tile__content"><h3 class="rg-cat-tile__title">Heritage Gifts</h3><span style="font-size:12px;">3 Curated Presentation Boxes</span></div>
+          <div class="rg-cat-tile__content"><h3 class="rg-cat-tile__title">Heritage Gifts</h3><span style="font-size:12px;">3 Selected Presentation Boxes</span></div>
         </a>
         <a href="custom-orders.html" class="rg-cat-tile">
           <img src="assets/img/products/hunza-embroidered-festive-chugha-1.webp" alt="Custom and Festive Wear" width="640" height="800" loading="lazy">
@@ -728,7 +738,7 @@
   <section class="rg-section rg-section--alt">
     <div class="rg-container">
       <div class="rg-section__header">
-        <div><span class="rg-section__eyebrow">Curated Edit 01</span><h2>For the Wedding &amp; Nikkah Season</h2></div>
+        <div><span class="rg-section__eyebrow">Selected Edit 01</span><h2>For the Wedding &amp; Nikkah Season</h2></div>
         <a href="shop.html?occasion=Wedding" class="rg-btn rg-btn--outline rg-btn--sm">All Wedding Wear →</a>
       </div>
       <ul class="products" id="rg-home-wedding-grid"></ul>
@@ -736,7 +746,7 @@
       <hr class="rg-stitch-line">
 
       <div class="rg-section__header">
-        <div><span class="rg-section__eyebrow">Curated Edit 02</span><h2>Winter Warmers</h2></div>
+        <div><span class="rg-section__eyebrow">Selected Edit 02</span><h2>Winter Warmers</h2></div>
         <a href="category.html?cat=Shawls+%26+Scarves" class="rg-btn rg-btn--outline rg-btn--sm">All Winter Shawls →</a>
       </div>
       <ul class="products" id="rg-home-winter-grid"></ul>
@@ -744,10 +754,56 @@
       <hr class="rg-stitch-line">
 
       <div class="rg-section__header">
-        <div><span class="rg-section__eyebrow">Curated Edit 03</span><h2>Meaningful Gifts Under PKR 3,000</h2></div>
+        <div><span class="rg-section__eyebrow">Selected Edit 03</span><h2>Meaningful Gifts Under PKR 3,000</h2></div>
         <a href="shop.html?maxPrice=3000" class="rg-btn rg-btn--outline rg-btn--sm">Shop Under PKR 3,000 →</a>
       </div>
       <ul class="products" id="rg-home-under3k-grid"></ul>
+    </div>
+  </section>
+
+  
+  <!-- INTERACTIVE SHOP-THE-LOOK HOTSPOT BANNER + GIFT FINDER QUIZ CTA -->
+  <section class="rg-section">
+    <div class="rg-container">
+      <div class="rg-section__header">
+        <div>
+          <span class="rg-section__eyebrow">Interactive Lookbook · Tap Any Pin</span>
+          <h2>Shop the Mountain Heritage Ensemble</h2>
+        </div>
+        <button type="button" class="rg-btn rg-btn--secondary rg-btn--sm" data-rg-open-quiz="1">
+          ✨ Take the 3-Step Gift Finder Quiz
+        </button>
+      </div>
+      <div class="rg-hotspot-banner">
+        <img src="assets/img/banners/rg-banner-cap-2026.webp" alt="Artisan shaping Gilgiti wool cap and ceremonial ensemble" width="1200" height="675" loading="lazy">
+        <div class="rg-hotspot" style="top:28%;left:36%;" data-rg-hotspot="1" tabindex="0" role="button" aria-label="Inspect Traditional Gilgiti Cap">
+          1
+          <div class="rg-hotspot__card">
+            <span class="rg-badge rg-badge--handmade">Gilgit Origin</span>
+            <h4 style="font-size:var(--text-sm);margin-block:4px;">Traditional Gilgiti Cap</h4>
+            <p style="font-size:12px;color:var(--text-secondary);margin-block-end:8px;">100% hand-woven sheep wool patti — PKR 1,800</p>
+            <a href="product.html?id=1" class="rg-btn rg-btn--primary rg-btn--sm" style="width:100%;">Inspect Piece →</a>
+          </div>
+        </div>
+        <div class="rg-hotspot" style="top:56%;left:54%;" data-rg-hotspot="2" tabindex="0" role="button" aria-label="Inspect Traditional Waistcoat">
+          2
+          <div class="rg-hotspot__card">
+            <span class="rg-badge rg-badge--hand-finished">Gilgit Guild</span>
+            <h4 style="font-size:var(--text-sm);margin-block:4px;">Hand-Loomed Pattu Waistcoat</h4>
+            <p style="font-size:12px;color:var(--text-secondary);margin-block-end:8px;">Structured mandarin collar wool — PKR 6,500</p>
+            <a href="product.html?id=3" class="rg-btn rg-btn--primary rg-btn--sm" style="width:100%;">Inspect Piece →</a>
+          </div>
+        </div>
+        <div class="rg-hotspot" style="top:44%;left:74%;" data-rg-hotspot="3" tabindex="0" role="button" aria-label="Inspect Embroidered Shawl">
+          3
+          <div class="rg-hotspot__card">
+            <span class="rg-badge rg-badge--handmade">Hunza Origin</span>
+            <h4 style="font-size:var(--text-sm);margin-block:4px;">Embroidered Lozenge Shawl</h4>
+            <p style="font-size:12px;color:var(--text-secondary);margin-block-end:8px;">Counted-thread silk border on wool — PKR 5,000</p>
+            <a href="product.html?id=2" class="rg-btn rg-btn--primary rg-btn--sm" style="width:100%;">Inspect Piece →</a>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -782,7 +838,7 @@
           <span class="rg-badge rg-badge--new" style="align-self:flex-start;background:var(--rg-antique-gold);color:#1A1A1A;">B2C &amp; Institutional Gifting</span>
           <h3 style="color:#F7F4EE;font-size:var(--text-xl);margin:0;">Heritage Gift Sets &amp; University / Corporate Orders</h3>
           <p style="color:rgba(247,244,238,0.85);font-size:var(--text-sm);margin:0;">
-            Curated combinations of Gilgiti caps, hand-woven wool stoles, and embroidered keepsakes in presentation boxes with printed Origin Cards. Universities, hotels &amp; corporate events: request a custom quote.
+            Selected combinations of Gilgiti caps, hand-woven wool stoles, and embroidered keepsakes in presentation boxes with printed Origin Cards. Universities, hotels &amp; corporate events: request a custom quote.
           </p>
           <div style="margin-block-start:auto;display:flex;flex-wrap:wrap;gap:12px;">
             <a href="gift-sets.html" class="rg-btn rg-btn--primary">Build a Gift Set</a>
@@ -980,7 +1036,7 @@
           <li><a href="category.html?cat=Waistcoats+%26+Outerwear">Pattu Waistcoats &amp; Jackets</a></li>
           <li><a href="category.html?cat=Textile+Accessories">Embroidered Accessories</a></li>
           <li><a href="category.html?cat=Home+Textiles">Home Textiles</a></li>
-          <li><a href="collections.html">Curated Collections</a></li>
+          <li><a href="collections.html">Selected Collections</a></li>
         </ul>
       </div>
 

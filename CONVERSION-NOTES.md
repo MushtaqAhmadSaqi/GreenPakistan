@@ -21,7 +21,7 @@ This static front-end (`regongches-static`) was engineered specifically to conve
 | `account.html` | `woocommerce/myaccount/my-account.php` | Styled by `.woocommerce-MyAccount-navigation` & `.woocommerce-MyAccount-content` |
 | `wishlist.html` | `page-wishlist.php` | Pairs with wishlist plugin shortcode or custom user-meta endpoint |
 | `search.html` | `search.php` | Standard WP search template (`?s=`) |
-| `collections.html` | `page-collections.php` | Curated seasonal landing page |
+| `collections.html` | `page-collections.php` | Selected seasonal landing page |
 | `gift-sets.html` | `page-gift-sets.php` | Gift Set Builder + Institutional B2B Quote form |
 | `custom-orders.html` | `page-custom-orders.php` | Made-to-order measurement form (hooks into Contact Form 7 / WPForms) |
 | `artisans.html` | `archive-artisan.php` | Register custom post type `artisan` |
