@@ -1,94 +1,92 @@
-# ReGongches — Threads of Mountain Heritage
+# ReGongches — "Threads of Mountain Heritage"
 
-ReGongches is a zero-build, production-ready luxury editorial e-commerce storefront celebrating authentic traditional clothing, hand-loomed *pattu* textiles, embroidered headwear, and cultural gift boxes from the **7 districts of Gilgit-Baltistan, Pakistan** (`Gilgit`, `Hunza`, `Nagar`, `Ghizer`, `Baltistan (Skardu)`, `Diamer`, and `Astore`).
-
----
-
-## 1. World-Class Luxury UI & UX Benchmarks
-
-Inspired by top-tier heritage and fashion houses (**Aimé Leon Dore**, **Bode New York**, **Toast UK**, **Loewe**, and **Awwwards Site of the Day** winners), ReGongches introduces thoughtful, tactile e-commerce micro-interactions:
-
-1. **Tactile "Add to Bag" State (`.btn-added-state`):** Instant, haptic visual feedback inline on buttons (`✓ Added to Bag` with gold shimmer pulse) paired with a spring-physics bounce (`@keyframes badgeBounce`) on header bag badges without jarring screen jumps.
-2. **Weave Inspection & Image Zoom (`.card-inspect-pill`):** Silky image hover cross-fade with smooth scale transition (`1.02` → `1.045`) revealing macro weave details alongside a frosted-glass inspection badge.
-3. **Archival Collector Unboxing Presentation (`.cart-unboxing-card`):** Highlighting the physical delivery experience inside the Cart Drawer—our debossed midnight-blue presentation box, mountain cedar shavings, brass-sealed wax certificate, and calligraphed origin card.
-4. **Universal Responsive Sticky Action Bar (`.pdp-sticky-bar`):** Discreet floating bar sliding in from the bottom when scrolling past the main buy box, offering thumbnail preview, selected size, price, and 1-tap purchase.
-5. **Smart VIP Studio Concierge Desk (`.concierge-card`):** Floating WhatsApp widget featuring 1-tap pre-composed consultation prompts for custom tailoring, fabric warmth, regional COD verification, and wedding commissions.
-6. **Archival Memory Trail:** Seamless "Recently Examined Pieces" carousel rendered across PDP and catalog archives powered by reactive `localStorage` subscriptions.
+**Front-End Static E-Commerce Website & Custom WordPress + WooCommerce Theme Prototype**  
+*Prepared for: Mushtaq Ahmad (SP25-BAI-047 | CSC417 | Department of Computer Science, COMSATS)*
 
 ---
 
-## 2. Complete 15-Page Architecture
+## 1. Quick Start (Works via `file://` AND Static Server)
+
+- **Double-Click (`file://` protocol):** Open `index.html` directly in any modern browser (Chrome, Firefox, Safari, Edge). Because all product, artisan, region, review, and journal data are loaded via `<script>` tags assigning to `window.RG_DATA` (zero `fetch()` calls to local JSON), the entire store works offline with no CORS or `file://` errors.
+- **Local Static Server (optional):**
+  ```bash
+  cd regongches-static
+  python3 -m http.server 8080
+  # Open http://localhost:8080
+  ```
+- **Visual Theme Switcher:** Append `?styles=1` to any URL (e.g., `index.html?styles=1`) or click the **Theme** button in the top announcement bar to switch live between:
+  1. `heritage` (Default warm snow, mountain blue `#1F3A5F`, heritage maroon `#7A1F2B`, antique gold `#B8913A`)
+  2. `mountain-night` (Cinematic dark mode `#0E1620`, also respects `prefers-color-scheme: dark`)
+  3. `minimal-gallery` (High-contrast gallery framing)
+  4. `festive` (Rich maroon & gold border edition for Eid and wedding campaigns)
+
+---
+
+## 2. Complete Directory & File Architecture (28 HTML Pages + Modular Assets)
 
 ```text
-d:\E-comerence\
-├── index.html               # Home storefront (Hero, Marquee, Categories, Lookbook, 7-District Map, Authenticity, Reviews)
-├── shop.html                # 16-product archive with URL-synced multi-facet filters & mobile drawer
-├── product.html             # Shareable PDP with 3-angle gallery, Provenance Passport, Sticky Bar & Schema.org JSON-LD
-├── collections.html         # Curated themed rails (Gifts for Him, Wedding Season, Under PKR 5,000, Winter Warmth)
-├── story.html               # Brand narrative, Founder/Artisan's Pick, 4-Step Authenticity Promise & Partner Guilds
-├── journal.html             # Cultural Journal & interactive full-essay reader
-├── contact.html             # Studio concierge, contact form with WhatsApp hand-off & searchable FAQ
-├── track-order.html         # Live order tracker (sample: RG-DEMO101), 5-stage timeline & courier portal links
-├── size-guide.html          # Interactive cm/inches unit toggle, Quick Fit Finder & printable cheat sheet
-├── care.html                # Highland wool 3 golden rules, cold soak & dry protocol, cedar storage & stain matrix
-├── shipping.html            # 13-city courier rates, transit days schedule, free delivery threshold & partner badges
-├── exchanges.html           # 14-day exchange promise, WhatsApp roadmap & reverse courier pickup terms
-├── privacy.html             # Honest zero-tracker disclosure, full localStorage keys table & 1-tap browser data reset
-├── terms.html               # Handmade craft variations disclaimer, official PKR settlement & COD limits
-├── 404.html                 # Mountain pass closed hero, dedicated archive search form & popular heritage chips
-├── styles.css               # Unified design system (Daylight Ivory & Karakoram Night Mode, WCAG AA, 320px–1920px)
-├── config.js                # SINGLE SOURCE OF TRUTH (WhatsApp, IBAN, wallet, COD ceiling, transit rates, promos)
-├── data/
-│   └── products.js          # 16 products, 3-angle SVG fallbacks, 3D icons, 7 regions, journal essays, artisan bios
-├── cart.js                  # Reactive state, cart maths, non-stacking promos, 2-tier reward bar, wishlist & compare
-├── checkout.js              # 3-step checkout (Delivery -> Payment -> Confirm), COD limit enforcer & WhatsApp hand-off
-├── filters.js               # Multi-facet filtering, URL query string sync, mobile filter drawer & card renderer
-├── ui.js                    # Modals, focus trap, announcement bar, sequenced notices, search overlay & concierge
-├── motion.js                # Desktop-only hero video controller, scroll reveals & prefers-reduced-motion compliance
-├── main.js                  # Unified application bootstrapper & page view builders
-├── manifest.webmanifest     # Web app manifest with ReGongches branding
-├── sitemap.xml              # Search engine sitemap indexing all 15 pages and 16 product deep links
-├── robots.txt               # Crawler directives
-└── test_suite.js            # Automated verification test suite (153 checks across 8 suites)
+/regongches-static/
+├── index.html                  # Home page (15 sections, hero parallax, SVG thread draw)
+├── shop.html                   # Full catalogue archive with multi-facet filters & URL sync
+├── category.html               # Category archive (?cat=Caps+%26+Headwear)
+├── region.html                 # Regional taxonomy archive (?region=hunza) with cultural note
+├── product.html                # Single product (?id=1) with Size Buttons, Size Guide & Origin Card
+├── cart.html                   # Shopping bag with coupons (THREADS10, WELCOME) & gift wrap
+├── checkout.html               # Single-page checkout with Pakistani phone validation & COD rules
+├── order-confirmation.html     # Printable A4 order receipt & WhatsApp confirmation link
+├── account.html                # My Account demo (Orders, 5-step Tracking Timeline, Mountain Points)
+├── wishlist.html               # Saved wishlist items persisted in localStorage
+├── search.html                 # Full search results page (?q=)
+├── collections.html            # Curated seasonal & event collections index
+├── gift-sets.html              # Interactive 3-piece Gift Set Builder + Institutional Quote form
+├── custom-orders.html          # Made-to-order bespoke measurement configurator
+├── artisans.html               # Filterable directory of partner artisans & guilds
+├── artisan.html                # Single artisan profile (?id=artisan-1) + their pieces
+├── journal.html                # Cultural Journal blog index
+├── journal-post.html           # Single editorial article with TOC & related products
+├── our-story.html              # Founder story (Mushtaq Ahmad), Vision, Mission, Roadmap
+├── authenticity.html           # 3-Tier Craft Standard (Handmade / Hand-finished / Machine-made)
+├── size-guide.html             # Printable cm & inch measurement charts
+├── faq.html                    # Searchable FAQ accordion + FAQPage JSON-LD
+├── contact.html                # Customer care form, WhatsApp link & studio hours
+├── shipping-policy.html        # Nationwide tracked delivery rates & dispatch tiers
+├── returns-exchange.html       # 7-day size exchange & transit damage policy
+├── privacy.html                # Customer privacy & documented artisan consent policy
+├── terms.html                  # Terms of service & academic planning notice
+├── 404.html                    # Lost-in-the-mountains illustration & quick recovery links
+├── assets/
+│   ├── css/
+│   │   ├── tokens.css          # Brand colour palette, fluid clamp() typography, spacing, motion
+│   │   ├── themes.css          # 4 [data-theme] presets + prefers-color-scheme & reduced-motion
+│   │   ├── base.css            # Reset, logical RTL-ready properties, WCAG 2.2 AA focus styles
+│   │   ├── layout.css          # Container, sticky header, mega-menus, mobile bar, footer
+│   │   ├── components.css      # Buttons, badges, Origin Card, drawers, modals, toasts
+│   │   ├── woocommerce.css     # Exact WooCommerce DOM selectors for drop-in theme styling
+│   │   ├── pages.css           # Hero, 30-day campaign calendar, shop sidebar, gift builder
+│   │   └── print.css           # Clean A4 print layout for order receipts
+│   ├── js/
+│   │   ├── data/
+│   │   │   ├── site-config.js  # Thresholds (PKR 5,000), coupons, city delivery estimates
+│   │   │   ├── products.js     # 24 products across all 8 categories (WC field structure)
+│   │   │   ├── artisans.js     # 6 artisan profiles marked with [verify] placeholders
+│   │   │   ├── regions.js      # 10 districts of Gilgit-Baltistan with cultural notes
+│   │   │   ├── reviews.js      # 12 dated customer reviews with Fit sub-scores
+│   │   │   └── journal.js      # 6 editorial articles on sizing, wool care, and styling
+│   │   ├── data-source.js      # Adapter isolating window.RG_DATA for future WC Store API swap
+│   │   ├── cart.js             # Reactive localStorage cart store emitting 'rg:cart:updated'
+│   │   ├── wishlist.js         # Wishlist & Recently Viewed persistence
+│   │   ├── search.js           # Instant search engine with popular & recent chips
+│   │   ├── ui.js               # WP Partial renderers, Quick View, Size Guide modal, Toasts
+│   │   ├── motion.js           # IntersectionObserver reveals, counters, rails, parallax
+│   │   ├── filters.js          # Pure filter/sort engine synced with URL query string
+│   │   ├── product.js          # Single product gallery, size buttons, Origin Card, JSON-LD
+│   │   ├── checkout.js         # Cart table, PK phone validator (03XX-XXXXXXX), demo orders
+│   │   ├── account.js          # Demo auth, order history, 5-step status tracker, loyalty
+│   │   └── main.js             # Global bootstrapper
+│   ├── img/                    # Brand SVGs (logo.svg, logo-mark.svg, favicon.svg, icons.svg, gb-map.svg) + 88 local WebP images
+│   ├── fonts/                  # Local font-face declarations with editorial & Urdu fallbacks
+│   └── vendor/                 # Graceful progressive wrapper for Lenis / GSAP
+├── README.md
+├── CONVERSION-NOTES.md
+└── CREDITS.md
 ```
-
----
-
-## 3. Running Locally
-
-Because the storefront uses zero build tools or bundlers, you can serve it locally using any static web server:
-
-```powershell
-python -m http.server 8080
-```
-
-Then navigate to `http://localhost:8080`.
-
----
-
-## 4. Automated Verification Test Suite
-
-Run the built-in automated test suite to validate all 153 checks:
-
-```powershell
-node test_suite.js
-```
-
-### Verified Test Suites:
-- **Suite 1:** Config & Data Integrity (Single source of truth, 16 products, zero placeholders)
-- **Suite 2:** Commerce & Promo Calculations (Maths, non-stacking promos, COD ceilings, gift wrap)
-- **Suite 3:** Checkout Protection Logic (Blocks placeholder banking & wallets)
-- **Suite 4:** HTML Structure & Noscript Audit (All 15 HTML pages verified for UTF-8, viewport, styles, and noscript)
-- **Suite 5:** Sitemap & PWA Audit (Valid sitemap, manifest, and icons)
-- **Suite 6:** Multi-Facet Filter & Card Architecture (CLS prevention, case-insensitive region matchers, swatches)
-- **Suite 7:** Product Detail & Provenance Engine (JSON-LD BreadcrumbList, Provenance Passport, city delivery estimator)
-- **Suite 8:** Luxury UI/UX & Standalone Policy Pages Audit (Badge bounce, tactile button states, sticky bars, unboxing cards, policy tables)
-
----
-
-## 5. Deployment & Production Readiness
-
-Consult [DEPLOYMENT.md](DEPLOYMENT.md) for instructions on:
-1. Setting up backend order logging via Formspree or Google Apps Script.
-2. Updating production WhatsApp numbers and bank IBAN in `config.js`.
-3. Deploying to Cloudflare Pages, GitHub Pages, Netlify, or Vercel.

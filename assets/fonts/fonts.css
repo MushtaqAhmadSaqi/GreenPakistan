@@ -1,0 +1,15 @@
+/* Local Font Stack & Fallback Declarations */
+@font-face {
+  font-family: 'Fraunces';
+  font-style: normal;
+  font-weight: 600 700;
+  font-display: swap;
+  src: local('Fraunces'), local('Cormorant Garamond'), local('Georgia');
+}
+@font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: local('DM Sans'), local('Inter'), local('Segoe UI');
+}

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 420" fill="none" class="rg-gb-map" role="img" aria-label="Interactive stylised map of Gilgit-Baltistan districts">
+  <g class="rg-gb-map__districts" stroke="#F7F4EE" stroke-width="2" stroke-linejoin="round">
+    <path data-district="ghizer" d="M40 160 L140 95 L220 120 L210 205 L105 225 Z" fill="#1F3A5F" opacity="0.82"/>
+    <path data-district="hunza" d="M220 120 L315 45 L425 90 L385 165 L285 160 Z" fill="#7A1F2B" opacity="0.9"/>
+    <path data-district="nagar" d="M285 160 L385 165 L395 215 L295 210 Z" fill="#2B4C78" opacity="0.86"/>
+    <path data-district="gilgit" d="M210 205 L285 160 L295 210 L270 265 L195 250 Z" fill="#B8913A" opacity="0.9"/>
+    <path data-district="diamer" d="M85 235 L195 250 L235 320 L125 350 L65 295 Z" fill="#3B5B82" opacity="0.8"/>
+    <path data-district="astore" d="M235 320 L270 265 L345 285 L335 375 L245 380 Z" fill="#466891" opacity="0.84"/>
+    <path data-district="shigar" d="M385 165 L425 90 L535 125 L515 225 L395 215 Z" fill="#28476E" opacity="0.88"/>
+    <path data-district="skardu" d="M295 210 L395 215 L515 225 L485 305 L345 285 L270 265 Z" fill="#1F3A5F" opacity="0.92"/>
+    <path data-district="ghanche" d="M515 225 L535 125 L635 165 L620 285 L535 285 Z" fill="#54232C" opacity="0.85"/>
+    <path data-district="kharmang" d="M485 305 L515 225 L535 285 L605 315 L545 385 L445 355 Z" fill="#34537A" opacity="0.82"/>
+  </g>
+  <g class="rg-gb-map__labels" font-family="'DM Sans', sans-serif" font-size="12" font-weight="600" fill="#F7F4EE" text-anchor="middle" pointer-events="none">
+    <text x="135" y="168">Ghizer</text>
+    <text x="325" y="118">Hunza</text>
+    <text x="342" y="192">Nagar</text>
+    <text x="245" y="222">Gilgit</text>
+    <text x="150" y="302">Diamer</text>
+    <text x="288" y="335">Astore</text>
+    <text x="462" y="172">Shigar</text>
+    <text x="405" y="258">Skardu</text>
+    <text x="578" y="228">Ghanche</text>
+    <text x="525" y="342">Kharmang</text>
+  </g>
+</svg>

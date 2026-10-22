@@ -1,0 +1,106 @@
+/* ==========================================================================
+   ReGongches Design System — CSS Custom Properties (tokens.css)
+   Brand: "Threads of Mountain Heritage"
+   ========================================================================== */
+
+:root {
+  /* Core Brand Colours (WCAG 2.2 AA verified pairs) */
+  --rg-mountain-blue: #1F3A5F;
+  --rg-mountain-blue-dark: #142742;
+  --rg-mountain-blue-light: #2D5182;
+  --rg-heritage-maroon: #7A1F2B;
+  --rg-heritage-maroon-dark: #58141D;
+  --rg-heritage-maroon-light: #9B2B3A;
+  --rg-antique-gold: #B8913A;
+  --rg-antique-gold-accessible: #7D5E18; /* High-contrast gold for text on light surfaces */
+  --rg-antique-gold-soft: rgba(184, 145, 58, 0.18);
+
+  /* Surfaces & Neutrals */
+  --rg-snow: #F7F4EE;
+  --rg-wool: #EAE3D6;
+  --rg-wool-deep: #DDD3C2;
+  --rg-card-bg: #FCFBF8;
+  --rg-ink: #1A1A1A;
+  --rg-stone: #575752; /* Darkened slightly from #6B6B66 for strict AA on #EAE3D6 */
+  --rg-stone-muted: #6B6B66;
+  --rg-glacier: #DCE6EE;
+  --rg-border: rgba(26, 26, 26, 0.12);
+  --rg-border-strong: rgba(26, 26, 26, 0.24);
+
+  /* Semantic Status Colours */
+  --rg-success: #2F6B4F;
+  --rg-success-bg: #E6F2EC;
+  --rg-error: #A2312B;
+  --rg-error-bg: #FBEAE9;
+  --rg-warning: #8C5F0E;
+  --rg-warning-bg: #FDF5E6;
+
+  /* Active Theme Semantic Mappings (overridden by [data-theme] in themes.css) */
+  --bg-primary: var(--rg-snow);
+  --bg-secondary: var(--rg-wool);
+  --bg-elevated: var(--rg-card-bg);
+  --bg-accent: var(--rg-glacier);
+  --bg-header: rgba(247, 244, 238, 0.94);
+  --bg-footer: #13243B;
+  --text-primary: var(--rg-ink);
+  --text-secondary: var(--rg-stone);
+  --text-inverse: #F7F4EE;
+  --brand-primary: var(--rg-mountain-blue);
+  --brand-secondary: var(--rg-heritage-maroon);
+  --brand-accent: var(--rg-antique-gold);
+
+  /* Typography */
+  --font-display: 'Fraunces', 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  --font-sans: 'DM Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-urdu: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', serif;
+
+  /* Fluid Type Scale (360px -> 1920px) */
+  --text-xs: clamp(0.75rem, 0.72rem + 0.15vw, 0.825rem);
+  --text-sm: clamp(0.875rem, 0.84rem + 0.18vw, 0.95rem);
+  --text-base: clamp(1rem, 0.96rem + 0.2vw, 1.0625rem);
+  --text-md: clamp(1.125rem, 1.06rem + 0.3vw, 1.25rem);
+  --text-lg: clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem);
+  --text-xl: clamp(1.5rem, 1.32rem + 0.9vw, 2rem);
+  --text-2xl: clamp(1.875rem, 1.55rem + 1.6vw, 2.75rem);
+  --text-3xl: clamp(2.25rem, 1.8rem + 2.2vw, 3.6rem);
+  --text-hero: clamp(2.5rem, 1.85rem + 3.4vw, 5.5rem);
+
+  /* 4px Base Spacing Scale */
+  --space-1: 0.25rem;  /* 4px */
+  --space-2: 0.5rem;   /* 8px */
+  --space-3: 0.75rem;  /* 12px */
+  --space-4: 1rem;     /* 16px */
+  --space-5: 1.25rem;  /* 20px */
+  --space-6: 1.5rem;   /* 24px */
+  --space-8: 2rem;     /* 32px */
+  --space-10: 2.5rem;  /* 40px */
+  --space-12: 3rem;    /* 48px */
+  --space-16: 4rem;    /* 64px */
+  --space-20: 5rem;    /* 80px */
+  --space-24: 6rem;    /* 96px */
+
+  /* Layout & Container */
+  --container-max: 1320px;
+  --gutter: clamp(1rem, 3vw, 2.5rem);
+  --header-height: 80px;
+  --header-height-scrolled: 64px;
+  --announcement-height: 38px;
+
+  /* Border Radius */
+  --radius-editorial: 2px;
+  --radius-card: 10px;
+  --radius-pill: 999px;
+
+  /* Shadows */
+  --shadow-xs: 0 1px 3px rgba(26, 26, 26, 0.05);
+  --shadow-sm: 0 4px 12px rgba(26, 26, 26, 0.06);
+  --shadow-md: 0 10px 28px rgba(26, 26, 26, 0.09);
+  --shadow-lg: 0 20px 48px rgba(26, 26, 26, 0.14);
+  --shadow-focus: 0 0 0 3px rgba(31, 58, 95, 0.35);
+
+  /* Motion & Transitions */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-fast: 150ms;
+  --duration-base: 300ms;
+  --duration-slow: 600ms;
+}

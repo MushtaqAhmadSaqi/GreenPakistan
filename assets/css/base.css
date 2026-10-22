@@ -1,0 +1,160 @@
+/* ==========================================================================
+   ReGongches Base & Reset Styles (base.css)
+   Mobile-first, RTL-ready logical properties, WCAG 2.2 AA focus states
+   ========================================================================== */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 100%;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: 1.65;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  transition: background-color var(--duration-base) var(--ease-out), color var(--duration-base) var(--ease-out);
+}
+
+/* Subtle Craft Grain Overlay */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0.03;
+  background-image: radial-gradient(rgba(26, 26, 26, 0.6) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+/* Typography Hierarchy */
+h1, h2, h3, h4, h5, h6,
+.entry-title, .product_title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.18;
+  letter-spacing: -0.015em;
+  color: var(--text-primary);
+}
+
+h1 { font-size: var(--text-3xl); }
+h2 { font-size: var(--text-2xl); }
+h3 { font-size: var(--text-xl); }
+h4 { font-size: var(--text-lg); }
+
+p {
+  margin-block-end: var(--space-4);
+  max-width: 68ch;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+img, svg, video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+button, input, select, textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+/* Visible Keyboard Focus (WCAG 2.2 AA) */
+:focus-visible {
+  outline: 2px solid var(--brand-primary);
+  outline-offset: 3px;
+  box-shadow: var(--shadow-focus);
+}
+
+/* WordPress & Accessibility Helpers */
+.screen-reader-text,
+.sr-only {
+  border: 0;
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  word-wrap: normal !important;
+}
+
+.skip-link {
+  position: fixed;
+  inset-block-start: -100px;
+  inset-inline-start: var(--space-4);
+  z-index: 10000;
+  background: var(--brand-primary);
+  color: #FFFFFF;
+  padding: var(--space-3) var(--space-5);
+  border-radius: var(--radius-card);
+  font-weight: 600;
+  transition: inset-block-start var(--duration-fast) var(--ease-out);
+}
+
+.skip-link:focus {
+  inset-block-start: var(--space-4);
+}
+
+.urdu-text {
+  font-family: var(--font-urdu);
+  direction: rtl;
+  line-height: 2;
+}
+
+/* Gold Stitch Decorative Line */
+.rg-stitch-line {
+  border: 0;
+  border-block-start: 1.5px dashed var(--brand-accent);
+  margin-block: var(--space-8);
+  opacity: 0.65;
+}
+
+/* Lozenge Section Divider */
+.rg-lozenge-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  margin-block: var(--space-8);
+  color: var(--brand-accent);
+}
+.rg-lozenge-divider::before,
+.rg-lozenge-divider::after {
+  content: "";
+  height: 1px;
+  width: min(140px, 25vw);
+  background: linear-gradient(90deg, transparent, var(--brand-accent), transparent);
+}

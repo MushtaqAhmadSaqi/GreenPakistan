@@ -1,1276 +1,813 @@
-<!doctype html>
-<html lang="en" data-theme="light">
+<!DOCTYPE html>
+<html lang="en" data-theme="heritage">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Shop the 16-Piece Heritage Archive | ReGongches Gilgit-Baltistan</title>
-  <meta name="description" content="Browse and filter all 16 verified Gilgit-Baltistan heritage garments, pattu shawls, pakol caps, embroidered waistcoats, and gift boxes by district, price, and availability.">
-  <link rel="canonical" href="https://regongches.store/shop.html">
-  <link rel="manifest" href="manifest.webmanifest">
-  <meta name="theme-color" content="#214C63">
-
-  <!-- Open Graph & Twitter -->
-  <meta property="og:site_name" content="ReGongches">
-  <meta property="og:title" content="Shop the 16-Piece Heritage Archive | ReGongches Gilgit-Baltistan">
-  <meta property="og:description" content="Browse and filter all 16 verified Gilgit-Baltistan heritage garments, pattu shawls, pakol caps, embroidered waistcoats, and gift boxes by district, price, and availability.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop All Gilgit-Baltistan Clothing & Craft — ReGongches</title>
+  <meta name="description" content="Browse 24 authentic handmade and hand-finished garments, caps, shawls, and heritage gifts from 10 districts of Gilgit-Baltistan.">
+  <meta property="og:title" content="Shop All Gilgit-Baltistan Clothing & Craft — ReGongches">
+  <meta property="og:description" content="Browse 24 authentic handmade and hand-finished garments, caps, shawls, and heritage gifts from 10 districts of Gilgit-Baltistan.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://regongches.store/shop.html">
-  <meta property="og:image" content="https://regongches.store/assets/images/hero-mountain-textiles.webp">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Shop the 16-Piece Heritage Archive | ReGongches Gilgit-Baltistan">
-  <meta name="twitter:description" content="Browse and filter all 16 verified Gilgit-Baltistan heritage garments, pattu shawls, pakol caps, embroidered waistcoats, and gift boxes by district, price, and availability.">
-
-  <!-- Preload Hero Image on Home -->
+  <meta property="og:image" content="assets/img/hero-mountains.webp">
+  <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+  <link rel="stylesheet" href="assets/fonts/fonts.css">
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/themes.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/woocommerce.css">
+  <link rel="stylesheet" href="assets/css/pages.css">
+  <link rel="stylesheet" href="assets/css/print.css" media="print">
   
-
-  <!-- Favicon (Inline SVG Data URI) -->
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23214C63'/><text x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' font-family='Georgia,serif' font-size='18' font-weight='700' fill='%23C59A3D'>R</text></svg>">
-
-  <!-- Typography (Cormorant Garamond, Playfair Display & Inter with font-display: swap) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
-
-  <!-- Phosphor Icons (Deferred, non-blocking) -->
-  <script src="https://unpkg.com/@phosphor-icons/web@2.1.1" defer></script>
-
-  <!-- Unified Design System Stylesheet -->
-  <link rel="stylesheet" href="styles.css">
-
-  <!-- JSON-LD: Organization & WebSite -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "Organization",
-        "@id": "https://regongches.store/#organization",
-        "name": "ReGongches",
-        "alternateName": "ReGongches — Threads of Mountain Heritage",
-        "url": "https://regongches.store/",
-        "logo": "https://regongches.store/assets/images/brand-logo.webp",
-        "description": "Authentic traditional clothing, hand-loomed pattu shawls, embroidered headwear, and cultural heritage gifts from the 7 districts of Gilgit-Baltistan, Pakistan.",
-        "address": {
-          "@type": "PostalAddress",
-          "streetAddress": "Jutial & Old Bazaar Heritage Studio",
-          "addressLocality": "Gilgit",
-          "addressRegion": "Gilgit-Baltistan",
-          "addressCountry": "PK"
-        },
-        "contactPoint": {
-          "@type": "ContactPoint",
-          "contactType": "customer service",
-          "email": "hello@regongches.store",
-          "availableLanguage": ["English", "Urdu"]
-        }
-      },
-      {
-        "@type": "WebSite",
-        "@id": "https://regongches.store/#website",
-        "url": "https://regongches.store/",
-        "name": "ReGongches",
-        "publisher": { "@id": "https://regongches.store/#organization" },
-        "potentialAction": {
-          "@type": "SearchAction",
-          "target": "https://regongches.store/shop.html?q={search_term_string}",
-          "query-input": "required name=search_term_string"
-        }
-      }
-    ]
-  }
-  </script>
-  
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://regongches.store/" },
-      { "@type": "ListItem", "position": 2, "name": "Shop the Archive", "item": "https://regongches.store/shop.html" }
-    ]
-  }
-  </script>
-
 </head>
-<body>
-  <noscript>
-    <aside class="noscript-banner" role="alert">
-      <strong>ReGongches Heritage Crafts:</strong> JavaScript is recommended for interactive cart, regional filters, and checkout.
-      To view catalog pieces or order directly from our Gilgit studio, reach our concierge on WhatsApp at
-      <a href="https://wa.me/923001234567">+92 300 123 4567</a> or email <a href="mailto:hello@regongches.store">hello@regongches.store</a>.
-    </aside>
-  </noscript>
-  <!-- Skip Link for Keyboard Accessibility -->
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+<body class="woocommerce woocommerce-page archive post-type-archive-product" >
+<!-- RG:HEADER START -->
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+  <symbol id="icon-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="11" cy="11" r="7.5"/><line x1="20" y1="20" x2="16.35" y2="16.35"/>
+  </symbol>
+  <symbol id="icon-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+  </symbol>
+  <symbol id="icon-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+  </symbol>
+  <symbol id="icon-bag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>
+  </symbol>
+  <symbol id="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="15" y2="18"/>
+  </symbol>
+  <symbol id="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+  </symbol>
+  <symbol id="icon-chevron-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="6 9 12 15 18 9"/>
+  </symbol>
+  <symbol id="icon-chevron-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="9 18 15 12 9 6"/>
+  </symbol>
+  <symbol id="icon-chevron-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="15 18 9 12 15 6"/>
+  </symbol>
+  <symbol id="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="20 6 9 17 4 12"/>
+  </symbol>
+  <symbol id="icon-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/>
+  </symbol>
+  <symbol id="icon-map-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+  </symbol>
+  <symbol id="icon-truck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>
+  </symbol>
+  <symbol id="icon-ruler" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z"/><path d="m14.5 12.5 2-2"/><path d="m11.5 9.5 2-2"/><path d="m8.5 6.5 2-2"/><path d="m17.5 15.5 2-2"/>
+  </symbol>
+  <symbol id="icon-sparkles" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/>
+  </symbol>
+  <symbol id="icon-filter" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/>
+  </symbol>
+  <symbol id="icon-whatsapp" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+  </symbol>
+  <symbol id="icon-gift" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/>
+  </symbol>
+  <symbol id="icon-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+  </symbol>
+  <symbol id="icon-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+  </symbol>
+  <symbol id="icon-arrow-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/>
+  </symbol>
+  <symbol id="icon-star" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.5">
+    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+  </symbol>
+</svg>
 
-  <!-- ONE Slim, Rotating, Dismissible, Accessible Announcement Bar -->
-  <div class="announcement-bar" id="announcement-bar" role="region" aria-label="Store announcements">
-    <button type="button" class="ann-arrow ann-prev" id="ann-prev" aria-label="Previous announcement">
-      <i class="ph ph-caret-left" aria-hidden="true"></i>
-    </button>
-    <div class="ann-track" id="ann-track" aria-live="polite">
-      <div class="ann-slide active">
-        <span>Authentic hand-loomed clothing &amp; pattu textiles from the 7 districts of Gilgit-Baltistan · </span>
-        <button type="button" class="ann-promo-copy" data-copy-promo="HERITAGE10"><strong>Use code HERITAGE10 for 10% off</strong></button>
-      </div>
-    </div>
-    <button type="button" class="ann-arrow ann-next" id="ann-next" aria-label="Next announcement">
-      <i class="ph ph-caret-right" aria-hidden="true"></i>
-    </button>
-    <button type="button" class="ann-dismiss" id="ann-dismiss" aria-label="Dismiss announcement bar">
-      <i class="ph ph-x" aria-hidden="true"></i>
-    </button>
-  </div>
-
-  <!-- Sticky Editorial Header & Mega Menu -->
-  <header class="header" id="header" role="banner">
-    <div class="header-container">
-      <button type="button" class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-nav-drawer">
-        <span class="hamburger-bar" aria-hidden="true"></span>
-        <span class="hamburger-bar" aria-hidden="true"></span>
-        <span class="hamburger-bar" aria-hidden="true"></span>
+<!-- Announcement Bar (Dismissible, remembered in localStorage, threshold from site-config.js) -->
+<div class="rg-announcement" id="rg-announcement-bar" role="region" aria-label="Store Announcements">
+  <div class="rg-container rg-announcement__inner">
+    <span style="font-weight:700;color:var(--rg-antique-gold);">DEMO STORE</span>
+    <p class="rg-announcement__text" id="rg-announcement-text">
+      Free tracked delivery across Pakistan on orders over PKR 5,000 · Cash on Delivery available
+    </p>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <button type="button" class="rg-announcement__close" data-rg-toggle-styles title="Switch Visual Theme Preset">
+        Theme
       </button>
+      <button type="button" class="rg-announcement__close" id="rg-announcement-close" aria-label="Dismiss announcement">
+        ✕
+      </button>
+    </div>
+  </div>
+</div>
 
-      <div class="logo">
-        <a href="index.html" aria-label="ReGongches — Home" class="logo-link">
-          <img src="assets/images/brand-logo.webp" alt="ReGongches — Threads of Mountain Heritage" class="logo-img logo-img--dark" width="170" height="48">
-          <img src="assets/images/brand-logo.webp" alt="ReGongches — Threads of Mountain Heritage" class="logo-img logo-img--light" width="170" height="48">
-        </a>
-      </div>
+<!-- Site Header (.site-header — shrinks on scroll, hides on scroll-down, shows on scroll-up) -->
+<header class="site-header" id="masthead">
+  <div class="rg-container site-header__inner">
+    <!-- Mobile Hamburger Toggle -->
+    <button type="button" class="rg-icon-btn rg-mobile-toggle" data-rg-open-drawer="rg-mobile-menu-drawer" aria-label="Open navigation menu">
+      <svg width="24" height="24" aria-hidden="true"><use href="#icon-menu"></use></svg>
+    </button>
 
-      <nav class="desktop-nav" id="desktop-nav" aria-label="Main navigation">
-        <ul role="list">
-          <li><a href="index.html" class="nav-link">Home</a></li>
+    <!-- Brand Logo -->
+    <a href="index.html" class="site-branding" rel="home" aria-label="ReGongches — Threads of Mountain Heritage Home">
+      <img src="assets/img/logo.svg" alt="ReGongches — Threads of Mountain Heritage" width="220" height="52">
+    </a>
 
-          <!-- Shop Mega Menu Trigger -->
-          <li class="has-mega" id="shop-nav-item">
-            <button type="button" class="nav-link nav-link--btn active" aria-haspopup="true" aria-expanded="false" id="shop-trigger">
-              Shop <i class="ph ph-caret-down nav-caret" aria-hidden="true"></i>
-            </button>
-            <div class="mega-menu" id="mega-menu" role="region" aria-label="Shop categories">
-              <div class="mega-inner">
-                <div class="mega-col">
-                  <h3 class="mega-heading">Clothing &amp; Outerwear</h3>
-                  <ul role="list">
-                    <li><a href="shop.html?category=Clothing" data-filter-category="Clothing" class="mega-link">Astore Ceremonial Dresses</a></li>
-                    <li><a href="shop.html?category=Waistcoats" data-filter-category="Waistcoats" class="mega-link">Embroidered Wool Waistcoats</a></li>
-                    <li><a href="shop.html?category=Clothing" data-filter-category="Clothing" class="mega-link">Ghizer Shuqa Woollen Robes</a></li>
-                    <li><a href="shop.html?category=Waistcoats" data-filter-category="Waistcoats" class="mega-link">Nagar Silk-Embroidered Jackets</a></li>
-                  </ul>
+    <!-- Main Navigation (Plain nested ul > li > a for wp_nav_menu('primary')) -->
+    <nav id="site-navigation" class="main-navigation" aria-label="Primary Navigation">
+      <!-- WP: wp_nav_menu('primary') -->
+      <ul class="menu">
+        <li class="menu-item menu-item-has-children">
+          <a href="shop.html" data-rg-mega-toggle aria-expanded="false" aria-haspopup="true">
+            Clothing
+            <svg width="14" height="14" aria-hidden="true"><use href="#icon-chevron-down"></use></svg>
+          </a>
+          <div class="sub-menu" role="region" aria-label="Clothing Mega Menu">
+            <div class="rg-mega-grid">
+              <div class="rg-mega-col">
+                <h4>Apparel Categories</h4>
+                <ul>
+                  <li><a href="category.html?cat=Traditional+Dresses">Traditional Dresses (8)</a></li>
+                  <li><a href="category.html?cat=Waistcoats+%26+Outerwear">Waistcoats &amp; Outerwear (6)</a></li>
+                  <li><a href="category.html?cat=Custom+%26+Festive+Wear">Custom &amp; Festive Wear (4)</a></li>
+                  <li><a href="shop.html">View All Catalogue (24)</a></li>
+                </ul>
+              </div>
+              <div class="rg-mega-col">
+                <h4>By Craft &amp; Occasion</h4>
+                <ul>
+                  <li><a href="shop.html?craft=handmade">100% Handmade Pieces</a></li>
+                  <li><a href="shop.html?craft=hand-finished">Hand-Finished Tailoring</a></li>
+                  <li><a href="shop.html?occasion=Wedding">Wedding &amp; Nikkah Attire</a></li>
+                  <li><a href="shop.html?occasion=Cultural+event">University Cultural Events</a></li>
+                  <li><a href="custom-orders.html">Made-to-Measure Requests</a></li>
+                </ul>
+              </div>
+              <div class="rg-mega-col">
+                <h4>Fit &amp; Authenticity</h4>
+                <ul>
+                  <li><a href="size-guide.html">Size Guide (cm &amp; inches)</a></li>
+                  <li><a href="authenticity.html">How We Verify Origin</a></li>
+                  <li><a href="artisans.html">Meet the Artisans</a></li>
+                  <li><a href="collections.html">Curated Seasonal Edits</a></li>
+                </ul>
+              </div>
+              <div class="rg-mega-col" style="background:var(--bg-secondary);padding:16px;border-radius:var(--radius-card);border:1px solid var(--rg-border);">
+                <img src="assets/img/craft-weaving.webp" alt="New Winter Shawls and Hand-Woven Wool" width="320" height="200" style="width:100%;height:140px;object-fit:cover;border-radius:6px;margin-block-end:10px;">
+                <span class="rg-badge rg-badge--new">Featured Drop</span>
+                <h4 style="border:none;padding:0;margin-block:6px 4px;color:var(--text-primary);">New: Winter Shawls &amp; Pattu</h4>
+                <p style="font-size:12px;color:var(--text-secondary);margin-block-end:8px;">Hand-loomed in Hunza, Nagar &amp; Skardu with verified Origin Cards.</p>
+                <a href="category.html?cat=Shawls+%26+Scarves" style="font-weight:700;color:var(--brand-secondary);">Explore Winter Looms →</a>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="menu-item"><a href="category.html?cat=Caps+%26+Headwear">Caps &amp; Headwear</a></li>
+        <li class="menu-item"><a href="category.html?cat=Shawls+%26+Scarves">Shawls &amp; Scarves</a></li>
+        <li class="menu-item"><a href="category.html?cat=Textile+Accessories">Accessories</a></li>
+        <li class="menu-item"><a href="category.html?cat=Home+Textiles">Home Textiles</a></li>
+        <li class="menu-item"><a href="gift-sets.html">Gifts</a></li>
+        <li class="menu-item menu-item-has-children">
+          <a href="region.html?region=hunza" data-rg-mega-toggle aria-expanded="false" aria-haspopup="true">
+            Shop by Region
+            <svg width="14" height="14" aria-hidden="true"><use href="#icon-chevron-down"></use></svg>
+          </a>
+          <div class="sub-menu" role="region" aria-label="Shop by Region Mega Menu">
+            <div class="rg-mega-grid" style="grid-template-columns:1fr 1fr 1.6fr;">
+              <div class="rg-mega-col">
+                <h4>Gilgit &amp; Diamer Divisions</h4>
+                <ul>
+                  <li><a href="region.html?region=hunza">Hunza District (6)</a></li>
+                  <li><a href="region.html?region=gilgit">Gilgit District (4)</a></li>
+                  <li><a href="region.html?region=nagar">Nagar District (3)</a></li>
+                  <li><a href="region.html?region=ghizer">Ghizer District (2)</a></li>
+                  <li><a href="region.html?region=astore">Astore District (1)</a></li>
+                  <li><a href="region.html?region=diamer">Diamer District (1)</a></li>
+                </ul>
+              </div>
+              <div class="rg-mega-col">
+                <h4>Baltistan Division</h4>
+                <ul>
+                  <li><a href="region.html?region=skardu">Skardu District (3)</a></li>
+                  <li><a href="region.html?region=shigar">Shigar District (2)</a></li>
+                  <li><a href="region.html?region=ghanche">Ghanche District (1)</a></li>
+                  <li><a href="region.html?region=kharmang">Kharmang District (1)</a></li>
+                </ul>
+                <div style="margin-block-start:16px;padding:12px;background:var(--bg-secondary);border-radius:var(--radius-card);" data-rg-map-preview>
+                  <span class="rg-badge rg-badge--handmade">Interactive Map</span>
+                  <h4 style="border:none;padding:0;margin-block:6px 4px;color:var(--text-primary);">Hover or Click Any District</h4>
+                  <p style="font-size:12px;color:var(--text-secondary);margin:0;">Discover valley-specific weaving, patti cap blocking, and cross-stitch traditions.</p>
                 </div>
-                <div class="mega-col">
-                  <h3 class="mega-heading">Headwear</h3>
-                  <ul role="list">
-                    <li><a href="shop.html?category=Headwear" data-filter-category="Headwear" class="mega-link">Traditional Gilgiti Pakol Caps</a></li>
-                    <li><a href="shop.html?category=Headwear" data-filter-category="Headwear" class="mega-link">Balti Embroidered Wool Caps</a></li>
-                    <li><a href="shop.html?category=Accessories" data-filter-category="Accessories" class="mega-link">Karakoram Cap Plume &amp; Filigree Pins</a></li>
-                    <li><a href="shop.html" class="mega-link">View Full 16-Piece Archive →</a></li>
-                  </ul>
-                </div>
-                <div class="mega-col">
-                  <h3 class="mega-heading">Shawls &amp; Textiles</h3>
-                  <ul role="list">
-                    <li><a href="shop.html?category=Shawls+%26+Textiles" data-filter-category="Shawls & Textiles" class="mega-link">Embroidered Mountain Shawls</a></li>
-                    <li><a href="shop.html?category=Shawls+%26+Textiles" data-filter-category="Shawls & Textiles" class="mega-link">Hunza Frame-Loom Pattu Weaves</a></li>
-                    <li><a href="shop.html?category=Shawls+%26+Textiles" data-filter-category="Shawls & Textiles" class="mega-link">Shigar Apricot-Blossom Wraps</a></li>
-                    <li><button type="button" data-open-modal="size-care" class="mega-link" style="text-align:left;width:100%">Size &amp; Highland Wool Care Guide</button></li>
-                  </ul>
-                </div>
-                <div class="mega-col">
-                  <h3 class="mega-heading">Gifts</h3>
-                  <ul role="list">
-                    <li><a href="shop.html?category=Heritage+Gifts" data-filter-category="Heritage Gifts" class="mega-link">Cap &amp; Shawl Heritage Gift Set</a></li>
-                    <li><a href="shop.html?category=Heritage+Gifts" data-filter-category="Heritage Gifts" class="mega-link">Collector’s 4-Piece Heritage Box</a></li>
-                    <li><a href="shop.html?category=Accessories" data-filter-category="Accessories" class="mega-link">Handbags, Belts &amp; Home Cushions</a></li>
-                    <li><button type="button" data-open-modal="custom-order" class="mega-link" style="text-align:left;width:100%">Bespoke &amp; Wedding Commissions</button></li>
-                  </ul>
-                  <div class="mega-featured" aria-label="Featured seasonal edit">
-                    <div class="mega-featured-img"></div>
-                    <div class="mega-featured-body">
-                      <span class="mega-featured-tag">New Season</span>
-                      <p class="mega-featured-title">New Season: Hunza &amp; Baltistan Edit</p>
-                      <a href="collections.html" class="mega-featured-link">Explore Curated Edits →</a>
-                    </div>
-                  </div>
+              </div>
+              <div class="rg-mega-col">
+                <div style="background:var(--bg-secondary);padding:12px;border-radius:var(--radius-card);border:1px solid var(--rg-border);">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 420" fill="none" class="rg-gb-map" role="img" aria-label="Interactive stylised map of Gilgit-Baltistan districts">
+  <g class="rg-gb-map__districts" stroke="#F7F4EE" stroke-width="2" stroke-linejoin="round">
+    <path data-district="ghizer" d="M40 160 L140 95 L220 120 L210 205 L105 225 Z" fill="#1F3A5F" opacity="0.82"/>
+    <path data-district="hunza" d="M220 120 L315 45 L425 90 L385 165 L285 160 Z" fill="#7A1F2B" opacity="0.9"/>
+    <path data-district="nagar" d="M285 160 L385 165 L395 215 L295 210 Z" fill="#2B4C78" opacity="0.86"/>
+    <path data-district="gilgit" d="M210 205 L285 160 L295 210 L270 265 L195 250 Z" fill="#B8913A" opacity="0.9"/>
+    <path data-district="diamer" d="M85 235 L195 250 L235 320 L125 350 L65 295 Z" fill="#3B5B82" opacity="0.8"/>
+    <path data-district="astore" d="M235 320 L270 265 L345 285 L335 375 L245 380 Z" fill="#466891" opacity="0.84"/>
+    <path data-district="shigar" d="M385 165 L425 90 L535 125 L515 225 L395 215 Z" fill="#28476E" opacity="0.88"/>
+    <path data-district="skardu" d="M295 210 L395 215 L515 225 L485 305 L345 285 L270 265 Z" fill="#1F3A5F" opacity="0.92"/>
+    <path data-district="ghanche" d="M515 225 L535 125 L635 165 L620 285 L535 285 Z" fill="#54232C" opacity="0.85"/>
+    <path data-district="kharmang" d="M485 305 L515 225 L535 285 L605 315 L545 385 L445 355 Z" fill="#34537A" opacity="0.82"/>
+  </g>
+  <g class="rg-gb-map__labels" font-family="'DM Sans', sans-serif" font-size="12" font-weight="600" fill="#F7F4EE" text-anchor="middle" pointer-events="none">
+    <text x="135" y="168">Ghizer</text>
+    <text x="325" y="118">Hunza</text>
+    <text x="342" y="192">Nagar</text>
+    <text x="245" y="222">Gilgit</text>
+    <text x="150" y="302">Diamer</text>
+    <text x="288" y="335">Astore</text>
+    <text x="462" y="172">Shigar</text>
+    <text x="405" y="258">Skardu</text>
+    <text x="578" y="228">Ghanche</text>
+    <text x="525" y="342">Kharmang</text>
+  </g>
+</svg>
                 </div>
               </div>
             </div>
-          </li>
-
-          <li><a href="collections.html" class="nav-link">Collections</a></li>
-
-          <!-- Shop by Region Mega Trigger -->
-          <li class="has-mega" id="region-nav-item">
-            <button type="button" class="nav-link nav-link--btn" aria-haspopup="true" aria-expanded="false" id="region-trigger">
-              7 Districts <i class="ph ph-caret-down nav-caret" aria-hidden="true"></i>
-            </button>
-            <div class="mega-menu mega-menu--region" id="region-mega" role="region" aria-label="Shop by Gilgit-Baltistan district">
-              <div class="region-panel-inner" id="region-panel-list"></div>
-            </div>
-          </li>
-
-          <li><a href="story.html" class="nav-link">Our Story</a></li>
-          <li><a href="journal.html" class="nav-link">Journal</a></li>
-          <li><a href="contact.html" class="nav-link">Contact</a></li>
-        </ul>
-      </nav>
-
-      <!-- Header Utility Actions -->
-      <div class="header-actions">
-        <button type="button" class="hdr-btn" id="search-btn" aria-label="Search archive (press / to open)" title="Search (/)">
-          <i class="ph ph-magnifying-glass" aria-hidden="true"></i>
-        </button>
-        <button type="button" class="hdr-btn hide-mobile" id="track-order-btn" data-open-modal="tracker" aria-label="Track your order" title="Track Order">
-          <i class="ph ph-package" aria-hidden="true"></i>
-        </button>
-        <button type="button" class="hdr-btn" id="theme-toggle-btn" aria-label="Toggle Karakoram Night Mode" title="Switch Theme">
-          <i class="ph ph-moon" id="theme-toggle-icon" aria-hidden="true"></i>
-        </button>
-        <button type="button" class="hdr-btn" id="wishlist-btn" aria-label="Open saved wishlist" title="Saved Wishlist">
-          <i class="ph ph-heart" aria-hidden="true"></i>
-          <span class="wishlist-count" id="wishlist-count" aria-live="polite" hidden>0</span>
-        </button>
-        <button type="button" class="hdr-btn cart-btn" id="cart-btn" aria-label="Open shopping bag" aria-haspopup="dialog" title="Shopping Bag">
-          <i class="ph ph-shopping-bag" aria-hidden="true"></i>
-          <span class="cart-badge" id="cart-badge" aria-live="polite">0</span>
-        </button>
-
-        <!-- Currency Switcher (Charged in PKR) -->
-        <div class="currency-wrapper hide-mobile">
-          <button type="button" class="currency-btn" id="currency-btn" aria-haspopup="listbox" aria-expanded="false" aria-label="Select display currency">
-            <span id="currency-label">PKR</span>
-            <i class="ph ph-caret-down" aria-hidden="true"></i>
-          </button>
-          <ul class="currency-dropdown" id="currency-dropdown" role="listbox" aria-label="Currency options">
-            <li role="option" aria-selected="true" data-currency="PKR">PKR — Pakistani Rupee</li>
-            <li role="option" aria-selected="false" data-currency="USD">USD — US Dollar <small>(≈ approx., charged in PKR)</small></li>
-            <li role="option" aria-selected="false" data-currency="GBP">GBP — British Pound <small>(≈ approx., charged in PKR)</small></li>
-            <li role="option" aria-selected="false" data-currency="AED">AED — UAE Dirham <small>(≈ approx., charged in PKR)</small></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <!-- Full-Screen Mobile Navigation Drawer (Deduplicated — zero duplicate Heritage Gifts!) -->
-  <div class="mobile-drawer" id="mobile-nav-drawer" aria-label="Mobile navigation" aria-hidden="true" role="dialog" aria-modal="true">
-    <div class="mobile-drawer-header">
-      <img src="assets/images/brand-logo.webp" alt="ReGongches" class="logo-img" height="40" width="140">
-      <button type="button" class="mobile-drawer-close" id="mobile-drawer-close" aria-label="Close navigation menu">
-        <i class="ph ph-x" aria-hidden="true"></i>
-      </button>
-    </div>
-    <nav class="mobile-nav" aria-label="Mobile navigation links">
-      <ul role="list">
-        <li><a href="index.html" class="mobile-nav-link">Home</a></li>
-        <li><a href="shop.html" class="mobile-nav-link">Shop Full Archive (16 Pieces)</a></li>
-        <li class="mobile-accordion">
-          <button type="button" class="mobile-nav-link mobile-accordion-btn" aria-expanded="false">
-            Shop by Category <i class="ph ph-caret-down" aria-hidden="true"></i>
-          </button>
-          <ul class="mobile-accordion-panel" role="list">
-            <li><a href="shop.html?category=Clothing" data-filter-category="Clothing" class="mobile-sub-link">Traditional Clothing &amp; Robes</a></li>
-            <li><a href="shop.html?category=Headwear" data-filter-category="Headwear" class="mobile-sub-link">Pakol Caps &amp; Headwear</a></li>
-            <li><a href="shop.html?category=Shawls+%26+Textiles" data-filter-category="Shawls & Textiles" class="mobile-sub-link">Pattu &amp; Embroidered Shawls</a></li>
-            <li><a href="shop.html?category=Waistcoats" data-filter-category="Waistcoats" class="mobile-sub-link">Waistcoats &amp; Jackets</a></li>
-            <li><a href="shop.html?category=Accessories" data-filter-category="Accessories" class="mobile-sub-link">Accessories &amp; Home</a></li>
-            <li><a href="shop.html?category=Heritage+Gifts" data-filter-category="Heritage Gifts" class="mobile-sub-link">Heritage Gift Boxes</a></li>
-          </ul>
+          </div>
         </li>
-        <li class="mobile-accordion">
-          <button type="button" class="mobile-nav-link mobile-accordion-btn" aria-expanded="false">
-            Shop by 7 Districts <i class="ph ph-caret-down" aria-hidden="true"></i>
-          </button>
-          <ul class="mobile-accordion-panel" role="list" id="mobile-region-list"></ul>
-        </li>
-        <li><a href="collections.html" class="mobile-nav-link">Curated Collections &amp; Lookbook</a></li>
-        <li><a href="story.html" class="mobile-nav-link">Our Story &amp; Artisans</a></li>
-        <li><a href="journal.html" class="mobile-nav-link">Cultural Journal</a></li>
-        <li><a href="contact.html" class="mobile-nav-link">Contact &amp; Studio Concierge</a></li>
-        <li><button type="button" data-open-modal="size-care" class="mobile-nav-link" style="width:100%;text-align:left">Size &amp; Highland Care Guide</button></li>
-        <li><button type="button" data-open-modal="tracker" class="mobile-nav-link" style="width:100%;text-align:left">Track Your Order</button></li>
+        <li class="menu-item"><a href="journal.html">Journal</a></li>
       </ul>
     </nav>
-    <div class="mobile-drawer-footer">
-      <a href="https://wa.me/923001234567" data-config-whatsapp class="mobile-whatsapp-cta" target="_blank" rel="noopener noreferrer">
-        <i class="ph ph-whatsapp-logo" aria-hidden="true"></i> Chat with Gilgit Studio
-      </a>
-      <p class="mobile-support-note" data-config-hours>Mon–Sat · 9:00 AM – 6:00 PM (PKT)</p>
-    </div>
-  </div>
-  <div class="drawer-backdrop" id="mobile-backdrop" aria-hidden="true"></div>
 
-  <!-- Expanding Search Overlay -->
-  <div class="search-overlay" id="search-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Search heritage archive">
-    <div class="search-overlay-inner">
-      <div class="search-field-wrap">
-        <i class="ph ph-magnifying-glass search-icon-inner" aria-hidden="true"></i>
-        <input type="search" id="search-input" class="search-input" placeholder="Search pakol caps, pattu shawls, districts, artisans, SKU…" autocomplete="off" aria-label="Search products">
-        <button type="button" class="search-clear" id="search-clear" aria-label="Clear search query" hidden>
-          <i class="ph ph-x" aria-hidden="true"></i>
-        </button>
-      </div>
-      <button type="button" class="search-close" id="search-close" aria-label="Close search overlay">
-        <i class="ph ph-x" aria-hidden="true"></i> <span>ESC</span>
+    <!-- Header Right Actions: Search, Account, Wishlist, Cart -->
+    <div class="site-header__actions">
+      <button type="button" class="rg-icon-btn" data-rg-open-search aria-label="Open instant search">
+        <svg width="20" height="20" aria-hidden="true"><use href="#icon-search"></use></svg>
+      </button>
+      <a href="account.html" class="rg-icon-btn" aria-label="My Account">
+        <svg width="20" height="20" aria-hidden="true"><use href="#icon-user"></use></svg>
+      </a>
+      <a href="wishlist.html" class="rg-icon-btn" aria-label="Wishlist">
+        <svg width="20" height="20" aria-hidden="true"><use href="#icon-heart"></use></svg>
+        <span class="rg-badge-count" data-rg-wishlist-count>0</span>
+      </a>
+      <button type="button" class="rg-icon-btn" data-rg-open-drawer="rg-minicart-drawer" aria-label="Open shopping bag">
+        <svg width="20" height="20" aria-hidden="true"><use href="#icon-bag"></use></svg>
+        <span class="rg-badge-count" data-rg-cart-count>0</span>
       </button>
     </div>
-    <div class="search-body">
-      <div class="search-popular" id="search-popular">
-        <p class="search-label">Popular Heritage Searches</p>
-        <div class="search-chips" id="search-popular-chips">
-          <button type="button" class="search-chip" data-query="pakol">Pakol Cap</button>
-          <button type="button" class="search-chip" data-query="shawl">Mountain Shawl</button>
-          <button type="button" class="search-chip" data-query="pattu">Hunza Pattu</button>
-          <button type="button" class="search-chip" data-query="Baltistan">Baltistan (Skardu)</button>
-          <button type="button" class="search-chip" data-query="waistcoat">Waistcoat</button>
-          <button type="button" class="search-chip" data-query="gift">Heritage Gift Box</button>
-          <button type="button" class="search-chip" data-query="shuqa">Ghizer Shuqa</button>
-        </div>
-        <div id="search-recent-wrap" class="mt-3" hidden>
-          <p class="search-label">Your Recent Searches</p>
-          <div class="search-chips" id="search-recent-chips"></div>
-        </div>
+  </div>
+</header>
+
+<!-- Full-Width Instant Search Overlay -->
+<div class="rg-search-overlay" id="rg-search-overlay" role="dialog" aria-modal="true" aria-label="Search ReGongches Store">
+  <div class="rg-container">
+    <form action="search.html" method="get" class="rg-search-input-wrap">
+      <svg width="24" height="24" aria-hidden="true"><use href="#icon-search"></use></svg>
+      <input type="search" name="q" id="rg-search-overlay-input" placeholder="Search Gilgiti caps, Hunza shawls, pattu waistcoats, regions..." autocomplete="off" aria-label="Search query">
+      <button type="submit" class="rg-btn rg-btn--primary rg-btn--sm">Search</button>
+      <button type="button" class="rg-icon-btn" data-rg-close-overlays aria-label="Close search">
+        <svg width="22" height="22" aria-hidden="true"><use href="#icon-close"></use></svg>
+      </button>
+    </form>
+    <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-block-start:12px;">
+      <span style="font-size:var(--text-xs);color:var(--text-secondary);font-weight:600;">Popular searches:</span>
+      <button type="button" class="rg-chip" data-rg-search-chip="Gilgiti cap">Gilgiti cap</button>
+      <button type="button" class="rg-chip" data-rg-search-chip="Pakol">Pakol</button>
+      <button type="button" class="rg-chip" data-rg-search-chip="woollen shawl">woollen shawl</button>
+      <button type="button" class="rg-chip" data-rg-search-chip="waistcoat">waistcoat</button>
+      <button type="button" class="rg-chip" data-rg-search-chip="gift set">gift set</button>
+    </div>
+    <div id="rg-search-instant-results" aria-live="polite"></div>
+  </div>
+</div>
+
+<!-- Mobile Navigation Full-Screen Drawer -->
+<aside class="rg-drawer rg-drawer--left" id="rg-mobile-menu-drawer" aria-label="Mobile Navigation">
+  <div class="rg-drawer__header">
+    <img src="assets/img/logo.svg" alt="ReGongches" width="160" height="38">
+    <button type="button" class="rg-icon-btn" data-rg-close-overlays aria-label="Close menu">
+      <svg width="22" height="22" aria-hidden="true"><use href="#icon-close"></use></svg>
+    </button>
+  </div>
+  <div class="rg-drawer__body">
+    <form action="search.html" method="get" style="display:flex;gap:8px;margin-block-end:20px;">
+      <input type="search" name="q" placeholder="Search products, regions..." style="flex:1;padding:10px 12px;border:1px solid var(--rg-border-strong);border-radius:var(--radius-editorial);">
+      <button type="submit" class="rg-btn rg-btn--primary rg-btn--sm">Go</button>
+    </form>
+    <ul style="display:grid;gap:12px;font-weight:600;">
+      <li><a href="index.html" style="display:block;padding-block:8px;border-block-end:1px solid var(--rg-border);">Home</a></li>
+      <li><a href="shop.html" style="display:block;padding-block:8px;border-block-end:1px solid var(--rg-border);">Shop All Catalogue (24)</a></li>
+      <li><a href="category.html?cat=Traditional+Dresses" style="display:block;padding-block:8px;border-block-end:1px solid var(--rg-border);">Traditional Dresses</a></li>
+      <li><a href="category.html?cat=Caps+%26+Headwear" style="display:block;padding-block:8px;border-block-end:1px solid var(--rg-border);">Caps &amp; Headwear</a></li>
+      <li><a href="category.html?cat=Shawls+%26+Scarves" style="display:block;padding-block:8px;border-block-end:1px solid var(--rg-border);">Shawls &amp; Scarves</a></li>
+      <li><a href="category.html?cat=Waistcoats+%26+Outerwear" style="display:block;padding-block:8px;border-block-end:1px solid var(--rg-border);">Waistcoats &amp; Outerwear</a></li>
+      <li><a href="category.html?cat=Textile+Accessories" style="display:block;padding-block:8px;border-block-end:1px solid var(--rg-border);">Textile Accessories</a></li>
+      <li><a href="category.html?cat=Home+Textiles" style="display:block;padding-block:8px;border-block-end:1px solid var(--rg-border);">Home Textiles</a></li>
+      <li><a href="gift-sets.html" style="display:block;padding-block:8px;border-block-end:1px solid var(--rg-border);">Heritage Gift Sets &amp; Builder</a></li>
+      <li><a href="custom-orders.html" style="display:block;padding-block:8px;border-block-end:1px solid var(--rg-border);">Custom &amp; Wedding Orders</a></li>
+      <li><a href="region.html?region=hunza" style="display:block;padding-block:8px;border-block-end:1px solid var(--rg-border);">Shop by Region (10 Districts)</a></li>
+      <li><a href="artisans.html" style="display:block;padding-block:8px;border-block-end:1px solid var(--rg-border);">Meet the Artisans</a></li>
+      <li><a href="authenticity.html" style="display:block;padding-block:8px;border-block-end:1px solid var(--rg-border);">Origin &amp; Authenticity Standard</a></li>
+      <li><a href="journal.html" style="display:block;padding-block:8px;border-block-end:1px solid var(--rg-border);">Cultural Journal</a></li>
+    </ul>
+  </div>
+  <div class="rg-drawer__footer" style="display:grid;gap:8px;font-size:var(--text-xs);">
+    <a href="account.html" class="rg-btn rg-btn--outline rg-btn--sm">My Account &amp; Order Tracking</a>
+    <a href="contact.html" class="rg-btn rg-btn--secondary rg-btn--sm">WhatsApp &amp; Customer Support</a>
+  </div>
+</aside>
+
+<!-- Mini-Cart Drawer (Slides from Right) -->
+<aside class="rg-drawer" id="rg-minicart-drawer" aria-label="Shopping Bag Drawer">
+  <div class="rg-drawer__header">
+    <h2 style="font-size:var(--text-lg);margin:0;">Your Heritage Bag (<span data-rg-cart-count>0</span>)</h2>
+    <button type="button" class="rg-icon-btn" data-rg-close-overlays aria-label="Close shopping bag">
+      <svg width="22" height="22" aria-hidden="true"><use href="#icon-close"></use></svg>
+    </button>
+  </div>
+  <div class="rg-drawer__body" id="rg-minicart-body"></div>
+  <div class="rg-drawer__footer" id="rg-minicart-footer"></div>
+</aside>
+
+<!-- Product-Type-Specific Size Guide Modal (Caps, Waistcoats, Dresses, Shawls in cm AND inches) -->
+<div class="rg-modal" id="rg-size-guide-modal" role="dialog" aria-modal="true" aria-labelledby="rg-size-guide-title">
+  <div class="rg-modal__dialog">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-block-end:16px;padding-block-end:12px;border-block-end:1px solid var(--rg-border);">
+      <div>
+        <span class="rg-section__eyebrow">Apparel Measurement Standard</span>
+        <h2 id="rg-size-guide-title" style="font-size:var(--text-xl);margin:0;">ReGongches Size &amp; Fit Guide (cm &amp; inches)</h2>
       </div>
-      <div class="search-results" id="search-results" aria-live="polite" aria-label="Search results" hidden></div>
+      <button type="button" class="rg-icon-btn" data-rg-close-overlays aria-label="Close size guide">
+        <svg width="22" height="22" aria-hidden="true"><use href="#icon-close"></use></svg>
+      </button>
+    </div>
+
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-block-end:20px;">
+      <button type="button" class="rg-btn rg-btn--primary rg-btn--sm" data-size-tab="cap">Caps &amp; Headwear</button>
+      <button type="button" class="rg-btn rg-btn--outline rg-btn--sm" data-size-tab="waistcoat">Waistcoats &amp; Outerwear</button>
+      <button type="button" class="rg-btn rg-btn--outline rg-btn--sm" data-size-tab="dress">Traditional Dresses</button>
+      <button type="button" class="rg-btn rg-btn--outline rg-btn--sm" data-size-tab="shawl">Shawls &amp; Stoles</button>
+    </div>
+
+    <!-- Cap Size Panel -->
+    <div data-size-panel="cap">
+      <p style="font-size:var(--text-sm);color:var(--text-secondary);">
+        <strong>How to measure your head for a Gilgiti or Hunza Cap:</strong> Wrap a flexible tape measure around your head 1.5 cm (0.6 in) above your ears and across the middle of your forehead. Hold comfortably snug.
+      </p>
+      <table class="shop_table cart" style="margin-block:16px;">
+        <thead>
+          <tr><th>Label Size</th><th>Head Circumference (cm)</th><th>Head Circumference (inches)</th><th>Fit Recommendation</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Small (S)</strong></td><td>54 cm</td><td>21.2 in</td><td>Snug crown; youths or smaller adult head</td></tr>
+          <tr><td><strong>Medium (M)</strong></td><td>56 cm</td><td>22.0 in</td><td>Most common standard adult fit</td></tr>
+          <tr><td><strong>Large (L)</strong></td><td>58 cm</td><td>22.8 in</td><td>Relaxed fit or thicker hair</td></tr>
+          <tr><td><strong>Extra Large (XL)</strong></td><td>60 cm</td><td>23.6 in</td><td>Generous crown circumference</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Waistcoat Size Panel -->
+    <div data-size-panel="waistcoat" hidden>
+      <p style="font-size:var(--text-sm);color:var(--text-secondary);">
+        <strong>How to measure for a Pattu Waistcoat or Jacket:</strong> Measure around the fullest part of your chest over a light kameez or shirt. Our waistcoats include a 4 cm (1.5 in) comfort ease.
+      </p>
+      <table class="shop_table cart" style="margin-block:16px;">
+        <thead>
+          <tr><th>Size</th><th>Chest (inches / cm)</th><th>Shoulder Width (in / cm)</th><th>Garment Length (in / cm)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Small (S)</strong></td><td>38 in / 96.5 cm</td><td>16.5 in / 42 cm</td><td>27.0 in / 68.5 cm</td></tr>
+          <tr><td><strong>Medium (M)</strong></td><td>40 in / 101.5 cm</td><td>17.5 in / 44.5 cm</td><td>28.0 in / 71.0 cm</td></tr>
+          <tr><td><strong>Large (L)</strong></td><td>42 in / 106.5 cm</td><td>18.5 in / 47.0 cm</td><td>29.0 in / 73.5 cm</td></tr>
+          <tr><td><strong>Extra Large (XL)</strong></td><td>44 in / 112.0 cm</td><td>19.2 in / 49.0 cm</td><td>30.0 in / 76.0 cm</td></tr>
+          <tr><td><strong>XXL</strong></td><td>46 in / 117.0 cm</td><td>20.0 in / 51.0 cm</td><td>30.5 in / 77.5 cm</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Dress Size Panel -->
+    <div data-size-panel="dress" hidden>
+      <p style="font-size:var(--text-sm);color:var(--text-secondary);">
+        <strong>Traditional Cultural Dresses:</strong> Relaxed straight-cut silhouette with hand-embroidered yoke.
+      </p>
+      <table class="shop_table cart" style="margin-block:16px;">
+        <thead>
+          <tr><th>Size</th><th>Bust / Chest (in / cm)</th><th>Shoulder (in / cm)</th><th>Kameez Length (in / cm)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>XS</strong></td><td>34 in / 86 cm</td><td>13.5 in / 34 cm</td><td>41 in / 104 cm</td></tr>
+          <tr><td><strong>S</strong></td><td>36 in / 91.5 cm</td><td>14.0 in / 35.5 cm</td><td>42 in / 106.5 cm</td></tr>
+          <tr><td><strong>M</strong></td><td>38 in / 96.5 cm</td><td>14.5 in / 37 cm</td><td>43 in / 109 cm</td></tr>
+          <tr><td><strong>L</strong></td><td>41 in / 104 cm</td><td>15.5 in / 39.5 cm</td><td>44 in / 112 cm</td></tr>
+          <tr><td><strong>XL</strong></td><td>44 in / 112 cm</td><td>16.5 in / 42 cm</td><td>44 in / 112 cm</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Shawl Size Panel -->
+    <div data-size-panel="shawl" hidden>
+      <table class="shop_table cart" style="margin-block:16px;">
+        <thead>
+          <tr><th>Format</th><th>Dimensions (cm)</th><th>Dimensions (inches)</th><th>Drape Style</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Everyday Neck Stole</strong></td><td>190 × 65 cm</td><td>75 × 25.5 in</td><td>Lightweight neck wrap or shoulder drape</td></tr>
+          <tr><td><strong>Standard Embroidered Shawl</strong></td><td>210 × 85 cm</td><td>82.5 × 33.5 in</td><td>Full shoulder &amp; festive drape</td></tr>
+          <tr><td><strong>Men's / Oversized Blanket Shawl</strong></td><td>230 × 100 cm</td><td>90.5 × 39.5 in</td><td>Traditional double-shoulder winter wrap</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="display:flex;justify-content:space-between;align-items:center;font-size:var(--text-xs);color:var(--text-secondary);padding-block-start:8px;">
+      <span>Need custom measurements? We offer made-to-measure tailoring.</span>
+      <a href="size-guide.html" style="font-weight:700;color:var(--brand-primary);text-decoration:underline;">Open Full Printable Size Guide →</a>
     </div>
   </div>
-  <div class="search-backdrop" id="search-backdrop" aria-hidden="true"></div>
+</div>
 
-  <nav class="breadcrumb-bar" aria-label="Breadcrumb">
-    <div class="container container--wide">
-      <ol class="breadcrumb-list" role="list">
-        <li><a href="index.html">Home</a></li>
-        <li aria-hidden="true">/</li>
-        <li><span aria-current="page">Shop the 16-Piece Archive</span></li>
-      </ol>
+<!-- Quick View & Lightbox Modal -->
+<div class="rg-modal" id="rg-quickview-modal" role="dialog" aria-modal="true" aria-label="Product Quick View">
+  <div class="rg-modal__dialog">
+    <div style="display:flex;justify-content:flex-end;margin-block-end:8px;">
+      <button type="button" class="rg-icon-btn" data-rg-close-overlays aria-label="Close quick view">
+        <svg width="22" height="22" aria-hidden="true"><use href="#icon-close"></use></svg>
+      </button>
+    </div>
+    <div id="rg-quickview-body"></div>
+  </div>
+</div>
+
+<!-- Global Backdrop -->
+<div class="rg-backdrop" id="rg-global-backdrop"></div>
+<!-- RG:HEADER END -->
+
+<main id="main-content" class="site-main">
+
+  <!-- WP: woocommerce_breadcrumb() -->
+  <nav class="woocommerce-breadcrumb" aria-label="Breadcrumb">
+    <div class="rg-container">
+      <a href="index.html">Home</a> &nbsp;/&nbsp; <span id="rg-product-breadcrumb-current">Shop Catalogue</span>
     </div>
   </nav>
-  <main id="main-content">
 
-    <section class="section catalogue-section bg-sand" id="catalogue" aria-labelledby="catalogue-heading">
-      <div class="container container--wide">
-        <div class="catalogue-header" data-reveal>
-          <span class="eyebrow text-center d-block">Verified Provenance Archive</span>
-          <h1 class="section-title" id="catalogue-heading">The ReGongches Provenance Archive</h1>
-          <p class="section-subtitle">16 hand-finished garments, frame-loomed pattu shawls, embroidered caps, and cultural gift boxes documented across the 7 districts of Gilgit-Baltistan.</p>
+    <section class="rg-section" style="padding-block-start:var(--space-6);">
+      <div class="rg-container">
+        
+        <div style="margin-block-end:24px;">
+          <span class="rg-section__eyebrow">Complete B2C Catalogue</span>
+          <h1 id="rg-archive-title">Shop Authentic Gilgit-Baltistan Clothing &amp; Textiles</h1>
+          <p style="color:var(--text-secondary);margin:0;">Filter by valley of origin, craft classification (Handmade vs. Hand-finished), material, occasion, or dispatch time.</p>
         </div>
+        
 
-        <!-- Filter & Sort Toolbar -->
-        <div class="catalogue-toolbar" role="region" aria-label="Product filters and sorting">
-          <div class="filter-chips" id="category-filter-chips" role="group" aria-label="Filter by category">
-            <button type="button" class="filter-chip active" data-filter-category="" aria-pressed="true">All (16)</button>
-            <button type="button" class="filter-chip" data-filter-category="Clothing" aria-pressed="false">Clothing</button>
-            <button type="button" class="filter-chip" data-filter-category="Headwear" aria-pressed="false">Headwear</button>
-            <button type="button" class="filter-chip" data-filter-category="Shawls & Textiles" aria-pressed="false">Shawls &amp; Pattu</button>
-            <button type="button" class="filter-chip" data-filter-category="Waistcoats" aria-pressed="false">Waistcoats</button>
-            <button type="button" class="filter-chip" data-filter-category="Accessories" aria-pressed="false">Accessories</button>
-            <button type="button" class="filter-chip" data-filter-category="Heritage Gifts" aria-pressed="false">Gift Boxes</button>
+        <div class="rg-shop-layout">
+          <!-- Left Filter Sidebar (Desktop) / Bottom-Sheet Drawer (Mobile) -->
+          <aside class="rg-filter-sidebar" id="rg-filter-drawer" aria-label="Product Filters">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-block-end:12px;">
+              <h2 style="font-size:var(--text-lg);margin:0;">Filter Products</h2>
+              <button type="button" class="rg-icon-btn rg-mobile-toggle" data-rg-close-overlays aria-label="Close filters">✕</button>
+            </div>
+            <form id="rg-filter-form" onsubmit="return false;">
+              <div class="rg-filter-group">
+                <label class="rg-filter-group__title" for="f-cat">Category</label>
+                <select name="cat" id="f-cat" style="width:100%;padding:8px;border:1px solid var(--rg-border-strong);background:var(--bg-primary);">
+                  <option value="">All 8 Categories</option>
+                  <option value="Traditional Dresses">Traditional Dresses</option>
+                  <option value="Caps & Headwear">Caps &amp; Headwear</option>
+                  <option value="Shawls & Scarves">Shawls &amp; Scarves</option>
+                  <option value="Waistcoats & Outerwear">Waistcoats &amp; Outerwear</option>
+                  <option value="Textile Accessories">Textile Accessories</option>
+                  <option value="Home Textiles">Home Textiles</option>
+                  <option value="Heritage Gifts">Heritage Gifts</option>
+                  <option value="Custom & Festive Wear">Custom &amp; Festive Wear</option>
+                </select>
+              </div>
+
+              <div class="rg-filter-group">
+                <label class="rg-filter-group__title" for="f-region">Region / District</label>
+                <select name="region" id="f-region" style="width:100%;padding:8px;border:1px solid var(--rg-border-strong);background:var(--bg-primary);">
+                  <option value="">All 10 Districts</option>
+                  <option value="Hunza">Hunza</option>
+                  <option value="Gilgit">Gilgit</option>
+                  <option value="Nagar">Nagar</option>
+                  <option value="Ghizer">Ghizer</option>
+                  <option value="Skardu">Skardu</option>
+                  <option value="Shigar">Shigar</option>
+                  <option value="Ghanche">Ghanche</option>
+                  <option value="Kharmang">Kharmang</option>
+                  <option value="Astore">Astore</option>
+                  <option value="Diamer">Diamer</option>
+                </select>
+              </div>
+
+              <div class="rg-filter-group">
+                <label class="rg-filter-group__title" for="f-craft">Craft Classification</label>
+                <select name="craft" id="f-craft" style="width:100%;padding:8px;border:1px solid var(--rg-border-strong);background:var(--bg-primary);">
+                  <option value="">All Craft Types</option>
+                  <option value="handmade">Handmade</option>
+                  <option value="hand-finished">Hand-Finished</option>
+                  <option value="machine-made">Machine-Made</option>
+                </select>
+              </div>
+
+              <div class="rg-filter-group">
+                <label class="rg-filter-group__title" for="f-avail">Availability</label>
+                <select name="availability" id="f-avail" style="width:100%;padding:8px;border:1px solid var(--rg-border-strong);background:var(--bg-primary);">
+                  <option value="">All Availability</option>
+                  <option value="ready">Ready to Ship (COD Eligible)</option>
+                  <option value="made-to-order">Made to Order</option>
+                </select>
+              </div>
+
+              <div class="rg-filter-group">
+                <label class="rg-filter-group__title" for="f-price">
+                  <span>Max Price</span>
+                  <span id="rg-price-range-label">PKR 25,000</span>
+                </label>
+                <input type="range" name="maxPrice" id="f-price" min="1200" max="25000" step="200" value="25000" style="width:100%;">
+              </div>
+
+              <div class="rg-filter-group">
+                <label class="rg-filter-group__title" for="f-size">Size</label>
+                <select name="size" id="f-size" style="width:100%;padding:8px;border:1px solid var(--rg-border-strong);background:var(--bg-primary);">
+                  <option value="">Any Size</option>
+                  <option value="54 cm">Cap 54 cm (S)</option>
+                  <option value="56 cm">Cap 56 cm (M)</option>
+                  <option value="58 cm">Cap 58 cm (L)</option>
+                  <option value="60 cm">Cap 60 cm (XL)</option>
+                  <option value="S">Apparel S</option>
+                  <option value="M">Apparel M</option>
+                  <option value="L">Apparel L</option>
+                  <option value="XL">Apparel XL</option>
+                </select>
+              </div>
+
+              <div class="rg-filter-group">
+                <label class="rg-filter-group__title" for="f-material">Material</label>
+                <select name="material" id="f-material" style="width:100%;padding:8px;border:1px solid var(--rg-border-strong);background:var(--bg-primary);">
+                  <option value="">All Materials</option>
+                  <option value="Sheep Wool">Sheep Wool</option>
+                  <option value="Pashmina">Pashmina Blend</option>
+                  <option value="Silk">Silk Embroidery Thread</option>
+                  <option value="Cotton">Cotton / Canvas</option>
+                </select>
+              </div>
+
+              <div class="rg-filter-group">
+                <label class="rg-filter-group__title" for="f-occasion">Occasion</label>
+                <select name="occasion" id="f-occasion" style="width:100%;padding:8px;border:1px solid var(--rg-border-strong);background:var(--bg-primary);">
+                  <option value="">All Occasions</option>
+                  <option value="Wedding">Wedding &amp; Nikkah</option>
+                  <option value="Eid">Eid &amp; Festive</option>
+                  <option value="Cultural event">Cultural Event</option>
+                  <option value="Everyday">Everyday Wear</option>
+                  <option value="Gift">Heritage Gifting</option>
+                </select>
+              </div>
+
+              <div class="rg-filter-group">
+                <label class="rg-filter-group__title" for="f-dispatch">Dispatch Time</label>
+                <select name="dispatch" id="f-dispatch" style="width:100%;padding:8px;border:1px solid var(--rg-border-strong);background:var(--bg-primary);">
+                  <option value="">Any Dispatch Window</option>
+                  <option value="1-2">1–2 Working Days</option>
+                  <option value="3-7">3–7 Working Days</option>
+                  <option value="14-28">2–4 Weeks (Made-to-Order)</option>
+                </select>
+              </div>
+            </form>
+          </aside>
+
+          <!-- Main Catalogue Column -->
+          <div>
+            <!-- Sticky Toolbar (Result Count ABOVE grid, Sort, Grid Density Toggle, Mobile Filter Button) -->
+            <div class="rg-shop-toolbar">
+              <div style="display:flex;align-items:center;gap:12px;">
+                <button type="button" class="rg-btn rg-btn--outline rg-btn--sm rg-mobile-toggle" data-rg-open-drawer="rg-filter-drawer">
+                  <svg width="16" height="16" aria-hidden="true"><use href="#icon-filter"></use></svg> Filters
+                </button>
+                <strong style="font-size:var(--text-sm);" data-rg-result-count>Showing 12 of 24 authentic products</strong>
+              </div>
+
+              <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+                <div style="display:flex;gap:4px;" aria-label="Grid column density">
+                  <button type="button" class="rg-btn rg-btn--outline rg-btn--sm" data-rg-grid-cols="2" style="min-height:34px;padding:4px 10px;">2 Col</button>
+                  <button type="button" class="rg-btn rg-btn--secondary rg-btn--sm" data-rg-grid-cols="3" style="min-height:34px;padding:4px 10px;">3 Col</button>
+                  <button type="button" class="rg-btn rg-btn--outline rg-btn--sm" data-rg-grid-cols="4" style="min-height:34px;padding:4px 10px;">4 Col</button>
+                </div>
+                <label for="rg-sort-select" class="screen-reader-text">Sort products</label>
+                <select id="rg-sort-select" style="padding:7px 12px;border:1px solid var(--rg-border-strong);border-radius:var(--radius-editorial);background:var(--bg-elevated);font-size:var(--text-xs);font-weight:600;">
+                  <option value="featured">Sort: Featured</option>
+                  <option value="newest">Sort: Newest Arrivals</option>
+                  <option value="price-asc">Sort: Price Low → High</option>
+                  <option value="price-desc">Sort: Price High → Low</option>
+                  <option value="rating">Sort: Best Rated</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Removable Active Filter Chips -->
+            <div class="rg-active-chips" id="rg-active-filter-chips"></div>
+
+            <!-- WooCommerce Product Loop (ul.products) -->
+            <ul class="products" id="rg-shop-products-grid" data-columns="3"></ul>
+
+            <!-- Bottom Result Count & Load More + Pagination -->
+            <div style="margin-block-start:32px;padding-block-start:20px;border-block-start:1px solid var(--rg-border);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;">
+              <span style="font-size:var(--text-sm);color:var(--text-secondary);" data-rg-result-count>Showing 12 of 24 authentic products</span>
+              <button type="button" class="rg-btn rg-btn--primary" id="rg-load-more-btn">Load More Products</button>
+            </div>
           </div>
-
-          <div class="toolbar-right">
-            <button type="button" class="btn btn-secondary btn-sm mobile-filter-open-btn" id="mobile-filter-open-btn" aria-label="Open filter drawer">
-              <i class="ph ph-sliders-horizontal" aria-hidden="true"></i> Filters &amp; Sort
-            </button>
-
-            <div class="inline-search-wrap">
-              <i class="ph ph-magnifying-glass" aria-hidden="true"></i>
-              <input type="search" id="catalogue-search-input" class="inline-search-input" placeholder="Search piece, motif, SKU…" aria-label="Filter catalogue by keyword">
-            </div>
-
-            <div class="filter-select-wrap hide-mobile">
-              <label for="region-filter" class="sr-only">Filter by district</label>
-              <select id="region-filter" class="filter-select" aria-label="Filter by district">
-                <option value="">All 7 Districts</option>
-                <option value="Gilgit">Gilgit</option>
-                <option value="Hunza">Hunza</option>
-                <option value="Nagar">Nagar</option>
-                <option value="Ghizer">Ghizer</option>
-                <option value="Baltistan (Skardu)">Baltistan (Skardu)</option>
-                <option value="Diamer">Diamer</option>
-                <option value="Astore">Astore</option>
-              </select>
-            </div>
-
-            <div class="filter-select-wrap hide-mobile">
-              <label for="price-filter" class="sr-only">Filter by price</label>
-              <select id="price-filter" class="filter-select" aria-label="Filter by price range">
-                <option value="">All Prices</option>
-                <option value="under-2500">Under PKR 2,500</option>
-                <option value="under-5000">Under PKR 5,000</option>
-                <option value="2500-6500">PKR 2,500 – 6,500</option>
-                <option value="over-6500">Above PKR 6,500</option>
-              </select>
-            </div>
-
-            <div class="filter-select-wrap hide-mobile">
-              <label for="status-filter" class="sr-only">Filter by availability</label>
-              <select id="status-filter" class="filter-select" aria-label="Filter by availability">
-                <option value="">All Availability</option>
-                <option value="Available">Ready to Ship</option>
-                <option value="Made-to-Order">Made-to-Order</option>
-                <option value="Low Stock">Limited / Low Stock</option>
-              </select>
-            </div>
-
-            <div class="filter-select-wrap hide-mobile">
-              <label for="color-filter" class="sr-only">Filter by colour</label>
-              <select id="color-filter" class="filter-select" aria-label="Filter by colour palette">
-                <option value="">All Colours</option>
-                <option value="Oatmeal">Natural / Oatmeal</option>
-                <option value="Ivory">Ivory &amp; Gold</option>
-                <option value="Maroon">Deep Maroon</option>
-                <option value="Green">Forest Green</option>
-                <option value="Brown">Mountain Brown / Walnut</option>
-                <option value="Blue">Indigo / Midnight Blue</option>
-                <option value="Charcoal">Charcoal / Grey</option>
-              </select>
-            </div>
-
-            <div class="filter-select-wrap">
-              <label for="sort-select" class="sr-only">Sort products</label>
-              <select id="sort-select" class="filter-select" aria-label="Sort products">
-                <option value="featured">Sort: Featured</option>
-                <option value="rating-desc">Highest Rated</option>
-                <option value="newest">Newest Arrivals</option>
-                <option value="price-asc">Price: Low → High</option>
-                <option value="price-desc">Price: High → Low</option>
-              </select>
-            </div>
-
-            <!-- Grid / List Toggle -->
-            <div class="grid-density-toggle" role="group" aria-label="Catalogue layout view">
-              <button type="button" class="density-btn" data-view-mode="grid-2" aria-label="2-column grid" aria-pressed="false">
-                <i class="ph ph-squares-four" aria-hidden="true"></i>
-              </button>
-              <button type="button" class="density-btn active" data-view-mode="grid-3" aria-label="3-column grid" aria-pressed="true">
-                <i class="ph ph-grid-nine" aria-hidden="true"></i>
-              </button>
-              <button type="button" class="density-btn" data-view-mode="list" aria-label="Editorial list view" aria-pressed="false">
-                <i class="ph ph-list-bullets" aria-hidden="true"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Active Filter Chips -->
-        <div class="applied-filters" id="applied-filters" aria-live="polite" aria-label="Active filters" hidden></div>
-
-        <!-- Result Count & Quick Helpers -->
-        <div class="catalogue-meta-bar">
-          <p class="result-count" id="result-count" aria-live="polite">Showing 16 of 16 verified heritage pieces</p>
-          <div class="catalogue-helper-links">
-            <button type="button" class="text-action-link" data-open-modal="size-care">
-              <i class="ph ph-ruler" aria-hidden="true"></i> Size &amp; Fit Guide (cm / in)
-            </button>
-            <button type="button" class="text-action-link" id="open-compare-modal-btn" hidden>
-              <i class="ph ph-scales" aria-hidden="true"></i> Compare Selected (<span id="compare-inline-count">0</span>/3)
-            </button>
-          </div>
-        </div>
-
-        <!-- Skeleton Loading Grid -->
-        <div class="product-grid product-grid--3" id="skeleton-grid" aria-hidden="true">
-          <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-line"></div><div class="skeleton-line short"></div></div>
-          <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-line"></div><div class="skeleton-line short"></div></div>
-          <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-line"></div><div class="skeleton-line short"></div></div>
-          <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-line"></div><div class="skeleton-line short"></div></div>
-          <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-line"></div><div class="skeleton-line short"></div></div>
-          <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-line"></div><div class="skeleton-line short"></div></div>
-        </div>
-
-        <!-- Rendered Product Grid -->
-        <div class="product-grid product-grid--3" id="product-grid" aria-label="Heritage products" role="list"></div>
-
-        <!-- Empty Filter Result State -->
-        <div class="catalogue-empty" id="catalogue-empty" hidden aria-live="polite">
-          <div class="empty-icon" aria-hidden="true"><i class="ph ph-magnifying-glass"></i></div>
-          <h3>No matching heritage pieces found</h3>
-          <p>Try clearing a filter or searching for another Gilgit-Baltistan district, craft technique, or garment category.</p>
-          <button type="button" class="btn btn-primary" id="clear-all-filters">Reset All Filters</button>
         </div>
       </div>
     </section>
+    
+</main>
 
-    <!-- Mobile Bottom-Sheet Filter Drawer with Live "Apply (n pieces)" Button -->
-    <aside class="mobile-filter-drawer" id="mobile-filter-drawer" aria-label="Mobile product filters" aria-hidden="true" role="dialog" aria-modal="true">
-      <div class="cart-drawer-header">
-        <h2>Filter &amp; Sort Archive</h2>
-        <button type="button" class="drawer-close-btn" id="mobile-filter-close" aria-label="Close filters">
-          <i class="ph ph-x" aria-hidden="true"></i>
-        </button>
-      </div>
-      <div class="cform-group mt-3">
-        <label for="mf-category">Category</label>
-        <select id="mf-category">
-          <option value="">All Categories (16)</option>
-          <option value="Clothing">Clothing &amp; Robes</option>
-          <option value="Headwear">Headwear (Pakol &amp; Caps)</option>
-          <option value="Shawls & Textiles">Shawls &amp; Pattu Textiles</option>
-          <option value="Waistcoats">Waistcoats &amp; Jackets</option>
-          <option value="Accessories">Accessories &amp; Home</option>
-          <option value="Heritage Gifts">Heritage Gift Boxes</option>
-        </select>
-      </div>
-      <div class="cform-group">
-        <label for="mf-region">District of Origin</label>
-        <select id="mf-region">
-          <option value="">All 7 Districts</option>
-          <option value="Gilgit">Gilgit</option>
-          <option value="Hunza">Hunza</option>
-          <option value="Nagar">Nagar</option>
-          <option value="Ghizer">Ghizer</option>
-          <option value="Baltistan (Skardu)">Baltistan (Skardu)</option>
-          <option value="Diamer">Diamer</option>
-          <option value="Astore">Astore</option>
-        </select>
-      </div>
-      <div class="cform-group">
-        <label for="mf-price">Price Range (PKR)</label>
-        <select id="mf-price">
-          <option value="">All Prices</option>
-          <option value="under-2500">Under PKR 2,500</option>
-          <option value="under-5000">Under PKR 5,000</option>
-          <option value="2500-6500">PKR 2,500 – 6,500</option>
-          <option value="over-6500">Above PKR 6,500</option>
-        </select>
-      </div>
-      <div class="cform-group">
-        <label for="mf-status">Availability</label>
-        <select id="mf-status">
-          <option value="">All Availability</option>
-          <option value="Available">Ready to Ship (24–48 hrs)</option>
-          <option value="Made-to-Order">Made-to-Order</option>
-          <option value="Low Stock">Limited / Low Stock</option>
-        </select>
-      </div>
-      <div class="cform-group">
-        <label for="mf-color">Colour Palette</label>
-        <select id="mf-color">
-          <option value="">All Colours</option>
-          <option value="Oatmeal">Natural / Oatmeal</option>
-          <option value="Ivory">Ivory &amp; Gold</option>
-          <option value="Maroon">Deep Maroon</option>
-          <option value="Green">Forest Green</option>
-          <option value="Brown">Mountain Brown / Walnut</option>
-          <option value="Blue">Indigo / Midnight Blue</option>
-          <option value="Charcoal">Charcoal / Grey</option>
-        </select>
-      </div>
-      <div class="cform-group">
-        <label for="mf-sort">Sort Order</label>
-        <select id="mf-sort">
-          <option value="featured">Featured</option>
-          <option value="rating-desc">Highest Rated</option>
-          <option value="newest">Newest Arrivals</option>
-          <option value="price-asc">Price: Low → High</option>
-          <option value="price-desc">Price: High → Low</option>
-        </select>
-      </div>
-      <div class="checkout-step-btns mt-3">
-        <button type="button" class="btn btn-ghost-dark" id="mobile-filter-reset-btn">Reset</button>
-        <button type="button" class="btn btn-primary" id="mobile-filter-apply-btn">Apply Filters (16 pieces)</button>
-      </div>
-    </aside>
-
-    <section class="section bg-ivory" id="recently-viewed-section" aria-label="Recently viewed pieces" hidden></section>
-  </main>
-
-  <!-- Illustrative Mountain-Ridge SVG Divider & Rich Editorial Footer (footer.design pattern) -->
-  <svg class="footer-mountain-divider" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true">
-    <polygon points="0,90 0,58 190,26 390,64 620,14 860,55 1110,20 1310,52 1440,30 1440,90" fill="#252525"/>
-    <polyline points="0,58 190,26 390,64 620,14 860,55 1110,20 1310,52 1440,30" fill="none" stroke="#C59A3D" stroke-width="2" opacity="0.5"/>
-  </svg>
-  <footer class="footer bg-charcoal text-light" id="footer" role="contentinfo">
-    <div class="container">
-      <div class="footer-grid">
-        <!-- Brand Column -->
-        <div class="footer-col footer-col--brand">
-          <a href="index.html" aria-label="ReGongches Home">
-            <img src="assets/images/brand-logo.webp" alt="ReGongches" class="footer-logo logo-img logo-img--light" width="155" height="45" loading="lazy">
-          </a>
-          <p class="footer-mission">
-            Threads of Mountain Heritage — documenting and delivering authentic traditional clothing, frame-loomed pattu shawls, and verified cultural gifts from the 7 districts of Gilgit-Baltistan, Pakistan.
-          </p>
-          <div class="footer-social">
-            <a href="https://instagram.com/regongches" data-social-link="instagram" aria-label="ReGongches on Instagram" class="footer-social-icon" target="_blank" rel="noopener noreferrer"><i class="ph ph-instagram-logo" aria-hidden="true"></i></a>
-            <a href="https://facebook.com/regongches" data-social-link="facebook" aria-label="ReGongches on Facebook" class="footer-social-icon" target="_blank" rel="noopener noreferrer"><i class="ph ph-facebook-logo" aria-hidden="true"></i></a>
-            <a href="https://tiktok.com/@regongches" data-social-link="tiktok" aria-label="ReGongches on TikTok" class="footer-social-icon" target="_blank" rel="noopener noreferrer"><i class="ph ph-tiktok-logo" aria-hidden="true"></i></a>
-            <a href="https://wa.me/923001234567" data-config-whatsapp aria-label="Chat on WhatsApp" class="footer-social-icon" target="_blank" rel="noopener noreferrer"><i class="ph ph-whatsapp-logo" aria-hidden="true"></i></a>
-          </div>
-        </div>
-
-        <!-- Column 1: Shop -->
-        <div class="footer-col">
-          <h3>Shop Archive</h3>
-          <button type="button" class="footer-col-toggle" aria-expanded="false">
-            <span>Shop Archive</span> <i class="ph ph-caret-down" aria-hidden="true"></i>
-          </button>
-          <ul role="list">
-            <li><a href="shop.html">All 16 Heritage Pieces</a></li>
-            <li><a href="shop.html?badge=new">New Season Arrivals</a></li>
-            <li><a href="shop.html?category=Clothing">Traditional Clothing &amp; Shuqa</a></li>
-            <li><a href="shop.html?category=Headwear">Gilgiti Pakols &amp; Balti Caps</a></li>
-            <li><a href="shop.html?category=Shawls+%26+Textiles">Hunza Pattu &amp; Wool Shawls</a></li>
-            <li><a href="shop.html?category=Heritage+Gifts">Heritage Gift Boxes</a></li>
-          </ul>
-        </div>
-
-        <!-- Column 2: Discover -->
-        <div class="footer-col">
-          <h3>Discover</h3>
-          <button type="button" class="footer-col-toggle" aria-expanded="false">
-            <span>Discover</span> <i class="ph ph-caret-down" aria-hidden="true"></i>
-          </button>
-          <ul role="list">
-            <li><a href="story.html">Our Story &amp; Partner Guilds</a></li>
-            <li><a href="collections.html">Curated Edits &amp; Lookbook</a></li>
-            <li><a href="index.html#shop-by-region">7-District Provenance Map</a></li>
-            <li><a href="journal.html">Cultural Journal &amp; Essays</a></li>
-            <li><button type="button" class="footer-modal-link" data-open-modal="artisans">4-Step Authenticity Promise</button></li>
-            <li><button type="button" class="footer-modal-link" data-open-modal="custom-order">Bespoke &amp; Wedding Commissions</button></li>
-          </ul>
-        </div>
-
-        <!-- Column 3: Customer Care -->
-        <div class="footer-col">
-          <h3>Customer Care</h3>
-          <button type="button" class="footer-col-toggle" aria-expanded="false">
-            <span>Customer Care</span> <i class="ph ph-caret-down" aria-hidden="true"></i>
-          </button>
-          <ul role="list">
-            <li><a href="track-order.html">Track Your Order (RG-DEMO101)</a></li>
-            <li><a href="size-guide.html">Size Guide (cm / in) &amp; Fit Finder</a></li>
-            <li><a href="care.html">Highland Wool Care Protocol</a></li>
-            <li><a href="shipping.html">Shipping &amp; Delivery Rates</a></li>
-            <li><a href="exchanges.html">14-Day Easy Exchange Policy</a></li>
-            <li><a href="privacy.html">Privacy Policy</a></li>
-            <li><a href="terms.html">Terms of Service</a></li>
-          </ul>
-        </div>
-
-        <!-- Column 4: Studio & Concierge -->
-        <div class="footer-col footer-col--contact">
-          <h3>Gilgit Studio</h3>
-          <p>
-            <i class="ph ph-whatsapp-logo" aria-hidden="true"></i>
-            <a href="https://wa.me/923001234567" data-config-whatsapp data-config-whatsapp-text target="_blank" rel="noopener noreferrer">+92 300 123 4567</a>
-          </p>
-          <p>
-            <i class="ph ph-envelope" aria-hidden="true"></i>
-            <a href="mailto:hello@regongches.store" data-config-email>hello@regongches.store</a>
-          </p>
-          <p>
-            <i class="ph ph-map-pin" aria-hidden="true"></i>
-            <span data-config-address>Jutial &amp; Old Bazaar Heritage Studio, Gilgit, Gilgit-Baltistan, Pakistan</span>
-          </p>
-          <p class="support-hours" data-config-hours>Mon–Sat · 9:00 AM – 6:00 PM (PKT)</p>
-        </div>
-      </div>
-
-      <!-- Payment Badges Row -->
-      <div class="footer-payment" aria-label="Accepted payment methods">
-        <span class="payment-method"><i class="ph ph-money" aria-hidden="true"></i> Cash on Delivery (Up to PKR 25,000)</span>
-        <span class="payment-method"><i class="ph ph-bank" aria-hidden="true"></i> Direct Bank Transfer (IBAN / Raast)</span>
-        <span class="payment-method"><i class="ph ph-device-mobile-speaker" aria-hidden="true"></i> JazzCash &amp; EasyPaisa</span>
-      </div>
-
-      <!-- Giant Editorial Brand Wordmark -->
-      <div class="footer-giant-wordmark" aria-hidden="true">ReGongches</div>
-
-      <div class="footer-bottom">
-        <p>&copy; <span id="copyright-year">2026</span> ReGongches · Threads of Mountain Heritage. All rights reserved.</p>
-        <p class="footer-prototype-note">Authentic Gilgit-Baltistan Craft Archive · Gilgit · Hunza · Nagar · Ghizer · Baltistan (Skardu) · Diamer · Astore</p>
-      </div>
-    </div>
-  </footer>
-
-  <!-- Floating Compare Tray -->
-  <div class="compare-float-bar" id="compare-float-bar" role="region" aria-label="Product comparison tray" hidden>
-    <div class="compare-float-inner">
-      <div class="compare-float-title">
-        <i class="ph ph-scales" aria-hidden="true"></i>
-        <span>Compare Heritage Pieces (<strong id="compare-bar-count">0</strong>/3)</span>
-      </div>
-      <div class="compare-float-slots" id="compare-float-slots"></div>
-      <div class="compare-float-actions">
-        <button type="button" class="btn btn-gold btn-sm" id="compare-open-btn">Compare Side-by-Side</button>
-        <button type="button" class="compare-clear-btn" id="compare-clear-btn" aria-label="Clear comparison list">Clear</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Floating WhatsApp Concierge & Back to Top -->
-  <a href="https://wa.me/923001234567" data-config-whatsapp class="whatsapp-float" id="whatsapp-float" aria-label="Chat with ReGongches Studio on WhatsApp" target="_blank" rel="noopener noreferrer">
-    <i class="ph ph-whatsapp-logo" aria-hidden="true"></i>
+<!-- RG:FOOTER START -->
+<!-- Mobile Sticky Bottom Bar -->
+<nav class="rg-mobile-bottom-bar" aria-label="Mobile Quick Bar">
+  <a href="index.html">
+    <svg width="18" height="18" aria-hidden="true"><use href="#icon-sparkles"></use></svg>
+    <span>Home</span>
   </a>
-
-  <button type="button" class="back-to-top" id="back-to-top" aria-label="Back to top" hidden>
-    <i class="ph ph-caret-up" aria-hidden="true"></i>
+  <a href="shop.html">
+    <svg width="18" height="18" aria-hidden="true"><use href="#icon-filter"></use></svg>
+    <span>Shop</span>
+  </a>
+  <button type="button" data-rg-open-search>
+    <svg width="18" height="18" aria-hidden="true"><use href="#icon-search"></use></svg>
+    <span>Search</span>
   </button>
+  <a href="wishlist.html">
+    <svg width="18" height="18" aria-hidden="true"><use href="#icon-heart"></use></svg>
+    <span>Wishlist (<span data-rg-wishlist-count>0</span>)</span>
+  </a>
+  <button type="button" data-rg-open-drawer="rg-minicart-drawer">
+    <svg width="18" height="18" aria-hidden="true"><use href="#icon-bag"></use></svg>
+    <span>Bag (<span data-rg-cart-count>0</span>)</span>
+  </button>
+</nav>
 
-  <!-- Mobile Bottom Tab Bar (Hidden on Desktop) -->
-  <nav class="mobile-tab-bar" id="mobile-tab-bar" aria-label="Mobile quick navigation">
-    <a href="index.html" class="tab-item" aria-label="Home">
-      <i class="ph ph-house" aria-hidden="true"></i>
-      <span>Home</span>
-    </a>
-    <a href="shop.html" class="tab-item" aria-label="Shop">
-      <i class="ph ph-storefront" aria-hidden="true"></i>
-      <span>Shop</span>
-    </a>
-    <button type="button" class="tab-item" id="search-tab-btn" aria-label="Search">
-      <i class="ph ph-magnifying-glass" aria-hidden="true"></i>
-      <span>Search</span>
-    </button>
-    <button type="button" class="tab-item" id="wishlist-tab-btn" aria-label="Wishlist">
-      <i class="ph ph-heart" aria-hidden="true"></i>
-      <span>Wishlist</span>
-    </button>
-    <button type="button" class="tab-item cart-tab-btn" id="cart-tab-btn" aria-label="Bag">
-      <i class="ph ph-shopping-bag" aria-hidden="true"></i>
-      <span>Bag</span>
-      <span class="tab-cart-badge" id="tab-cart-badge" aria-live="polite">0</span>
-    </button>
-  </nav>
+<!-- Floating WhatsApp Inquiry Button -->
+<a href="https://wa.me/923000000000?text=Hi%20ReGongches%2C%20I%20have%20a%20question%20about%20your%20Gilgit-Baltistan%20collection" target="_blank" rel="noopener" class="rg-whatsapp-float" aria-label="Ask ReGongches on WhatsApp">
+  <svg width="18" height="18" aria-hidden="true"><use href="#icon-whatsapp"></use></svg>
+  <span>Ask on WhatsApp</span>
+</a>
 
-  <!-- CART DRAWER (Fixed Maths, Two-Tier Progress Bar with role="progressbar", No "Try:" Promo Pills) -->
-  <aside class="cart-drawer" id="cart-drawer" aria-label="Shopping bag" aria-hidden="true" role="dialog" aria-modal="true">
-    <div class="cart-drawer-header">
-      <h2 id="cart-drawer-title">Your Heritage Bag</h2>
-      <button type="button" class="drawer-close-btn" id="cart-close" aria-label="Close shopping bag">
-        <i class="ph ph-x" aria-hidden="true"></i>
-      </button>
-    </div>
+<!-- Back to Top Button -->
+<button type="button" class="rg-back-to-top" id="rg-back-to-top" aria-label="Back to top">
+  <svg width="20" height="20" aria-hidden="true"><use href="#icon-arrow-up"></use></svg>
+</button>
 
-    <!-- Accessible Two-Tier Progress Bar (PKR 8,000 Free Delivery / PKR 15,000 Free Cedar Sachet & Story Booklet) -->
-    <div class="free-delivery-bar" id="free-delivery-bar">
-      <div class="fdbar-track" id="free-delivery-progressbar" role="progressbar" aria-label="Collector reward progress" aria-valuenow="0" aria-valuemin="0" aria-valuemax="15000">
-        <div class="fdbar-fill" id="fdbar-fill"></div>
-      </div>
-      <div class="fdbar-milestones" aria-hidden="true">
-        <span class="fdbar-milestone" id="fdbar-tier1-dot">PKR 8,000 · Free Shipping</span>
-        <span class="fdbar-milestone" id="fdbar-tier2-dot">PKR 15,000 · Free Cedar &amp; Booklet</span>
-      </div>
-      <p class="fdbar-label" id="fdbar-label" aria-live="polite">Complimentary delivery at PKR 8,000 · Free Cedar Sachet &amp; Story Booklet at PKR 15,000</p>
-    </div>
+<!-- Floating Style Preset Switcher (Demo Customizer — toggled via Theme button or ?styles=1) -->
+<aside class="rg-style-switcher" id="rg-style-switcher" hidden aria-label="Visual Theme Preset Switcher">
+  <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;">
+    <strong>Theme Preset (WP Customizer Demo)</strong>
+    <button type="button" data-rg-toggle-styles aria-label="Hide style switcher">✕</button>
+  </div>
+  <div class="rg-style-switcher__btns">
+    <button type="button" class="rg-style-switcher__btn is-active" data-rg-theme-set="heritage">1. Heritage</button>
+    <button type="button" class="rg-style-switcher__btn" data-rg-theme-set="mountain-night">2. Mountain Night</button>
+    <button type="button" class="rg-style-switcher__btn" data-rg-theme-set="minimal-gallery">3. Minimal Gallery</button>
+    <button type="button" class="rg-style-switcher__btn" data-rg-theme-set="festive">4. Festive</button>
+  </div>
+</aside>
 
-    <div class="cart-items-wrap" id="cart-items-wrap"></div>
-
-    <div class="cart-drawer-footer" id="cart-drawer-footer" hidden>
-      <!-- Promo Code Input (No "Try:" pills advertising every code!) -->
-      <div class="cart-promo-box">
-        <label for="cart-promo-input" class="sr-only">Promotional code</label>
-        <div class="cart-promo-input-row">
-          <input type="text" id="cart-promo-input" class="cart-promo-input" placeholder="Enter promo code (one code per order)" aria-label="Promotional code">
-          <button type="button" class="btn btn-secondary btn-sm" id="cart-promo-apply">Apply</button>
-        </div>
-        <div class="cart-promo-feedback" id="cart-promo-feedback" role="alert" aria-live="polite" hidden></div>
-        <div class="cart-active-promo" id="cart-active-promo" hidden></div>
-      </div>
-
-      <!-- Optional Archival Gift Wrapping (Added ONLY when ticked!) -->
-      <div class="cart-giftwrap">
-        <label class="giftwrap-label" for="gift-wrap-toggle">
-          <input type="checkbox" id="gift-wrap-toggle" aria-describedby="giftwrap-price">
-          <i class="ph ph-gift" aria-hidden="true"></i>
-          <span>Add archival presentation box &amp; wax seal</span>
-          <span class="giftwrap-price" id="giftwrap-price">+PKR 350</span>
-        </label>
-      </div>
-
-      <!-- Gift Message / Tailoring Note -->
-      <div class="cart-note-wrap">
-        <label for="order-note" class="cart-note-label">
-          <i class="ph ph-note-pencil" aria-hidden="true"></i> Personal gift card message or tailoring note
-        </label>
-        <textarea id="order-note" class="cart-note-input" rows="2" placeholder="Optional calligraphed gift message or custom sleeve/length note…" maxlength="300"></textarea>
-      </div>
-
-      <!-- Accurate Totals Breakdown -->
-      <div class="cart-totals-breakdown">
-        <div class="cart-breakdown-row">
-          <span>Items Subtotal</span>
-          <span id="cart-raw-subtotal">PKR 0</span>
-        </div>
-        <div class="cart-breakdown-row cart-breakdown-row--discount" id="cart-discount-row" hidden>
-          <span id="cart-discount-label">Promo Discount</span>
-          <span id="cart-discount-val">−PKR 0</span>
-        </div>
-        <div class="cart-breakdown-row" id="cart-giftwrap-row" hidden>
-          <span>Archival Gift Wrapping</span>
-          <span id="cart-giftwrap-val">PKR 350</span>
-        </div>
-        <div class="cart-breakdown-row cart-breakdown-row--discount" id="cart-freegift-row" hidden>
-          <span>Collector Bonus (PKR 15,000+ Tier)</span>
-          <span>Free Cedar Sachet &amp; Booklet</span>
-        </div>
-        <div class="cart-subtotal">
-          <span>Estimated Total</span>
-          <strong id="cart-subtotal-val">PKR 0</strong>
-        </div>
-        <p id="cart-pkr-settlement-note" style="font-size:0.72rem;opacity:0.75;margin-top:4px" hidden></p>
-      </div>
-
-      <button type="button" class="btn btn-primary full-width checkout-btn" id="checkout-btn">
-        Proceed to 3-Step Checkout <i class="ph ph-arrow-right" aria-hidden="true"></i>
-      </button>
-
-      <!-- Upsell Pairings -->
-      <div class="cart-upsell" id="cart-upsell">
-        <p class="cart-upsell-title">Complete Your Mountain Pairing</p>
-        <div class="cart-upsell-grid" id="cart-upsell-grid"></div>
-      </div>
-    </div>
-  </aside>
-
-  <!-- WISHLIST DRAWER -->
-  <aside class="wishlist-drawer" id="wishlist-drawer" aria-label="Saved wishlist" aria-hidden="true" role="dialog" aria-modal="true">
-    <div class="cart-drawer-header">
-      <h2>Your Saved Wishlist</h2>
-      <button type="button" class="drawer-close-btn" id="wishlist-close" aria-label="Close wishlist">
-        <i class="ph ph-x" aria-hidden="true"></i>
-      </button>
-    </div>
-    <div class="wishlist-items-wrap" id="wishlist-items-wrap"></div>
-  </aside>
-
-  <!-- Shared Drawer Backdrop -->
-  <div class="drawer-backdrop" id="drawer-backdrop" aria-hidden="true"></div>
-
-  <!-- QUICK VIEW MODAL -->
-  <div class="modal-overlay" id="quickview-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="qv-product-name">
-    <div class="quickview-modal" id="quickview-modal">
-      <button type="button" class="modal-close-btn" id="quickview-close" aria-label="Close product preview">
-        <i class="ph ph-x" aria-hidden="true"></i>
-      </button>
-      <div class="qv-body">
-        <div class="qv-gallery">
-          <div class="qv-main-img-wrap" id="qv-zoom-container" title="Hover to inspect textile weave">
-            <img src="assets/images/brand-icon.webp" alt="Product preview" class="qv-main-img" id="qv-main-img" width="500" height="625">
-            <span class="qv-zoom-hint"><i class="ph ph-magnifying-glass-plus" aria-hidden="true"></i> Hover to zoom weave</span>
-          </div>
-          <div class="qv-thumbs" id="qv-thumbs"></div>
-          <div class="qv-provenance-card" id="qv-provenance-card"></div>
-        </div>
-        <div class="qv-info">
-          <div class="qv-badges" id="qv-badges"></div>
-          <h2 class="qv-product-name" id="qv-product-name"></h2>
-          <div class="qv-meta-row">
-            <p class="qv-region-line" id="qv-region-line"></p>
-            <div class="qv-rating-pill" id="qv-rating-pill"></div>
-          </div>
-          <div class="qv-price-row" id="qv-price-row"></div>
-          <div class="qv-status" id="qv-status"></div>
-          <ul class="qv-highlights" id="qv-highlights"></ul>
-          <div class="qv-option-group" id="qv-colors-wrap">
-            <p class="qv-option-label">Colour Palette: <span id="qv-selected-color"></span></p>
-            <div class="qv-color-swatches" id="qv-color-swatches"></div>
-          </div>
-          <div class="qv-option-group" id="qv-sizes-wrap">
-            <div class="qv-size-header">
-              <p class="qv-option-label">Size / Dimensions: <span id="qv-selected-size"></span></p>
-              <button type="button" class="qv-size-guide" data-open-modal="size-care">
-                <i class="ph ph-ruler" aria-hidden="true"></i> Size Guide (cm/in)
-              </button>
-            </div>
-            <div class="qv-size-buttons" id="qv-size-buttons" role="group" aria-label="Select a size"></div>
-          </div>
-          <div class="qv-qty-row">
-            <div class="qty-stepper" role="group" aria-label="Quantity">
-              <button type="button" class="qty-btn" id="qv-qty-dec" aria-label="Decrease quantity">−</button>
-              <span class="qty-val" id="qv-qty-val" aria-live="polite">1</span>
-              <button type="button" class="qty-btn" id="qv-qty-inc" aria-label="Increase quantity">+</button>
-            </div>
-            <button type="button" class="btn btn-primary qv-add-btn" id="qv-add-btn">
-              <i class="ph ph-shopping-bag" aria-hidden="true"></i> Add to Bag
-            </button>
-            <button type="button" class="btn btn-gold qv-buy-now-btn" id="qv-buy-now-btn">Buy Now</button>
-          </div>
-          <div class="qv-utility-bar">
-            <button type="button" class="qv-util-btn" id="qv-compare-btn"><i class="ph ph-scales" aria-hidden="true"></i> <span>Compare</span></button>
-            <button type="button" class="qv-util-btn" id="qv-wishlist-btn"><i class="ph ph-heart" aria-hidden="true"></i> <span>Wishlist</span></button>
-            <button type="button" class="qv-util-btn" id="qv-share-btn"><i class="ph ph-share-network" aria-hidden="true"></i> <span>Copy Link</span></button>
-          </div>
-          <div class="qv-accordions">
-            <details class="qv-accordion" open>
-              <summary>Cultural Story &amp; Artisan Note <i class="ph ph-caret-down" aria-hidden="true"></i></summary>
-              <div class="qv-accordion-body" id="qv-story"></div>
-            </details>
-            <details class="qv-accordion">
-              <summary>Materials &amp; Loom Construction <i class="ph ph-caret-down" aria-hidden="true"></i></summary>
-              <div class="qv-accordion-body" id="qv-materials"></div>
-            </details>
-            <details class="qv-accordion">
-              <summary>Care &amp; Preservation Protocol <i class="ph ph-caret-down" aria-hidden="true"></i></summary>
-              <div class="qv-accordion-body" id="qv-care"></div>
-            </details>
-          </div>
-          <a href="https://wa.me/923001234567" class="qv-whatsapp-link" id="qv-whatsapp-link" target="_blank" rel="noopener noreferrer">
-            <i class="ph ph-whatsapp-logo" aria-hidden="true"></i> Ask our Gilgit studio about this piece on WhatsApp
-          </a>
-        </div>
-      </div>
-    </div>
+<!-- Illustrative Dark-Blue Site Footer (.site-footer) -->
+<footer class="site-footer" id="colophon">
+  <!-- Layered Mountain Silhouette SVG -->
+  <div class="site-footer__mountains" aria-hidden="true">
+    <svg viewBox="0 0 1440 120" preserveAspectRatio="none" fill="none">
+      <path d="M0 120 L0 72 L210 24 L420 82 L690 12 L960 76 L1210 18 L1440 68 L1440 120 Z" fill="#1F3A5F" opacity="0.45"/>
+      <path d="M0 120 L160 48 L390 92 L620 28 L890 88 L1140 34 L1440 84 L1440 120 Z" fill="#13243B"/>
+    </svg>
   </div>
 
-  <!-- CONSISTENT 3-STEP CHECKOUT MODAL (1. Delivery -> 2. Payment -> 3. Review & Confirm) -->
-  <div class="modal-overlay" id="checkout-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="checkout-title">
-    <div class="checkout-modal" id="checkout-modal">
-      <button type="button" class="modal-close-btn" id="checkout-close" aria-label="Close checkout">
-        <i class="ph ph-x" aria-hidden="true"></i>
-      </button>
-
-      <!-- 3-Step Progress Indicator -->
-      <div class="checkout-progress" id="checkout-progress" aria-label="3-Step Checkout Progress">
-        <div class="cp-step active" data-step="1" aria-current="step">
-          <span class="cp-num">1</span><span class="cp-label">Delivery</span>
-        </div>
-        <div class="cp-line"></div>
-        <div class="cp-step" data-step="2">
-          <span class="cp-num">2</span><span class="cp-label">Payment</span>
-        </div>
-        <div class="cp-line"></div>
-        <div class="cp-step" data-step="3">
-          <span class="cp-num">3</span><span class="cp-label">Review &amp; Confirm</span>
-        </div>
-      </div>
-
-      <div class="checkout-body">
-        <!-- Step 1: Delivery -->
-        <div class="checkout-step" id="checkout-step-1">
-          <h2 id="checkout-title">Step 1: Contact &amp; Nationwide Delivery</h2>
-          <div class="checkout-form-grid">
-            <div class="cform-group">
-              <label for="co-name">Full Recipient Name <span aria-hidden="true">*</span></label>
-              <input type="text" id="co-name" name="name" autocomplete="name" required placeholder="e.g. Zeeshan Mir">
-              <span class="cform-error" id="co-name-error" role="alert"></span>
-            </div>
-            <div class="cform-group">
-              <label for="co-phone">Pakistani Mobile (WhatsApp for Tracking) <span aria-hidden="true">*</span></label>
-              <div class="phone-input-wrap">
-                <span class="phone-prefix">+92</span>
-                <input type="tel" id="co-phone" name="phone" autocomplete="tel" required placeholder="300 1234567" maxlength="15">
-              </div>
-              <span class="cform-error" id="co-phone-error" role="alert"></span>
-            </div>
-            <div class="cform-group">
-              <label for="co-email">Email Address (Optional for Invoice)</label>
-              <input type="email" id="co-email" name="email" autocomplete="email" placeholder="you@example.com">
-              <span class="cform-error" id="co-email-error" role="alert"></span>
-            </div>
-            <div class="cform-group">
-              <label for="co-city">Destination City (13-City Estimator) <span aria-hidden="true">*</span></label>
-              <select id="co-city" name="city" required></select>
-              <span class="cform-error" id="co-city-error" role="alert"></span>
-            </div>
-            <div class="cform-group cform-group--full">
-              <div class="co-city-estimate-banner" id="co-city-estimate-banner" hidden>
-                <i class="ph ph-truck" aria-hidden="true"></i>
-                <span id="co-city-estimate-text"></span>
-              </div>
-            </div>
-            <div class="cform-group cform-group--full">
-              <label for="co-address">Complete Street Address &amp; Landmark <span aria-hidden="true">*</span></label>
-              <textarea id="co-address" name="address" rows="2" required placeholder="House / Flat no., Street, Sector / Area, Nearest Landmark"></textarea>
-              <span class="cform-error" id="co-address-error" role="alert"></span>
-            </div>
-          </div>
-          <div class="checkout-step-btns">
-            <button type="button" class="btn btn-primary" id="co-step1-next">Continue to Payment →</button>
-          </div>
-        </div>
-
-        <!-- Step 2: Payment (With COD Limit Enforcement above PKR 25,000) -->
-        <div class="checkout-step" id="checkout-step-2" hidden>
-          <h2>Step 2: Select Payment Method</h2>
-          <div class="cod-limit-warning" id="cod-limit-warning" role="alert" hidden></div>
-          <div class="payment-options" role="radiogroup" aria-label="Payment method">
-            <label class="payment-option" for="pay-cod">
-              <input type="radio" name="payment" id="pay-cod" value="Cash on Delivery (COD)" checked>
-              <div class="payment-option-body">
-                <i class="ph ph-money" aria-hidden="true"></i>
-                <div>
-                  <strong>Cash on Delivery (COD)</strong>
-                  <p>Pay in cash (PKR) at your doorstep upon courier arrival. Available nationwide for orders up to PKR 25,000.</p>
-                </div>
-              </div>
-            </label>
-            <label class="payment-option" for="pay-bank">
-              <input type="radio" name="payment" id="pay-bank" value="Direct Bank Transfer (IBAN)">
-              <div class="payment-option-body">
-                <i class="ph ph-bank" aria-hidden="true"></i>
-                <div>
-                  <strong>Direct Bank Transfer (IBAN / Raast)</strong>
-                  <p>Transfer to our official business account. Required for orders above PKR 25,000 and priority dispatch.</p>
-                  <div class="payment-instructions-box" id="bank-instructions-box"></div>
-                </div>
-              </div>
-            </label>
-            <label class="payment-option" for="pay-digital">
-              <input type="radio" name="payment" id="pay-digital" value="JazzCash / EasyPaisa Wallet">
-              <div class="payment-option-body">
-                <i class="ph ph-device-mobile-speaker" aria-hidden="true"></i>
-                <div>
-                  <strong>JazzCash / EasyPaisa Mobile Wallet</strong>
-                  <p>Instant mobile wallet transfer for fast WhatsApp dispatch confirmation.</p>
-                  <div class="payment-instructions-box" id="wallet-instructions-box"></div>
-                </div>
-              </div>
-            </label>
-          </div>
-          <div class="checkout-step-btns">
-            <button type="button" class="btn btn-ghost-dark" id="co-step2-back">← Back to Delivery</button>
-            <button type="button" class="btn btn-primary" id="co-step2-next">Review Order →</button>
-          </div>
-        </div>
-
-        <!-- Step 3: Review & Confirm -->
-        <div class="checkout-step" id="checkout-step-3" hidden>
-          <h2>Step 3: Review &amp; Complete Your Heritage Order</h2>
-          <div class="order-review-items" id="order-review-items"></div>
-          <div class="order-review-summary" id="order-review-summary"></div>
-          <div class="checkout-step-btns">
-            <button type="button" class="btn btn-ghost-dark" id="co-step3-back">← Back to Payment</button>
-            <button type="button" class="btn btn-gold btn-lg" id="co-place-order">
-              <i class="ph ph-check-circle" aria-hidden="true"></i> Complete Order &amp; Dispatch via WhatsApp
-            </button>
-          </div>
-          <p class="checkout-demo-note">
-            <i class="ph ph-shield-check" aria-hidden="true"></i>
-            Clicking "Complete Order" logs your order reference locally on this browser, generates a printable official invoice, and opens a pre-filled WhatsApp dispatch message to our Gilgit studio so we can immediately prepare your package.
+  <div class="rg-container">
+    <!-- Newsletter Block -->
+    <div class="site-footer__newsletter">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;align-items:center;">
+        <div>
+          <span class="rg-badge rg-badge--handmade" style="margin-block-end:8px;">Threads of the North Letter</span>
+          <h2 style="color:#F7F4EE;font-size:var(--text-xl);margin-block-end:6px;">
+            Join the Threads of the North letter.
+          </h2>
+          <p style="color:rgba(247,244,238,0.8);font-size:var(--text-sm);margin:0;">
+            New seasonal collections, documented artisan stories, and care guides. No spam.
           </p>
         </div>
-
-        <!-- Step 4: Order Confirmation & Printable Official Invoice -->
-        <div class="checkout-step" id="checkout-step-4" hidden>
-          <div class="order-confirmed" id="printable-invoice-area">
-            <div class="order-confirmed-icon" aria-hidden="true">
-              <i class="ph ph-check-circle"></i>
-            </div>
-            <span class="eyebrow eyebrow--gold">Provenance Order Logged</span>
-            <h2>Thank You for Your Order!</h2>
-            <p class="order-num" id="order-num"></p>
-            <p class="co-city-estimate-banner" id="order-webhook-status" style="justify-content:center;margin:10px 0" hidden></p>
-            <div class="order-invoice-card" id="order-invoice-card"></div>
-            <div class="order-confirmed-actions">
-              <a href="https://wa.me/923001234567" class="btn btn-gold" id="order-whatsapp-btn" target="_blank" rel="noopener noreferrer">
-                <i class="ph ph-whatsapp-logo" aria-hidden="true"></i> Send Order to Studio via WhatsApp
-              </a>
-              <button type="button" class="btn btn-primary" id="print-invoice-btn">
-                <i class="ph ph-printer" aria-hidden="true"></i> Print / Save PDF Invoice
-              </button>
-              <button type="button" class="btn btn-secondary" id="copy-order-summary-btn">
-                <i class="ph ph-copy" aria-hidden="true"></i> Copy Order Summary
-              </button>
-              <button type="button" class="btn btn-secondary" id="track-this-order-btn">
-                <i class="ph ph-package" aria-hidden="true"></i> Open Local Order Tracker
-              </button>
-            </div>
-            <button type="button" class="btn btn-ghost-dark mt-3" id="order-close-btn">Continue Exploring Archive</button>
-          </div>
-        </div>
+        <form data-rg-demo-form="Welcome to the Threads of the North letter! (Demo subscription saved)" style="display:flex;flex-wrap:wrap;gap:10px;">
+          <label for="rg-footer-email" class="screen-reader-text">Email address</label>
+          <input type="email" id="rg-footer-email" required placeholder="Enter your email address..." style="flex:1;min-width:220px;padding:12px 16px;border-radius:var(--radius-editorial);border:1px solid rgba(247,244,238,0.3);background:rgba(255,255,255,0.08);color:#F7F4EE;">
+          <button type="submit" class="rg-btn rg-btn--primary">Subscribe</button>
+        </form>
       </div>
     </div>
-  </div>
 
-  <!-- BESPOKE COMMISSION MODAL -->
-  <div class="modal-overlay" id="custom-order-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="custom-order-title">
-    <div class="modal-panel" id="custom-order-modal">
-      <button type="button" class="modal-close-btn" id="custom-order-close" aria-label="Close bespoke commission form">
-        <i class="ph ph-x" aria-hidden="true"></i>
-      </button>
-      <span class="eyebrow">Bespoke Studio Commission</span>
-      <h2 id="custom-order-title">Request a Custom or Wedding Order</h2>
-      <p class="modal-subtitle">Share your occasion, measurements, and regional motif preferences. Our Gilgit master tailors respond within 1–2 business days.</p>
-      <form id="custom-order-form" class="custom-order-form" novalidate>
-        <div class="cform-group">
-          <label for="cof-occasion">Occasion <span aria-hidden="true">*</span></label>
-          <select id="cof-occasion" required>
-            <option value="">Select occasion</option>
-            <option>Wedding / Groom &amp; Bridal Ensemble</option>
-            <option>Cultural Festival / Dignitary Attire</option>
-            <option>University Convocation Robe / Waistcoat</option>
-            <option>Personal Heirloom Gift</option>
-            <option>Corporate / Diplomatic Bulk Gift Boxes</option>
-          </select>
-          <span class="cform-error" id="cof-occasion-error" role="alert"></span>
-        </div>
-        <div class="cform-group">
-          <label for="cof-item">Garment or Textile Type <span aria-hidden="true">*</span></label>
-          <input type="text" id="cof-item" placeholder="e.g. Custom Shuqa robe, 15 corporate gift boxes, Hunza pattu shawl" required>
-          <span class="cform-error" id="cof-item-error" role="alert"></span>
-        </div>
-        <div class="cform-group">
-          <label for="cof-sizing">Measurements, Palette &amp; Motif Notes</label>
-          <textarea id="cof-sizing" rows="3" placeholder="Chest/shoulder measurements, preferred wool colour, silk thread palette…"></textarea>
-        </div>
-        <div class="checkout-form-grid">
-          <div class="cform-group">
-            <label for="cof-budget">Estimated Budget (PKR)</label>
-            <select id="cof-budget">
-              <option value="Flexible">Prefer not to specify</option>
-              <option>PKR 8,000 – 15,000</option>
-              <option>PKR 15,000 – 35,000</option>
-              <option>PKR 35,000 – 75,000</option>
-              <option>Above PKR 75,000 (Wedding / Corporate Bulk)</option>
-            </select>
-          </div>
-          <div class="cform-group">
-            <label for="cof-date">Target Delivery Date</label>
-            <input type="date" id="cof-date">
-          </div>
-        </div>
-        <div class="cform-group">
-          <label for="cof-phone">Phone / WhatsApp <span aria-hidden="true">*</span></label>
-          <input type="tel" id="cof-phone" placeholder="+92 300 1234567" required>
-          <span class="cform-error" id="cof-phone-error" role="alert"></span>
-        </div>
-        <p class="cform-advance-note">
-          <i class="ph ph-info" aria-hidden="true"></i>
-          Bespoke commissions require a 50% advance payment upon design approval and 5–12 business days of artisan preparation.
+    <!-- 4 Link Columns -->
+    <div class="site-footer__grid">
+      <div class="site-footer__col">
+        <h3>Shop</h3>
+        <ul>
+          <li><a href="shop.html">All Mountain Catalogue</a></li>
+          <li><a href="category.html?cat=Traditional+Dresses">Traditional Dresses</a></li>
+          <li><a href="category.html?cat=Caps+%26+Headwear">Gilgiti &amp; Hunza Caps</a></li>
+          <li><a href="category.html?cat=Shawls+%26+Scarves">Hand-Woven Wool Shawls</a></li>
+          <li><a href="category.html?cat=Waistcoats+%26+Outerwear">Pattu Waistcoats &amp; Jackets</a></li>
+          <li><a href="category.html?cat=Textile+Accessories">Embroidered Accessories</a></li>
+          <li><a href="category.html?cat=Home+Textiles">Home Textiles</a></li>
+          <li><a href="collections.html">Curated Collections</a></li>
+        </ul>
+      </div>
+
+      <div class="site-footer__col">
+        <h3>Help &amp; Sizing</h3>
+        <ul>
+          <li><a href="size-guide.html">Size Guide (cm &amp; inches)</a></li>
+          <li><a href="faq.html">Frequently Asked Questions</a></li>
+          <li><a href="shipping-policy.html">Shipping &amp; Delivery Policy</a></li>
+          <li><a href="returns-exchange.html">Returns &amp; Size Exchanges</a></li>
+          <li><a href="account.html">Track Your Order</a></li>
+          <li><a href="cart.html">View Shopping Bag</a></li>
+        </ul>
+      </div>
+
+      <div class="site-footer__col">
+        <h3>About &amp; Origin</h3>
+        <ul>
+          <li><a href="our-story.html">Our Story &amp; Mission</a></li>
+          <li><a href="artisans.html">Meet the Artisans</a></li>
+          <li><a href="authenticity.html">How We Verify Origin</a></li>
+          <li><a href="region.html?region=hunza">Explore 10 Districts</a></li>
+          <li><a href="journal.html">Cultural Journal</a></li>
+          <li><a href="custom-orders.html">Custom &amp; Bridal Orders</a></li>
+          <li><a href="gift-sets.html">Institutional &amp; Corporate Gifting</a></li>
+        </ul>
+      </div>
+
+      <div class="site-footer__col">
+        <h3>Contact &amp; Cultural Note</h3>
+        <ul>
+          <li><a href="contact.html">Customer Care &amp; Studio Hours</a></li>
+          <li><a href="https://wa.me/923000000000" target="_blank" rel="noopener">WhatsApp: +92 300 0000000 [verify]</a></li>
+          <li><a href="mailto:care@regongches.store">Email: care@regongches.store</a></li>
+          <li><span style="font-size:12px;color:rgba(247,244,238,0.7);display:block;margin-block-start:8px;">Instagram · Facebook · TikTok @ReGongches</span></li>
+        </ul>
+        <p class="urdu-text" style="font-size:var(--text-sm);color:var(--rg-antique-gold);margin-block-start:12px;margin-block-end:0;">
+          پہاڑی ورثے کے دھاگے — گلگت بلتستان کی مستند دستکاری
         </p>
-        <button type="submit" class="btn btn-primary full-width">Submit Bespoke Inquiry via WhatsApp</button>
-      </form>
-    </div>
-  </div>
-
-  <!-- CULTURAL JOURNAL READER MODAL -->
-  <div class="modal-overlay" id="journal-modal-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="journal-modal-title">
-    <div class="modal-panel modal-panel--wide" id="journal-modal">
-      <button type="button" class="modal-close-btn" id="journal-modal-close" aria-label="Close article reader">
-        <i class="ph ph-x" aria-hidden="true"></i>
-      </button>
-      <article class="journal-reader" id="journal-reader-content"></article>
-    </div>
-  </div>
-
-  <!-- SIZE & HIGHLAND WOOL CARE GUIDE MODAL -->
-  <div class="modal-overlay" id="size-care-modal-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="size-care-title">
-    <div class="modal-panel modal-panel--wide" id="size-care-modal">
-      <button type="button" class="modal-close-btn" id="size-care-close" aria-label="Close size and care guide">
-        <i class="ph ph-x" aria-hidden="true"></i>
-      </button>
-      <span class="eyebrow">Fit &amp; Preservation</span>
-      <h2 id="size-care-title">Size Guide (cm / in) &amp; Highland Wool Care</h2>
-      <p class="modal-subtitle">Toggle between centimetres and inches, or enter your chest measurement in our Quick Fit Finder.</p>
-      <div class="size-guide-toolbar">
-        <div class="unit-toggle-group" role="group" aria-label="Measurement unit">
-          <button type="button" class="unit-btn active" data-unit="cm">Centimetres (cm)</button>
-          <button type="button" class="unit-btn" data-unit="in">Inches (in)</button>
-        </div>
-        <div class="fit-finder-inline">
-          <label for="fit-chest-input">Quick Fit Finder (Chest in cm):</label>
-          <input type="number" id="fit-chest-input" min="80" max="135" placeholder="e.g. 102" class="fit-finder-input">
-          <span class="fit-finder-result" id="fit-finder-result" aria-live="polite">Enter chest cm for recommendation</span>
-        </div>
       </div>
-      <div id="size-tables-container"></div>
-      <div class="care-protocol-box mt-4">
-        <h3><i class="ph ph-drop" aria-hidden="true"></i> 3-Step Highland Wool &amp; Silk Embroidery Care Protocol</h3>
-        <div class="care-protocol-grid">
-          <div class="care-step-card">
-            <strong>1. Air in Shade</strong>
-            <p>Natural sheep and yak wool fibres are self-refreshing. Hang in a shaded, breezy room after wear rather than washing frequently.</p>
-          </div>
-          <div class="care-step-card">
-            <strong>2. Cold Soak Only</strong>
-            <p>Use cold water and pH-neutral wool wash. Never wring, twist, or machine-wash, as heat and agitation felt natural wool.</p>
-          </div>
-          <div class="care-step-card">
-            <strong>3. Dry Flat &amp; Cedar Store</strong>
-            <p>Press moisture in a towel, dry flat in shade, and store folded in a breathable cotton bag with natural Himalayan cedar wood.</p>
-          </div>
-        </div>
+    </div>
+
+    <!-- Payment & Delivery Badges -->
+    <div class="site-footer__badges">
+      <div class="rg-pay-badges" aria-label="Supported Payment Options">
+        <span class="rg-pay-badge">Cash on Delivery (COD)</span>
+        <span class="rg-pay-badge">Bank Transfer (IBFT)</span>
+        <span class="rg-pay-badge">Easypaisa</span>
+        <span class="rg-pay-badge">JazzCash</span>
+        <span class="rg-pay-badge">Visa / Mastercard (Gateway Ready)</span>
+      </div>
+      <div style="font-size:var(--text-xs);color:rgba(247,244,238,0.78);">
+        © 2026 ReGongches (regongches.store) · <a href="privacy.html" style="text-decoration:underline;">Privacy</a> · <a href="terms.html" style="text-decoration:underline;">Terms</a> · Demo Academic Prototype (Mushtaq Ahmad | SP25-BAI-047)
       </div>
     </div>
   </div>
 
-  <!-- 5-STAGE ORDER TRACKER MODAL (Honestly Labelled Local + WhatsApp Hub) -->
-  <div class="modal-overlay" id="tracker-modal-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="tracker-modal-title">
-    <div class="modal-panel modal-panel--wide" id="tracker-modal">
-      <button type="button" class="modal-close-btn" id="tracker-modal-close" aria-label="Close order tracker">
-        <i class="ph ph-x" aria-hidden="true"></i>
-      </button>
-      <span class="eyebrow">Local Browser Order History &amp; Dispatch Lookup</span>
-      <h2 id="tracker-modal-title">Track Your Order</h2>
-      <p class="modal-subtitle">Enter an Order Reference saved on this browser (or test with sample reference <code>RG-DEMO101</code>). For live courier airway bill updates, tap "Request Live Courier Update" to message our Gilgit dispatch desk on WhatsApp.</p>
-      <form class="tracker-lookup-form" id="tracker-lookup-form" novalidate>
-        <input type="text" id="tracker-input" placeholder="Enter Order Reference (e.g. RG-DEMO101)" required aria-label="Order reference number">
-        <button type="submit" class="btn btn-primary">Lookup Order</button>
-        <button type="button" class="btn btn-secondary" id="tracker-demo-btn">Load Sample Dispatch (RG-DEMO101)</button>
-      </form>
-      <div id="tracker-result-area" class="tracker-result-area" aria-live="polite"></div>
-      <div class="saved-orders-section mt-4">
-        <h3>Orders Saved on This Browser (localStorage)</h3>
-        <div id="saved-orders-list" class="saved-orders-list"></div>
-      </div>
-    </div>
-  </div>
+  <!-- Giant Bleeding Wordmark -->
+  <div class="site-footer__wordmark" aria-hidden="true">ReGongches</div>
+</footer>
+<!-- RG:FOOTER END -->
 
-  <!-- SIDE-BY-SIDE COMPARE MATRIX MODAL -->
-  <div class="modal-overlay" id="compare-modal-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="compare-modal-title">
-    <div class="modal-panel modal-panel--wide" id="compare-modal">
-      <button type="button" class="modal-close-btn" id="compare-modal-close" aria-label="Close comparison matrix">
-        <i class="ph ph-x" aria-hidden="true"></i>
-      </button>
-      <span class="eyebrow">Side-by-Side Provenance Matrix</span>
-      <h2 id="compare-modal-title">Compare Heritage Pieces (Max 3)</h2>
-      <div class="compare-table-wrap" id="compare-table-wrap"></div>
-    </div>
-  </div>
-
-  <!-- ARTISANS, 4-STEP AUTHENTICITY PROMISE & SEARCHABLE FAQ MODAL -->
-  <div class="modal-overlay" id="info-modal-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="info-modal-title">
-    <div class="modal-panel modal-panel--wide" id="info-modal">
-      <button type="button" class="modal-close-btn" id="info-modal-close" aria-label="Close information modal">
-        <i class="ph ph-x" aria-hidden="true"></i>
-      </button>
-      <div id="info-modal-content"></div>
-    </div>
-  </div>
-
-  <!-- TOAST CONTAINER -->
-  <div class="toast-container" id="toast-container" aria-live="polite" aria-atomic="true" role="status"></div>
-
-  <!-- SEQUENCED NEWSLETTER MODAL (Only after 30s / 50% scroll / exit intent; never on first mobile view; 14-day cooldown) -->
-  <div class="modal-overlay modal-overlay--exit" id="exit-modal-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="exit-modal-title">
-    <div class="exit-modal" id="exit-modal">
-      <button type="button" class="modal-close-btn" id="exit-modal-close" aria-label="Dismiss welcome offer">
-        <i class="ph ph-x" aria-hidden="true"></i>
-      </button>
-      <div class="exit-modal-pattern" aria-hidden="true"></div>
-      <span class="eyebrow eyebrow--gold">Collector’s Welcome</span>
-      <h2 id="exit-modal-title">Unlock 10% Off Your First Heritage Piece</h2>
-      <p>Join the ReGongches dispatch for seasonal loom releases, artisan stories from Gilgit-Baltistan, and instant activation of code <strong>HERITAGE10</strong>.</p>
-      <form id="exit-newsletter-form" novalidate>
-        <label for="exit-email" class="sr-only">Email address</label>
-        <input type="email" id="exit-email" placeholder="Your email address" autocomplete="email" required>
-        <button type="submit" class="btn btn-gold full-width">Claim 10% Welcome Code</button>
-      </form>
-      <button type="button" class="exit-modal-skip" id="exit-modal-skip">No thanks, continue exploring (hide for 14 days)</button>
-    </div>
-  </div>
-
-  <!-- SEQUENCED STORAGE NOTICE (Small Bottom Bar — Shows First) -->
-  <div class="cookie-bar" id="cookie-bar" aria-live="polite" role="region" aria-label="Browser storage notice" hidden>
-    <p>
-      We use local browser storage to save your shopping bag, wishlist, theme, and local order tracker history.
-      <button type="button" class="cookie-policy-link" data-open-modal="faq" data-modal-param="privacy">Privacy &amp; Terms</button>
-    </p>
-    <button type="button" class="btn btn-sm btn-primary" id="cookie-accept">Got It</button>
-    <button type="button" class="cookie-close" id="cookie-close" aria-label="Dismiss storage notice">
-      <i class="ph ph-x" aria-hidden="true"></i>
-    </button>
-  </div>
-
-  <!-- Modular ES6+ Storefront Scripts (Deferred, Zero-Build Static Compatible) -->
-  <script src="config.js" defer></script>
-  <script src="data/products.js" defer></script>
-  <script src="cart.js" defer></script>
-  <script src="checkout.js" defer></script>
-  <script src="filters.js" defer></script>
-  <script src="ui.js" defer></script>
-  <script src="motion.js" defer></script>
-  <script src="main.js" defer></script>
+<!-- Local Data Layer (No fetch() — works directly on file:// and static servers) -->
+<script src="assets/js/data/site-config.js" defer></script>
+<script src="assets/js/data/regions.js" defer></script>
+<script src="assets/js/data/artisans.js" defer></script>
+<script src="assets/js/data/products.js" defer></script>
+<script src="assets/js/data/reviews.js" defer></script>
+<script src="assets/js/data/journal.js" defer></script>
+<script src="assets/js/data-source.js" defer></script>
+<!-- Application Modules -->
+<script src="assets/vendor/motion-vendor.js" defer></script>
+<script src="assets/js/cart.js" defer></script>
+<script src="assets/js/wishlist.js" defer></script>
+<script src="assets/js/search.js" defer></script>
+<script src="assets/js/ui.js" defer></script>
+<script src="assets/js/motion.js" defer></script>
+<script src="assets/js/filters.js" defer></script>
+<script src="assets/js/product.js" defer></script>
+<script src="assets/js/checkout.js" defer></script>
+<script src="assets/js/account.js" defer></script>
+<script src="assets/js/main.js" defer></script>
 </body>
 </html>

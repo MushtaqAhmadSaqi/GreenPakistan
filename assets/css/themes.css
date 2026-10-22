@@ -1,0 +1,104 @@
+/* ==========================================================================
+   ReGongches Visual Theme Presets (themes.css)
+   4 Switchable Presets for future WordPress Customizer
+   ========================================================================== */
+
+/* 1. Heritage (Default) */
+html[data-theme="heritage"], :root {
+  --bg-primary: #F7F4EE;
+  --bg-secondary: #EAE3D6;
+  --bg-elevated: #FCFBF8;
+  --bg-accent: #DCE6EE;
+  --bg-header: rgba(247, 244, 238, 0.95);
+  --bg-footer: #13243B;
+  --text-primary: #1A1A1A;
+  --text-secondary: #575752;
+  --brand-primary: #1F3A5F;
+  --brand-secondary: #7A1F2B;
+  --brand-accent: #B8913A;
+}
+
+/* 2. Mountain Night (Dark Mode — Cinematic Alpine Night) */
+html[data-theme="mountain-night"] {
+  --bg-primary: #0E1620;
+  --bg-secondary: #152130;
+  --bg-elevated: #1A283B;
+  --bg-accent: #1E324A;
+  --bg-header: rgba(14, 22, 32, 0.95);
+  --bg-footer: #090E15;
+  --text-primary: #F7F4EE;
+  --text-secondary: #C4BFB4;
+  --text-inverse: #0E1620;
+  --brand-primary: #8AB4E8;
+  --brand-secondary: #E06D7B;
+  --brand-accent: #D6AF57;
+  --rg-border: rgba(247, 244, 238, 0.14);
+  --rg-border-strong: rgba(247, 244, 238, 0.28);
+  --shadow-sm: 0 4px 14px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 12px 32px rgba(0, 0, 0, 0.5);
+}
+
+/* Respect system dark mode if user hasn't forced another theme */
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme]) {
+    --bg-primary: #0E1620;
+    --bg-secondary: #152130;
+    --bg-elevated: #1A283B;
+    --bg-accent: #1E324A;
+    --bg-header: rgba(14, 22, 32, 0.95);
+    --bg-footer: #090E15;
+    --text-primary: #F7F4EE;
+    --text-secondary: #C4BFB4;
+    --brand-primary: #8AB4E8;
+    --brand-secondary: #E06D7B;
+    --brand-accent: #D6AF57;
+    --rg-border: rgba(247, 244, 238, 0.14);
+  }
+}
+
+/* 3. Minimal Gallery (Near-white, high contrast, gallery-framed cards, single maroon accent) */
+html[data-theme="minimal-gallery"] {
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #F5F5F3;
+  --bg-elevated: #FFFFFF;
+  --bg-accent: #F0EFEA;
+  --bg-header: rgba(255, 255, 255, 0.96);
+  --bg-footer: #141414;
+  --text-primary: #111111;
+  --text-secondary: #525252;
+  --brand-primary: #111111;
+  --brand-secondary: #7A1F2B;
+  --brand-accent: #7A1F2B;
+  --radius-card: 2px;
+  --rg-border: rgba(17, 17, 17, 0.12);
+}
+
+/* 4. Festive (Rich Maroon & Antique Gold for Eid / Wedding Season Campaigns) */
+html[data-theme="festive"] {
+  --bg-primary: #FDF8F2;
+  --bg-secondary: #F4E8DC;
+  --bg-elevated: #FFFDFB;
+  --bg-accent: #F7E4D0;
+  --bg-header: rgba(253, 248, 242, 0.96);
+  --bg-footer: #4A1118;
+  --text-primary: #241013;
+  --text-secondary: #5E3A3F;
+  --brand-primary: #7A1F2B;
+  --brand-secondary: #1F3A5F;
+  --brand-accent: #B8913A;
+  --rg-border: rgba(122, 31, 43, 0.16);
+}
+
+html[data-theme="festive"] .rg-hero {
+  border-bottom: 6px double var(--rg-antique-gold);
+}
+
+/* Reduced Motion Global Overrides */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
