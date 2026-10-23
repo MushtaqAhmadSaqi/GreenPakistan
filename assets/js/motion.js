@@ -87,8 +87,8 @@
       window.addEventListener('scroll', () => {
         const y = window.scrollY;
         if (y < 900) {
-          const bg = hero.querySelector('.rg-hero__bg-img');
-          if (bg) bg.style.transform = `translate3d(0, ${y * 0.18}px, 0) scale(1.04)`;
+          const media = hero.querySelector('.rg-hero__media') || hero.querySelector('.rg-hero__bg-img');
+          if (media) media.style.transform = `translate3d(0, ${y * 0.15}px, 0)`;
         }
         if (threadPath) {
           const offset = Math.max(0, 1600 - (y * 2.2));

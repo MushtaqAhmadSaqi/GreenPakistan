@@ -655,13 +655,22 @@
     <span style="font-size:12px;color:rgba(247,244,238,0.7);">Click anywhere to skip</span>
   </div>
 
-  <!-- 1. HERO (Full-Viewport Cinematic Mountain & SVG Thread Drawing) -->
-  <section class="rg-hero">
-    <img src="assets/img/banners/rg-hero-hunza-2026.webp" alt="Snow-capped Karakoram and Hunza Valley peaks at sunrise" width="1600" height="900" class="rg-hero__bg-img">
+  <!-- 1. HERO (Full-Viewport Cinematic Mountain Video & SVG Thread Drawing) -->
+  <section class="rg-hero" id="hero-banner-section">
+    <div class="rg-hero__media" aria-hidden="true">
+      <video class="rg-hero__video" id="rg-hero-video" autoplay muted loop playsinline preload="auto" poster="assets/img/banners/hero-video-poster.webp">
+        <source src="assets/video/hero-mountain-heritage.mp4" type="video/mp4">
+        <img src="assets/img/banners/hero-video-poster.webp" alt="Snow-capped Karakoram and Hunza Valley peaks with traditional hand-woven wool shawl and Gilgiti cap" class="rg-hero__bg-img">
+      </video>
+      <img src="assets/img/banners/hero-video-poster.webp" alt="" class="rg-hero__fallback-img" id="rg-hero-fallback-img">
+    </div>
+
     <div class="rg-hero__overlay"></div>
+
     <svg class="rg-hero__thread-svg" viewBox="0 0 1440 180" fill="none" aria-hidden="true">
       <path class="rg-hero__thread-path" d="M-20 130 C240 20, 460 170, 740 70 C1020 -20, 1220 140, 1460 40" stroke="#B8913A" stroke-width="2.5" stroke-linecap="round"/>
     </svg>
+
     <div class="rg-container rg-hero__content">
       <span class="rg-badge rg-badge--handmade" style="margin-block-end:16px;">From the valleys of Gilgit-Baltistan</span>
       <h1 class="rg-hero__title">Threads of Mountain Heritage</h1>
@@ -680,6 +689,29 @@
         <span>Tracked delivery across Pakistan</span>
         <span>·</span>
         <span>Cash on Delivery</span>
+      </div>
+    </div>
+
+    <!-- Banner Video Controls Toolbar -->
+    <div class="rg-hero__video-controls" role="toolbar" aria-label="Banner Video Controls">
+      <button type="button" class="rg-hero__video-btn" id="rg-hero-play-pause-btn" aria-label="Pause background video" title="Pause / Play background video">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="rg-icon-pause" aria-hidden="true">
+          <rect x="5" y="4" width="4.5" height="16" rx="1.5"></rect>
+          <rect x="14.5" y="4" width="4.5" height="16" rx="1.5"></rect>
+        </svg>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="rg-icon-play" aria-hidden="true" style="display:none;">
+          <polygon points="6 4 20 12 6 20 6 4"></polygon>
+        </svg>
+        <span class="rg-hero__video-btn-text" id="rg-hero-play-pause-label">Pause</span>
+      </button>
+
+      <div class="rg-hero__video-switcher" role="group" aria-label="Switch Banner Video Scene">
+        <button type="button" class="rg-hero__scene-btn is-active" data-video-src="assets/video/hero-mountain-heritage.mp4" data-video-poster="assets/img/banners/hero-video-poster.webp" title="Switch to Karakoram Valley Mountain &amp; Shawl scene">
+          <span>Karakoram Valley</span>
+        </button>
+        <button type="button" class="rg-hero__scene-btn" data-video-src="assets/video/artisan-hunza-loom.mp4" data-video-poster="assets/img/banners/hero-artisan-poster.webp" title="Switch to Hunza Artisan Frame-Loom Weaving scene">
+          <span>Hunza Artisan Loom</span>
+        </button>
       </div>
     </div>
   </section>
