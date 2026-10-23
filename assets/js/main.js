@@ -123,10 +123,60 @@
       if (toggleBtn) {
         toggleBtn.addEventListener('click', (e) => {
           e.preventDefault();
-          const open = item.classList.toggle('is-open');
+          const wasOpen = item.classList.contains('is-open');
+          // Close other open desktop dropdowns first
+          document.querySelectorAll('.menu-item-has-children.is-open').forEach((other) => {
+            if (other !== item) {
+              other.classList.remove('is-open');
+              const otBtn = other.querySelector('[data-rg-mega-toggle]');
+              if (otBtn) otBtn.setAttribute('aria-expanded', 'false');
+            }
+          });
+          const open = !wasOpen;
+          item.classList.toggle('is-open', open);
           toggleBtn.setAttribute('aria-expanded', String(open));
         });
       }
+    });
+
+    // Close desktop dropdowns on outside click
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.main-navigation')) {
+        document.querySelectorAll('.menu-item-has-children.is-open').forEach((item) => {
+          item.classList.remove('is-open');
+          const tb = item.querySelector('[data-rg-mega-toggle]');
+          if (tb) tb.setAttribute('aria-expanded', 'false');
+        });
+      }
+    });
+
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.menu-item-has-children.is-open').forEach((item) => {
+          item.classList.remove('is-open');
+          const tb = item.querySelector('[data-rg-mega-toggle]');
+          if (tb) tb.setAttribute('aria-expanded', 'false');
+        });
+      }
+    });
+
+    // Mobile Drawer Accordion Toggles
+    document.querySelectorAll('[data-rg-accordion-toggle]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.rg-mobile-acc-item');
+        if (!item) return;
+        const isOpen = item.classList.toggle('is-open');
+        btn.setAttribute('aria-expanded', String(isOpen));
+        const content = item.querySelector('.rg-mobile-acc-content');
+        if (content) {
+          if (isOpen) {
+            content.style.maxHeight = content.scrollHeight + 30 + 'px';
+          } else {
+            content.style.maxHeight = '0px';
+          }
+        }
+      });
     });
 
     document.querySelectorAll('[data-district]').forEach((path) => {
