@@ -234,6 +234,10 @@
       if (!cartBtn) return;
       const sRect = sourceEl.getBoundingClientRect();
       const cRect = cartBtn.getBoundingClientRect();
+      document.querySelectorAll('[data-rg-cart-count]').forEach((b) => {
+        b.classList.add('is-bouncing');
+        setTimeout(() => b.classList.remove('is-bouncing'), 400);
+      });
       const dot = document.createElement('div');
       dot.style.cssText = `position:fixed;left:${sRect.left + sRect.width / 2}px;top:${sRect.top + sRect.height / 2}px;width:18px;height:18px;border-radius:50%;background:var(--rg-heritage-maroon);border:2px solid var(--rg-antique-gold);z-index:2000;pointer-events:none;transition:transform 520ms cubic-bezier(0.22,1,0.36,1),opacity 520ms;`;
       document.body.appendChild(dot);
@@ -317,9 +321,9 @@
               <tr><td><strong>Price</strong></td>${items.map((p) => `<td>${fmt(p.price)}</td>`).join('')}</tr>
               <tr><td><strong>Region / District</strong></td>${items.map((p) => `<td>${p.district || p.region}</td>`).join('')}</tr>
               <tr><td><strong>Craft Type</strong></td>${items.map((p) => `<td><span class="rg-badge rg-badge--handmade">${p.craft_type}</span></td>`).join('')}</tr>
-              <tr><td><strong>Material</strong></td>${items.map((p) => `<td>${(p.attributes.material || []).join(', ')}</td>`).join('')}</tr>
+              <tr><td><strong>Material</strong></td>${items.map((p) => `<td>${p.specs ? p.specs.material : ((p.attributes && p.attributes.material) || []).join(', ')}</td>`).join('')}</tr>
               <tr><td><strong>Sizes</strong></td>${items.map((p) => `<td>${(p.attributes.size || []).join(', ')}</td>`).join('')}</tr>
-              <tr><td><strong>Time to Make</strong></td>${items.map((p) => `<td>${p.time_to_make}</td>`).join('')}</tr>
+              <tr><td><strong>Time to Make</strong></td>${items.map((p) => `<td>${p.specs ? p.specs.technique : (p.time_to_make || 'Hand-loomed')}</td>`).join('')}</tr>
               <tr><td><strong>Dispatch Window</strong></td>${items.map((p) => `<td>${p.dispatch_days ? p.dispatch_days.join('–') + ' days' : '1–2 days'}</td>`).join('')}</tr>
             </tbody>
           </table>
@@ -332,61 +336,109 @@
       const modal = document.getElementById('rg-quickview-modal');
       const body = document.getElementById('rg-quickview-body');
       if (!modal || !body) return;
+
       body.innerHTML = `
-        <span class="rg-section__eyebrow">4-Step Heritage Concierge</span>
-        <h2 style="margin-block-end:8px;">Find the Right Mountain Gift</h2>
-        <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-block-end:16px;">Answer four quick questions and we will recommend three documented pieces from Gilgit-Baltistan.</p>
-        <form id="rg-gift-quiz-form" style="display:grid;gap:14px;">
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;">
+        <span class="rg-section__eyebrow">Interactive Heritage Concierge</span>
+        <h2 style="margin-block-end:8px;">Mountain Gift Finder Quiz</h2>
+        <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-block-end:16px;">
+          Answer four quick questions to discover three curated pieces from Gilgit-Baltistan.
+        </p>
+
+        <!-- Animated Progress Bar -->
+        <div style="background:var(--bg-secondary);height:6px;border-radius:3px;overflow:hidden;margin-block-end:20px;">
+          <div id="rg-quiz-progress" style="width:25%;height:100%;background:linear-gradient(90deg, var(--brand-primary), var(--rg-antique-gold));transition:width 240ms ease;"></div>
+        </div>
+
+        <form id="rg-gift-quiz-form" style="display:grid;gap:16px;">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;">
             <div class="rg-form-row">
-              <label>1. Who is it for?</label>
-              <select name="recipient">
+              <label style="font-weight:700;">1. Who is this gift for?</label>
+              <select name="recipient" class="rg-quiz-field">
                 <option value="him">Father, Brother, Groom or Friend</option>
                 <option value="her">Mother, Sister, Bride or Colleague</option>
-                <option value="guest">University Guest / Delegation</option>
+                <option value="guest">University Guest or Official Delegation</option>
               </select>
             </div>
             <div class="rg-form-row">
-              <label>2. What is the occasion?</label>
-              <select name="occasion">
-                <option value="Wedding">Wedding / Nikkah</option>
-                <option value="Cultural event">University Cultural Event</option>
-                <option value="Gift">Hospitality / Birthday / Eid</option>
+              <label style="font-weight:700;">2. What is the occasion?</label>
+              <select name="occasion" class="rg-quiz-field">
+                <option value="Wedding">Wedding, Mehndi or Nikah</option>
+                <option value="Cultural event">University Cultural Day / Festival</option>
+                <option value="Winter">Winter Warmth &amp; Daily Wear</option>
+                <option value="Gift">Birthday, Eid or Hospitality</option>
               </select>
             </div>
             <div class="rg-form-row">
-              <label>3. Target Budget</label>
-              <select name="budget">
-                <option value="3000">Under PKR 3,000</option>
-                <option value="7000">PKR 3,000 – PKR 7,000</option>
-                <option value="25000">PKR 7,000+ (Ceremonial)</option>
+              <label style="font-weight:700;">3. Target Budget?</label>
+              <select name="budget" class="rg-quiz-field">
+                <option value="3000">Gifts Under PKR 3,000</option>
+                <option value="6000">PKR 3,000 – PKR 6,000 (Mid-Range)</option>
+                <option value="25000">PKR 6,000+ (Ceremonial &amp; Luxury)</option>
               </select>
             </div>
             <div class="rg-form-row">
-              <label>4. Preferred Valley</label>
-              <select name="region">
-                <option value="">Any District</option>
-                <option value="Hunza">Hunza</option>
-                <option value="Gilgit">Gilgit</option>
-                <option value="Skardu">Skardu</option>
-                <option value="Shigar">Shigar</option>
+              <label style="font-weight:700;">4. Aesthetic Style?</label>
+              <select name="style" class="rg-quiz-field">
+                <option value="traditional">Traditional Undyed Sheep Wool</option>
+                <option value="embroidered">Fine Silk-Thread Needlework</option>
+                <option value="everyday">Everyday Portable Keepsake</option>
               </select>
             </div>
           </div>
-          <button type="submit" class="rg-btn rg-btn--primary rg-btn--sm" style="justify-self:start;">Reveal 3 Recommended Gifts →</button>
+          <button type="submit" class="rg-btn rg-btn--primary rg-btn--sm" style="justify-self:start;min-height:38px;">
+            Reveal 3 Recommended Gifts →
+          </button>
         </form>
-        <div id="rg-gift-quiz-results" style="margin-block-start:20px;"></div>
+
+        <div id="rg-gift-quiz-results" style="margin-block-start:24px;"></div>
       `;
+
       const form = body.querySelector('#rg-gift-quiz-form');
       const resBox = body.querySelector('#rg-gift-quiz-results');
+      const progressBar = body.querySelector('#rg-quiz-progress');
+
       if (form && resBox) {
+        form.querySelectorAll('.rg-quiz-field').forEach((field, idx) => {
+          field.addEventListener('change', () => {
+            const answered = Array.from(form.querySelectorAll('.rg-quiz-field')).filter((f) => f.value).length;
+            if (progressBar) progressBar.style.width = `${Math.max(25, (answered / 4) * 100)}%`;
+          });
+        });
+
         form.addEventListener('submit', (e) => {
           e.preventDefault();
+          if (progressBar) progressBar.style.width = '100%';
           const maxB = Number(form.elements.budget.value) || 25000;
-          const reg = form.elements.region.value;
-          let matches = window.RG.data.getProducts().filter((p) => p.price <= maxB && (!reg || p.region === reg));
-          if (matches.length < 3) matches = window.RG.data.getProducts().slice(0, 3);
-          resBox.innerHTML = `<ul class="products" data-columns="3">${matches.slice(0, 3).map((p) => this.renderProductCard(p)).join('')}</ul>`;
+          const occ = form.elements.occasion.value;
+          const rec = form.elements.recipient.value;
+
+          let matches = window.RG.data.getProducts().filter((p) => {
+            if (p.price > maxB) return false;
+            if (occ && p.occasions && p.occasions.includes(occ)) return true;
+            return true;
+          });
+
+          if (matches.length < 3) {
+            matches = [
+              window.RG.data.getProductById(1),
+              window.RG.data.getProductById(8),
+              window.RG.data.getProductById(24)
+            ].filter(Boolean);
+          }
+
+          const topThree = matches.slice(0, 3);
+          resBox.innerHTML = `
+            <h3 style="font-size:var(--text-md);margin-block-end:12px;">Top 3 Recommended Pieces for Your Selection:</h3>
+            <ul class="products" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px;">
+              ${topThree.map((p) => this.renderProductCard(p)).join('')}
+            </ul>
+            <div style="text-align:center;padding:16px;background:var(--bg-secondary);border-radius:var(--radius-card);margin-block-start:18px;">
+              <p style="font-size:var(--text-xs);color:var(--text-secondary);margin:0 0 10px;">
+                Looking for a ready-boxed ensemble with an authenticity card?
+              </p>
+              <a href="gift-sets.html" class="rg-btn rg-btn--secondary rg-btn--sm">Build a Custom Heritage Gift Set →</a>
+            </div>
+          `;
         });
       }
       this.openModal('rg-quickview-modal');
@@ -422,7 +474,14 @@
       body.innerHTML = `
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:var(--space-6);align-items:start;">
           <div>
-            <img src="${product.images[0].src}" alt="${product.images[0].alt}" style="width:100%;border-radius:var(--radius-card);border:1px solid var(--rg-border);">
+            <div id="rg-qv-media-container" style="position:relative;border-radius:var(--radius-card);overflow:hidden;border:1px solid var(--rg-border);">
+              <img id="rg-qv-main-img" src="${product.images[0].src}" alt="${product.images[0].alt}" style="width:100%;aspect-ratio:4/5;object-fit:cover;display:block;">
+            </div>
+            ${product.video ? `
+              <button type="button" class="rg-btn rg-btn--secondary rg-btn--sm" id="rg-qv-toggle-video-btn" style="margin-block-start:8px;width:100%;font-size:12px;">
+                ▶ Play Craft Demonstration Video
+              </button>
+            ` : ''}
             <small style="display:block;margin-block-start:6px;color:var(--text-secondary);font-size:11px;">Illustrative image · ${product.region}</small>
           </div>
           <div>
@@ -456,6 +515,33 @@
         </div>
       `;
 
+      const qvVidBtn = body.querySelector('#rg-qv-toggle-video-btn');
+      const qvMedia = body.querySelector('#rg-qv-media-container');
+      if (qvVidBtn && qvMedia && product.video) {
+        qvVidBtn.addEventListener('click', () => {
+          const isShowingVideo = qvMedia.querySelector('video');
+          if (isShowingVideo) {
+            isShowingVideo.remove();
+            const img = qvMedia.querySelector('img');
+            if (img) img.style.display = 'block';
+            qvVidBtn.textContent = '▶ Play Craft Demonstration Video';
+          } else {
+            const img = qvMedia.querySelector('img');
+            if (img) img.style.display = 'none';
+            const vid = document.createElement('video');
+            vid.src = product.video.src;
+            vid.poster = product.video.poster;
+            vid.controls = true;
+            vid.autoplay = true;
+            vid.loop = true;
+            vid.playsInline = true;
+            vid.style.cssText = 'width:100%;aspect-ratio:4/5;object-fit:cover;display:block;';
+            qvMedia.appendChild(vid);
+            qvVidBtn.textContent = '✕ Switch Back to Product Image';
+          }
+        });
+      }
+
       body.querySelectorAll('[data-qv-size]').forEach((btn) => {
         btn.addEventListener('click', () => {
           body.querySelectorAll('[data-qv-size]').forEach((b) => b.classList.remove('is-selected'));
@@ -486,7 +572,7 @@
           window.RG.cart.addItem(product.id, 1, { size, colour });
           this.closeModal('rg-quickview-modal');
           this.openDrawer('rg-minicart-drawer');
-          this.toast(`Added to your cart: ${product.name}, ${size}.`, { viewCart: true });
+          this.toast(`Added to your cart: ${product.name}, ${size}. View cart`, { viewCart: true });
         });
       }
 

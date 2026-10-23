@@ -92,6 +92,15 @@
                   <img src="${img.src}" alt="${img.alt}" width="120" height="120">
                 </button>
               `).join('')}
+              ${product.video ? `
+                <button type="button" class="woocommerce-product-gallery__thumb rg-thumb--video" id="rg-video-thumb-btn" data-rg-video-src="${product.video.src}" data-rg-video-poster="${product.video.poster || product.images[0].src}" title="Watch Craft Demonstration Video" style="position:relative;border:2px solid var(--rg-antique-gold);">
+                  <img src="${product.video.poster || product.images[0].src}" alt="Watch craft video" width="120" height="120" style="filter:brightness(0.7);">
+                  <span style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#FFFFFF;font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:0.5px;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="margin-block-end:2px;"><path d="M8 5v14l11-7z"/></svg>
+                    ▶ Video
+                  </span>
+                </button>
+              ` : ''}
             </div>
           </div>
 
@@ -380,7 +389,7 @@
           <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px;margin-block-end:20px;">
             <div>
               <span class="rg-section__eyebrow">Customer Feedback (Sample Placeholders)</span>
-              <h2>Customer Reviews (${product.rating.toFixed(1)} ★)</h2>
+              <h2>Customer Reviews</h2>
               <p style="font-size:var(--text-sm);color:var(--text-secondary);margin:4px 0 0;">Fit Meter Consensus: <strong>92% say True to Size</strong> (Runs small: 4% · Runs large: 4%)</p>
             </div>
             <div style="display:flex;gap:6px;flex-wrap:wrap;">
@@ -451,17 +460,61 @@
         });
       }
 
-      // Gallery thumbnails
+      // Gallery thumbnails & Video Toggle
+      const videoThumbBtn = document.getElementById('rg-video-thumb-btn');
+
+      const restoreImageGallery = () => {
+        const currentVideo = mainBox.querySelector('video');
+        if (currentVideo) currentVideo.remove();
+        if (mainImg) mainImg.style.display = 'block';
+        if (lens) lens.style.display = 'none';
+        const illBadge = document.getElementById('rg-gallery-badge-illustrative');
+        const zoomBadge = document.getElementById('rg-gallery-badge-zoom');
+        if (illBadge) illBadge.style.display = 'inline-flex';
+        if (zoomBadge) zoomBadge.style.display = 'inline-flex';
+      };
+
       container.querySelectorAll('[data-rg-thumb]').forEach((btn) => {
         btn.addEventListener('click', () => {
-          container.querySelectorAll('[data-rg-thumb]').forEach((b) => b.classList.remove('is-active'));
+          container.querySelectorAll('.woocommerce-product-gallery__thumb').forEach((b) => b.classList.remove('is-active'));
           btn.classList.add('is-active');
+          restoreImageGallery();
           if (mainImg) {
             mainImg.src = btn.getAttribute('data-rg-thumb');
             mainImg.alt = btn.getAttribute('data-rg-thumb-alt') || product.name;
           }
         });
       });
+
+      if (videoThumbBtn && product.video) {
+        videoThumbBtn.addEventListener('click', () => {
+          container.querySelectorAll('.woocommerce-product-gallery__thumb').forEach((b) => b.classList.remove('is-active'));
+          videoThumbBtn.classList.add('is-active');
+
+          if (mainImg) mainImg.style.display = 'none';
+          if (lens) lens.style.display = 'none';
+
+          const illBadge = document.getElementById('rg-gallery-badge-illustrative');
+          const zoomBadge = document.getElementById('rg-gallery-badge-zoom');
+          if (illBadge) illBadge.style.display = 'none';
+          if (zoomBadge) zoomBadge.style.display = 'none';
+
+          let vidEl = mainBox.querySelector('video');
+          if (!vidEl) {
+            vidEl = document.createElement('video');
+            vidEl.src = product.video.src;
+            vidEl.poster = product.video.poster;
+            vidEl.controls = true;
+            vidEl.autoplay = true;
+            vidEl.loop = true;
+            vidEl.playsInline = true;
+            vidEl.style.cssText = 'width:100%;height:100%;object-fit:cover;border-radius:var(--radius-card);display:block;';
+            mainBox.appendChild(vidEl);
+          } else {
+            vidEl.play();
+          }
+        });
+      }
 
       // Lightbox zoom
       if (mainBox && mainImg) {
@@ -573,6 +626,10 @@
         const wrapEl = document.getElementById('rg-product-giftwrap');
         const qty = qtyInput ? Number(qtyInput.value) : 1;
 
+        if (sizes.length > 1 && !sizeEl) {
+          window.RG.ui.toast('Please choose a size. Not sure? Open the size guide.');
+          return;
+        }
         const size = sizeEl ? sizeEl.getAttribute('data-rg-size-btn') : 'Standard';
         const colour = colEl ? colEl.getAttribute('data-rg-colour-btn') : 'Default';
         const customNote = customEl ? customEl.value.trim() : '';
@@ -582,7 +639,11 @@
           window.RG.cart.setGiftWrap(true);
         }
         window.RG.ui.openDrawer('rg-minicart-drawer');
-        window.RG.ui.toast(`Added to your cart: ${product.name}, ${size}.`, { viewCart: true });
+        window.RG.ui.toast(`Added to your cart: ${product.name}, ${size}. View cart`, { viewCart: true });
+        document.querySelectorAll('[data-rg-cart-count]').forEach((b) => {
+          b.classList.add('is-bouncing');
+          setTimeout(() => b.classList.remove('is-bouncing'), 400);
+        });
       };
 
       const addBtn = document.getElementById('rg-main-add-to-cart');

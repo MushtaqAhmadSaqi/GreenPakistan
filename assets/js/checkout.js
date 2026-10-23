@@ -236,7 +236,7 @@
 
         if (phoneInput && !pkPhoneRegex.test(String(phoneInput.value || '').trim())) {
           phoneInput.classList.add('is-invalid');
-          if (phoneErr) phoneErr.textContent = 'Please enter a valid Pakistani mobile number (e.g. 0300-1234567).';
+          if (phoneErr) phoneErr.textContent = 'Enter a Pakistani mobile number like 0312-3456789.';
           valid = false;
         } else if (phoneErr) {
           phoneErr.textContent = '';
@@ -293,11 +293,12 @@
 
       const fmt = window.RG.data.formatPKR;
       const cfg = window.RG.data.getConfig();
-      const waMsg = encodeURIComponent(`Assalam-o-Alaikum ReGongches! Please confirm my demo order ${order.orderNumber} (${fmt(order.summary.total)}) for ${order.customer.name} in ${order.customer.city}.`);
+      const firstName = String(order.customer.name || '').split(' ')[0] || 'Valued Customer';
+      const waMsg = encodeURIComponent(`Assalam-o-Alaikum ReGongches! Please confirm my order ${order.orderNumber} (${fmt(order.summary.total)}) for ${order.customer.name} in ${order.customer.city}.`);
 
       box.innerHTML = `
         <div class="woocommerce-message">
-          <span><strong>Thank you! Your demo order ${order.orderNumber} has been received.</strong> (Demo store: no payment is processed.)</span>
+          <span><strong>Thank you, ${firstName}. Order ${order.orderNumber} is confirmed.</strong> We'll message you on WhatsApp when it's quality-checked and dispatched. (Demo store: no payment is taken and no order is sent.)</span>
           <button type="button" class="rg-btn rg-btn--outline rg-btn--sm no-print" data-rg-print-receipt="1">Print Receipt</button>
         </div>
 

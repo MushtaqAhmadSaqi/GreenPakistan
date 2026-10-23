@@ -130,6 +130,29 @@
     });
 
     document.querySelectorAll('[data-district]').forEach((path) => {
+      path.setAttribute('tabindex', '0');
+      path.setAttribute('role', 'button');
+      const showPreview = () => {
+        const id = path.getAttribute('data-district');
+        const reg = window.RG.data.getRegionById(id);
+        if (!reg) return;
+        document.querySelectorAll('[data-rg-map-preview]').forEach((box) => {
+          box.innerHTML = `
+            <span class="rg-badge rg-badge--handmade">${reg.division} · ${reg.elevation}</span>
+            <h4 style="margin-block:6px 4px;">${reg.name} District (${reg.productCount} pieces)</h4>
+            <p style="font-size:var(--text-xs);color:var(--text-secondary);margin-block-end:8px;">${reg.shortDescription}</p>
+            <a href="region.html?region=${reg.id}" class="rg-btn rg-btn--primary rg-btn--sm">Explore ${reg.name} →</a>
+          `;
+        });
+      };
+      path.addEventListener('focus', showPreview);
+      path.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          const id = path.getAttribute('data-district');
+          window.location.href = `region.html?region=${id}`;
+        }
+      });
       path.addEventListener('mouseenter', () => {
         const id = path.getAttribute('data-district');
         const reg = window.RG.data.getRegionById(id);
@@ -163,42 +186,53 @@
 
   function initSearchOverlay() {
     const overlay = document.getElementById('rg-search-overlay');
-    const input = document.getElementById('rg-search-overlay-input');
-    const resultsBox = document.getElementById('rg-search-instant-results');
+    const input = document.getElementById('rg-search-input');
+    const resultsBox = document.getElementById('rg-search-results');
     if (!overlay || !input || !resultsBox) return;
 
+    let activeIndex = -1;
+
     const renderInstant = (term) => {
+      activeIndex = -1;
       const res = window.RG.search.query(term);
       const fmt = window.RG.data.formatPKR;
       const recentList = window.RG.search.getRecentSearches();
+      const popularChips = ['Gilgiti cap', 'Hunza shawl', 'Pattu waistcoat', 'Skardu cap', 'Heritage gift set'];
+
       if (!term.trim()) {
-        if (recentList.length) {
-          resultsBox.innerHTML = `
-            <div style="padding-block-start:14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-              <span style="font-size:12px;color:var(--text-secondary);font-weight:600;">Recent searches:</span>
-              ${recentList.map((r) => `<button type="button" class="rg-chip" data-rg-search-chip="${r}">${r}</button>`).join('')}
+        resultsBox.innerHTML = `
+          <div style="padding-block-start:14px;display:grid;gap:12px;">
+            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+              <span style="font-size:12px;color:var(--text-secondary);font-weight:600;">Popular searches:</span>
+              ${popularChips.map((c) => `<button type="button" class="rg-chip" data-rg-search-chip="${c}">${c}</button>`).join('')}
             </div>
-          `;
-        } else {
-          resultsBox.innerHTML = '';
-        }
+            ${recentList.length ? `
+              <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+                <span style="font-size:12px;color:var(--text-secondary);font-weight:600;">Recent:</span>
+                ${recentList.map((r) => `<button type="button" class="rg-chip" data-rg-search-chip="${r}">${r}</button>`).join('')}
+              </div>
+            ` : ''}
+          </div>
+        `;
         return;
       }
+
       if (!res.products.length && !res.journal.length && !res.regions.length && !(res.artisans && res.artisans.length)) {
-        resultsBox.innerHTML = `<p style="padding-block:16px;color:var(--text-secondary);">No instant matches for "${term}". Press Enter to search full catalogue.</p>`;
+        resultsBox.innerHTML = `<p style="padding-block:16px;color:var(--text-secondary);">We couldn't find '${term}'. Try 'cap', 'shawl' or 'waistcoat', or ask us on WhatsApp. We may have it in the workshop.</p>`;
         return;
       }
-      const hi = (txt) => window.RG.search.highlight ? window.RG.search.highlight(txt, term) : txt;
+
+      const hi = (txt) => (window.RG.search.highlight ? window.RG.search.highlight(txt, term) : txt);
       resultsBox.innerHTML = `
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;padding-block-start:20px;">
           <div>
             <h4 style="font-size:var(--text-xs);text-transform:uppercase;margin-block-end:10px;">Matching Products (${res.products.length})</h4>
-            <div style="display:grid;gap:10px;">
-              ${res.products.slice(0, 5).map((p) => `
-                <a href="product.html?id=${p.id}" style="display:flex;align-items:center;gap:10px;padding:6px;background:var(--bg-secondary);border-radius:4px;">
-                  <img src="${p.images[0].src}" alt="${p.name}" width="44" height="54" style="width:44px;height:54px;object-fit:cover;">
+            <div style="display:grid;gap:10px;" id="rg-search-product-list">
+              ${res.products.slice(0, 5).map((p, idx) => `
+                <a href="product.html?id=${p.id}" class="rg-search-item" data-search-idx="${idx}" style="display:flex;align-items:center;gap:10px;padding:8px;background:var(--bg-secondary);border-radius:4px;text-decoration:none;transition:background 120ms;">
+                  <img src="${p.images[0].src}" alt="${p.name}" width="44" height="54" style="width:44px;height:54px;object-fit:cover;border-radius:2px;">
                   <div>
-                    <strong style="font-size:var(--text-xs);display:block;">${hi(p.name)}</strong>
+                    <strong style="font-size:var(--text-xs);display:block;color:var(--text-primary);">${hi(p.name)}</strong>
                     <span style="font-size:11px;color:var(--text-secondary);">${hi(p.region)} · ${fmt(p.price)}</span>
                   </div>
                 </a>
@@ -206,11 +240,11 @@
             </div>
           </div>
           <div>
-            <h4 style="font-size:var(--text-xs);text-transform:uppercase;margin-block-end:10px;">Regions, Artisans & Journal</h4>
+            <h4 style="font-size:var(--text-xs);text-transform:uppercase;margin-block-end:10px;">Regions, Artisans &amp; Journal</h4>
             <div style="display:grid;gap:8px;">
               ${res.regions.slice(0, 3).map((r) => `<a href="region.html?region=${r.id}" class="rg-chip">Region: ${hi(r.name)} (${r.productCount})</a>`).join('')}
               ${(res.artisans || []).slice(0, 2).map((a) => `<a href="artisan.html?id=${a.id}" class="rg-chip">Artisan: ${hi(a.name)}</a>`).join('')}
-              ${res.journal.slice(0, 3).map((j) => `<a href="journal-post.html?id=${j.id}" style="font-size:var(--text-xs);font-weight:600;display:block;">📖 ${hi(j.title)}</a>`).join('')}
+              ${res.journal.slice(0, 3).map((j) => `<a href="journal-post.html?id=${j.id}" class="rg-search-item" style="font-size:var(--text-xs);font-weight:600;display:block;padding:4px 0;color:var(--text-primary);">📖 ${hi(j.title)}</a>`).join('')}
             </div>
           </div>
         </div>
@@ -218,6 +252,30 @@
     };
 
     input.addEventListener('input', () => renderInstant(input.value));
+
+    // Keyboard Arrow navigation (ArrowDown / ArrowUp + Enter)
+    input.addEventListener('keydown', (e) => {
+      const items = resultsBox.querySelectorAll('.rg-search-item');
+      if (!items.length) return;
+
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        activeIndex = (activeIndex + 1) % items.length;
+        items.forEach((it, i) => it.classList.toggle('is-focused', i === activeIndex));
+        items[activeIndex].scrollIntoView({ block: 'nearest' });
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        activeIndex = (activeIndex - 1 + items.length) % items.length;
+        items.forEach((it, i) => it.classList.toggle('is-focused', i === activeIndex));
+        items[activeIndex].scrollIntoView({ block: 'nearest' });
+      } else if (e.key === 'Enter') {
+        if (activeIndex >= 0 && items[activeIndex]) {
+          e.preventDefault();
+          window.location.href = items[activeIndex].href;
+        }
+      }
+    });
+
     overlay.addEventListener('click', (e) => {
       const chip = e.target.closest('[data-rg-search-chip]');
       if (chip) {
@@ -231,19 +289,53 @@
 
   function initCapSizeSlider() {
     document.querySelectorAll('[data-rg-cap-slider]').forEach((slider) => {
+      const wrap = slider.closest('.rg-cap-size-finder') || slider.parentElement;
+      let unit = 'cm';
+
       const updateOut = () => {
-        const cm = Number(slider.value);
-        const inches = (cm / 2.54).toFixed(1);
-        let rec = 'Medium (M — 56 cm)';
-        if (cm <= 54.5) rec = 'Small (S — 54 cm)';
-        else if (cm <= 56.8) rec = 'Medium (M — 56 cm)';
-        else if (cm <= 58.8) rec = 'Large (L — 58 cm)';
-        else rec = 'Extra Large (XL — 60 cm)';
+        let cmVal = Number(slider.value);
+        if (unit === 'in') {
+          cmVal = Math.round(Number(slider.value) * 2.54);
+        }
+        const inches = (cmVal / 2.54).toFixed(1);
+
+        let rec = 'Medium (M — 56–57 cm)';
+        let bandScale = 140;
+        if (cmVal <= 55.4) {
+          rec = 'Small (S — 54–55 cm)';
+          bandScale = 125;
+        } else if (cmVal <= 57.4) {
+          rec = 'Medium (M — 56–57 cm)';
+          bandScale = 140;
+        } else if (cmVal <= 59.4) {
+          rec = 'Large (L — 58–59 cm)';
+          bandScale = 155;
+        } else {
+          rec = 'Extra Large (XL — 60–61 cm)';
+          bandScale = 170;
+        }
+
         const out = document.getElementById(slider.getAttribute('data-rg-cap-slider'));
         if (out) {
-          out.innerHTML = `Head Circumference: <strong>${cm} cm (${inches} in)</strong> → Recommended ReGongches Size: <span class="rg-badge rg-badge--verified">${rec}</span>`;
+          out.innerHTML = `
+            <div style="margin-block-end:8px;">
+              Circumference: <strong>${cmVal} cm (${inches} in)</strong> → Recommended Size: <span class="rg-badge rg-badge--verified" style="font-size:13px;">${rec}</span>
+            </div>
+            <div class="rg-headband-visual" aria-hidden="true">
+              <div class="rg-headband-ring" style="width:${bandScale}px;">
+                <span>${cmVal} cm</span>
+              </div>
+            </div>
+            <details style="font-size:12px;color:var(--text-secondary);margin-block-start:10px;background:var(--bg-secondary);padding:8px 12px;border-radius:var(--radius-editorial);">
+              <summary style="cursor:pointer;font-weight:600;color:var(--brand-primary);">I don't have a measuring tape</summary>
+              <p style="margin-block:6px 0;">
+                Wrap a phone charging cable, string, or ribbon 1 cm above your eyebrows. Mark where it meets, then lay it flat against a 30 cm school ruler or use a 1000 PKR banknote (which measures exactly 13.2 cm in length) to calculate your head circumference.
+              </p>
+            </details>
+          `;
         }
       };
+
       slider.addEventListener('input', updateOut);
       updateOut();
     });
@@ -332,6 +424,27 @@
       }
 
       // Hotspot pin toggle
+      
+      // Hotspot Direct Add to Cart
+      const hsAdd = target.closest('[data-rg-add-hotspot]');
+      if (hsAdd) {
+        e.preventDefault();
+        const pid = Number(hsAdd.getAttribute('data-rg-add-hotspot'));
+        const prod = window.RG.data.getProductById(pid);
+        if (prod) {
+          window.RG.cart.addItem(pid, 1);
+          window.RG.ui.animateFlyToCart(hsAdd);
+          window.RG.ui.openDrawer('rg-minicart-drawer');
+          const defaultSize = (prod.attributes && prod.attributes.size && prod.attributes.size[0]) || 'Standard';
+          window.RG.ui.toast(`Added to your cart: ${prod.name}, ${defaultSize}. View cart`, { viewCart: true });
+          document.querySelectorAll('[data-rg-cart-count]').forEach((b) => {
+            b.classList.add('is-bouncing');
+            setTimeout(() => b.classList.remove('is-bouncing'), 400);
+          });
+        }
+        return;
+      }
+
       const pin = target.closest('[data-rg-hotspot]');
       if (pin) {
         e.preventDefault();
@@ -349,7 +462,19 @@
         const added = window.RG.wishlist.toggle(pid);
         const prod = window.RG.data.getProductById(pid);
         document.querySelectorAll(`[data-rg-wishlist-toggle="${pid}"]`).forEach((b) => b.classList.toggle('is-active', added));
-        window.RG.ui.toast(added ? `Saved "${prod ? prod.name : 'Item'}" to your wishlist.` : 'Removed from wishlist.');
+        if (added) {
+          wlBtn.classList.add('is-bursting');
+          setTimeout(() => wlBtn.classList.remove('is-bursting'), 450);
+          window.RG.ui.toast('Saved to your wishlist');
+        } else {
+          window.RG.ui.toast('Removed. Undo', {
+            undo: () => {
+              window.RG.wishlist.toggle(pid);
+              document.querySelectorAll(`[data-rg-wishlist-toggle="${pid}"]`).forEach((b) => b.classList.add('is-active'));
+              window.RG.ui.toast('Saved to your wishlist');
+            }
+          });
+        }
         return;
       }
 
@@ -464,7 +589,10 @@
 
     const reviewsGrid = document.getElementById('rg-home-reviews-grid');
     if (reviewsGrid) {
-      reviewsGrid.innerHTML = window.RG.data.getReviews().slice(0, 3).map((r) => window.RG.ui.renderReviewCard(r)).join('');
+      const allReviews = window.RG.data.getReviews() || [];
+      const cardsHtml = allReviews.map((r) => window.RG.ui.renderReviewCard(r)).join('');
+      // Duplicate for smooth continuous looping marquee
+      reviewsGrid.innerHTML = cardsHtml + cardsHtml;
     }
 
     const journalGrid = document.getElementById('rg-home-journal-grid');
@@ -524,7 +652,7 @@
       const renderWl = () => {
         const prods = window.RG.wishlist.getProducts();
         if (!prods.length) {
-          wlGrid.innerHTML = `<li style="grid-column:1/-1;text-align:center;padding:40px;background:var(--bg-elevated);border-radius:var(--radius-card);"><h3>Your wishlist is empty</h3><p style="margin-inline:auto;">Tap the heart icon on any cap, shawl, or waistcoat to save it here.</p><a href="shop.html" class="rg-btn rg-btn--primary">Explore Shop</a></li>`;
+          wlGrid.innerHTML = `<li style="grid-column:1/-1;text-align:center;padding:48px 20px;background:var(--bg-elevated);border-radius:var(--radius-card);border:1px solid var(--rg-border);"><h3 style="margin-block-end:8px;">Nothing saved yet.</h3><p style="margin-inline:auto;color:var(--text-secondary);max-width:440px;margin-block-end:20px;">Tap the heart on any piece to keep it here.</p><a href="shop.html" class="rg-btn rg-btn--primary">Start with our best-loved Gilgiti caps</a></li>`;
         } else {
           wlGrid.innerHTML = prods.map((p) => window.RG.ui.renderProductCard(p)).join('');
         }
@@ -587,7 +715,9 @@
     const singleJournalBox = document.getElementById('rg-single-journal-container');
     if (singleJournalBox) {
       const params = new URLSearchParams(window.location.search);
-      const post = window.RG.data.getJournalPostById(params.get('id'));
+      const post = window.RG.data.getJournalPostById(params.get('id') || 'journal-1');
+      const breadcrumbEl = document.getElementById('rg-product-breadcrumb-current');
+      if (breadcrumbEl && post) breadcrumbEl.textContent = post.title;
       if (post) {
         document.title = `${post.title} — ReGongches Cultural Journal`;
         const relProds = (post.relatedProductIds || []).map((id) => window.RG.data.getProductById(id)).filter(Boolean);

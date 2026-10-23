@@ -257,7 +257,8 @@
       if (matched.length === 0) {
         grid.innerHTML = `
           <li style="grid-column:1/-1;background:var(--bg-elevated);padding:var(--space-10);border-radius:var(--radius-card);text-align:center;border:1px solid var(--rg-border);">
-            <h3 style="margin-block-end:8px;">No pieces match all these filters. Try removing one, or clear all filters to see all 25 products.</h3>
+            <h3 style="margin-block-end:8px;">No pieces match all these filters. Try removing one.</h3>
+            ${activeChipsHtml ? `<div style="display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-block:12px 16px;">${activeChipsHtml}</div>` : ''}
             <p style="color:var(--text-secondary);margin-inline:auto;margin-block-end:16px;">Try broadening your price range, clearing a region filter, or requesting a custom-measured custom piece.</p>
             <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap;">
               <button type="button" class="rg-btn rg-btn--primary" id="rg-empty-reset-btn">Reset All Filters</button>
